@@ -116,4 +116,71 @@
         <tag>支教</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="Flutter学习笔记"><a href="#Flutter学习笔记" class="headerlink" title="Flutter学习笔记"></a>Flutter学习笔记</h1><h2 id="StatelessWidget和StatefulWidget"><a href="#StatelessWidget和StatefulWidget" class="headerlink" title="StatelessWidget和StatefulWidget"></a>StatelessWidget和StatefulWidget</h2><ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  </li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。 </li>
+</ul>
+<h2 id="开发时如何选择"><a href="#开发时如何选择" class="headerlink" title="开发时如何选择"></a>开发时如何选择</h2><ul>
+<li>优先使用 StatelessWidget  </li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){}) 的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爱快路由下无法正常解析DNS的问题</title>
+    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
+    <content><![CDATA[<blockquote>
+<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M, 而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败, 本文解决了第二个问题</p>
+</blockquote>
+<p>先说结论:</p>
+<p>在客户机DNS服务器设置为网关(ikuai)的情况下, 必须设置爱快的DNS加速服务中使用代理模式才能生效, 同时要开启强制客户端DNS代理, 而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
+<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png" alt="nbLDmNeuoryJIFv"></p>
+<hr>
+<p>以下是完整版:</p>
+<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
+<p>①查看是否是运营商限制了下行带宽: 测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
+<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题, 锁定问题在ikuai上</p>
+<p><img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分"></p>
+<p>家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分</p>
+<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai, 在未做其他修改的情况下出现了无法解析DNS的情况</p>
+<p><img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="7X6kQ9LiKyqpxIu"></p>
+<blockquote>
+<p>qq和微信都是不需要解析DNS的软件, 如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
+</blockquote>
+<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯, 均不能正常上网</p>
+<p><img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS"></p>
+<p>ikuai内的设置, 无法解析DNS</p>
+<p>然后怀疑是不是ikuai本身就无法正常上网, 使用ikuai内的测试工具发现能够ping通域名</p>
+<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg" alt="OAGZUVnaegkl3Xi"></p>
+<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况, 在网上和论坛搜索了很久都没有找到相关的情况</p>
+<p>最后的最后在ikuai官方的手册里找到了答案</p>
+<p><a href="https://www.ikuai8.com/index.php?option=com_content&view=article&id=129:dns&catid=39&Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
+<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg" alt="r9JVAwTgPLbYpqu"></p>
+<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
+<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg" alt="BHkuZeJ2OarSUNR"></p>
+<blockquote>
+<p>回到最初的降速问题, 在重置ikuai后解决了, 虽然这并不是一个好的方法…</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
 </search>

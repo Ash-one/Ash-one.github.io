@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="My First Post, 灰一茶话会">
+    <meta name="keywords" content="Flutter学习笔记, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>My First Post | 灰一茶话会</title>
+    <title>Flutter学习笔记 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">My First Post</h1>
+                    <h1 class="description center-align post-title">Flutter学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -387,8 +387,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/sb/">
-                                <span class="chip bg-color">随笔</span>
+                            <a href="/tags/Flutter/">
+                                <span class="chip bg-color">Flutter</span>
+                            </a>
+                        
+                            <a href="/tags/Dart/">
+                                <span class="chip bg-color">Dart</span>
                             </a>
                         
                     </div>
@@ -399,8 +403,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/other/" class="post-category">
-                                其他
+                            <a href="/categories/tech/" class="post-category">
+                                技术
                             </a>
                         
                     </div>
@@ -412,7 +416,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-10-12
+                    2021-09-28
                 </div>
                 
 
@@ -421,7 +425,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3
+                    194
                 </div>
                 
 
@@ -443,7 +447,17 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Blog 建成！</p>
+                <h1 id="Flutter学习笔记"><a href="#Flutter学习笔记" class="headerlink" title="Flutter学习笔记"></a>Flutter学习笔记</h1><h2 id="StatelessWidget和StatefulWidget"><a href="#StatelessWidget和StatefulWidget" class="headerlink" title="StatelessWidget和StatefulWidget"></a>StatelessWidget和StatefulWidget</h2><ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  </li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。 </li>
+</ul>
+<h2 id="开发时如何选择"><a href="#开发时如何选择" class="headerlink" title="开发时如何选择"></a>开发时如何选择</h2><ul>
+<li>优先使用 StatelessWidget  </li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){}) 的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
 
                 
             </div>
@@ -470,7 +484,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2020/10/12/my-first-post/">https://ash-one.github.io/2020/10/12/my-first-post/</a>
+                    <a href="https://ash-one.github.io/2021/09/28/flutter-xue-xi-bi-ji/">https://ash-one.github.io/2021/09/28/flutter-xue-xi-bi-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -508,8 +522,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/sb/">
-                                    <span class="chip bg-color">随笔</span>
+                                <a href="/tags/Flutter/">
+                                    <span class="chip bg-color">Flutter</span>
+                                </a>
+                            
+                                <a href="/tags/Dart/">
+                                    <span class="chip bg-color">Dart</span>
                                 </a>
                             
                         </div>
@@ -685,13 +703,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/09/18/python-ji-chu-zhi-shi-dian/">
+                <a href="/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Python基础知识点">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="爱快路由下无法正常解析DNS的问题">
                         
-                        <span class="card-title">Python基础知识点</span>
+                        <span class="card-title">爱快路由下无法正常解析DNS的问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -702,7 +720,7 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
                         </span>
                         <span class="publish-author">
                             
@@ -719,16 +737,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
-                    <a href="/tags/xxjs/">
-                        <span class="chip bg-color">信息技术</span>
-                    </a>
-                    
-                    <a href="/tags/zj/">
-                        <span class="chip bg-color">支教</span>
+                    <a href="/tags/DNS/">
+                        <span class="chip bg-color">DNS</span>
                     </a>
                     
                 </div>
@@ -742,13 +756,12 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/10/12/hello-world/">
+                <a href="/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/">
                     <div class="card-image">
                         
+                        <img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" class="responsive-img" alt="清河村支教回忆">
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">清河村支教回忆</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -759,15 +772,31 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-23
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            灰一
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/life/" class="post-category">
+                                    生活
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/sb/">
+                        <span class="chip bg-color">随笔</span>
+                    </a>
+                    
+                    <a href="/tags/zj/">
+                        <span class="chip bg-color">支教</span>
+                    </a>
+                    
                 </div>
                 
             </div>
