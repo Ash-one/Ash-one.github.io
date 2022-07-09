@@ -449,7 +449,8 @@
             <div id="articleContent">
                 <h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
 <blockquote>
-<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容 ## 雅各比矩阵 Jacobian Matrix 对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br />
+<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容<br />
+## 雅各比矩阵 Jacobian Matrix 对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br />
 <span class="math display">\[z = \left[\begin{matrix}z_{1}\\z_{2}\end{matrix}\right]\]</span> <span class="math display">\[x = \left[\begin{matrix}x_{1}\\x_{2}\end{matrix}\right]\]</span></p>
 </blockquote>
 <p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系: <span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
@@ -486,10 +487,12 @@ B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4} &amp;&am
 <h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable theorem</h2>
 <p>对于两个概率分布<span class="math inline">\(\pi(z)\)</span>和<span class="math inline">\(p(x)\)</span><br />
 其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span><br />
-### 一维形式 <span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac {\mathrm{d} z}{\mathrm{d} x}| \]</span> ### 二维形式</p>
+### 一维形式<br />
+<span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac {\mathrm{d} z}{\mathrm{d} x}| \]</span> ### 二维形式</p>
 <p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span> <span class="math display">\[p(x&#39;) = \pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
 <h3 id="引申">引申</h3>
-<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span> ## 生成器Generator 对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br />
+<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span><br />
+## 生成器Generator 对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br />
 对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br />
 说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布 显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
 <p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br />
