@@ -182,4 +182,34 @@
         <tag>DNS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>生成模型之Flow-based Model(1)前置知识</title>
+    <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
+    <content><![CDATA[<h1 id="Flow-based-Model前置知识"><a href="#Flow-based-Model前置知识" class="headerlink" title="Flow-based Model前置知识"></a>Flow-based Model前置知识</h1><blockquote>
+<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
+</blockquote>
+<h2 id="雅各比矩阵-Jacobian-Matrix"><a href="#雅各比矩阵-Jacobian-Matrix" class="headerlink" title="雅各比矩阵 Jacobian Matrix"></a>雅各比矩阵 Jacobian Matrix</h2><p>对于两个矩阵$x$和$z$<br>$$z = \left[\begin{matrix}z_{1}\z_{2}\end{matrix}\right]$$<br>$$x = \left[\begin{matrix}x_{1}\x_{2}\end{matrix}\right]$$</p>
+<p>$x$和$z$之间存在关系:<br>$x = f(z)$, $z = f^{-1}(x)$</p>
+<p>Jacobian Matrix定义为:<br>$$J_{f} = \left[ \begin{matrix}<br>\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2} \<br>\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}<br>\end{matrix} \right]$$</p>
+<p>$$<br>J_{f^{-1}} = \left[ \begin{matrix}<br>\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2} \<br>\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}<br>\end{matrix} \right]<br>$$</p>
+<p>$$<br>J_{f}J_{f^{-1}}=1<br>$$</p>
+<h2 id="行列式-Determinant"><a href="#行列式-Determinant" class="headerlink" title="行列式 Determinant"></a>行列式 Determinant</h2><p>对于一个矩阵$A$<br>$$<br>A = \left[ \begin{matrix}a &amp;&amp; b\c &amp;&amp; d\end{matrix}\right]<br>$$<br>其行列式结果为:<br>$$<br>\det(A) = ad-bc<br>$$</p>
+<p>对于一个矩阵$B$<br>$$<br>B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\a_{4} &amp;&amp; a_{5} &amp;&amp; a_{6}\a_{7} &amp;&amp; a_{8} &amp;&amp; a_{9}\end{matrix}\right]<br>$$<br>其行列式结果为:<br>$$<br>\det(B) = a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}<br>$$</p>
+<p>有公式:<br>$$\det (A) = \frac {1}{\det(A^{-1})}$$  </p>
+<p>$$\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}$$</p>
+<h2 id="可变理论-change-of-variable-theorem"><a href="#可变理论-change-of-variable-theorem" class="headerlink" title="可变理论 change of variable theorem"></a>可变理论 change of variable theorem</h2><p>对于两个概率分布$\pi(z)$和$p(x)$<br>其中$x$和$z$满足$x=f(z)$  </p>
+<h3 id="一维形式"><a href="#一维形式" class="headerlink" title="一维形式"></a>一维形式</h3><p>$$ p(x’)\Delta x = \pi (z’)\Delta z$$<br>$$p(x’) = \pi (z’) |\frac {\mathrm{d} z}{\mathrm{d} x}| $$</p>
+<h3 id="二维形式"><a href="#二维形式" class="headerlink" title="二维形式"></a>二维形式</h3><p>$$p(x’)|det(J_f)|=\pi(z’)$$<br>$$p(x’) = \pi(z’)|det(J_{f^{-1}})|$$</p>
+<h3 id="引申"><a href="#引申" class="headerlink" title="引申"></a>引申</h3><p>如果$x$和$z$满足$x=f(z)$,则他们的分布之间关系就是相差$|det(J_f)|$</p>
+<h2 id="生成器Generator"><a href="#生成器Generator" class="headerlink" title="生成器Generator"></a>生成器Generator</h2><p>对于一个网络$G$,我们定义他的分布为$P_{G}$,对于真实样本的分布为$P_{data}$<br>对于输入$z$,经过生成器得到的结果为$x$,记为$x=G(z)$<br>说明$x$服从$P_{G}(x)$分布<br>显然一个好的生成器应当使得$P_{G}(x)$接近$P_{data}(x)$ </p>
+<p>因此理论上有最优生成器$G^{<em>}$<br>$G^{</em>}=\argmax\limits_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})$     其中 ${x^i from P_{data}(x)}$</p>
+<p>$G^{*} \approx \argmin\limits_{G}KL(P_{data} || P_{G})$<br>(KL散度越小,两个分布越接近)</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
 </search>

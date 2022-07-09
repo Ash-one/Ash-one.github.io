@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="爱快路由下无法正常解析DNS的问题, 灰一茶话会">
+    <meta name="keywords" content="生成模型之Flow-based Model(1)前置知识, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>爱快路由下无法正常解析DNS的问题 | 灰一茶话会</title>
+    <title>生成模型之Flow-based Model(1)前置知识 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">爱快路由下无法正常解析DNS的问题</h1>
+                    <h1 class="description center-align post-title">生成模型之Flow-based Model(1)前置知识</h1>
                 </div>
             </div>
         </div>
@@ -281,10 +281,104 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -293,12 +387,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                                <span class="chip bg-color">网络</span>
-                            </a>
-                        
-                            <a href="/tags/DNS/">
-                                <span class="chip bg-color">DNS</span>
+                            <a href="/tags/Deep-Learning/">
+                                <span class="chip bg-color">Deep Learning</span>
                             </a>
                         
                     </div>
@@ -309,8 +399,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/tech/" class="post-category">
-                                技术
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
                             </a>
                         
                     </div>
@@ -322,7 +412,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-03-04
+                    2022-07-08
                 </div>
                 
 
@@ -331,7 +421,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    594
+                    559
                 </div>
                 
 
@@ -353,37 +443,25 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M, 而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败, 本文解决了这两个问题</p>
+                <h1 id="Flow-based-Model前置知识"><a href="#Flow-based-Model前置知识" class="headerlink" title="Flow-based Model前置知识"></a>Flow-based Model前置知识</h1><blockquote>
+<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
 </blockquote>
-<p>先说结论:</p>
-<p>在客户机DNS服务器设置为网关(ikuai)的情况下, 必须设置爱快的DNS加速服务中使用代理模式才能生效, 同时要开启强制客户端DNS代理, 而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
-<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
-<hr>
-<p>以下是完整版:</p>
-<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
-<p>①查看是否是运营商限制了下行带宽: 测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
-<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题, 所以问题可能在ikuai上</p>
-<p><img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分"></p>
-<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai, 在未做其他修改的情况下出现了无法解析DNS的情况</p>
-<p><img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu"></p>
-<blockquote>
-<p>qq和微信都是不需要解析DNS的软件, 如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
-</blockquote>
-<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯, 均不能正常上网</p>
-<p><img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS"></p>
-<p>ikuai内的设置, 无法解析DNS</p>
-<p>然后怀疑是不是ikuai本身就无法正常上网, 使用ikuai内的测试工具发现能够ping通域名</p>
-<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
-<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况, 在网上和论坛搜索了很久都没有找到相关的情况</p>
-<p>最后的最后在ikuai官方的手册里找到了答案</p>
-<p><a target="_blank" rel="noopener" href="https://www.ikuai8.com/index.php?option=com_content&view=article&id=129:dns&catid=39&Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
-<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
-<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
-<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
-<blockquote>
-<p>回到最初的降速问题, 经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽…果然没再出问题，可能是过了个年周围的邻居变多了吧…</p>
-</blockquote>
+<h2 id="雅各比矩阵-Jacobian-Matrix"><a href="#雅各比矩阵-Jacobian-Matrix" class="headerlink" title="雅各比矩阵 Jacobian Matrix"></a>雅各比矩阵 Jacobian Matrix</h2><p>对于两个矩阵$x$和$z$<br>$$z = \left[\begin{matrix}z_{1}\z_{2}\end{matrix}\right]$$<br>$$x = \left[\begin{matrix}x_{1}\x_{2}\end{matrix}\right]$$</p>
+<p>$x$和$z$之间存在关系:<br>$x = f(z)$, $z = f^{-1}(x)$</p>
+<p>Jacobian Matrix定义为:<br>$$J_{f} = \left[ \begin{matrix}<br>\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2} \<br>\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}<br>\end{matrix} \right]$$</p>
+<p>$$<br>J_{f^{-1}} = \left[ \begin{matrix}<br>\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2} \<br>\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}<br>\end{matrix} \right]<br>$$</p>
+<p>$$<br>J_{f}J_{f^{-1}}=1<br>$$</p>
+<h2 id="行列式-Determinant"><a href="#行列式-Determinant" class="headerlink" title="行列式 Determinant"></a>行列式 Determinant</h2><p>对于一个矩阵$A$<br>$$<br>A = \left[ \begin{matrix}a &amp;&amp; b\c &amp;&amp; d\end{matrix}\right]<br>$$<br>其行列式结果为:<br>$$<br>\det(A) = ad-bc<br>$$</p>
+<p>对于一个矩阵$B$<br>$$<br>B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\a_{4} &amp;&amp; a_{5} &amp;&amp; a_{6}\a_{7} &amp;&amp; a_{8} &amp;&amp; a_{9}\end{matrix}\right]<br>$$<br>其行列式结果为:<br>$$<br>\det(B) = a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}<br>$$</p>
+<p>有公式:<br>$$\det (A) = \frac {1}{\det(A^{-1})}$$  </p>
+<p>$$\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}$$</p>
+<h2 id="可变理论-change-of-variable-theorem"><a href="#可变理论-change-of-variable-theorem" class="headerlink" title="可变理论 change of variable theorem"></a>可变理论 change of variable theorem</h2><p>对于两个概率分布$\pi(z)$和$p(x)$<br>其中$x$和$z$满足$x=f(z)$  </p>
+<h3 id="一维形式"><a href="#一维形式" class="headerlink" title="一维形式"></a>一维形式</h3><p>$$ p(x’)\Delta x = \pi (z’)\Delta z$$<br>$$p(x’) = \pi (z’) |\frac {\mathrm{d} z}{\mathrm{d} x}| $$</p>
+<h3 id="二维形式"><a href="#二维形式" class="headerlink" title="二维形式"></a>二维形式</h3><p>$$p(x’)|det(J_f)|=\pi(z’)$$<br>$$p(x’) = \pi(z’)|det(J_{f^{-1}})|$$</p>
+<h3 id="引申"><a href="#引申" class="headerlink" title="引申"></a>引申</h3><p>如果$x$和$z$满足$x=f(z)$,则他们的分布之间关系就是相差$|det(J_f)|$</p>
+<h2 id="生成器Generator"><a href="#生成器Generator" class="headerlink" title="生成器Generator"></a>生成器Generator</h2><p>对于一个网络$G$,我们定义他的分布为$P_{G}$,对于真实样本的分布为$P_{data}$<br>对于输入$z$,经过生成器得到的结果为$x$,记为$x=G(z)$<br>说明$x$服从$P_{G}(x)$分布<br>显然一个好的生成器应当使得$P_{G}(x)$接近$P_{data}(x)$ </p>
+<p>因此理论上有最优生成器$G^{<em>}$<br>$G^{</em>}=\argmax\limits_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})$     其中 ${x^i from P_{data}(x)}$</p>
+<p>$G^{*} \approx \argmin\limits_{G}KL(P_{data} || P_{G})$<br>(KL散度越小,两个分布越接近)</p>
 
                 
             </div>
@@ -410,7 +488,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/">https://ash-one.github.io/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</a>
+                    <a href="https://ash-one.github.io/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/">https://ash-one.github.io/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -448,12 +526,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                                    <span class="chip bg-color">网络</span>
-                                </a>
-                            
-                                <a href="/tags/DNS/">
-                                    <span class="chip bg-color">DNS</span>
+                                <a href="/tags/Deep-Learning/">
+                                    <span class="chip bg-color">Deep Learning</span>
                                 </a>
                             
                         </div>
@@ -625,9 +699,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/">
                     <div class="card-image">
@@ -645,9 +720,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -660,6 +735,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -678,13 +754,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/09/28/flutter-xue-xi-bi-ji/">
+                <a href="/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Flutter学习笔记">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="爱快路由下无法正常解析DNS的问题">
                         
-                        <span class="card-title">Flutter学习笔记</span>
+                        <span class="card-title">爱快路由下无法正常解析DNS的问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -695,7 +771,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
                             </span>
                         <span class="publish-author">
                             
@@ -712,12 +788,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Flutter/">
-                        <span class="chip bg-color">Flutter</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
-                    <a href="/tags/Dart/">
-                        <span class="chip bg-color">Dart</span>
+                    <a href="/tags/DNS/">
+                        <span class="chip bg-color">DNS</span>
                     </a>
                     
                 </div>
@@ -749,6 +825,100 @@
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
