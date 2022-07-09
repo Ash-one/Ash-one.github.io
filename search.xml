@@ -195,10 +195,12 @@
 <p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系:<br />
 <span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
 <p>Jacobian Matrix定义为:<br />
-<span class="math display">\[J_{f} = \left[ \begin{matrix} 
+<span class="math display">\[
+J_{f} = \left[ \begin{matrix} 
 \partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2} \\
 \partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}
-\end{matrix} \right]\]</span></p>
+\end{matrix} \right]
+\]</span></p>
 <p><span class="math display">\[
 J_{f^{-1}} = \left[ \begin{matrix} 
 \partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2} \\
@@ -224,10 +226,14 @@ B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4} &amp;&am
 \det(B) = a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}
 \]</span></p>
 <p>有公式:<br />
-<span class="math display">\[\det (A) = \frac {1}{\det(A^{-1})}\]</span></p>
-<p><span class="math display">\[\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}\]</span></p>
+<span class="math display">\[
+\det (A) = \frac {1}{\det(A^{-1})}
+\]</span></p>
+<p><span class="math display">\[
+\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}
+\]</span></p>
 <h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable theorem</h2>
-<p>对于两个概率分布<span class="math inline">\(\pi(z)\)</span>和<span class="math inline">\(p(x)\)</span><br />
+<p>对于正态分布<span class="math inline">\(\pi(z)\)</span>和概率分布<span class="math inline">\(p(x)\)</span><br />
 其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span></p>
 <h3 id="一维形式">一维形式</h3>
 <p><span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac {\mathrm{d} z}{\mathrm{d} x}| \]</span></p>
@@ -243,6 +249,62 @@ B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4} &amp;&am
 <span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
 <p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} || P_{G})\)</span><br />
 (KL散度越小,两个分布越接近)</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>生成模型之Flow-based-Model(2)</title>
+    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
+    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based Model（2）流模型</h1>
+<h2 id="推导">推导</h2>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>, 其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式, 即让<span class="math inline">\(logP_G(x^i)\)</span>最大, 便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
+<ol type="1">
+<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
+<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
+</ol>
+<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
+<h2 id="多个生成器的情况">多个生成器的情况</h2>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>, 其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
+<blockquote>
+<p>依旧是取左式最大</p>
+</blockquote>
+<h2 id="流模型实质">流模型实质</h2>
+<p>以一个生成器为例:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">z--&gt;G--&gt;x</span><br></pre></td></tr></table></figure>
+<p><span class="math display">\[
+logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
+\]</span></p>
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>, 右式只是用到了<span class="math inline">\(G^{-1}\)</span>, 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph RL</span><br><span class="line">x --&gt; G-1 --&gt; z</span><br></pre></td></tr></table></figure>
+<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>欲使左式最大, 右侧两项应尽可能大</p>
+<ul>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大, 因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0, 最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+</ul>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下, 使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+<figure>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="image-20220710002250322" /><figcaption aria-hidden="true">image-20220710002250322</figcaption>
+</figure>
+<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
+\begin{equation}
+\left\{
+\begin{aligned}
+z_{i\leq d}&amp;=x^i\\
+z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
+\end{aligned}
+\right.
+\end{equation}
+\]</span></p>
 ]]></content>
       <categories>
         <category>学习</category>
