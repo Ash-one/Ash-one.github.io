@@ -234,13 +234,14 @@ B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4} &amp;&am
 <h3 id="二维形式">二维形式</h3>
 <p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span> <span class="math display">\[p(x&#39;) = \pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
 <h3 id="引申">引申</h3>
-<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span><br />
-## 生成器Generator 对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br />
+<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span></p>
+<h2 id="生成器generator">生成器Generator</h2>
+<p>对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br />
 对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br />
 说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布 显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
 <p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br />
-<span class="math inline">\(G^{*}=\argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
-<p><span class="math inline">\(G^{*} \approx \argmin_{G}KL(P_{data} || P_{G})\)</span><br />
+<span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
+<p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} || P_{G})\)</span><br />
 (KL散度越小,两个分布越接近)</p>
 ]]></content>
       <categories>
