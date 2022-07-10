@@ -425,7 +425,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    526
+                    524
                 </div>
                 
 
@@ -466,12 +466,14 @@
 </blockquote>
 <h2 id="流模型实质">流模型实质</h2>
 <p>以一个生成器为例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">z--&gt;G--&gt;x</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph LR
+z --> G --> x</pre>
 <p><span class="math display">\[
 logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
 \]</span></p>
 <p>发现为得到左式中的<span class="math inline">\(G\)</span>, 右式只是用到了<span class="math inline">\(G^{-1}\)</span>, 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph RL</span><br><span class="line">x --&gt; G-1 --&gt; z</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph RL
+x --> G-1 --> z</pre>
 <p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
 <p>欲使左式最大, 右侧两项应尽可能大</p>
 <ul>
@@ -1032,10 +1034,20 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 
 </div>
     </div>
+
 </footer>
 
 <div class="progress-bar"></div>
 
+<!-- 流程图 -->
+
+    <script src='https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js'></script>
+    <script>
+      if (window.mermaid) {
+        mermaid.initialize({theme: 'dark'});
+      }
+    </script>
+  
 
     <!-- 搜索遮罩框 -->
 <div id="searchModal" class="modal">
