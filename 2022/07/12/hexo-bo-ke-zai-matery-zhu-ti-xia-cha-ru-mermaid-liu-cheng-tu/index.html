@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="清河村支教回忆, 灰一茶话会">
+    <meta name="keywords" content="Hexo博客在matery主题下插入mermaid流程图, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>清河村支教回忆 | 灰一茶话会</title>
+    <title>Hexo博客在matery主题下插入mermaid流程图 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">清河村支教回忆</h1>
+                    <h1 class="description center-align post-title">Hexo博客在matery主题下插入mermaid流程图</h1>
                 </div>
             </div>
         </div>
@@ -285,10 +285,104 @@
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -297,12 +391,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/sb/">
-                                <span class="chip bg-color">随笔</span>
+                            <a href="/tags/blog/">
+                                <span class="chip bg-color">blog</span>
                             </a>
                         
-                            <a href="/tags/zj/">
-                                <span class="chip bg-color">支教</span>
+                            <a href="/tags/hexo/">
+                                <span class="chip bg-color">hexo</span>
+                            </a>
+                        
+                            <a href="/tags/typora/">
+                                <span class="chip bg-color">typora</span>
                             </a>
                         
                     </div>
@@ -313,8 +411,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/life/" class="post-category">
-                                生活
+                            <a href="/categories/tech/" class="post-category">
+                                技术
                             </a>
                         
                     </div>
@@ -326,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-09-23
+                    2022-07-12
                 </div>
                 
 
@@ -335,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    892
+                    407
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    3 Min
+                    1 Min
                 </div>
                 
 
@@ -357,10 +455,29 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><em>成文于2021年8月11日离开清河村。</em><br>&emsp;&emsp;大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br><img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"><br><img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山"><br>&emsp;&emsp;闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。 </p>
-<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"><br><img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
-<p>&emsp;&emsp;这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。<br><img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学"><br>&emsp;&emsp;对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br><img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路"><br>&emsp;&emsp;总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br><img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
-<p>&emsp;&emsp;我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br><img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"><br><img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
+                <h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
+<blockquote>
+<p>本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件</p>
+<p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
+</blockquote>
+<p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid@&lt;%&#x3D; theme.mermaid.version %&gt;&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<p>而实际上在matery主题中没有该文件</p>
+<h2 id="解决方法">解决方法</h2>
+<h3 id="第一步-增加js代码">第一步 增加js代码</h3>
+<p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
+<p>直接在该文件在最后添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意到去掉了原本中间的版本控制, 因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
+<ul>
+<li>如果想要修改主题则直接在这里修改theme后的内容为如下内容: <em>default | dark | forest | neutral</em></li>
+</ul>
+<h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
+<p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="结语">结语</h2>
+<p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
+<p>如果没能成功加载, 可以查看源代码查找mermaid, 看看增加的ejs代码是否成功渲染</p>
 
                 
             </div>
@@ -387,7 +504,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/">https://ash-one.github.io/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</a>
+                    <a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -425,12 +542,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/sb/">
-                                    <span class="chip bg-color">随笔</span>
+                                <a href="/tags/blog/">
+                                    <span class="chip bg-color">blog</span>
                                 </a>
                             
-                                <a href="/tags/zj/">
-                                    <span class="chip bg-color">支教</span>
+                                <a href="/tags/hexo/">
+                                    <span class="chip bg-color">hexo</span>
+                                </a>
+                            
+                                <a href="/tags/typora/">
+                                    <span class="chip bg-color">typora</span>
                                 </a>
                             
                         </div>
@@ -602,70 +723,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2021/09/28/flutter-xue-xi-bi-ji/">
+                <a href="/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Flutter学习笔记">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Hexo博客在matery主题下插入mermaid流程图">
                         
-                        <span class="card-title">Flutter学习笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-28
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/tech/" class="post-category">
-                                    技术
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Flutter/">
-                        <span class="chip bg-color">Flutter</span>
-                    </a>
-                    
-                    <a href="/tags/Dart/">
-                        <span class="chip bg-color">Dart</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/09/18/python-ji-chu-zhi-shi-dian/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Python基础知识点">
-                        
-                        <span class="card-title">Python基础知识点</span>
+                        <span class="card-title">Hexo博客在matery主题下插入mermaid流程图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -676,7 +745,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-12
                             </span>
                         <span class="publish-author">
                             
@@ -690,19 +759,69 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/blog/">
+                        <span class="chip bg-color">blog</span>
                     </a>
                     
-                    <a href="/tags/xxjs/">
-                        <span class="chip bg-color">信息技术</span>
+                    <a href="/tags/hexo/">
+                        <span class="chip bg-color">hexo</span>
                     </a>
                     
-                    <a href="/tags/zj/">
-                        <span class="chip bg-color">支教</span>
+                    <a href="/tags/typora/">
+                        <span class="chip bg-color">typora</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="生成模型之Flow-based-Model(2)">
+                        
+                        <span class="card-title">生成模型之Flow-based-Model(2)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Deep-Learning/">
+                        <span class="chip bg-color">Deep Learning</span>
                     </a>
                     
                 </div>
@@ -734,6 +853,100 @@
 
 <script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
 
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
 
     
 
