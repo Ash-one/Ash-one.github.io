@@ -1,95 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>My First Post</title>
-    <url>/2020/10/12/my-first-post/</url>
-    <content><![CDATA[<p>Blog 建成！</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/10/12/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Python基础知识点</title>
     <url>/2021/09/18/python-ji-chu-zhi-shi-dian/</url>
-    <content><![CDATA[<h1 id="Python基础知识点"><a href="#Python基础知识点" class="headerlink" title="Python基础知识点"></a>Python基础知识点</h1><h2 id="数据类型6个"><a href="#数据类型6个" class="headerlink" title="数据类型6个"></a>数据类型6个</h2><ol>
-<li><strong>整型 int</strong><br>数学中的整数，如1，-8080，0    </li>
-<li><strong>实型（浮点数）float</strong><br>数学中的实数，如3.14，9e-4  </li>
-<li><strong>字符串 string</strong><br>以引号开始结束的一串字符，如<code>&#39;this is a string&#39;</code>  </li>
-<li><strong>布尔型 bool</strong><br>只有<code>True</code>和<code>False</code>两个值  </li>
-<li><strong>列表 list</strong><br>以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code>  </li>
-<li><strong>字典 dictionary</strong><br>以大括号开始结束，存储内容为键值对，如<code>&#123;&#39;name&#39;:&#39;wow&#39;,&#39;age&#39;:17&#125;</code><br>取出下列字典中的’name’键对应的值：<blockquote>
-<p>d={‘name’:’wow’,’age’:17}<br>d[‘name’]</p>
+    <content><![CDATA[<h1 id="python基础知识点">Python基础知识点</h1>
+<blockquote>
+<p>本篇为给高二学生上课用的复习内容, 高二学生都能看懂!!</p>
 </blockquote>
+<h2 id="数据类型6个">数据类型6个</h2>
+<ol type="1">
+<li><strong>整型 int</strong><br />
+数学中的整数，如1，-8080，0<br />
 </li>
+<li><strong>实型（浮点数）float</strong><br />
+数学中的实数，如3.14，9e-4<br />
+</li>
+<li><strong>字符串 string</strong><br />
+以引号开始结束的一串字符，如<code>'this is a string'</code><br />
+</li>
+<li><strong>布尔型 bool</strong><br />
+只有<code>True</code>和<code>False</code>两个值<br />
+</li>
+<li><strong>列表 list</strong><br />
+以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br />
+</li>
+<li><strong>字典 dictionary</strong><br />
+以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br />
+取出下列字典中的'name'键对应的值： &gt;d={'name':'wow','age':17}<br />
+d['name']</li>
 </ol>
-<h4 id="索引与切片"><a href="#索引与切片" class="headerlink" title="索引与切片"></a>索引与切片</h4><p>请写出下列索引与切片的结果</p>
-<blockquote>
-<p>info=[‘hello’,’what’,5432]<br>info2=[ [‘world’,’you’],[231,’how’] ]<br>info[1]<br>info[1][0]<br>info[1][1:3]<br>info2[0]<br>info2[1][0]<br>info2[1][1][0]<br>info2[1][1][1:3]  </p>
-</blockquote>
-<hr>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h3><p><code>+-*/</code>加减乘除  <code>//</code>整除，结果取整数部分<br><code>%</code>取余数  <code>**</code>乘方   </p>
-<p><em>算数运算符得到的结果为数</em> </p>
-<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><p><code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于 小于等于<br><code>==</code>等于<code>!=</code>不等于<br><code>in</code>包含于  </p>
+<h4 id="索引与切片">索引与切片</h4>
+<p>请写出下列索引与切片的结果 &gt;info=['hello','what',5432]<br />
+info2=[ ['world','you'],[231,'how'] ]<br />
+info[1]<br />
+info[1][0]<br />
+info[1][1:3]<br />
+info2[0]<br />
+info2[1][0]<br />
+info2[1][1][0]<br />
+info2[1][1][1:3]</p>
+<hr />
+<h2 id="运算符">运算符</h2>
+<h3 id="算数运算符">算数运算符</h3>
+<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br />
+<code>%</code>取余数 <code>**</code>乘方</p>
+<p><em>算数运算符得到的结果为数</em> ### 关系运算符 <code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于 小于等于<br />
+<code>==</code>等于<code>!=</code>不等于<br />
+<code>in</code>包含于</p>
 <p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br><code>or</code> 或运算，只要有一个<code>True</code>结果就为<code>True</code><br><code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
-<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em>  </p>
-<hr>
-<h2 id="变量和赋值"><a href="#变量和赋值" class="headerlink" title="变量和赋值"></a>变量和赋值</h2><p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br><strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头  </p>
-<p><strong>赋值语句</strong><br><code>=</code>用于赋值，将等号右侧的值赋给左侧的变量  </p>
-<blockquote>
-<p>n=0    #将0赋值给变量n<br>n=n+1  #将n+1的值赋给变量n<br>n+=1   #将n+1的值赋给变量n，即n的值增加1  </p>
-</blockquote>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br />
+<code>or</code> 或运算，只要有一个<code>True</code>结果就为<code>True</code><br />
+<code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
+<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
+<hr />
+<h2 id="变量和赋值">变量和赋值</h2>
+<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br />
+<strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
+<p><strong>赋值语句</strong><br />
+<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br />
+&gt;n=0 #将0赋值给变量n<br />
+n=n+1 #将n+1的值赋给变量n<br />
+n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
 <p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
-<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><p><code>print(x)</code>输出x的值<br><code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br><code>int(x)</code>将x转换为整型<br><code>float(x)</code>将x转换为浮点数  </p>
-<hr>
-<h2 id="分支结构"><a href="#分支结构" class="headerlink" title="分支结构"></a>分支结构</h2><blockquote>
-<p>if 条件:<br>&emsp;&emsp;语句<br>elif 条件:<br>&emsp;&emsp;语句<br>else:<br>&emsp;&emsp;语句  </p>
-</blockquote>
-<p>例：  </p>
+<h2 id="常用函数">常用函数</h2>
+<p><code>print(x)</code>输出x的值<br />
+<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br />
+<code>int(x)</code>将x转换为整型<br />
+<code>float(x)</code>将x转换为浮点数</p>
+<hr />
+<h2 id="分支结构">分支结构</h2>
 <blockquote>
-<p>if x%2==0:<br>&emsp;&emsp;print(‘偶数’)<br>esle:<br>&emsp;&emsp;print(‘奇数’)</p>
+<p>if 条件:<br />
+  语句<br />
+elif 条件:<br />
+  语句<br />
+else:<br />
+  语句</p>
 </blockquote>
-<h2 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h2><h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><p>序列遍历完成后退出循环</p>
-<blockquote>
-<p>for 变量 in 序列:<br>&emsp;&emsp;循环体  </p>
-</blockquote>
-<p>例：  </p>
-<blockquote>
-<p>s=0<br>for i in range(0,101,1):<br>&emsp;&emsp;s+=i<br>&emsp;&emsp;print(i)  </p>
-</blockquote>
-<h4 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h4><p>循环条件为<code>True</code>时进入循环，否则退出循环  </p>
-<blockquote>
-<p>while 循环条件:<br>&emsp;&emsp;循环体  </p>
-</blockquote>
-<p>例：  </p>
-<blockquote>
-<p>s=0<br>i=0<br>while i&lt;=100:<br>&emsp;&emsp;s+=i<br>&emsp;&emsp;print(i)</p>
-</blockquote>
-<p><em><strong>代码除了横向阅读，也要纵向阅读</strong></em><br><em><strong>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></strong></em><br><em><strong>注意循环体和分支结构语句块的缩进</strong></em></p>
-<hr>
-<h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br>请在下方书写<br><em>提示：判断一个数是偶数还是奇数是用余数的方式</em>  </p>
+<p>例：<br />
+&gt;if x%2==0:<br />
+  print('偶数')<br />
+esle:<br />
+  print('奇数')</p>
+<h2 id="循环结构">循环结构</h2>
+<h4 id="for循环">for循环</h4>
+<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br />
+  循环体</p>
+<p>例：<br />
+&gt;s=0<br />
+for i in range(0,101,1):<br />
+  s+=i<br />
+  print(i)<br />
+#### while循环 循环条件为<code>True</code>时进入循环，否则退出循环<br />
+&gt;while 循环条件:<br />
+  循环体</p>
+<p>例：<br />
+&gt;s=0<br />
+i=0<br />
+while i&lt;=100:<br />
+  s+=i<br />
+  print(i)</p>
+<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br />
+<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br />
+<strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
+<hr />
+<h2 id="习题">习题</h2>
+<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br />
+请在下方书写<br />
+<em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -350,5 +369,29 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
         <tag>hexo</tag>
         <tag>typora</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line">$ hexo new post <span class="string">&quot;这是一个&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
+<blockquote>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
+</blockquote>
+]]></content>
   </entry>
 </search>
