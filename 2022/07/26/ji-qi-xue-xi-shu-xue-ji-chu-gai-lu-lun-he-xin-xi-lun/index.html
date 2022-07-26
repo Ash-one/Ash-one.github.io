@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo博客在matery主题下插入mermaid流程图, 灰一茶话会">
+    <meta name="keywords" content="机器学习数学基础②概率论和信息论, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo博客在matery主题下插入mermaid流程图 | 灰一茶话会</title>
+    <title>机器学习数学基础②概率论和信息论 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo博客在matery主题下插入mermaid流程图</h1>
+                    <h1 class="description center-align post-title">机器学习数学基础②概率论和信息论</h1>
                 </div>
             </div>
         </div>
@@ -391,31 +391,14 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/blog/">
-                                <span class="chip bg-color">blog</span>
-                            </a>
-                        
-                            <a href="/tags/hexo/">
-                                <span class="chip bg-color">hexo</span>
-                            </a>
-                        
-                            <a href="/tags/typora/">
-                                <span class="chip bg-color">typora</span>
+                            <a href="/tags/ML/">
+                                <span class="chip bg-color">ML</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/tech/" class="post-category">
-                                技术
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -424,7 +407,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-07-12
+                    2022-07-26
                 </div>
                 
 
@@ -433,14 +416,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    405
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    5 Min
                 </div>
                 
 
@@ -455,29 +438,158 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
-<blockquote>
-<p>本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件</p>
-<p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
-</blockquote>
-<p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid@&lt;%&#x3D; theme.mermaid.version %&gt;&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p>而实际上在matery主题中没有该文件</p>
-<h2 id="解决方法">解决方法</h2>
-<h3 id="第一步-增加js代码">第一步 增加js代码</h3>
-<p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
-<p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意到去掉了原本中间的版本控制, 因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
+                <h1 id="机器学习数学基础②概率论与信息论">机器学习数学基础②概率论与信息论</h1>
+<h1 id="基础概念">基础概念</h1>
 <ul>
-<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default | dark | forest | neutral</em></li>
+<li>随机变量:可以是连续的也可以是离散的</li>
+<li>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</li>
+<li>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></li>
+<li>概率函数和似然函数
+<ul>
+<li><p>Note:区别</p>
+<p>对于一个函数<span class="math inline">\(P(x|\theta)\)</span>,其中x表示一个具体的数据,<span class="math inline">\(\theta\)</span>表示模型的参数.</p>
+<p>如果<span class="math inline">\(\theta\)</span>已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
+<p>如果x已知,<span class="math inline">\(\theta\)</span>为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p></li>
+</ul></li>
+<li>期望:<span class="math inline">\(E(X)=\sum \limits _{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></li>
+<li>方差:各个样本数据分别与平均数之差的平方和的平均数<span class="math inline">\(Var(x)\)</span></li>
+<li>协方差:衡量随机变量X和Y之间的总体误差<span class="math inline">\(Cov(X,Y)\)</span></li>
+<li></li>
 </ul>
-<h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
-<p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h2 id="结语">结语</h2>
-<p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
-<p>如果没能成功加载, 可以查看源代码查找mermaid, 看看增加的ejs代码是否成功渲染</p>
+<h1 id="重要概念">重要概念</h1>
+<ul>
+<li><strong>条件概率</strong>:对于给定<span class="math inline">\(X=x\)</span>时发生<span class="math inline">\(Y=y\)</span>的概率记为<span class="math inline">\(P(Y=y|X=x)\)</span>,计算公式为<span class="math inline">\(P(Y=y|X=x)=\frac {P(x,y)}{P(X=x)}\)</span></li>
+<li><strong>先验概率和后验概率</strong></li>
+<li><strong>贝叶斯公式</strong>:利用先验概率计算后验概率
+<ul>
+<li><p>Note:贝叶斯公式推导</p>
+<p><span class="math display">\[
+  P(B|A)=\frac {P(AB)}{P(A)}, P(A|B)=\frac {P(AB)}{P(B)}
+  \]</span></p>
+<p><span class="math display">\[
+  P(AB)=P(B|A)P(A)=P(A|B)P(B)
+  \]</span></p>
+<p><span class="math display">\[
+  P(B|A)=\frac {P(B|A)P(B)}{P(A)}
+  \]</span></p>
+<p>全概率公式求<span class="math inline">\(P(A)\)</span></p>
+<p><span class="math display">\[
+  P(A)=\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)
+  \]</span></p>
+<p>代入得到贝叶斯公式:</p>
+<p><span class="math display">\[
+  P(B_i|A)=\frac {P(A|B_i)P(B_i)}{\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)}
+  \]</span></p></li>
+</ul></li>
+<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<ul>
+<li>Note:最大似然估计的使用
+<ol type="1">
+<li>写出似然函数</li>
+<li>对似然函数取对数</li>
+<li>两边同时求导(多个变量就求偏导)</li>
+<li>令导数为0,解出似然方程</li>
+</ol>
+<ul>
+<li><p>例子</p>
+<figure>
+<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题" /><figcaption aria-hidden="true">例题</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答" /><figcaption aria-hidden="true">例题解答</figcaption>
+</figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 id="常见分布函数">常见分布函数</h1>
+<ol type="1">
+<li><p>0-1分布</p>
+<p><span class="math display">\[
+ P(X=1)=p \\ P(X=0)=1-p
+ \]</span></p></li>
+<li><p>几何分布</p>
+<p>离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:<span class="math inline">\(P(X=k)=(1-p)^{k-1}p\)</span></p>
+<p><span class="math display">\[
+ E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
+ \]</span></p></li>
+<li><p>二项分布</p>
+<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span></p>
+<p><span class="math display">\[
+ E(X)=np \\ Var(X)=np(1-p)
+ \]</span></p></li>
+<li><p>高斯分布/正态分布</p>
+<p>ML中最常用的概率分布.其中 <span class="math inline">\(\mu\)</span>决定分布中心的位置,<span class="math inline">\(\sigma\)</span> 标准差决定正态分布的幅度.</p>
+<figure>
+<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图" /><figcaption aria-hidden="true">正态分布例图</figcaption>
+</figure>
+<p><span class="math display">\[
+ X \sim N(\mu,\sigma^2)
+ \]</span></p></li>
+<li><p>指数分布</p>
+<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda &gt;0\)</span>表示每单位时间内发生事件的次数.</p>
+<figure>
+<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图" /><figcaption aria-hidden="true">指数分布例图</figcaption>
+</figure>
+<p><span class="math display">\[
+ X\sim Exp(\lambda)
+ \]</span></p>
+<p>概率密度函数为:</p>
+<p><span class="math display">\[
+ f(x;\lambda)=
+ \left\{
+ \begin{aligned}
+ &amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
+ &amp;0&amp;x&lt;0
+ \end{aligned}
+ \right.
+ \]</span></p>
+<p>特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:<span class="math inline">\(E(x)=\frac {1}{\lambda}\)</span>.</p></li>
+<li><p>泊松分布</p>
+<p>泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数<span class="math inline">\(\lambda\)</span>是随机事件发生次数的数学期望.</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" /><figcaption aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png</figcaption>
+</figure>
+<p>概率密度函数为:</p>
+<p><span class="math display">\[
+ P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
+ \]</span></p>
+<p>泊松分布表示为:</p>
+<p><span class="math display">\[
+ X \sim Pois(\lambda)
+ \]</span></p>
+<p>性质有</p>
+<ol type="1">
+<li><p>期望与方差相等,都等于参数<span class="math inline">\(\lambda\)</span></p></li>
+<li><p>两个独立且服从泊松分布的随机变量,其和仍然服从泊松分布</p>
+<p><span class="math display">\[
+ X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
+ X+Y \sim Poisson(\lambda_1+\lambda_2)
+ \]</span></p></li>
+</ol></li>
+</ol>
+<h1 id="信息论">信息论</h1>
+<p><strong>自信息:</strong></p>
+<p>一个事件x=<span class="math inline">\(x\)</span>的自信息为<span class="math inline">\(I(x)=-\log P(x)\)</span></p>
+<p><strong>香农熵:</strong></p>
+<p>一个分布P(x)的事件产生的信息总量的期望</p>
+<p><span class="math display">\[
+H(x)=\mathbb{E}_{X\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log P(x)]
+\]</span></p>
+<p><strong>KL散度(KL divergence):</strong></p>
+<p>衡量两个单独的概率分布P(x)和Q(x)的差异.KL散度非负,为0时表示分布相同.</p>
+<p><span class="math display">\[
+D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)} \right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
+\]</span></p>
+<aside>
+💡 KL散度中的P分布和Q分布不能交换顺序
+</aside>
+<p><strong>交叉熵(cross-entropy):</strong></p>
+<p><span class="math display">\[
+H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
+\]</span></p>
+<aside>
+💡 在信息论中0log0结果取0
+</aside>
 
                 
             </div>
@@ -504,7 +616,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</a>
+                    <a href="https://ash-one.github.io/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/">https://ash-one.github.io/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -542,16 +654,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/blog/">
-                                    <span class="chip bg-color">blog</span>
-                                </a>
-                            
-                                <a href="/tags/hexo/">
-                                    <span class="chip bg-color">hexo</span>
-                                </a>
-                            
-                                <a href="/tags/typora/">
-                                    <span class="chip bg-color">typora</span>
+                                <a href="/tags/ML/">
+                                    <span class="chip bg-color">ML</span>
                                 </a>
                             
                         </div>
@@ -723,9 +827,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="机器学习数学基础②概率论和信息论">
+                        
+                        <span class="card-title">机器学习数学基础②概率论和信息论</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            灰一
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ML/">
+                        <span class="chip bg-color">ML</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/">
                     <div class="card-image">
@@ -743,9 +894,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -771,55 +922,6 @@
                     
                     <a href="/tags/DL/">
                         <span class="chip bg-color">DL</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="生成模型之Flow-based-Model(2)">
-                        
-                        <span class="card-title">生成模型之Flow-based-Model(2)</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-09
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    学习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Deep-Learning/">
-                        <span class="chip bg-color">Deep Learning</span>
                     </a>
                     
                 </div>
@@ -950,6 +1052,13 @@
 
 </main>
 
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
