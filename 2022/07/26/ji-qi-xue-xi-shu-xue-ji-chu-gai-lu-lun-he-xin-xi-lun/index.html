@@ -443,7 +443,8 @@
 <ul>
 <li>随机变量:可以是连续的也可以是离散的</li>
 <li>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</li>
-<li>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></li>
+<li>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm
+y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></li>
 <li>概率函数和似然函数
 <ul>
 <li><p>Note:区别</p>
@@ -451,7 +452,8 @@
 <p>如果<span class="math inline">\(\theta\)</span>已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
 <p>如果x已知,<span class="math inline">\(\theta\)</span>为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p></li>
 </ul></li>
-<li>期望:<span class="math inline">\(E(X)=\sum \limits _{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></li>
+<li>期望:<span class="math inline">\(E(X)=\sum \limits
+_{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></li>
 <li>方差:各个样本数据分别与平均数之差的平方和的平均数<span class="math inline">\(Var(x)\)</span></li>
 <li>协方差:衡量随机变量X和Y之间的总体误差<span class="math inline">\(Cov(X,Y)\)</span></li>
 <li></li>
@@ -493,10 +495,12 @@
 <ul>
 <li><p>例子</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题" /><figcaption aria-hidden="true">例题</figcaption>
+<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题">
+<figcaption aria-hidden="true">例题</figcaption>
 </figure>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答" /><figcaption aria-hidden="true">例题解答</figcaption>
+<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
 </figure></li>
 </ul></li>
 </ul></li>
@@ -505,66 +509,69 @@
 <ol type="1">
 <li><p>0-1分布</p>
 <p><span class="math display">\[
- P(X=1)=p \\ P(X=0)=1-p
- \]</span></p></li>
+P(X=1)=p \\ P(X=0)=1-p
+\]</span></p></li>
 <li><p>几何分布</p>
 <p>离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:<span class="math inline">\(P(X=k)=(1-p)^{k-1}p\)</span></p>
 <p><span class="math display">\[
- E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
- \]</span></p></li>
+E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
+\]</span></p></li>
 <li><p>二项分布</p>
-<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span></p>
-<p><span class="math display">\[
- E(X)=np \\ Var(X)=np(1-p)
- \]</span></p></li>
+<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span> <span class="math display">\[
+E(X)=np \\ Var(X)=np(1-p)
+\]</span></p></li>
 <li><p>高斯分布/正态分布</p>
 <p>ML中最常用的概率分布.其中 <span class="math inline">\(\mu\)</span>决定分布中心的位置,<span class="math inline">\(\sigma\)</span> 标准差决定正态分布的幅度.</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图" /><figcaption aria-hidden="true">正态分布例图</figcaption>
+<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图">
+<figcaption aria-hidden="true">正态分布例图</figcaption>
 </figure>
 <p><span class="math display">\[
- X \sim N(\mu,\sigma^2)
- \]</span></p></li>
+X \sim N(\mu,\sigma^2)
+\]</span></p></li>
 <li><p>指数分布</p>
-<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda &gt;0\)</span>表示每单位时间内发生事件的次数.</p>
+<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda
+&gt;0\)</span>表示每单位时间内发生事件的次数.</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图" /><figcaption aria-hidden="true">指数分布例图</figcaption>
+<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图">
+<figcaption aria-hidden="true">指数分布例图</figcaption>
 </figure>
 <p><span class="math display">\[
- X\sim Exp(\lambda)
- \]</span></p>
+X\sim Exp(\lambda)
+\]</span></p>
 <p>概率密度函数为:</p>
 <p><span class="math display">\[
- f(x;\lambda)=
- \left\{
- \begin{aligned}
- &amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
- &amp;0&amp;x&lt;0
- \end{aligned}
- \right.
- \]</span></p>
+f(x;\lambda)=
+\left\{
+\begin{aligned}
+&amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
+&amp;0&amp;x&lt;0
+\end{aligned}
+\right.
+\]</span></p>
 <p>特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:<span class="math inline">\(E(x)=\frac {1}{\lambda}\)</span>.</p></li>
 <li><p>泊松分布</p>
 <p>泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数<span class="math inline">\(\lambda\)</span>是随机事件发生次数的数学期望.</p>
 <figure>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" /><figcaption aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png</figcaption>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="泊松分布例图">
+<figcaption aria-hidden="true">泊松分布例图</figcaption>
 </figure>
 <p>概率密度函数为:</p>
 <p><span class="math display">\[
- P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
- \]</span></p>
+P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
+\]</span></p>
 <p>泊松分布表示为:</p>
 <p><span class="math display">\[
- X \sim Pois(\lambda)
- \]</span></p>
+X \sim Pois(\lambda)
+\]</span></p>
 <p>性质有</p>
 <ol type="1">
 <li><p>期望与方差相等,都等于参数<span class="math inline">\(\lambda\)</span></p></li>
 <li><p>两个独立且服从泊松分布的随机变量,其和仍然服从泊松分布</p>
 <p><span class="math display">\[
- X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
- X+Y \sim Poisson(\lambda_1+\lambda_2)
- \]</span></p></li>
+X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
+X+Y \sim Poisson(\lambda_1+\lambda_2)
+\]</span></p></li>
 </ol></li>
 </ol>
 <h1 id="信息论">信息论</h1>
@@ -578,7 +585,8 @@ H(x)=\mathbb{E}_{X\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log P(x)]
 <p><strong>KL散度(KL divergence):</strong></p>
 <p>衡量两个单独的概率分布P(x)和Q(x)的差异.KL散度非负,为0时表示分布相同.</p>
 <p><span class="math display">\[
-D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)} \right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
+D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)}
+\right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
 \]</span></p>
 <aside>
 💡 KL散度中的P分布和Q分布不能交换顺序
@@ -827,18 +835,16 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/">
+                <a href="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/">
                     <div class="card-image">
                         
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=2400" class="responsive-img" alt="机器学习数学基础③数值计算和最优化理论">
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="机器学习数学基础②概率论和信息论">
-                        
-                        <span class="card-title">机器学习数学基础②概率论和信息论</span>
+                        <span class="card-title">机器学习数学基础③数值计算和最优化理论</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -848,9 +854,9 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-26
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -859,7 +865,6 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

@@ -379,7 +379,8 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <ul>
 <li>随机变量:可以是连续的也可以是离散的</li>
 <li>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</li>
-<li>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></li>
+<li>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm
+y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></li>
 <li>概率函数和似然函数
 <ul>
 <li><p>Note:区别</p>
@@ -387,7 +388,8 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <p>如果<span class="math inline">\(\theta\)</span>已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
 <p>如果x已知,<span class="math inline">\(\theta\)</span>为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p></li>
 </ul></li>
-<li>期望:<span class="math inline">\(E(X)=\sum \limits _{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></li>
+<li>期望:<span class="math inline">\(E(X)=\sum \limits
+_{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></li>
 <li>方差:各个样本数据分别与平均数之差的平方和的平均数<span class="math inline">\(Var(x)\)</span></li>
 <li>协方差:衡量随机变量X和Y之间的总体误差<span class="math inline">\(Cov(X,Y)\)</span></li>
 <li></li>
@@ -429,10 +431,12 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <ul>
 <li><p>例子</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题" /><figcaption aria-hidden="true">例题</figcaption>
+<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题">
+<figcaption aria-hidden="true">例题</figcaption>
 </figure>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答" /><figcaption aria-hidden="true">例题解答</figcaption>
+<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
 </figure></li>
 </ul></li>
 </ul></li>
@@ -441,66 +445,69 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <ol type="1">
 <li><p>0-1分布</p>
 <p><span class="math display">\[
- P(X=1)=p \\ P(X=0)=1-p
- \]</span></p></li>
+P(X=1)=p \\ P(X=0)=1-p
+\]</span></p></li>
 <li><p>几何分布</p>
 <p>离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:<span class="math inline">\(P(X=k)=(1-p)^{k-1}p\)</span></p>
 <p><span class="math display">\[
- E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
- \]</span></p></li>
+E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
+\]</span></p></li>
 <li><p>二项分布</p>
-<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span></p>
-<p><span class="math display">\[
- E(X)=np \\ Var(X)=np(1-p)
- \]</span></p></li>
+<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span> <span class="math display">\[
+E(X)=np \\ Var(X)=np(1-p)
+\]</span></p></li>
 <li><p>高斯分布/正态分布</p>
 <p>ML中最常用的概率分布.其中 <span class="math inline">\(\mu\)</span>决定分布中心的位置,<span class="math inline">\(\sigma\)</span> 标准差决定正态分布的幅度.</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图" /><figcaption aria-hidden="true">正态分布例图</figcaption>
+<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图">
+<figcaption aria-hidden="true">正态分布例图</figcaption>
 </figure>
 <p><span class="math display">\[
- X \sim N(\mu,\sigma^2)
- \]</span></p></li>
+X \sim N(\mu,\sigma^2)
+\]</span></p></li>
 <li><p>指数分布</p>
-<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda &gt;0\)</span>表示每单位时间内发生事件的次数.</p>
+<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda
+&gt;0\)</span>表示每单位时间内发生事件的次数.</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图" /><figcaption aria-hidden="true">指数分布例图</figcaption>
+<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图">
+<figcaption aria-hidden="true">指数分布例图</figcaption>
 </figure>
 <p><span class="math display">\[
- X\sim Exp(\lambda)
- \]</span></p>
+X\sim Exp(\lambda)
+\]</span></p>
 <p>概率密度函数为:</p>
 <p><span class="math display">\[
- f(x;\lambda)=
- \left\{
- \begin{aligned}
- &amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
- &amp;0&amp;x&lt;0
- \end{aligned}
- \right.
- \]</span></p>
+f(x;\lambda)=
+\left\{
+\begin{aligned}
+&amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
+&amp;0&amp;x&lt;0
+\end{aligned}
+\right.
+\]</span></p>
 <p>特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:<span class="math inline">\(E(x)=\frac {1}{\lambda}\)</span>.</p></li>
 <li><p>泊松分布</p>
 <p>泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数<span class="math inline">\(\lambda\)</span>是随机事件发生次数的数学期望.</p>
 <figure>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" /><figcaption aria-hidden="true">https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png</figcaption>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="泊松分布例图">
+<figcaption aria-hidden="true">泊松分布例图</figcaption>
 </figure>
 <p>概率密度函数为:</p>
 <p><span class="math display">\[
- P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
- \]</span></p>
+P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
+\]</span></p>
 <p>泊松分布表示为:</p>
 <p><span class="math display">\[
- X \sim Pois(\lambda)
- \]</span></p>
+X \sim Pois(\lambda)
+\]</span></p>
 <p>性质有</p>
 <ol type="1">
 <li><p>期望与方差相等,都等于参数<span class="math inline">\(\lambda\)</span></p></li>
 <li><p>两个独立且服从泊松分布的随机变量,其和仍然服从泊松分布</p>
 <p><span class="math display">\[
- X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
- X+Y \sim Poisson(\lambda_1+\lambda_2)
- \]</span></p></li>
+X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
+X+Y \sim Poisson(\lambda_1+\lambda_2)
+\]</span></p></li>
 </ol></li>
 </ol>
 <h1 id="信息论">信息论</h1>
@@ -514,7 +521,8 @@ H(x)=\mathbb{E}_{X\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log P(x)]
 <p><strong>KL散度(KL divergence):</strong></p>
 <p>衡量两个单独的概率分布P(x)和Q(x)的差异.KL散度非负,为0时表示分布相同.</p>
 <p><span class="math display">\[
-D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)} \right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
+D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)}
+\right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
 \]</span></p>
 <aside>
 💡 KL散度中的P分布和Q分布不能交换顺序
@@ -530,30 +538,6 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       <tags>
         <tag>ML</tag>
       </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei-de-fu-ben/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line">$ hexo new post <span class="string">&quot;这是一个新的笔记&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>机器学习数学基础①线性代数</title>
@@ -670,6 +654,71 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
         <tag>ML</tag>
         <tag>线性代数</tag>
         <tag>DL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/.io//softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <tags>
+        <tag>ML</tag>
       </tags>
   </entry>
 </search>
