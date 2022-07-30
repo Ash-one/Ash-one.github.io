@@ -447,12 +447,17 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based Model（2）流模型</h1>
+                <h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
+Model（2）流模型</h1>
 <h2 id="推导">推导</h2>
-<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
-<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>, 其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
+其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
 <p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
-<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式, 即让<span class="math inline">\(logP_G(x^i)\)</span>最大, 便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
+即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
+便得到最佳<span class="math inline">\(G^*\)</span></p>
 <p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
 <ol type="1">
 <li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
@@ -460,7 +465,8 @@
 </ol>
 <p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
 <h2 id="多个生成器的情况">多个生成器的情况</h2>
-<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>, 其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
+其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
 <blockquote>
 <p>依旧是取左式最大</p>
 </blockquote>
@@ -471,18 +477,24 @@ z --> G --> x</pre>
 <p><span class="math display">\[
 logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
 \]</span></p>
-<p>发现为得到左式中的<span class="math inline">\(G\)</span>, 右式只是用到了<span class="math inline">\(G^{-1}\)</span>, 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
+右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
+因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
 <pre class="mermaid">graph RL
 x --> G-1 --> z</pre>
 <p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
 <p>欲使左式最大, 右侧两项应尽可能大</p>
 <ul>
-<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大, 因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0, 最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
+因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
+最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
 </ul>
-<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下, 使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
+使用第二项约束结果防止全零, 最终得到最佳生成器</p>
 <h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
 <figure>
-<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer" /><figcaption aria-hidden="true">coupling-layer</figcaption>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
+<figcaption aria-hidden="true">coupling-layer</figcaption>
 </figure>
 <p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
 \begin{equation}

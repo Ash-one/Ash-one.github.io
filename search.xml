@@ -1,317 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Python基础知识点</title>
-    <url>/2021/09/18/python-ji-chu-zhi-shi-dian/</url>
-    <content><![CDATA[<h1 id="python基础知识点">Python基础知识点</h1>
-<blockquote>
-<p>本篇为给高二学生上课用的复习内容, 高二学生都能看懂!!!</p>
-</blockquote>
-<h2 id="数据类型6个">数据类型6个</h2>
-<ol type="1">
-<li><strong>整型 int</strong><br />
-数学中的整数，如1，-8080，0<br />
-</li>
-<li><strong>实型（浮点数）float</strong><br />
-数学中的实数，如3.14，9e-4<br />
-</li>
-<li><strong>字符串 string</strong><br />
-以引号开始结束的一串字符，如<code>'this is a string'</code><br />
-</li>
-<li><strong>布尔型 bool</strong><br />
-只有<code>True</code>和<code>False</code>两个值<br />
-</li>
-<li><strong>列表 list</strong><br />
-以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br />
-</li>
-<li><strong>字典 dictionary</strong><br />
-以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br />
-取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;wow&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">17</span>&#125;  </span><br><span class="line">d[<span class="string">&#x27;name&#x27;</span>]=</span><br></pre></td></tr></table></figure> #### 索引与切片 请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">info=[<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;what&#x27;</span>,<span class="number">5432</span>]  </span><br><span class="line">info2=[ [<span class="string">&#x27;world&#x27;</span>,<span class="string">&#x27;you&#x27;</span>],[<span class="number">231</span>,<span class="string">&#x27;how&#x27;</span>] ]   </span><br><span class="line">info[<span class="number">1</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br><span class="line">info2[<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br></pre></td></tr></table></figure> ***</li>
-</ol>
-<h2 id="运算符">运算符</h2>
-<h3 id="算数运算符">算数运算符</h3>
-<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br />
-<code>%</code>取余数 <code>**</code>乘方</p>
-<p><em>算数运算符得到的结果为数</em> ### 关系运算符 <code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于 小于等于<br />
-<code>==</code>等于<code>!=</code>不等于<br />
-<code>in</code>包含于</p>
-<p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<h3 id="逻辑运算符">逻辑运算符</h3>
-<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br />
-<code>or</code> 或运算，只要有一个<code>True</code>结果就为<code>True</code><br />
-<code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
-<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<hr />
-<h2 id="变量和赋值">变量和赋值</h2>
-<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br />
-<strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
-<p><strong>赋值语句</strong><br />
-<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br />
-&gt;n=0 #将0赋值给变量n<br />
-n=n+1 #将n+1的值赋给变量n<br />
-n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
-<p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
-<h2 id="常用函数">常用函数</h2>
-<p><code>print(x)</code>输出x的值<br />
-<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br />
-<code>int(x)</code>将x转换为整型<br />
-<code>float(x)</code>将x转换为浮点数</p>
-<hr />
-<h2 id="分支结构">分支结构</h2>
-<blockquote>
-<p>if 条件:<br />
-  语句<br />
-elif 条件:<br />
-  语句<br />
-else:<br />
-  语句</p>
-</blockquote>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>:  </span><br><span class="line">		print(<span class="string">&#x27;偶数&#x27;</span>)  </span><br><span class="line">esle:  </span><br><span class="line">		print(<span class="string">&#x27;奇数&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
-<h2 id="循环结构">循环结构</h2>
-<h4 id="for循环">for循环</h4>
-<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br />
-  循环体</p>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">101</span>,<span class="number">1</span>):  </span><br><span class="line">		s+=i  </span><br><span class="line">		print(i)  </span><br></pre></td></tr></table></figure> #### while循环 循环条件为<code>True</code>时进入循环，否则退出循环<br />
-&gt;while 循环条件:<br />
-  循环体</p>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line">i=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">while</span> i&lt;=<span class="number">100</span>:  </span><br><span class="line">    s+=i</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    print(i)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure></p>
-<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br />
-<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br />
-<strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
-<hr />
-<h2 id="习题">习题</h2>
-<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br />
-请在下方书写<br />
-<em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>信息技术</tag>
-        <tag>支教</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>清河村支教回忆</title>
-    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
-    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>&emsp;&emsp;大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br><img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"><br><img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山"><br>&emsp;&emsp;闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。 </p>
-<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"><br><img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
-<p>&emsp;&emsp;这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。<br><img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学"><br>&emsp;&emsp;对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br><img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路"><br>&emsp;&emsp;总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br><img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
-<p>&emsp;&emsp;我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br><img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"><br><img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>随笔</tag>
-        <tag>支教</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="Flutter学习笔记"><a href="#Flutter学习笔记" class="headerlink" title="Flutter学习笔记"></a>Flutter学习笔记</h1><h2 id="StatelessWidget和StatefulWidget"><a href="#StatelessWidget和StatefulWidget" class="headerlink" title="StatelessWidget和StatefulWidget"></a>StatelessWidget和StatefulWidget</h2><ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  </li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。 </li>
-</ul>
-<h2 id="开发时如何选择"><a href="#开发时如何选择" class="headerlink" title="开发时如何选择"></a>开发时如何选择</h2><ul>
-<li>优先使用 StatelessWidget  </li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){}) 的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爱快路由下无法正常解析DNS的问题</title>
-    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
-    <content><![CDATA[<blockquote>
-<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M, 而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败, 本文解决了这两个问题</p>
-</blockquote>
-<p>先说结论:</p>
-<p>在客户机DNS服务器设置为网关(ikuai)的情况下, 必须设置爱快的DNS加速服务中使用代理模式才能生效, 同时要开启强制客户端DNS代理, 而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
-<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
-<hr>
-<p>以下是完整版:</p>
-<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
-<p>①查看是否是运营商限制了下行带宽: 测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
-<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题, 所以问题可能在ikuai上</p>
-<p><img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分"></p>
-<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai, 在未做其他修改的情况下出现了无法解析DNS的情况</p>
-<p><img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu"></p>
-<blockquote>
-<p>qq和微信都是不需要解析DNS的软件, 如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
-</blockquote>
-<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯, 均不能正常上网</p>
-<p><img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS"></p>
-<p>ikuai内的设置, 无法解析DNS</p>
-<p>然后怀疑是不是ikuai本身就无法正常上网, 使用ikuai内的测试工具发现能够ping通域名</p>
-<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
-<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况, 在网上和论坛搜索了很久都没有找到相关的情况</p>
-<p>最后的最后在ikuai官方的手册里找到了答案</p>
-<p><a href="https://www.ikuai8.com/index.php?option=com_content&view=article&id=129:dns&catid=39&Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
-<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
-<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
-<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
-<blockquote>
-<p>回到最初的降速问题, 经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽…果然没再出问题，可能是过了个年周围的邻居变多了吧…</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>DNS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之Flow-based Model(1)前置知识</title>
-    <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
-    <content><![CDATA[<h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
-<blockquote>
-<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
-</blockquote>
-<h2 id="雅各比矩阵-jacobian-matrix">雅各比矩阵 Jacobian Matrix</h2>
-<p>对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br />
-<span class="math display">\[z = \left[\begin{matrix}z_{1}\\z_{2}\end{matrix}\right]\]</span> <span class="math display">\[x = \left[\begin{matrix}x_{1}\\x_{2}\end{matrix}\right]\]</span></p>
-<p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系:<br />
-<span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
-<p>Jacobian Matrix定义为:<br />
-<span class="math display">\[
-J_{f} = \left[ \begin{matrix} 
-\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2} \\
-\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}
-\end{matrix} \right]
-\]</span></p>
-<p><span class="math display">\[
-J_{f^{-1}} = \left[ \begin{matrix} 
-\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2} \\
-\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}
-\end{matrix} \right]
-\]</span></p>
-<p><span class="math display">\[
-J_{f}J_{f^{-1}}=1
-\]</span></p>
-<h2 id="行列式-determinant">行列式 Determinant</h2>
-<p>对于一个矩阵<span class="math inline">\(A\)</span><br />
-<span class="math display">\[
-A = \left[ \begin{matrix}a &amp;&amp; b\\c &amp;&amp; d\end{matrix}\right]
-\]</span> 其行列式结果为:<br />
-<span class="math display">\[
-\det(A) = ad-bc
-\]</span></p>
-<p>对于一个矩阵<span class="math inline">\(B\)</span><br />
-<span class="math display">\[
-B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4} &amp;&amp; a_{5} &amp;&amp; a_{6}\\a_{7} &amp;&amp; a_{8} &amp;&amp; a_{9}\end{matrix}\right]
-\]</span> 其行列式结果为:<br />
-<span class="math display">\[
-\det(B) = a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}
-\]</span></p>
-<p>有公式:<br />
-<span class="math display">\[
-\det (A) = \frac {1}{\det(A^{-1})}
-\]</span></p>
-<p><span class="math display">\[
-\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}
-\]</span></p>
-<h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable theorem</h2>
-<p>对于正态分布<span class="math inline">\(\pi(z)\)</span>和概率分布<span class="math inline">\(p(x)\)</span><br />
-其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span></p>
-<h3 id="一维形式">一维形式</h3>
-<p><span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac {\mathrm{d} z}{\mathrm{d} x}| \]</span></p>
-<h3 id="二维形式">二维形式</h3>
-<p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span> <span class="math display">\[p(x&#39;) = \pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
-<h3 id="引申">引申</h3>
-<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span></p>
-<h2 id="生成器generator">生成器Generator</h2>
-<p>对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br />
-对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br />
-说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布 显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
-<p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br />
-<span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
-<p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} || P_{G})\)</span><br />
-(KL散度越小,两个分布越接近)</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之Flow-based-Model(2)</title>
-    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
-    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based Model（2）流模型</h1>
-<h2 id="推导">推导</h2>
-<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G} \sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
-<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>, 其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
-<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式, 即让<span class="math inline">\(logP_G(x^i)\)</span>最大, 便得到最佳<span class="math inline">\(G^*\)</span></p>
-<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
-<ol type="1">
-<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
-<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
-</ol>
-<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
-<h2 id="多个生成器的情况">多个生成器的情况</h2>
-<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>, 其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
-<blockquote>
-<p>依旧是取左式最大</p>
-</blockquote>
-<h2 id="流模型实质">流模型实质</h2>
-<p>以一个生成器为例:</p>
-<pre class="mermaid">graph LR
-z --> G --> x</pre>
-<p><span class="math display">\[
-logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
-\]</span></p>
-<p>发现为得到左式中的<span class="math inline">\(G\)</span>, 右式只是用到了<span class="math inline">\(G^{-1}\)</span>, 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre class="mermaid">graph RL
-x --> G-1 --> z</pre>
-<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>欲使左式最大, 右侧两项应尽可能大</p>
-<ul>
-<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大, 因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0, 最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
-</ul>
-<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下, 使用第二项约束结果防止全零, 最终得到最佳生成器</p>
-<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
-<figure>
-<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer" /><figcaption aria-hidden="true">coupling-layer</figcaption>
-</figure>
-<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
-\begin{equation}
-\left\{
-\begin{aligned}
-z_{i\leq d}&amp;=x^i\\
-z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
-\end{aligned}
-\right.
-\end{equation}
-\]</span></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo博客在matery主题下插入mermaid流程图</title>
     <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
     <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
@@ -320,23 +9,26 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
 </blockquote>
 <p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid@&lt;%&#x3D; theme.mermaid.version %&gt;&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 <p>而实际上在matery主题中没有该文件</p>
 <h2 id="解决方法">解决方法</h2>
 <h3 id="第一步-增加js代码">第一步 增加js代码</h3>
 <p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
 <p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意到去掉了原本中间的版本控制, 因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意到去掉了原本中间的版本控制,
+因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
 <ul>
-<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default | dark | forest | neutral</em></li>
+<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default |
+dark | forest | neutral</em></li>
 </ul>
 <h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
 <p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <h2 id="结语">结语</h2>
 <p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
-<p>如果没能成功加载, 可以查看源代码查找mermaid, 看看增加的ejs代码是否成功渲染</p>
+<p>如果没能成功加载, 可以查看源代码查找mermaid,
+看看增加的ejs代码是否成功渲染</p>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -350,7 +42,11 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
   <entry>
     <title>Hexo快速使用指北</title>
     <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="quick-start">Quick Start</h2>
 <h3 id="create-a-new-post">Create a new post</h3>
 <p>可以指定模板</p>
@@ -370,6 +66,406 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 <p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
 </blockquote>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python基础知识点</title>
+    <url>/2021/09/18/python-ji-chu-zhi-shi-dian/</url>
+    <content><![CDATA[<h1 id="python基础知识点">Python基础知识点</h1>
+<blockquote>
+<p>本篇为给高二学生上课用的复习内容, 高二学生都能看懂!!!</p>
+</blockquote>
+<h2 id="数据类型6个">数据类型6个</h2>
+<ol type="1">
+<li><strong>整型 int</strong><br>
+数学中的整数，如1，-8080，0<br>
+</li>
+<li><strong>实型（浮点数）float</strong><br>
+数学中的实数，如3.14，9e-4<br>
+</li>
+<li><strong>字符串 string</strong><br>
+以引号开始结束的一串字符，如<code>'this is a string'</code><br>
+</li>
+<li><strong>布尔型 bool</strong><br>
+只有<code>True</code>和<code>False</code>两个值<br>
+</li>
+<li><strong>列表 list</strong><br>
+以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br>
+</li>
+<li><strong>字典 dictionary</strong><br>
+以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br>
+取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;wow&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">17</span>&#125;  </span><br><span class="line">d[<span class="string">&#x27;name&#x27;</span>]=</span><br></pre></td></tr></table></figure> #### 索引与切片
+请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">info=[<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;what&#x27;</span>,<span class="number">5432</span>]  </span><br><span class="line">info2=[ [<span class="string">&#x27;world&#x27;</span>,<span class="string">&#x27;you&#x27;</span>],[<span class="number">231</span>,<span class="string">&#x27;how&#x27;</span>] ]   </span><br><span class="line">info[<span class="number">1</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br><span class="line">info2[<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br></pre></td></tr></table></figure> ***</li>
+</ol>
+<h2 id="运算符">运算符</h2>
+<h3 id="算数运算符">算数运算符</h3>
+<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br>
+<code>%</code>取余数 <code>**</code>乘方</p>
+<p><em>算数运算符得到的结果为数</em> ### 关系运算符
+<code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于
+小于等于<br>
+<code>==</code>等于<code>!=</code>不等于<br>
+<code>in</code>包含于</p>
+<p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br>
+<code>or</code>
+或运算，只要有一个<code>True</code>结果就为<code>True</code><br>
+<code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
+<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
+<hr>
+<h2 id="变量和赋值">变量和赋值</h2>
+<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br>
+<strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
+<p><strong>赋值语句</strong><br>
+<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br>
+&gt;n=0 #将0赋值给变量n<br>
+n=n+1 #将n+1的值赋给变量n<br>
+n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
+<p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
+<h2 id="常用函数">常用函数</h2>
+<p><code>print(x)</code>输出x的值<br>
+<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br>
+<code>int(x)</code>将x转换为整型<br>
+<code>float(x)</code>将x转换为浮点数</p>
+<hr>
+<h2 id="分支结构">分支结构</h2>
+<blockquote>
+<p>if 条件:<br>
+  语句<br>
+elif 条件:<br>
+  语句<br>
+else:<br>
+  语句</p>
+</blockquote>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;偶数&#x27;</span>)  </span><br><span class="line">esle:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;奇数&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="循环结构">循环结构</h2>
+<h4 id="for循环">for循环</h4>
+<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br>
+  循环体</p>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">101</span>,<span class="number">1</span>):  </span><br><span class="line">		s+=i  </span><br><span class="line">		<span class="built_in">print</span>(i)  </span><br></pre></td></tr></table></figure> #### while循环
+循环条件为<code>True</code>时进入循环，否则退出循环<br>
+&gt;while 循环条件:<br>
+  循环体</p>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line">i=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">while</span> i&lt;=<span class="number">100</span>:  </span><br><span class="line">    s+=i</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br>
+<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br>
+<strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
+<hr>
+<h2 id="习题">习题</h2>
+<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br>
+请在下方书写<br>
+<em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>信息技术</tag>
+        <tag>支教</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习数学基础①线性代数</title>
+    <url>/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/</url>
+    <content><![CDATA[<h1 id="机器学习数学基础①线性代数">机器学习数学基础①线性代数</h1>
+<p>线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间,
+这个过程使用过的方法叫<strong>线性变换</strong>,
+而<strong>矩阵</strong>就是两个向量空间之间线性变换的表达形式</p>
+<h2 id="基础概念">基础概念</h2>
+<ul>
+<li><p>矩阵</p></li>
+<li><p>向量</p></li>
+<li><p>矩阵乘法: 点积</p></li>
+<li><p>矩阵转置</p></li>
+<li><p>逆矩阵: 两个方阵相乘结果为单位阵, 记为<span class="math inline">\(A^{-1}\)</span>,称<span class="math inline">\(A\)</span>为可逆矩阵</p></li>
+<li><p>正交: 向量<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>正交, 则<span class="math inline">\(x
+\cdot y=0\)</span>, 意味着垂直</p></li>
+<li><p>正交矩阵: 对于方阵<span class="math inline">\(A \in \mathbb{R}^{n
+\times n}\)</span>, 若有<span class="math inline">\(AA^T=I_n=A^TA\)</span>, 其中<span class="math inline">\(A^{-1}=A^T\)</span>, 意味着其转置等于其逆的矩阵,
+即<strong>正交矩阵</strong></p></li>
+<li><p>对角矩阵</p></li>
+<li><p>正定矩阵: 有<span class="math inline">\(n\times
+n\)</span>实对称矩阵<span class="math inline">\(A\)</span>和n维非零向量<span class="math inline">\(x\)</span>, 如果<span class="math inline">\(x^TAx&gt;0\)</span>则称<span class="math inline">\(A\)</span>为<strong>正定矩阵</strong>, 如果<span class="math inline">\(x^TAx\geqslant 0\)</span>则称<span class="math inline">\(A\)</span>为<strong>半正定矩阵</strong>.</p>
+<blockquote>
+<p>正定矩阵<span class="math inline">\(A\)</span>保证变换后的向量<span class="math inline">\(Ax\)</span>与原向量<span class="math inline">\(x\)</span>都位于超平面的同一侧.</p>
+</blockquote></li>
+</ul>
+<h2 id="重要概念">重要概念</h2>
+<h3 id="范数">范数</h3>
+<p>向量的范数就是向量的长度或大小, 通项公式为<span class="math inline">\(||\vec
+x||=(\Sigma_{i=1}^{n}|x^i|^p)^{1/p}\)</span></p>
+<p><em>在ML中常用来限制模型复杂度, 防止过拟合等</em></p>
+<p>其中p为范数的阶, ML中常用两个:</p>
+<ul>
+<li>p=1,称为一阶范数<span class="math inline">\(l_1\)</span>范数
+L1正则化, <span class="math inline">\(||\vec
+x||=\Sigma_{i=1}^{n}|x^i|\)</span>, 表示向量<span class="math inline">\(x\)</span>中的各元素绝对值的和</li>
+<li>p=2, 称为二阶范数<span class="math inline">\(l_2\)</span>范数
+L2正则化,<span class="math inline">\(||\vec x||=\sqrt{
+\Sigma_{i=1}^{n}|x^i|^2}\)</span>, 表示向量中的元素平方和再开平方</li>
+</ul>
+<h3 id="柯西不等式">柯西不等式</h3>
+<p>由余弦定理<span class="math inline">\(\vec a \cdot \vec b=|\vec
+a||\vec b|\cos \theta\)</span>得: <span class="math display">\[
+|\vec a \cdot \vec b|\leqslant |\vec a||\vec b|
+\]</span></p>
+<h2 id="矩阵运算常用技巧">矩阵运算常用技巧</h2>
+<ol type="1">
+<li><p>若<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 且<span class="math inline">\(A+B\)</span>可逆, 有: <span class="math display">\[
+A(A+B)^{-1}B=B(A+B)^{-1}A
+\]</span></p></li>
+<li><p><strong>矩阵指数</strong> <span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 有:</p>
+<ul>
+<li><p><span class="math display">\[
+  e^{A^{T}}=(e^A)^T
+  \]</span></p></li>
+<li><p>若<span class="math inline">\(AB=BA\)</span>, 则</p></li>
+</ul>
+<p><span class="math display">\[
+e^Ae^B = e^Be^A = e^{A+B}
+\]</span></p></li>
+</ol>
+<h2 id="张量和张量积">张量和张量积</h2>
+<p><strong>张量</strong>是在ML中常用的概念,
+可理解为存在[标量,向量,矩阵...]等形式的一种数据结构 张量积(tensor
+product)又称克罗内克积(Kronecker product)</p>
+<h3 id="定义">定义</h3>
+<p><span class="math inline">\(A=(a_{ij})_{m\times n}\)</span> , <span class="math inline">\(B\)</span> 为<span class="math inline">\(p\times
+q\)</span>矩阵, 张量积<span class="math inline">\(A\otimes
+B\)</span>是一个<span class="math inline">\(mp\times nq\)</span>矩阵: $$
+AB =</p>
+<p>$$</p>
+<h2 id="特征分解">特征分解</h2>
+<p>是指将矩阵分为一组特征向量和特征值</p>
+<h3 id="特征向量和特征值">特征向量和特征值</h3>
+<p>一个可对角化的矩阵<span class="math inline">\(A\)</span>的<strong>特征向量</strong><span class="math inline">\(v\)</span> 有: <span class="math display">\[
+Av= \lambda v
+\]</span></p>
+<blockquote>
+<p>一个方阵与特征向量相乘 相当于 对特征向量进行缩放.</p>
+</blockquote>
+<p>标量<span class="math inline">\(\lambda\)</span>就是这个特征向量的<strong>特征值</strong></p>
+<h3 id="奇异值分解svd">奇异值分解(SVD)</h3>
+<p>由于特征分解要求矩阵<span class="math inline">\(A\)</span>是一个可对角化的矩阵, 要求很高</p>
+<p>为将特征分解进行推广, 使用的方法叫"矩阵的奇异值分解", 对于一个<span class="math inline">\(m \times n\)</span>的矩阵<span class="math inline">\(A\)</span>: <span class="math display">\[
+A= UDV^T
+\]</span> <span class="math inline">\(U\)</span>是<span class="math inline">\(m\times m\)</span>方阵, <span class="math inline">\(D\)</span>是<span class="math inline">\(m\times
+n\)</span>矩阵, <span class="math inline">\(V\)</span>是<span class="math inline">\(n\times n\)</span>方阵</p>
+<p><span class="math inline">\(UV\)</span>都是正交矩阵, <span class="math inline">\(D\)</span>是对角矩阵, <span class="math inline">\(D\)</span>的对角线上的元素就是矩阵<span class="math inline">\(A\)</span>的<strong>奇异值</strong>,<span class="math inline">\(U\)</span>的列向量被称为<strong>左奇异向量</strong>,
+<span class="math inline">\(V\)</span>的列向量被称为<strong>右奇异向量</strong></p>
+<h2 id="距离计算">距离计算</h2>
+<p>计算两个向量之间的距离, 可以反映之间的相似程度</p>
+<p>现有两个n维变量 <span class="math display">\[
+A= [x_{11},x_{12},\dots,x_{1n}]\\
+B= [x_{21},x_{22},\dots,x_{2n}]
+\]</span></p>
+<h3 id="曼哈顿距离">1. 曼哈顿距离</h3>
+<p>表示向量对应元素的距离和 <span class="math display">\[
+d_{12} = \sum \limits _{k=1}^n |x_{1k}-x_{2k}|
+\]</span></p>
+<h3 id="欧氏距离">2. 欧氏距离</h3>
+<p>就是L2范数, 表示对应元素的距离的平方和的开方 <span class="math display">\[
+d_{12} = \sqrt{\sum \limits _{k=1}^n (x_{1k}-x_{2k})^2}
+\]</span></p>
+<h3 id="切比雪夫距离">3. 切比雪夫距离</h3>
+<p>也是无穷范数, 表示各元素上距离中的最大值 <span class="math display">\[
+d_{12} = \max (|x_{1k}-x_{2k}|)
+\]</span></p>
+<h3 id="余弦距离">4. 余弦距离</h3>
+<p>两个方向的夹角余弦取值范围为[-1,1]</p>
+<p>夹角余弦越大,表示两个向量夹角越小; 方向重合的两个向量,
+余弦值为1;方向相反时, 余弦值为-1 <span class="math display">\[
+\begin{aligned}
+\cos \theta&amp;= \frac {AB}{|A||B|} \\
+&amp;= \frac {\sum \limits _{k=1}^{n}x_{1k}x_{2k}}{\sqrt {\sum \limits
+_{k=1}^{n}x_{1k}^2}\sqrt {\sum \limits _{k=1}^{n}x_{2k}^2}}
+\end{aligned}
+\]</span></p>
+<h3 id="汉明距离">5. 汉明距离</h3>
+<p>定义两个字符串中的不同位数的数目</p>
+<p><span class="math inline">\(e.g.\)</span>
+字符串<code>1111</code>和<code>1001</code>的汉明距离为2</p>
+<h3 id="杰卡德相似系数">6. 杰卡德相似系数</h3>
+<p>两个集合AB的交集元素在并集中的比例 <span class="math display">\[
+J(A,B) = \frac {|A\cap B|}{|A\cup B|}
+\]</span></p>
+<h3 id="杰卡德距离">7. 杰卡德距离</h3>
+<p>与杰卡德相似系数表示的内容相反 <span class="math display">\[
+J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
+\]</span></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>线性代数</tag>
+        <tag>ML</tag>
+        <tag>DL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爱快路由下无法正常解析DNS的问题</title>
+    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
+    <content><![CDATA[<blockquote>
+<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
+而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
+本文解决了这两个问题</p>
+</blockquote>
+<p>先说结论:</p>
+<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
+必须设置爱快的DNS加速服务中使用代理模式才能生效,
+同时要开启强制客户端DNS代理,
+而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
+<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
+<hr>
+<p>以下是完整版:</p>
+<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
+<p>①查看是否是运营商限制了下行带宽:
+测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
+<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
+所以问题可能在ikuai上</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
+<figcaption aria-hidden="true">家中原始网络拓扑图,
+分为经过软路由的改造部分和初始路由器部分</figcaption>
+</figure>
+<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
+在未做其他修改的情况下出现了无法解析DNS的情况</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu">
+<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
+</figure>
+<blockquote>
+<p>qq和微信都是不需要解析DNS的软件,
+如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
+</blockquote>
+<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
+均不能正常上网</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS">
+<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
+</figure>
+<p>ikuai内的设置, 无法解析DNS</p>
+<p>然后怀疑是不是ikuai本身就无法正常上网,
+使用ikuai内的测试工具发现能够ping通域名</p>
+<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
+<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
+在网上和论坛搜索了很久都没有找到相关的情况</p>
+<p>最后的最后在ikuai官方的手册里找到了答案</p>
+<p><a href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
+<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
+<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
+<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
+<blockquote>
+<p>回到最初的降速问题,
+经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>DNS</tag>
+      </tags>
   </entry>
   <entry>
     <title>机器学习数学基础②概率论和信息论</title>
@@ -540,195 +636,189 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
-    <title>机器学习数学基础①线性代数</title>
-    <url>/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/</url>
-    <content><![CDATA[<h1 id="机器学习数学基础①线性代数">机器学习数学基础①线性代数</h1>
-<p>线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间, 这个过程使用过的方法叫<strong>线性变换</strong>, 而<strong>矩阵</strong>就是两个向量空间之间线性变换的表达形式</p>
-<h2 id="基础概念">基础概念</h2>
-<ul>
-<li><p>矩阵</p></li>
-<li><p>向量</p></li>
-<li><p>矩阵乘法: 点积</p></li>
-<li><p>矩阵转置</p></li>
-<li><p>逆矩阵: 两个方阵相乘结果为单位阵, 记为<span class="math inline">\(A^{-1}\)</span>,称<span class="math inline">\(A\)</span>为可逆矩阵</p></li>
-<li><p>正交: 向量<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>正交, 则<span class="math inline">\(x \cdot y=0\)</span>, 意味着垂直</p></li>
-<li><p>正交矩阵: 对于方阵<span class="math inline">\(A \in \mathbb{R}^{n \times n}\)</span>, 若有<span class="math inline">\(AA^T=I_n=A^TA\)</span>, 其中<span class="math inline">\(A^{-1}=A^T\)</span>, 意味着其转置等于其逆的矩阵, 即<strong>正交矩阵</strong></p></li>
-<li><p>对角矩阵</p></li>
-<li><p>正定矩阵: 有<span class="math inline">\(n\times n\)</span>实对称矩阵<span class="math inline">\(A\)</span>和n维非零向量<span class="math inline">\(x\)</span>, 如果<span class="math inline">\(x^TAx&gt;0\)</span>则称<span class="math inline">\(A\)</span>为<strong>正定矩阵</strong>, 如果<span class="math inline">\(x^TAx\geqslant 0\)</span>则称<span class="math inline">\(A\)</span>为<strong>半正定矩阵</strong>.</p>
-<blockquote>
-<p>正定矩阵<span class="math inline">\(A\)</span>保证变换后的向量<span class="math inline">\(Ax\)</span>与原向量<span class="math inline">\(x\)</span>都位于超平面的同一侧.</p>
-</blockquote></li>
-</ul>
-<h2 id="重要概念">重要概念</h2>
-<h3 id="范数">范数</h3>
-<p>向量的范数就是向量的长度或大小, 通项公式为<span class="math inline">\(||\vec x||=(\Sigma_{i=1}^{n}|x^i|^p)^{1/p}\)</span></p>
-<p><em>在ML中常用来限制模型复杂度, 防止过拟合等</em></p>
-<p>其中p为范数的阶, ML中常用两个:</p>
-<ul>
-<li>p=1,称为一阶范数<span class="math inline">\(l_1\)</span>范数 L1正则化, <span class="math inline">\(||\vec x||=\Sigma_{i=1}^{n}|x^i|\)</span>, 表示向量<span class="math inline">\(x\)</span>中的各元素绝对值的和</li>
-<li>p=2, 称为二阶范数<span class="math inline">\(l_2\)</span>范数 L2正则化,<span class="math inline">\(||\vec x||=\sqrt{ \Sigma_{i=1}^{n}|x^i|^2}\)</span>, 表示向量中的元素平方和再开平方</li>
-</ul>
-<h3 id="柯西不等式">柯西不等式</h3>
-<p>由余弦定理<span class="math inline">\(\vec a \cdot \vec b=|\vec a||\vec b|\cos \theta\)</span>得: <span class="math display">\[
-|\vec a \cdot \vec b|\leqslant |\vec a||\vec b|
-\]</span></p>
-<h2 id="矩阵运算常用技巧">矩阵运算常用技巧</h2>
+    <title>清河村支教回忆</title>
+    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
+    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
+  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
+<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
+  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
+<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
+<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
+<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
+  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
+<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
+  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
+<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
+<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
+<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>支教</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>生成模型之Flow-based-Model(2)</title>
+    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
+    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
+Model（2）流模型</h1>
+<h2 id="推导">推导</h2>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
+其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
+即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
+便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
 <ol type="1">
-<li><p>若<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 且<span class="math inline">\(A+B\)</span>可逆, 有: <span class="math display">\[
- A(A+B)^{-1}B=B(A+B)^{-1}A
- \]</span></p></li>
-<li><p><strong>矩阵指数</strong> <span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 有:</p>
-<ul>
-<li><p><span class="math display">\[
-  e^{A^{T}}=(e^A)^T
-  \]</span></p></li>
-<li><p>若<span class="math inline">\(AB=BA\)</span>, 则</p></li>
-</ul>
-<p><span class="math display">\[
- e^Ae^B = e^Be^A = e^{A+B}
- \]</span></p></li>
+<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
+<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
 </ol>
-<h2 id="张量和张量积">张量和张量积</h2>
-<p><strong>张量</strong>是在ML中常用的概念, 可理解为存在[标量,向量,矩阵...]等形式的一种数据结构 张量积(tensor product)又称克罗内克积(Kronecker product)</p>
-<h3 id="定义">定义</h3>
-<p><span class="math inline">\(A=(a_{ij})_{m\times n}\)</span> , <span class="math inline">\(B\)</span> 为<span class="math inline">\(p\times q\)</span>矩阵, 张量积<span class="math inline">\(A\otimes B\)</span>是一个<span class="math inline">\(mp\times nq\)</span>矩阵: $$ AB =</p>
-<p>$$</p>
-<h2 id="特征分解">特征分解</h2>
-<p>是指将矩阵分为一组特征向量和特征值</p>
-<h3 id="特征向量和特征值">特征向量和特征值</h3>
-<p>一个可对角化的矩阵<span class="math inline">\(A\)</span>的<strong>特征向量</strong><span class="math inline">\(v\)</span> 有: <span class="math display">\[
-Av= \lambda v
-\]</span></p>
+<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
+<h2 id="多个生成器的情况">多个生成器的情况</h2>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
+其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
 <blockquote>
-<p>一个方阵与特征向量相乘 相当于 对特征向量进行缩放.</p>
+<p>依旧是取左式最大</p>
 </blockquote>
-<p>标量<span class="math inline">\(\lambda\)</span>就是这个特征向量的<strong>特征值</strong></p>
-<h3 id="奇异值分解svd">奇异值分解(SVD)</h3>
-<p>由于特征分解要求矩阵<span class="math inline">\(A\)</span>是一个可对角化的矩阵, 要求很高</p>
-<p>为将特征分解进行推广, 使用的方法叫"矩阵的奇异值分解", 对于一个<span class="math inline">\(m \times n\)</span>的矩阵<span class="math inline">\(A\)</span>: <span class="math display">\[
-A= UDV^T
-\]</span> <span class="math inline">\(U\)</span>是<span class="math inline">\(m\times m\)</span>方阵, <span class="math inline">\(D\)</span>是<span class="math inline">\(m\times n\)</span>矩阵, <span class="math inline">\(V\)</span>是<span class="math inline">\(n\times n\)</span>方阵</p>
-<p><span class="math inline">\(UV\)</span>都是正交矩阵, <span class="math inline">\(D\)</span>是对角矩阵, <span class="math inline">\(D\)</span>的对角线上的元素就是矩阵<span class="math inline">\(A\)</span>的<strong>奇异值</strong>,<span class="math inline">\(U\)</span>的列向量被称为<strong>左奇异向量</strong>, <span class="math inline">\(V\)</span>的列向量被称为<strong>右奇异向量</strong></p>
-<h2 id="距离计算">距离计算</h2>
-<p>计算两个向量之间的距离, 可以反映之间的相似程度</p>
-<p>现有两个n维变量 <span class="math display">\[
-A= [x_{11},x_{12},\dots,x_{1n}]\\
-B= [x_{21},x_{22},\dots,x_{2n}]
+<h2 id="流模型实质">流模型实质</h2>
+<p>以一个生成器为例:</p>
+<pre class="mermaid">graph LR
+z --> G --> x</pre>
+<p><span class="math display">\[
+logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
 \]</span></p>
-<h3 id="曼哈顿距离">1. 曼哈顿距离</h3>
-<p>表示向量对应元素的距离和 <span class="math display">\[
-d_{12} = \sum \limits _{k=1}^n |x_{1k}-x_{2k}|
-\]</span></p>
-<h3 id="欧氏距离">2. 欧氏距离</h3>
-<p>就是L2范数, 表示对应元素的距离的平方和的开方 <span class="math display">\[
-d_{12} = \sqrt{\sum \limits _{k=1}^n (x_{1k}-x_{2k})^2}
-\]</span></p>
-<h3 id="切比雪夫距离">3. 切比雪夫距离</h3>
-<p>也是无穷范数, 表示各元素上距离中的最大值 <span class="math display">\[
-d_{12} = \max (|x_{1k}-x_{2k}|)
-\]</span></p>
-<h3 id="余弦距离">4. 余弦距离</h3>
-<p>两个方向的夹角余弦取值范围为[-1,1]</p>
-<p>夹角余弦越大,表示两个向量夹角越小; 方向重合的两个向量, 余弦值为1;方向相反时, 余弦值为-1 <span class="math display">\[
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
+右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
+因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<pre class="mermaid">graph RL
+x --> G-1 --> z</pre>
+<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>欲使左式最大, 右侧两项应尽可能大</p>
+<ul>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
+因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
+最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+</ul>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
+使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+<figure>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
+<figcaption aria-hidden="true">coupling-layer</figcaption>
+</figure>
+<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
+\begin{equation}
+\left\{
 \begin{aligned}
-\cos \theta&amp;= \frac {AB}{|A||B|} \\
-&amp;= \frac {\sum \limits _{k=1}^{n}x_{1k}x_{2k}}{\sqrt {\sum \limits _{k=1}^{n}x_{1k}^2}\sqrt {\sum \limits _{k=1}^{n}x_{2k}^2}}
+z_{i\leq d}&amp;=x^i\\
+z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
 \end{aligned}
-\]</span></p>
-<h3 id="汉明距离">5. 汉明距离</h3>
-<p>定义两个字符串中的不同位数的数目</p>
-<p><span class="math inline">\(e.g.\)</span> 字符串<code>1111</code>和<code>1001</code>的汉明距离为2</p>
-<h3 id="杰卡德相似系数">6. 杰卡德相似系数</h3>
-<p>两个集合AB的交集元素在并集中的比例 <span class="math display">\[
-J(A,B) = \frac {|A\cap B|}{|A\cup B|}
-\]</span></p>
-<h3 id="杰卡德距离">7. 杰卡德距离</h3>
-<p>与杰卡德相似系数表示的内容相反 <span class="math display">\[
-J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
+\right.
+\end{equation}
 \]</span></p>
 ]]></content>
       <categories>
         <category>学习</category>
       </categories>
       <tags>
-        <tag>ML</tag>
-        <tag>线性代数</tag>
-        <tag>DL</tag>
+        <tag>Deep Learning</tag>
       </tags>
   </entry>
   <entry>
-    <title>机器学习数学基础③数值计算和最优化理论</title>
-    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
-    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
-<h2 id="上溢和下溢">上溢和下溢</h2>
-<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
-<ul>
-<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span
-class="math inline">\(\infin\)</span>或<span
-class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
-</ul>
-<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
-<figure>
-<img src="机器学习数学基础③数值计算和最优化理论/softmax函数.png"
-alt="softmax函数" />
-<figcaption aria-hidden="true">softmax函数</figcaption>
-</figure>
-<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
-<h1 id="最优化">最优化</h1>
-<h2 id="最优化理论">最优化理论</h2>
-<p><strong>经验风险最小化</strong></p>
-<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
-<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
-<h3 id="凸集">1.凸集</h3>
-<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
-<figure>
-<img
-src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg"
-alt="凸集和非凸集" />
-<figcaption aria-hidden="true">凸集和非凸集</figcaption>
-</figure>
-<p>数学定义: 一个集合<span class="math inline">\(S\subset
-R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
-S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
-\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
-x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
-<h3 id="超平面和半空间">2.超平面和半空间</h3>
-<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
-<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
-<h3 id="凸集分离定理">3.凸集分离定理</h3>
-<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
-<figure>
-<img
-src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg"
-alt="凸集分离" />
-<figcaption aria-hidden="true">凸集分离</figcaption>
-</figure>
-<h3 id="凸函数">4.凸函数</h3>
-<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
-<figure>
-<img
-src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg"
-alt="凸函数" />
-<figcaption aria-hidden="true">凸函数</figcaption>
-</figure>
-<aside>
-💡 在图中直线始终在凸函数曲线上方
-</aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span
-class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
-1\)</span>,有:</p>
-<p><span class="math display">\[
-f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+    <title>生成模型之Flow-based Model(1)前置知识</title>
+    <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
+    <content><![CDATA[<h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
+<blockquote>
+<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
+</blockquote>
+<h2 id="雅各比矩阵-jacobian-matrix">雅各比矩阵 Jacobian Matrix</h2>
+<p>对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br>
+<span class="math display">\[z =
+\left[\begin{matrix}z_{1}\\z_{2}\end{matrix}\right]\]</span> <span class="math display">\[x =
+\left[\begin{matrix}x_{1}\\x_{2}\end{matrix}\right]\]</span></p>
+<p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系:<br>
+<span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
+<p>Jacobian Matrix定义为:<br>
+<span class="math display">\[
+J_{f} = \left[ \begin{matrix}
+\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2}
+\\
+\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}
+\end{matrix} \right]
 \]</span></p>
-<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
-<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
-<aside>
-💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
-</aside>
+<p><span class="math display">\[
+J_{f^{-1}} = \left[ \begin{matrix}
+\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2}
+\\
+\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}
+\end{matrix} \right]
+\]</span></p>
+<p><span class="math display">\[
+J_{f}J_{f^{-1}}=1
+\]</span></p>
+<h2 id="行列式-determinant">行列式 Determinant</h2>
+<p>对于一个矩阵<span class="math inline">\(A\)</span><br>
+<span class="math display">\[
+A = \left[ \begin{matrix}a &amp;&amp; b\\c &amp;&amp;
+d\end{matrix}\right]
+\]</span> 其行列式结果为:<br>
+<span class="math display">\[
+\det(A) = ad-bc
+\]</span></p>
+<p>对于一个矩阵<span class="math inline">\(B\)</span><br>
+<span class="math display">\[
+B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4}
+&amp;&amp; a_{5} &amp;&amp; a_{6}\\a_{7} &amp;&amp; a_{8} &amp;&amp;
+a_{9}\end{matrix}\right]
+\]</span> 其行列式结果为:<br>
+<span class="math display">\[
+\det(B) =
+a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}
+\]</span></p>
+<p>有公式:<br>
+<span class="math display">\[
+\det (A) = \frac {1}{\det(A^{-1})}
+\]</span></p>
+<p><span class="math display">\[
+\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}
+\]</span></p>
+<h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable
+theorem</h2>
+<p>对于正态分布<span class="math inline">\(\pi(z)\)</span>和概率分布<span class="math inline">\(p(x)\)</span><br>
+其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span></p>
+<h3 id="一维形式">一维形式</h3>
+<p><span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta
+z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac
+{\mathrm{d} z}{\mathrm{d} x}| \]</span></p>
+<h3 id="二维形式">二维形式</h3>
+<p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span>
+<span class="math display">\[p(x&#39;) =
+\pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
+<h3 id="引申">引申</h3>
+<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span></p>
+<h2 id="生成器generator">生成器Generator</h2>
+<p>对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br>
+对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br>
+说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布
+显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
+<p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br>
+<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
+<p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} ||
+P_{G})\)</span><br>
+(KL散度越小,两个分布越接近)</p>
 ]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
       <tags>
-        <tag>ML</tag>
+        <tag>Deep Learning</tag>
       </tags>
   </entry>
 </search>

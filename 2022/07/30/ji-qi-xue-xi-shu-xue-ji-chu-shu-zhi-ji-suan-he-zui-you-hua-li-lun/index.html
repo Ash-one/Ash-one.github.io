@@ -443,14 +443,11 @@
 <p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
 <ul>
 <li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span
-class="math inline">\(\infin\)</span>或<span
-class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
 </ul>
 <p>避免数值上溢或者下溢的方法常用softmax函数.</p>
 <figure>
-<img src="机器学习数学基础③数值计算和最优化理论/softmax函数.png"
-alt="softmax函数" />
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
 <figcaption aria-hidden="true">softmax函数</figcaption>
 </figure>
 <p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
@@ -462,9 +459,7 @@ alt="softmax函数" />
 <h3 id="凸集">1.凸集</h3>
 <p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg"
-alt="凸集和非凸集" />
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
 <figcaption aria-hidden="true">凸集和非凸集</figcaption>
 </figure>
 <p>数学定义: 一个集合<span class="math inline">\(S\subset
@@ -478,24 +473,19 @@ x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
 <h3 id="凸集分离定理">3.凸集分离定理</h3>
 <p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg"
-alt="凸集分离" />
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
 <figcaption aria-hidden="true">凸集分离</figcaption>
 </figure>
 <h3 id="凸函数">4.凸函数</h3>
 <p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
 <figure>
-<img
-src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg"
-alt="凸函数" />
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
 <figcaption aria-hidden="true">凸函数</figcaption>
 </figure>
 <aside>
 💡 在图中直线始终在凸函数曲线上方
 </aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span
-class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
 1\)</span>,有:</p>
 <p><span class="math display">\[
 f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)

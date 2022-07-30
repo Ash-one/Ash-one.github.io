@@ -429,7 +429,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    194
+                    195
                 </div>
                 
 
@@ -451,15 +451,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Flutter学习笔记"><a href="#Flutter学习笔记" class="headerlink" title="Flutter学习笔记"></a>Flutter学习笔记</h1><h2 id="StatelessWidget和StatefulWidget"><a href="#StatelessWidget和StatefulWidget" class="headerlink" title="StatelessWidget和StatefulWidget"></a>StatelessWidget和StatefulWidget</h2><ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  </li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。 </li>
+                <h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
 </ul>
-<h2 id="开发时如何选择"><a href="#开发时如何选择" class="headerlink" title="开发时如何选择"></a>开发时如何选择</h2><ul>
-<li>优先使用 StatelessWidget  </li>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
 <li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
 <li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){}) 的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
 <li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
 </ul>
 
@@ -793,12 +799,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/sb/">
-                        <span class="chip bg-color">随笔</span>
-                    </a>
-                    
                     <a href="/tags/zj/">
                         <span class="chip bg-color">支教</span>
+                    </a>
+                    
+                    <a href="/tags/sb/">
+                        <span class="chip bg-color">随笔</span>
                     </a>
                     
                 </div>

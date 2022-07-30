@@ -391,12 +391,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/ML/">
-                                <span class="chip bg-color">ML</span>
-                            </a>
-                        
                             <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">
                                 <span class="chip bg-color">线性代数</span>
+                            </a>
+                        
+                            <a href="/tags/ML/">
+                                <span class="chip bg-color">ML</span>
                             </a>
                         
                             <a href="/tags/DL/">
@@ -456,7 +456,9 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="机器学习数学基础①线性代数">机器学习数学基础①线性代数</h1>
-<p>线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间, 这个过程使用过的方法叫<strong>线性变换</strong>, 而<strong>矩阵</strong>就是两个向量空间之间线性变换的表达形式</p>
+<p>线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间,
+这个过程使用过的方法叫<strong>线性变换</strong>,
+而<strong>矩阵</strong>就是两个向量空间之间线性变换的表达形式</p>
 <h2 id="基础概念">基础概念</h2>
 <ul>
 <li><p>矩阵</p></li>
@@ -464,32 +466,42 @@
 <li><p>矩阵乘法: 点积</p></li>
 <li><p>矩阵转置</p></li>
 <li><p>逆矩阵: 两个方阵相乘结果为单位阵, 记为<span class="math inline">\(A^{-1}\)</span>,称<span class="math inline">\(A\)</span>为可逆矩阵</p></li>
-<li><p>正交: 向量<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>正交, 则<span class="math inline">\(x \cdot y=0\)</span>, 意味着垂直</p></li>
-<li><p>正交矩阵: 对于方阵<span class="math inline">\(A \in \mathbb{R}^{n \times n}\)</span>, 若有<span class="math inline">\(AA^T=I_n=A^TA\)</span>, 其中<span class="math inline">\(A^{-1}=A^T\)</span>, 意味着其转置等于其逆的矩阵, 即<strong>正交矩阵</strong></p></li>
+<li><p>正交: 向量<span class="math inline">\(x\)</span>与<span class="math inline">\(y\)</span>正交, 则<span class="math inline">\(x
+\cdot y=0\)</span>, 意味着垂直</p></li>
+<li><p>正交矩阵: 对于方阵<span class="math inline">\(A \in \mathbb{R}^{n
+\times n}\)</span>, 若有<span class="math inline">\(AA^T=I_n=A^TA\)</span>, 其中<span class="math inline">\(A^{-1}=A^T\)</span>, 意味着其转置等于其逆的矩阵,
+即<strong>正交矩阵</strong></p></li>
 <li><p>对角矩阵</p></li>
-<li><p>正定矩阵: 有<span class="math inline">\(n\times n\)</span>实对称矩阵<span class="math inline">\(A\)</span>和n维非零向量<span class="math inline">\(x\)</span>, 如果<span class="math inline">\(x^TAx&gt;0\)</span>则称<span class="math inline">\(A\)</span>为<strong>正定矩阵</strong>, 如果<span class="math inline">\(x^TAx\geqslant 0\)</span>则称<span class="math inline">\(A\)</span>为<strong>半正定矩阵</strong>.</p>
+<li><p>正定矩阵: 有<span class="math inline">\(n\times
+n\)</span>实对称矩阵<span class="math inline">\(A\)</span>和n维非零向量<span class="math inline">\(x\)</span>, 如果<span class="math inline">\(x^TAx&gt;0\)</span>则称<span class="math inline">\(A\)</span>为<strong>正定矩阵</strong>, 如果<span class="math inline">\(x^TAx\geqslant 0\)</span>则称<span class="math inline">\(A\)</span>为<strong>半正定矩阵</strong>.</p>
 <blockquote>
 <p>正定矩阵<span class="math inline">\(A\)</span>保证变换后的向量<span class="math inline">\(Ax\)</span>与原向量<span class="math inline">\(x\)</span>都位于超平面的同一侧.</p>
 </blockquote></li>
 </ul>
 <h2 id="重要概念">重要概念</h2>
 <h3 id="范数">范数</h3>
-<p>向量的范数就是向量的长度或大小, 通项公式为<span class="math inline">\(||\vec x||=(\Sigma_{i=1}^{n}|x^i|^p)^{1/p}\)</span></p>
+<p>向量的范数就是向量的长度或大小, 通项公式为<span class="math inline">\(||\vec
+x||=(\Sigma_{i=1}^{n}|x^i|^p)^{1/p}\)</span></p>
 <p><em>在ML中常用来限制模型复杂度, 防止过拟合等</em></p>
 <p>其中p为范数的阶, ML中常用两个:</p>
 <ul>
-<li>p=1,称为一阶范数<span class="math inline">\(l_1\)</span>范数 L1正则化, <span class="math inline">\(||\vec x||=\Sigma_{i=1}^{n}|x^i|\)</span>, 表示向量<span class="math inline">\(x\)</span>中的各元素绝对值的和</li>
-<li>p=2, 称为二阶范数<span class="math inline">\(l_2\)</span>范数 L2正则化,<span class="math inline">\(||\vec x||=\sqrt{ \Sigma_{i=1}^{n}|x^i|^2}\)</span>, 表示向量中的元素平方和再开平方</li>
+<li>p=1,称为一阶范数<span class="math inline">\(l_1\)</span>范数
+L1正则化, <span class="math inline">\(||\vec
+x||=\Sigma_{i=1}^{n}|x^i|\)</span>, 表示向量<span class="math inline">\(x\)</span>中的各元素绝对值的和</li>
+<li>p=2, 称为二阶范数<span class="math inline">\(l_2\)</span>范数
+L2正则化,<span class="math inline">\(||\vec x||=\sqrt{
+\Sigma_{i=1}^{n}|x^i|^2}\)</span>, 表示向量中的元素平方和再开平方</li>
 </ul>
 <h3 id="柯西不等式">柯西不等式</h3>
-<p>由余弦定理<span class="math inline">\(\vec a \cdot \vec b=|\vec a||\vec b|\cos \theta\)</span>得: <span class="math display">\[
+<p>由余弦定理<span class="math inline">\(\vec a \cdot \vec b=|\vec
+a||\vec b|\cos \theta\)</span>得: <span class="math display">\[
 |\vec a \cdot \vec b|\leqslant |\vec a||\vec b|
 \]</span></p>
 <h2 id="矩阵运算常用技巧">矩阵运算常用技巧</h2>
 <ol type="1">
 <li><p>若<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 且<span class="math inline">\(A+B\)</span>可逆, 有: <span class="math display">\[
- A(A+B)^{-1}B=B(A+B)^{-1}A
- \]</span></p></li>
+A(A+B)^{-1}B=B(A+B)^{-1}A
+\]</span></p></li>
 <li><p><strong>矩阵指数</strong> <span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>是n阶方阵, 有:</p>
 <ul>
 <li><p><span class="math display">\[
@@ -498,13 +510,18 @@
 <li><p>若<span class="math inline">\(AB=BA\)</span>, 则</p></li>
 </ul>
 <p><span class="math display">\[
- e^Ae^B = e^Be^A = e^{A+B}
- \]</span></p></li>
+e^Ae^B = e^Be^A = e^{A+B}
+\]</span></p></li>
 </ol>
 <h2 id="张量和张量积">张量和张量积</h2>
-<p><strong>张量</strong>是在ML中常用的概念, 可理解为存在[标量,向量,矩阵...]等形式的一种数据结构 张量积(tensor product)又称克罗内克积(Kronecker product)</p>
+<p><strong>张量</strong>是在ML中常用的概念,
+可理解为存在[标量,向量,矩阵...]等形式的一种数据结构 张量积(tensor
+product)又称克罗内克积(Kronecker product)</p>
 <h3 id="定义">定义</h3>
-<p><span class="math inline">\(A=(a_{ij})_{m\times n}\)</span> , <span class="math inline">\(B\)</span> 为<span class="math inline">\(p\times q\)</span>矩阵, 张量积<span class="math inline">\(A\otimes B\)</span>是一个<span class="math inline">\(mp\times nq\)</span>矩阵: $$ AB =</p>
+<p><span class="math inline">\(A=(a_{ij})_{m\times n}\)</span> , <span class="math inline">\(B\)</span> 为<span class="math inline">\(p\times
+q\)</span>矩阵, 张量积<span class="math inline">\(A\otimes
+B\)</span>是一个<span class="math inline">\(mp\times nq\)</span>矩阵: $$
+AB =</p>
 <p>$$</p>
 <h2 id="特征分解">特征分解</h2>
 <p>是指将矩阵分为一组特征向量和特征值</p>
@@ -520,8 +537,10 @@ Av= \lambda v
 <p>由于特征分解要求矩阵<span class="math inline">\(A\)</span>是一个可对角化的矩阵, 要求很高</p>
 <p>为将特征分解进行推广, 使用的方法叫"矩阵的奇异值分解", 对于一个<span class="math inline">\(m \times n\)</span>的矩阵<span class="math inline">\(A\)</span>: <span class="math display">\[
 A= UDV^T
-\]</span> <span class="math inline">\(U\)</span>是<span class="math inline">\(m\times m\)</span>方阵, <span class="math inline">\(D\)</span>是<span class="math inline">\(m\times n\)</span>矩阵, <span class="math inline">\(V\)</span>是<span class="math inline">\(n\times n\)</span>方阵</p>
-<p><span class="math inline">\(UV\)</span>都是正交矩阵, <span class="math inline">\(D\)</span>是对角矩阵, <span class="math inline">\(D\)</span>的对角线上的元素就是矩阵<span class="math inline">\(A\)</span>的<strong>奇异值</strong>,<span class="math inline">\(U\)</span>的列向量被称为<strong>左奇异向量</strong>, <span class="math inline">\(V\)</span>的列向量被称为<strong>右奇异向量</strong></p>
+\]</span> <span class="math inline">\(U\)</span>是<span class="math inline">\(m\times m\)</span>方阵, <span class="math inline">\(D\)</span>是<span class="math inline">\(m\times
+n\)</span>矩阵, <span class="math inline">\(V\)</span>是<span class="math inline">\(n\times n\)</span>方阵</p>
+<p><span class="math inline">\(UV\)</span>都是正交矩阵, <span class="math inline">\(D\)</span>是对角矩阵, <span class="math inline">\(D\)</span>的对角线上的元素就是矩阵<span class="math inline">\(A\)</span>的<strong>奇异值</strong>,<span class="math inline">\(U\)</span>的列向量被称为<strong>左奇异向量</strong>,
+<span class="math inline">\(V\)</span>的列向量被称为<strong>右奇异向量</strong></p>
 <h2 id="距离计算">距离计算</h2>
 <p>计算两个向量之间的距离, 可以反映之间的相似程度</p>
 <p>现有两个n维变量 <span class="math display">\[
@@ -542,15 +561,18 @@ d_{12} = \max (|x_{1k}-x_{2k}|)
 \]</span></p>
 <h3 id="余弦距离">4. 余弦距离</h3>
 <p>两个方向的夹角余弦取值范围为[-1,1]</p>
-<p>夹角余弦越大,表示两个向量夹角越小; 方向重合的两个向量, 余弦值为1;方向相反时, 余弦值为-1 <span class="math display">\[
+<p>夹角余弦越大,表示两个向量夹角越小; 方向重合的两个向量,
+余弦值为1;方向相反时, 余弦值为-1 <span class="math display">\[
 \begin{aligned}
 \cos \theta&amp;= \frac {AB}{|A||B|} \\
-&amp;= \frac {\sum \limits _{k=1}^{n}x_{1k}x_{2k}}{\sqrt {\sum \limits _{k=1}^{n}x_{1k}^2}\sqrt {\sum \limits _{k=1}^{n}x_{2k}^2}}
+&amp;= \frac {\sum \limits _{k=1}^{n}x_{1k}x_{2k}}{\sqrt {\sum \limits
+_{k=1}^{n}x_{1k}^2}\sqrt {\sum \limits _{k=1}^{n}x_{2k}^2}}
 \end{aligned}
 \]</span></p>
 <h3 id="汉明距离">5. 汉明距离</h3>
 <p>定义两个字符串中的不同位数的数目</p>
-<p><span class="math inline">\(e.g.\)</span> 字符串<code>1111</code>和<code>1001</code>的汉明距离为2</p>
+<p><span class="math inline">\(e.g.\)</span>
+字符串<code>1111</code>和<code>1001</code>的汉明距离为2</p>
 <h3 id="杰卡德相似系数">6. 杰卡德相似系数</h3>
 <p>两个集合AB的交集元素在并集中的比例 <span class="math display">\[
 J(A,B) = \frac {|A\cap B|}{|A\cup B|}
@@ -623,12 +645,12 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/ML/">
-                                    <span class="chip bg-color">ML</span>
-                                </a>
-                            
                                 <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">
                                     <span class="chip bg-color">线性代数</span>
+                                </a>
+                            
+                                <a href="/tags/ML/">
+                                    <span class="chip bg-color">ML</span>
                                 </a>
                             
                                 <a href="/tags/DL/">

@@ -461,82 +461,87 @@
 </blockquote>
 <h2 id="数据类型6个">数据类型6个</h2>
 <ol type="1">
-<li><strong>整型 int</strong><br />
-数学中的整数，如1，-8080，0<br />
+<li><strong>整型 int</strong><br>
+数学中的整数，如1，-8080，0<br>
 </li>
-<li><strong>实型（浮点数）float</strong><br />
-数学中的实数，如3.14，9e-4<br />
+<li><strong>实型（浮点数）float</strong><br>
+数学中的实数，如3.14，9e-4<br>
 </li>
-<li><strong>字符串 string</strong><br />
-以引号开始结束的一串字符，如<code>'this is a string'</code><br />
+<li><strong>字符串 string</strong><br>
+以引号开始结束的一串字符，如<code>'this is a string'</code><br>
 </li>
-<li><strong>布尔型 bool</strong><br />
-只有<code>True</code>和<code>False</code>两个值<br />
+<li><strong>布尔型 bool</strong><br>
+只有<code>True</code>和<code>False</code>两个值<br>
 </li>
-<li><strong>列表 list</strong><br />
-以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br />
+<li><strong>列表 list</strong><br>
+以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br>
 </li>
-<li><strong>字典 dictionary</strong><br />
-以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br />
-取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;wow&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">17</span>&#125;  </span><br><span class="line">d[<span class="string">&#x27;name&#x27;</span>]=</span><br></pre></td></tr></table></figure> #### 索引与切片 请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">info=[<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;what&#x27;</span>,<span class="number">5432</span>]  </span><br><span class="line">info2=[ [<span class="string">&#x27;world&#x27;</span>,<span class="string">&#x27;you&#x27;</span>],[<span class="number">231</span>,<span class="string">&#x27;how&#x27;</span>] ]   </span><br><span class="line">info[<span class="number">1</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br><span class="line">info2[<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br></pre></td></tr></table></figure> ***</li>
+<li><strong>字典 dictionary</strong><br>
+以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br>
+取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;wow&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">17</span>&#125;  </span><br><span class="line">d[<span class="string">&#x27;name&#x27;</span>]=</span><br></pre></td></tr></table></figure> #### 索引与切片
+请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">info=[<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;what&#x27;</span>,<span class="number">5432</span>]  </span><br><span class="line">info2=[ [<span class="string">&#x27;world&#x27;</span>,<span class="string">&#x27;you&#x27;</span>],[<span class="number">231</span>,<span class="string">&#x27;how&#x27;</span>] ]   </span><br><span class="line">info[<span class="number">1</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br><span class="line">info2[<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br></pre></td></tr></table></figure> ***</li>
 </ol>
 <h2 id="运算符">运算符</h2>
 <h3 id="算数运算符">算数运算符</h3>
-<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br />
+<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br>
 <code>%</code>取余数 <code>**</code>乘方</p>
-<p><em>算数运算符得到的结果为数</em> ### 关系运算符 <code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于 小于等于<br />
-<code>==</code>等于<code>!=</code>不等于<br />
+<p><em>算数运算符得到的结果为数</em> ### 关系运算符
+<code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于
+小于等于<br>
+<code>==</code>等于<code>!=</code>不等于<br>
 <code>in</code>包含于</p>
 <p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
 <h3 id="逻辑运算符">逻辑运算符</h3>
-<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br />
-<code>or</code> 或运算，只要有一个<code>True</code>结果就为<code>True</code><br />
+<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br>
+<code>or</code>
+或运算，只要有一个<code>True</code>结果就为<code>True</code><br>
 <code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
 <p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<hr />
+<hr>
 <h2 id="变量和赋值">变量和赋值</h2>
-<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br />
+<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br>
 <strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
-<p><strong>赋值语句</strong><br />
-<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br />
-&gt;n=0 #将0赋值给变量n<br />
-n=n+1 #将n+1的值赋给变量n<br />
+<p><strong>赋值语句</strong><br>
+<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br>
+&gt;n=0 #将0赋值给变量n<br>
+n=n+1 #将n+1的值赋给变量n<br>
 n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
 <p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
 <h2 id="常用函数">常用函数</h2>
-<p><code>print(x)</code>输出x的值<br />
-<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br />
-<code>int(x)</code>将x转换为整型<br />
+<p><code>print(x)</code>输出x的值<br>
+<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br>
+<code>int(x)</code>将x转换为整型<br>
 <code>float(x)</code>将x转换为浮点数</p>
-<hr />
+<hr>
 <h2 id="分支结构">分支结构</h2>
 <blockquote>
-<p>if 条件:<br />
-  语句<br />
-elif 条件:<br />
-  语句<br />
-else:<br />
+<p>if 条件:<br>
+  语句<br>
+elif 条件:<br>
+  语句<br>
+else:<br>
   语句</p>
 </blockquote>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>:  </span><br><span class="line">		print(<span class="string">&#x27;偶数&#x27;</span>)  </span><br><span class="line">esle:  </span><br><span class="line">		print(<span class="string">&#x27;奇数&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;偶数&#x27;</span>)  </span><br><span class="line">esle:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;奇数&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
 <h2 id="循环结构">循环结构</h2>
 <h4 id="for循环">for循环</h4>
-<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br />
+<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br>
   循环体</p>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">101</span>,<span class="number">1</span>):  </span><br><span class="line">		s+=i  </span><br><span class="line">		print(i)  </span><br></pre></td></tr></table></figure> #### while循环 循环条件为<code>True</code>时进入循环，否则退出循环<br />
-&gt;while 循环条件:<br />
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">101</span>,<span class="number">1</span>):  </span><br><span class="line">		s+=i  </span><br><span class="line">		<span class="built_in">print</span>(i)  </span><br></pre></td></tr></table></figure> #### while循环
+循环条件为<code>True</code>时进入循环，否则退出循环<br>
+&gt;while 循环条件:<br>
   循环体</p>
-<p>例：<br />
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line">i=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">while</span> i&lt;=<span class="number">100</span>:  </span><br><span class="line">    s+=i</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    print(i)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure></p>
-<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br />
-<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br />
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line">i=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">while</span> i&lt;=<span class="number">100</span>:  </span><br><span class="line">    s+=i</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br>
+<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br>
 <strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
-<hr />
+<hr>
 <h2 id="习题">习题</h2>
-<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br />
-请在下方书写<br />
+<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br>
+请在下方书写<br>
 <em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
 
                 
@@ -820,12 +825,12 @@ else:<br />
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/sb/">
-                        <span class="chip bg-color">随笔</span>
-                    </a>
-                    
                     <a href="/tags/zj/">
                         <span class="chip bg-color">支教</span>
+                    </a>
+                    
+                    <a href="/tags/sb/">
+                        <span class="chip bg-color">随笔</span>
                     </a>
                     
                 </div>

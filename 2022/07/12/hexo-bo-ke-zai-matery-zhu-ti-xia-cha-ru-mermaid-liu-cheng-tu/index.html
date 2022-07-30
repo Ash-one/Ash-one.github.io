@@ -433,7 +433,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    405
+                    388
                 </div>
                 
 
@@ -461,23 +461,26 @@
 <p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
 </blockquote>
 <p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid@&lt;%&#x3D; theme.mermaid.version %&gt;&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 <p>而实际上在matery主题中没有该文件</p>
 <h2 id="解决方法">解决方法</h2>
 <h3 id="第一步-增加js代码">第一步 增加js代码</h3>
 <p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
 <p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src&#x3D;&#39;https:&#x2F;&#x2F;unpkg.com&#x2F;mermaid&#x2F;dist&#x2F;mermaid.min.js&#39;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#39;forest&#39;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;&#x2F;script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>注意到去掉了原本中间的版本控制, 因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意到去掉了原本中间的版本控制,
+因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
 <ul>
-<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default | dark | forest | neutral</em></li>
+<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default |
+dark | forest | neutral</em></li>
 </ul>
 <h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
 <p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <h2 id="结语">结语</h2>
 <p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
-<p>如果没能成功加载, 可以查看源代码查找mermaid, 看看增加的ejs代码是否成功渲染</p>
+<p>如果没能成功加载, 可以查看源代码查找mermaid,
+看看增加的ejs代码是否成功渲染</p>
 
                 
             </div>
@@ -761,12 +764,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ML/">
-                        <span class="chip bg-color">ML</span>
-                    </a>
-                    
                     <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">
                         <span class="chip bg-color">线性代数</span>
+                    </a>
+                    
+                    <a href="/tags/ML/">
+                        <span class="chip bg-color">ML</span>
                     </a>
                     
                     <a href="/tags/DL/">
