@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="机器学习数学基础②概率论和信息论, 灰一茶话会">
+    <meta name="keywords" content="神经网络中的优化算法和正则化问题, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>机器学习数学基础②概率论和信息论 | 灰一茶话会</title>
+    <title>神经网络中的优化算法和正则化问题 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://images.unsplash.com/photo-1556302132-40bb13638500?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">机器学习数学基础②概率论和信息论</h1>
+                    <h1 class="description center-align post-title">神经网络中的优化算法和正则化问题</h1>
                 </div>
             </div>
         </div>
@@ -395,8 +395,12 @@
                                 <span class="chip bg-color">ML</span>
                             </a>
                         
-                            <a href="/tags/%E6%A6%82%E7%8E%87/">
-                                <span class="chip bg-color">概率</span>
+                            <a href="/tags/DL/">
+                                <span class="chip bg-color">DL</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                <span class="chip bg-color">数学</span>
                             </a>
                         
                     </div>
@@ -420,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-07-26
+                    2022-07-31
                 </div>
                 
 
@@ -429,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1.2k
+                    3.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    5 Min
+                    13 Min
                 </div>
                 
 
@@ -451,165 +455,323 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="机器学习数学基础②概率论与信息论">机器学习数学基础②概率论与信息论</h1>
-<h1 id="基础概念">基础概念</h1>
+                <blockquote>
+<p>本文主要参考邱锡鹏老师的nndl-book，作为笔记使用</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19u411d7r3">神经网络与深度学习（第7-10讲）（更新至：第9讲 无监督学习）_哔哩哔哩_bilibili</a></p>
+</blockquote>
+<h1 id="非凸优化问题"><a href="#非凸优化问题" class="headerlink" title="非凸优化问题"></a>非凸优化问题</h1><p>高维空间中常常遇到的都是非凸函数</p>
+<p>非凸优化问题中难点有：</p>
 <ul>
-<li><p>随机变量:可以是连续的也可以是离散的</p></li>
-<li><p>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</p></li>
-<li><p>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm
-y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></p></li>
-<li><p>概率函数和似然函数</p>
-<ul>
-<li><p>Note:区别</p>
-<p>对于一个函数<span class="math inline">\(P(x|\theta)\)</span>,其中x表示一个具体的数据,<span class="math inline">\(\theta\)</span>表示模型的参数.</p>
-<p>如果<span class="math inline">\(\theta\)</span>已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
-<p>如果x已知,<span class="math inline">\(\theta\)</span>为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p></li>
-</ul></li>
-<li><p>期望:<span class="math inline">\(E(X)=\sum \limits
-_{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></p></li>
-<li><p>方差:各个样本数据分别与平均数之差的平方和的平均数<span class="math inline">\(Var(x)\)</span></p></li>
-<li><p>协方差:衡量随机变量X和Y之间的总体误差<span class="math inline">\(Cov(X,Y)\)</span></p></li>
+<li>如何逃离鞍点</li>
+<li>会出现平坦最小值</li>
 </ul>
-<h1 id="重要概念">重要概念</h1>
+<h2 id="鞍点"><a href="#鞍点" class="headerlink" title="鞍点"></a>鞍点</h2><p>在某些维度上是最高点,另一些维度上是最低点.其一阶导数为0,二阶梯度Hessian矩阵不是半正定矩阵.</p>
+<p><img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled.png" alt="鞍点示例"></p>
+<h2 id="平坦最小值"><a href="#平坦最小值" class="headerlink" title="平坦最小值"></a>平坦最小值</h2><blockquote>
+<p>由于DL中的参数非常多且具有冗余,单个参数对最终的损失影响比较小,这会导致损失函数在局部最小解附近通常是一个平坦的区域</p>
+</blockquote>
+<p><img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%201.png" alt="平坦最小值和尖锐最小值"></p>
 <ul>
-<li><strong>条件概率</strong>:对于给定<span class="math inline">\(X=x\)</span>时发生<span class="math inline">\(Y=y\)</span>的概率记为<span class="math inline">\(P(Y=y|X=x)\)</span>,计算公式为<span class="math inline">\(P(Y=y|X=x)=\frac {P(x,y)}{P(X=x)}\)</span></li>
-<li><strong>先验概率和后验概率</strong></li>
-<li><strong>贝叶斯公式</strong>:利用先验概率计算后验概率
+<li>一个平坦最小值的邻域内,所有点对应的训练损失都比较接近</li>
+<li>大部分局部最小解是等价的</li>
+<li>局部最小解对应的训练损失有可能非常接近于全局最小解训练损失</li>
+</ul>
+<aside>
+💡 在训练神经网络时,可以用局部最小解代替全局最优解,以防止过拟合,鲁棒性更好
+</aside>
+# 神经网络优化算法
+
+<h2 id="随机梯度下降法-SGD"><a href="#随机梯度下降法-SGD" class="headerlink" title="随机梯度下降法(SGD)"></a>随机梯度下降法(SGD)</h2><p>小批量随机梯度下降,每次选择k个样本计算偏导数的平均数,然后在梯度反向上更新参数</p>
+<h2 id="批量大小调整"><a href="#批量大小调整" class="headerlink" title="批量大小调整"></a>批量大小调整</h2><p>不影响梯度的期望,但会影响方差.</p>
 <ul>
-<li><p>Note:贝叶斯公式推导</p>
-<p><span class="math display">\[
-  P(B|A)=\frac {P(AB)}{P(A)}, P(A|B)=\frac {P(AB)}{P(B)}
-  \]</span></p>
-<p><span class="math display">\[
-  P(AB)=P(B|A)P(A)=P(A|B)P(B)
-  \]</span></p>
-<p><span class="math display">\[
-  P(B|A)=\frac {P(B|A)P(B)}{P(A)}
-  \]</span></p>
-<p>全概率公式求<span class="math inline">\(P(A)\)</span></p>
-<p><span class="math display">\[
-  P(A)=\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)
-  \]</span></p>
-<p>代入得到贝叶斯公式:</p>
-<p><span class="math display">\[
-  P(B_i|A)=\frac {P(A|B_i)P(B_i)}{\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)}
-  \]</span></p></li>
-</ul></li>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<li><p>batch越大,方差越小,学习率需要设置较大</p>
+</li>
+<li><p>batch越小,需要设置较小的学习率,否则模型不会收敛</p>
+</li>
+<li><p>NOTE:batch和学习率可遵守线性缩放原则</p>
+<p>  batch变为m倍,学习率变为$1&#x2F;m$</p>
+</li>
+</ul>
+<aside>
+💡 batch越大通常训练的效率越高,batch越小由于随机性更高,可能会获得更好的泛化能力
+  </aside>
+## 梯度估计修正
+
 <ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
-<li>写出似然函数</li>
-<li>对似然函数取对数</li>
-<li>两边同时求导(多个变量就求偏导)</li>
-<li>令导数为0,解出似然方程</li>
+<li><p>Momentum Method 动量法</p>
+<p>  用之前累积的动量来代替真正的梯度（负梯度的加权移动平均）</p>
+  <aside>
+  💡 每次的迭代方向相当于加速度，类似二阶梯度
+    </aside>
+  
+<p>  参数更新的差值为：</p>
+<p>  $$<br>  \Delta \theta_t &#x3D;\rho \Delta \theta_{t-1}-\alpha g_t&#x3D;-\alpha \sum \limits <em>{\tau&#x3D;1}^{t} \rho^{t-\tau}g</em>{\tau}<br>  $$</p>
+</li>
+<li><p>Nesterov 加速梯度</p>
+</li>
+<li><p>梯度截断</p>
+<p>  当某个时刻梯度（的模）过大如NaN，就把梯度的模限定在某个区间，将超过区间的部分进行截断</p>
+<ul>
+<li><p>按值截断</p>
+<p>  例如取$[a,b]$区间的值</p>
+<p>  $$<br>  g_t&#x3D;\max(\min(g_t,b),a)<br>  $$</p>
+</li>
+<li><p>按模截断</p>
+<p>  把模的最大值限定为b</p>
+<p>  $$<br>  g_t&#x3D;\frac{b}{||g_t||}g_t<br>  $$</p>
+</li>
+</ul>
+</li>
+<li><p>Adam算法</p>
+<p>  使用动量法优化梯度，加上RMSprop自适应调整学习率</p>
+<p>  先计算两个移动平均：</p>
+<p>  $$<br>  M_t &#x3D; \beta <em>1M</em>{t-1}+(1-\beta_1)g_t<br>  $$</p>
+<p>  $$<br>  G_t &#x3D; \beta_2G_{t-1}+(1-\beta_2)g_t \odot g_t<br>  $$</p>
+<p>  当t&#x3D;1时，$M_1$应该等于$g_1$，但是在上述公式中不正确，于是加入偏差修正如下：</p>
+<p>  $$<br>  \hat M_t &#x3D; \frac {M_t}{1-\beta_1^t}<br>  $$</p>
+<p>  $$<br>  \hat G_t&#x3D;\frac{G_t}{1-\beta_2^t}<br>  $$</p>
+<p>  更新参数内容：</p>
+<p>  $$<br>  \Delta \theta_t &#x3D; - \frac{\alpha}{\sqrt {G_t+\epsilon}}\hat M_t<br>  $$</p>
+</li>
+</ul>
+<h2 id="学习率调整"><a href="#学习率调整" class="headerlink" title="学习率调整"></a>学习率调整</h2><ul>
+<li><p>学习率衰减</p>
+<ul>
+<li>阶梯衰减</li>
+<li>逆时衰减:$\alpha_t &#x3D; \alpha_0 \frac{1}{1+\beta \times t}$</li>
+<li>指数衰减</li>
+<li>余弦衰减</li>
+</ul>
+</li>
+<li><p>周期性学习率调整</p>
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%202.png" alt="周期性学习率调整"></p>
+<p>  跳出局部最优或鞍点的情况,找到更平坦的局部最优</p>
+</li>
+<li><p>学习率预热</p>
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%203.png" alt="学习率预热示例"></p>
+</li>
+<li><p>AdaGrad算法</p>
+<p>  借鉴L2正则化的思想，在第t次迭代的时候，先计算每个参数梯度平方的累计值。</p>
+<p>  $$<br>  G_t&#x3D;\sum \limits <em>{\tau}^{t}g</em>{\tau}\odot g_{\tau}<br>  $$</p>
+<p>  参数更新的差值为：</p>
+<p>  $$<br>  \Delta \theta _{t} &#x3D; - \frac {\alpha}{\sqrt {G_t+\epsilon}}\odot g_t<br>  $$</p>
+<p>  其中$\alpha$是初始学习率，$\epsilon$是为保持数值稳定一个小常数（大小通常是$e^{-7}\sim e^{-10}$），公式内的运算都是按元素进行的操作。</p>
+<blockquote>
+<p>from nndl-book:</p>
+<p>在 AdaGrad 算法中，如果某个参数的偏导数累积比较大，其学习率相对较小;相反，如果其偏导数累积较小，其学习率相对较大.但整体是随着迭代次数的增加，学习率逐渐缩小.<br>AdaGrad 算法的缺点是在经过一定次数的迭代依然没有找到最优点时，由于这时的学习率已经非常小，很难再继续找到最优点.</p>
+</blockquote>
+</li>
+<li><p>RMSprop算法</p>
+<p>  避免AdaGrad算法中学习率不断单调下降导致过早衰减的问题。</p>
+<p>  参数更新的差值和AdaGrad算法是相同的：</p>
+<p>  $$<br>  \Delta \theta _{t} &#x3D; - \frac {\alpha}{\sqrt {G_t+\epsilon}}\odot g_t<br>  $$</p>
+<p>  区别在于计算$G_t$:</p>
+<p>  $$<br>  \begin{aligned}<br>  G_{t} &amp;&#x3D;\beta G_{t-1}+(1-\beta) \boldsymbol{g}<em>{t} \odot \boldsymbol{g}</em>{t} \<br>  &amp;&#x3D;(1-\beta) \sum_{\tau&#x3D;1}^{t} \beta^{t-\tau} \boldsymbol{g}<em>{\tau} \odot \boldsymbol{g}</em>{\tau}<br>  \end{aligned}<br>  $$</p>
+<p>  由于参数的学习率变化由单调衰减变成了指数加权的移动平均，既可以变大也可以变小。</p>
+</li>
+<li><p>AdaDelta算法</p>
+<p>  参数更新的差值为：</p>
+<p>  $$<br>  \Delta \theta_{t}&#x3D;-\frac{\sqrt{\Delta X_{t-1}^{2}+\epsilon}}{\sqrt{G_{t}+\epsilon}} \mathbf{g}_{t}<br>  $$</p>
+<p>  其中$G_t$和RMSprop算法相同：</p>
+<p>  $$<br>  \begin{aligned}<br>  G_{t} &amp;&#x3D;\beta G_{t-1}+(1-\beta) \boldsymbol{g}<em>{t} \odot \boldsymbol{g}</em>{t} \<br>  &amp;&#x3D;(1-\beta) \sum_{\tau&#x3D;1}^{t} \beta^{t-\tau} \boldsymbol{g}<em>{\tau} \odot \boldsymbol{g}</em>{\tau}<br>  \end{aligned}<br>  $$</p>
+<p>  分子上：</p>
+<p>  $$<br>  \Delta X_{t-1}^{2}&#x3D;\beta_{1} \Delta X_{t-2}^{2}+\left(1-\beta_{1}\right) \Delta \theta_{t-1} \odot \Delta \theta_{t-1}<br>  $$</p>
+<p>  其中$\beta _1$是衰减率</p>
+<p>  由于将原本的学习率修改为了带衰减率的移动平均，能够抑制住学习率的波动。</p>
+</li>
+</ul>
+<h2 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h2><p>当使用梯度下降法优化网络参数时，参数的初始值非常重要，直接影响到网络的优化效率和泛化能力</p>
+<p>神经网络的参数不能初始化为0，会出现对称权重问题，导致层内所有权重相同。</p>
+<p>因此对于参数的初始化也有许多方法。</p>
+<ul>
+<li>预训练初始化</li>
+<li>随机初始化<ul>
+<li><p>基于固定方差的参数初始化</p>
+<ul>
+<li><p>高斯分布初始化</p>
+<p>  使用方差和均值的高斯分布</p>
+</li>
+<li><p>均匀分布初始化</p>
+<p>  采用在区间$[-r,r]$内采用均匀分布进行初始化</p>
+</li>
+</ul>
+</li>
+<li><p>基于方差缩放的参数初始化</p>
+<p>   $M_l$是第$l$层的神经元个数</p>
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%204.png" alt="基于方差缩放的参数初始化设置"></p>
+</li>
+<li><p>正交初始化</p>
+<p>  由于上述两种初始化对每个参数都是独立采样，依旧存在梯度消失或梯度爆炸问题。</p>
+<p>  此处我们从最开始就构建一个L层的等宽线性网络：</p>
+<p>  $$<br>  \bold y&#x3D; \bold W^L \bold W^{L-1} \dots \bold W^1 \bold x<br>  $$</p>
+<p>  在反向传播中误差项$\delta$的反向传播公式为：$\delta ^{l-1}&#x3D;(W^l)^T\delta ^l$</p>
+<p>  <strong>范数保持性：</strong>指误差项在反向传播中的范数保持不变，满足$||\delta^{l-1}||^2&#x3D;||\delta^l||^2&#x3D;||(W^l)^T\delta^l||^2$。</p>
+<p>  于是在初始化就可以使用均值为0，方差为$1&#x2F;M$的高斯分布来做初始化</p>
+<hr>
+<p>  或者采用更直接的方式：直接将 $W^l$初始化为正交矩阵，即$W^l(W^l)^T&#x3D;I$</p>
+<ol>
+<li>y地方用均值为0，方差为1的高斯分布初始化一个矩阵</li>
+<li>将这个矩阵用奇异值分解得到两个正交矩阵，用其中之一作为权重矩阵</li>
+</ol>
+  <aside>
+  💡 正交初始化通常用在RNN的循环边上的权重矩阵
+    </aside></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><h3 id="尺度不变性（Scale-Invariance）"><a href="#尺度不变性（Scale-Invariance）" class="headerlink" title="尺度不变性（Scale Invariance）"></a>尺度不变性（Scale Invariance）</h3><p>对于机器算法中的数据，在缩放部分特征或者全部特征后，不影响学习和预测。</p>
+<p>例如：将厘米单位的特征，缩放为毫米单位。</p>
+<p><em>NOTE:KNN算法的尺度不变性较差，因为其计算的欧式距离对数据要求高</em></p>
+<p>不同输入特征的尺度差异较大会带来两个问题：</p>
+<ol>
+<li>参数初始化困难</li>
+<li>优化效率较低</li>
+</ol>
+<h3 id="归一化（规范化-Normalization）"><a href="#归一化（规范化-Normalization）" class="headerlink" title="归一化（规范化 Normalization）"></a>归一化（规范化 Normalization）</h3><ul>
+<li><p><strong>最小最大值规范化</strong>：</p>
+<p>  找到数据中的最小最大值，将所有数据缩放到这个范围内</p>
+</li>
+<li><p><strong>标准化（Z值规范化）</strong>：</p>
+<p>  对每一维数据计算均值和方差</p>
+<p>  $$<br>  \mu &#x3D; \frac{1}{N} \sum \limits _{n&#x3D;1}^Nx^n<br>  $$</p>
+<p>  $$<br>  \sigma ^2 &#x3D; \frac{1}{N}\sum \limits _{n&#x3D;1}^N (x^n-\mu)^2<br>  $$</p>
+<p>  然后将特征$x^n$进行变换：</p>
+<p>  $$<br>  \hat x^n &#x3D; \frac{x^n-\mu}{\sigma}<br>  $$</p>
+<p>  标准差$\sigma$做分母不为零的含义：</p>
+<p>  表示这一维度的特征相同，不重要可以直接去掉</p>
+</li>
+<li><p><strong>白化（whitening，PCA）</strong>:</p>
+<p>  去除所有成分之间的相关性</p>
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%205.png" alt="标准化和白化"></p>
+</li>
+</ul>
+<h3 id="逐层规范化"><a href="#逐层规范化" class="headerlink" title="逐层规范化"></a>逐层规范化</h3><p>ML中的常用方法，应用到DL的目的是：</p>
+<ol>
+<li><p>更好的尺度不变性</p>
+<p> 解决内部协变量偏移问题，防止在深度学习中某一个层的输入分布的微小变化引起更深层中的较大偏移。</p>
+</li>
+<li><p>更平滑的优化地形</p>
+</li>
 </ol>
 <ul>
-<li><p>例子</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" alt="例题">
-<figcaption aria-hidden="true">例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
+<li>规范化方法<ul>
+<li><p><strong>批量规范化（Batch Normalization）</strong></p>
+<p>  对于一个神经网络，第$l$层的净输入为$z^l$，神经元的输出为$a^l$，即：</p>
+<p>  $$<br>  a^l &#x3D; f(z^l)&#x3D;f(Wa^{l-1}+b)<br>  $$</p>
+<p>  对于一个样本数为k的批量样本，计算其方差和均值：</p>
+<p>  $$<br>  \begin{aligned}<br>  &amp;\boldsymbol{\mu}<em>{\mathcal{B}}&#x3D;\frac{1}{K} \sum</em>{k&#x3D;1}^{K} \boldsymbol{z}^{(k, l)} \<br>  &amp;\boldsymbol\sigma_{\mathcal{B}}^{2}&#x3D;\frac{1}{K} \sum_{k&#x3D;1}^{K}\left(\boldsymbol{z}^{(k, l)}-\boldsymbol{\mu}<em>{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k, l)}-\boldsymbol{\mu}</em>{\mathcal{B}}\right) .<br>  \end{aligned}<br>  $$</p>
+<p>  批量规范化：</p>
+<p>  $$<br>  \begin{aligned}<br>  \hat{\boldsymbol{z}}^{l} &amp;&#x3D;\frac{\boldsymbol{z}^{l}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol{\beta} \<br>  &amp; \triangleq \mathrm{BN}_{\gamma, \boldsymbol{\beta}}\left(\boldsymbol{z}^{l}\right),<br>  \end{aligned}<br>  $$</p>
+<p>  其中$\boldsymbol{\gamma}$是缩放参数向量，$\boldsymbol{\beta}$是平移参数向量，都是可学习参数。能够增强规范化的能力。</p>
+  <aside>
+  💡 批量规范化可以作为神经网络的一层（BN层）直接加入网络结构中。
+    </aside>
+  
+  
+  
+</li>
+<li><p><strong>层规范化（Layer Normalization）</strong></p>
+<p>  不看batch的内容，对一层内所有神经元进行规范化</p>
+<p>  计算层内均值和方差：</p>
+<p>  $$<br>  \begin{aligned}<br>  \mu^{l} &amp;&#x3D;\frac{1}{M_{l}} \sum_{i&#x3D;1}^{M_{l}} z_{i}^{l} \<br>  (\sigma^{l})^{2} &amp;&#x3D;\frac{1}{M_{l}} \sum_{i&#x3D;1}^{M_{l}}\left(z_{i}^{l}-\mu^{l}\right)^{2}<br>  \end{aligned}<br>  $$</p>
+<p>  层规范化：</p>
+<p>  $$<br>  \begin{aligned}<br>  \hat{\boldsymbol{z}}^{l} &amp;&#x3D;\frac{\boldsymbol{z}^{l}-\mu^{l}}{\sqrt{(\sigma^{(l)})^{2}+\epsilon}} \odot \boldsymbol{\gamma}+\boldsymbol\beta \<br>  &amp; \triangleq \mathrm{LN}_{\boldsymbol {\gamma, \beta}}\left(\boldsymbol{z}^{l}\right)<br>  \end{aligned}<br>  $$</p>
+  <aside>
+  💡 层规范化也可以作为神经网络的一层（LN层）直接加入网络结构中。应用较多。
+    </aside>
+  
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%206.png" alt="BN和LN的区别"></p>
+<p>  <img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%207.png" alt="各种规范化的对比"></p>
+</li>
+<li><p>权重规范化</p>
+</li>
+<li><p>局部响应规范化</p>
+</li>
 </ul>
-<h1 id="常见分布函数">常见分布函数</h1>
-<ol type="1">
-<li><p>0-1分布</p>
-<p><span class="math display">\[
-P(X=1)=p \\ P(X=0)=1-p
-\]</span></p></li>
-<li><p>几何分布</p>
-<p>离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:<span class="math inline">\(P(X=k)=(1-p)^{k-1}p\)</span></p>
-<p><span class="math display">\[
-E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
-\]</span></p></li>
-<li><p>二项分布</p>
-<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span> <span class="math display">\[
-E(X)=np \\ Var(X)=np(1-p)
-\]</span></p></li>
-<li><p>高斯分布/正态分布</p>
-<p>ML中最常用的概率分布.其中 <span class="math inline">\(\mu\)</span>决定分布中心的位置,<span class="math inline">\(\sigma\)</span> 标准差决定正态分布的幅度.</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" alt="正态分布例图">
-<figcaption aria-hidden="true">正态分布例图</figcaption>
-</figure>
-<p><span class="math display">\[
-X \sim N(\mu,\sigma^2)
-\]</span></p></li>
-<li><p>指数分布</p>
-<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda
-&gt;0\)</span>表示每单位时间内发生事件的次数.</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" alt="指数分布例图">
-<figcaption aria-hidden="true">指数分布例图</figcaption>
-</figure>
-<p><span class="math display">\[
-X\sim Exp(\lambda)
-\]</span></p>
-<p>概率密度函数为:</p>
-<p><span class="math display">\[
-f(x;\lambda)=
-\left\{
-\begin{aligned}
-&amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
-&amp;0&amp;x&lt;0
-\end{aligned}
-\right.
-\]</span></p>
-<p>特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:<span class="math inline">\(E(x)=\frac {1}{\lambda}\)</span>.</p></li>
-<li><p>泊松分布</p>
-<p>泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数<span class="math inline">\(\lambda\)</span>是随机事件发生次数的数学期望.</p>
-<figure>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" alt="泊松分布例图">
-<figcaption aria-hidden="true">泊松分布例图</figcaption>
-</figure>
-<p>概率密度函数为:</p>
-<p><span class="math display">\[
-P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
-\]</span></p>
-<p>泊松分布表示为:</p>
-<p><span class="math display">\[
-X \sim Pois(\lambda)
-\]</span></p>
-<p>性质有</p>
-<ol type="1">
-<li><p>期望与方差相等,都等于参数<span class="math inline">\(\lambda\)</span></p></li>
-<li><p>两个独立且服从泊松分布的随机变量,其和仍然服从泊松分布</p>
-<p><span class="math display">\[
-X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
-X+Y \sim Poisson(\lambda_1+\lambda_2)
-\]</span></p></li>
-</ol></li>
+</li>
+</ul>
+<h2 id="超参数优化"><a href="#超参数优化" class="headerlink" title="超参数优化"></a>超参数优化</h2><h3 id="超参数"><a href="#超参数" class="headerlink" title="超参数"></a>超参数</h3><ul>
+<li>层数</li>
+<li>每层神经元个数</li>
+<li>激活函数</li>
+<li>学习率（以及动态调整算法）</li>
+<li>正则化系数</li>
+<li>mini-batch大小</li>
+</ul>
+<h3 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h3><ul>
+<li><p>网格搜索</p>
+<p>  对每一个超参数取几个”经验值“，比如对于学习率$\alpha$，可以设置</p>
+<p>  $$<br>  \alpha  \in {0.01,0.1,0.5,1.0}<br>  $$</p>
+</li>
+<li><p>随机搜索</p>
+<p>  对超参数进行随机组合</p>
+</li>
+<li><p>贝叶斯优化</p>
+</li>
+<li><p>动态资源分配</p>
+</li>
+<li><p>神经架构搜索</p>
+</li>
+</ul>
+<h2 id="网络正则化"><a href="#网络正则化" class="headerlink" title="网络正则化"></a>网络正则化</h2><p>由于神经网络的拟合能力强，会将模型过度参数化，会导致模型泛化性差。为提高神经网络的泛化能力通常要加入正则化。</p>
+<p><strong>正则化</strong>就是所有损害优化方法的方法。通常分为两种方式：</p>
+<ol>
+<li>增加优化约束：L1、L2约束</li>
+<li>干扰优化过程：提前停止、随机梯度下降、暂退法、权重衰减。</li>
 </ol>
-<h1 id="信息论">信息论</h1>
-<p><strong>自信息:</strong></p>
-<p>一个事件x=<span class="math inline">\(x\)</span>的自信息为<span class="math inline">\(I(x)=-\log P(x)\)</span></p>
-<p><strong>香农熵:</strong></p>
-<p>一个分布P(x)的事件产生的信息总量的期望</p>
-<p><span class="math display">\[
-H(x)=\mathbb{E}_{X\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log P(x)]
-\]</span></p>
-<p><strong>KL散度(KL divergence):</strong></p>
-<p>衡量两个单独的概率分布P(x)和Q(x)的差异.KL散度非负,为0时表示分布相同.</p>
-<p><span class="math display">\[
-D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)}
-\right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
-\]</span></p>
+<h3 id="早停法"><a href="#早停法" class="headerlink" title="早停法"></a>早停法</h3><p>引入<strong>验证集（Validation Dataset）</strong>测试每一次迭代的参数时候在验证集上最优，如果在验证集上错误率不再下降就停止迭代。防止过拟合。</p>
+<h3 id="权重衰减"><a href="#权重衰减" class="headerlink" title="权重衰减"></a>权重衰减</h3><p>限制权重取值范围。在每次参数更新时，引入一个衰减系数$\beta$</p>
+<p>$$<br>\theta_t&#x3D;(1-\beta)\theta_{t-1}-\alpha \bold g_t<br>$$</p>
+<h3 id="暂退法（Dropout）"><a href="#暂退法（Dropout）" class="headerlink" title="暂退法（Dropout）"></a>暂退法（Dropout）</h3><p>有一个神经层$y&#x3D;f(Wx+b)$，引入一个随机的掩蔽函数$mask(x)&#x3D;m\odot x$，$m \in {0,1}^D$.得到神经层的输出$y&#x3D;f(Wmask(x)+b)$.</p>
 <aside>
-💡 KL散度中的P分布和Q分布不能交换顺序
+💡 可以理解为从原始网络中采样得到一个子网络，如果有n个神经元，则可以采样出$2^n$个子网络。
 </aside>
-<p><strong>交叉熵(cross-entropy):</strong></p>
-<p><span class="math display">\[
-H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
-\]</span></p>
+
+<h3 id="ell-1-和-ell-2-正则化"><a href="#ell-1-和-ell-2-正则化" class="headerlink" title="$\ell_1$和$\ell_2$正则化"></a>$\ell_1$和$\ell_2$正则化</h3><p>在原本的优化问题中加入$\ell_1$$\ell_2$范数防止过拟合</p>
+<p>$$<br>\begin{aligned}<br>&amp;\theta^{*}&#x3D;\underset{\theta}{\arg \min } \frac{1}{N} \sum_{n&#x3D;1}^N \mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ; \theta\right)\right) \<br>&amp;\text { s.t. } \quad \ell_{p}(\theta) \leq 1<br>\end{aligned}<br>$$</p>
+<p>$\ell_2$正则化的参数更新结果为：$\theta_t &#x3D; \theta_{t-1}-\alpha(g_t+\lambda\theta_{t-1})&#x3D;(1-\alpha\lambda)\theta_{t-1}-\alpha g_t$</p>
+<p>形式上和权重衰减的类似：$\theta_t&#x3D;(1-\beta)\theta_{t-1}-\alpha \bold g_t$ </p>
 <aside>
-💡 在信息论中0log0结果取0
-</aside>
+💡 在SGD中 $\ell_2$ 正则化和权重衰减是等价的，但在复杂的优化算法如Adam中则不能等价。
+  </aside>
+
+
+
+<p><img src="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E5%92%8C%E6%AD%A3%E5%88%99%E5%8C%96%E9%97%AE%E9%A2%98/Untitled%208.png" alt="不同范数的约束条件示例"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>优化</th>
+<th>正则化</th>
+<th>隐式正则化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用ReLU作为激活函数</td>
+<td>SGD+mini-batch(动态学习率、Adam算法优先)</td>
+<td>早停法</td>
+<td>SGD</td>
+</tr>
+<tr>
+<td>残差链接</td>
+<td>每次迭代都重新随机排序</td>
+<td>暂退法</td>
+<td>批量规范化</td>
+</tr>
+<tr>
+<td>逐层规范化</td>
+<td>数据预处理（规范化）</td>
+<td>权重衰减</td>
+<td>$\ell_1$和$\ell_2$正则化</td>
+</tr>
+<tr>
+<td></td>
+<td>参数初始化（预训练）</td>
+<td></td>
+<td>数据增强</td>
+</tr>
+</tbody></table>
 
                 
             </div>
@@ -636,7 +798,7 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/">https://ash-one.github.io/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/</a>
+                    <a href="https://ash-one.github.io/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/">https://ash-one.github.io/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -678,8 +840,12 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                                     <span class="chip bg-color">ML</span>
                                 </a>
                             
-                                <a href="/tags/%E6%A6%82%E7%8E%87/">
-                                    <span class="chip bg-color">概率</span>
+                                <a href="/tags/DL/">
+                                    <span class="chip bg-color">DL</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                                    <span class="chip bg-color">数学</span>
                                 </a>
                             
                         </div>
@@ -851,9 +1017,67 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/">
+                    <div class="card-image">
+                        
+                        <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600" class="responsive-img" alt="神经网络中的优化算法和正则化问题">
+                        
+                        <span class="card-title">神经网络中的优化算法和正则化问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ML/">
+                        <span class="chip bg-color">ML</span>
+                    </a>
+                    
+                    <a href="/tags/DL/">
+                        <span class="chip bg-color">DL</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/">
                     <div class="card-image">
@@ -870,57 +1094,8 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    学习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ML/">
-                        <span class="chip bg-color">ML</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="机器学习数学基础①线性代数">
-                        
-                        <span class="card-title">机器学习数学基础①线性代数</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
                             </span>
                         <span class="publish-author">
                             
@@ -937,16 +1112,8 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/">
-                        <span class="chip bg-color">线性代数</span>
-                    </a>
-                    
                     <a href="/tags/ML/">
                         <span class="chip bg-color">ML</span>
-                    </a>
-                    
-                    <a href="/tags/DL/">
-                        <span class="chip bg-color">DL</span>
                     </a>
                     
                 </div>
