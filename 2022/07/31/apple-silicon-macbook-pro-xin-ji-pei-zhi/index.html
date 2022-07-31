@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="神经网络中的优化算法和正则化问题, 灰一茶话会">
+    <meta name="keywords" content="Apple Silicon MacBook Pro新机配置, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>神经网络中的优化算法和正则化问题 | 灰一茶话会</title>
+    <title>Apple Silicon MacBook Pro新机配置 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.loli.net/2022/07/31/ltJQnPGuHSZE6xy.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">神经网络中的优化算法和正则化问题</h1>
+                    <h1 class="description center-align post-title">Apple Silicon MacBook Pro新机配置</h1>
                 </div>
             </div>
         </div>
@@ -391,16 +391,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/ML/">
-                                <span class="chip bg-color">ML</span>
+                            <a href="/tags/Apple/">
+                                <span class="chip bg-color">Apple</span>
                             </a>
                         
-                            <a href="/tags/DL/">
-                                <span class="chip bg-color">DL</span>
+                            <a href="/tags/%E9%85%8D%E7%BD%AE/">
+                                <span class="chip bg-color">配置</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                <span class="chip bg-color">数学</span>
+                            <a href="/tags/conda/">
+                                <span class="chip bg-color">conda</span>
+                            </a>
+                        
+                            <a href="/tags/zsh/">
+                                <span class="chip bg-color">zsh</span>
                             </a>
                         
                     </div>
@@ -411,8 +415,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                学习
+                            <a href="/categories/tech/" class="post-category">
+                                技术
                             </a>
                         
                     </div>
@@ -433,14 +437,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3.3k
+                    639
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    13 Min
+                    2 Min
                 </div>
                 
 
@@ -456,444 +460,80 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>本文主要参考邱锡鹏老师的nndl-book，作为笔记使用</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19u411d7r3">神经网络与深度学习（第7-10讲）（更新至：第9讲
-无监督学习）_哔哩哔哩_bilibili</a></p>
+<p>本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置</p>
 </blockquote>
-<h1 id="非凸优化问题">非凸优化问题</h1>
-<p>高维空间中常常遇到的都是非凸函数</p>
-<p>非凸优化问题中难点有：</p>
-<ul>
-<li>如何逃离鞍点</li>
-<li>会出现平坦最小值</li>
-</ul>
-<h2 id="鞍点">鞍点</h2>
-<p>在某些维度上是最高点,另一些维度上是最低点.其一阶导数为0,二阶梯度Hessian矩阵不是半正定矩阵.</p>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled.png" alt="鞍点示例">
-<figcaption aria-hidden="true">鞍点示例</figcaption>
-</figure>
-<h2 id="平坦最小值">平坦最小值</h2>
-<blockquote>
-<p>由于DL中的参数非常多且具有冗余,单个参数对最终的损失影响比较小,这会导致损失函数在局部最小解附近通常是一个平坦的区域</p>
-</blockquote>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%201.png" alt="平坦最小值和尖锐最小值">
-<figcaption aria-hidden="true">平坦最小值和尖锐最小值</figcaption>
-</figure>
-<ul>
-<li>一个平坦最小值的邻域内,所有点对应的训练损失都比较接近</li>
-<li>大部分局部最小解是等价的</li>
-<li>局部最小解对应的训练损失有可能非常接近于全局最小解训练损失</li>
-</ul>
 <aside>
-💡
-在训练神经网络时,可以用局部最小解代替全局最优解,以防止过拟合,鲁棒性更好
+💡 第一次使用苹果的time
+machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用
 </aside>
-<h1 id="神经网络优化算法">神经网络优化算法</h1>
-<h2 id="随机梯度下降法sgd">随机梯度下降法(SGD)</h2>
-<p>小批量随机梯度下降,每次选择k个样本计算偏导数的平均数,然后在梯度反向上更新参数</p>
-<h2 id="批量大小调整">批量大小调整</h2>
-<p>不影响梯度的期望,但会影响方差.</p>
-<ul>
-<li><p>batch越大,方差越小,学习率需要设置较大</p></li>
-<li><p>batch越小,需要设置较小的学习率,否则模型不会收敛</p></li>
-<li><p>NOTE:batch和学习率可遵守线性缩放原则</p>
-<p>batch变为m倍,学习率变为<span class="math inline">\(1/m\)</span></p></li>
-</ul>
-<aside>
-💡
-batch越大通常训练的效率越高,batch越小由于随机性更高,可能会获得更好的泛化能力
-</aside>
-<h2 id="梯度估计修正">梯度估计修正</h2>
-<ul>
-<li><p>Momentum Method 动量法</p>
-<p>用之前累积的动量来代替真正的梯度（负梯度的加权移动平均）</p>
-<aside>
-<p>💡 每次的迭代方向相当于加速度，类似二阶梯度</p>
-</aside>
-<p>参数更新的差值为：</p>
-<p><span class="math display">\[
-  \Delta \theta_t =\rho \Delta \theta_{t-1}-\alpha g_t=-\alpha \sum
-\limits _{\tau=1}^{t} \rho^{t-\tau}g_{\tau}
-  \]</span></p></li>
-<li><p>Nesterov 加速梯度</p></li>
-<li><p>梯度截断</p>
-<p>当某个时刻梯度（的模）过大如NaN，就把梯度的模限定在某个区间，将超过区间的部分进行截断</p>
-<ul>
-<li><p>按值截断</p>
-<p>例如取<span class="math inline">\([a,b]\)</span>区间的值</p>
-<p><span class="math display">\[
-  g_t=\max(\min(g_t,b),a)
-  \]</span></p></li>
-<li><p>按模截断</p>
-<p>把模的最大值限定为b</p>
-<p><span class="math display">\[
-  g_t=\frac{b}{||g_t||}g_t
-  \]</span></p></li>
-</ul></li>
-<li><p>Adam算法</p>
-<p>使用动量法优化梯度，加上RMSprop自适应调整学习率</p>
-<p>先计算两个移动平均：</p>
-<p><span class="math display">\[
-  M_t = \beta _1M_{t-1}+(1-\beta_1)g_t
-  \]</span></p>
-<p><span class="math display">\[
-  G_t = \beta_2G_{t-1}+(1-\beta_2)g_t \odot g_t
-  \]</span></p>
-<p>当t=1时，<span class="math inline">\(M_1\)</span>应该等于<span class="math inline">\(g_1\)</span>，但是在上述公式中不正确，于是加入偏差修正如下：</p>
-<p><span class="math display">\[
-  \hat M_t = \frac {M_t}{1-\beta_1^t}
-  \]</span></p>
-<p><span class="math display">\[
-  \hat G_t=\frac{G_t}{1-\beta_2^t}
-  \]</span></p>
-<p>更新参数内容：</p>
-<p><span class="math display">\[
-  \Delta \theta_t = - \frac{\alpha}{\sqrt {G_t+\epsilon}}\hat M_t
-  \]</span></p></li>
-</ul>
-<h2 id="学习率调整">学习率调整</h2>
-<ul>
-<li><p>学习率衰减</p>
-<ul>
-<li>阶梯衰减</li>
-<li>逆时衰减:<span class="math inline">\(\alpha_t = \alpha_0
-\frac{1}{1+\beta \times t}\)</span></li>
-<li>指数衰减</li>
-<li>余弦衰减</li>
-</ul></li>
-<li><p>周期性学习率调整</p>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%202.png" alt="周期性学习率调整">
-<figcaption aria-hidden="true">周期性学习率调整</figcaption>
-</figure>
-<p>跳出局部最优或鞍点的情况,找到更平坦的局部最优</p></li>
-<li><p>学习率预热</p>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%203.png" alt="学习率预热示例">
-<figcaption aria-hidden="true">学习率预热示例</figcaption>
-</figure></li>
-<li><p>AdaGrad算法</p>
-<p>借鉴L2正则化的思想，在第t次迭代的时候，先计算每个参数梯度平方的累计值。</p>
-<p><span class="math display">\[
-  G_t=\sum \limits _{\tau}^{t}g_{\tau}\odot g_{\tau}
-  \]</span></p>
-<p>参数更新的差值为：</p>
-<p><span class="math display">\[
-  \Delta \theta _{t} = - \frac {\alpha}{\sqrt {G_t+\epsilon}}\odot g_t
-  \]</span></p>
-<p>其中<span class="math inline">\(\alpha\)</span>是初始学习率，<span class="math inline">\(\epsilon\)</span>是为保持数值稳定一个小常数（大小通常是<span class="math inline">\(e^{-7}\sim
-e^{-10}\)</span>），公式内的运算都是按元素进行的操作。</p>
-<blockquote>
-<p>from nndl-book:</p>
-<p>在 AdaGrad
-算法中，如果某个参数的偏导数累积比较大，其学习率相对较小;相反，如果其偏导数累积较小，其学习率相对较大.但整体是随着迭代次数的增加，学习率逐渐缩小.
-AdaGrad
-算法的缺点是在经过一定次数的迭代依然没有找到最优点时，由于这时的学习率已经非常小，很难再继续找到最优点.</p>
-</blockquote></li>
-<li><p>RMSprop算法</p>
-<p>避免AdaGrad算法中学习率不断单调下降导致过早衰减的问题。</p>
-<p>参数更新的差值和AdaGrad算法是相同的：</p>
-<p><span class="math display">\[
-  \Delta \theta _{t} = - \frac {\alpha}{\sqrt {G_t+\epsilon}}\odot g_t
-  \]</span></p>
-<p>区别在于计算<span class="math inline">\(G_t\)</span>:</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  G_{t} &amp;=\beta G_{t-1}+(1-\beta) \boldsymbol{g}_{t} \odot
-\boldsymbol{g}_{t} \\
-  &amp;=(1-\beta) \sum_{\tau=1}^{t} \beta^{t-\tau} \boldsymbol{g}_{\tau}
-\odot \boldsymbol{g}_{\tau}
-  \end{aligned}
-  \]</span></p>
-<p>由于参数的学习率变化由单调衰减变成了指数加权的移动平均，既可以变大也可以变小。</p></li>
-<li><p>AdaDelta算法</p>
-<p>参数更新的差值为：</p>
-<p><span class="math display">\[
-  \Delta \theta_{t}=-\frac{\sqrt{\Delta
-X_{t-1}^{2}+\epsilon}}{\sqrt{G_{t}+\epsilon}} \mathbf{g}_{t}
-  \]</span></p>
-<p>其中<span class="math inline">\(G_t\)</span>和RMSprop算法相同：</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  G_{t} &amp;=\beta G_{t-1}+(1-\beta) \boldsymbol{g}_{t} \odot
-\boldsymbol{g}_{t} \\
-  &amp;=(1-\beta) \sum_{\tau=1}^{t} \beta^{t-\tau} \boldsymbol{g}_{\tau}
-\odot \boldsymbol{g}_{\tau}
-  \end{aligned}
-  \]</span></p>
-<p>分子上：</p>
-<p><span class="math display">\[
-  \Delta X_{t-1}^{2}=\beta_{1} \Delta
-X_{t-2}^{2}+\left(1-\beta_{1}\right) \Delta \theta_{t-1} \odot \Delta
-\theta_{t-1}
-  \]</span></p>
-<p>其中<span class="math inline">\(\beta _1\)</span>是衰减率</p>
-<p>由于将原本的学习率修改为了带衰减率的移动平均，能够抑制住学习率的波动。</p></li>
-</ul>
-<h2 id="参数初始化">参数初始化</h2>
-<p>当使用梯度下降法优化网络参数时，参数的初始值非常重要，直接影响到网络的优化效率和泛化能力</p>
-<p>神经网络的参数不能初始化为0，会出现对称权重问题，导致层内所有权重相同。</p>
-<p>因此对于参数的初始化也有许多方法。</p>
-<ul>
-<li>预训练初始化</li>
-<li>随机初始化
-<ul>
-<li><p>基于固定方差的参数初始化</p>
-<ul>
-<li><p>高斯分布初始化</p>
-<p>使用方差和均值的高斯分布</p></li>
-<li><p>均匀分布初始化</p>
-<p>采用在区间<span class="math inline">\([-r,r]\)</span>内采用均匀分布进行初始化</p></li>
-</ul></li>
-<li><p>基于方差缩放的参数初始化</p>
-<p><span class="math inline">\(M_l\)</span>是第<span class="math inline">\(l\)</span>层的神经元个数</p>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%204.png" alt="基于方差缩放的参数初始化设置">
-<figcaption aria-hidden="true">基于方差缩放的参数初始化设置</figcaption>
-</figure></li>
-<li><p>正交初始化</p>
-<p>由于上述两种初始化对每个参数都是独立采样，依旧存在梯度消失或梯度爆炸问题。</p>
-<p>此处我们从最开始就构建一个L层的等宽线性网络：</p>
-<p><span class="math display">\[
-  \bold y= \bold W^L \bold W^{L-1} \dots \bold W^1 \bold x
-  \]</span></p>
-<p>在反向传播中误差项<span class="math inline">\(\delta\)</span>的反向传播公式为：<span class="math inline">\(\delta ^{l-1}=(W^l)^T\delta ^l\)</span></p>
-<p><strong>范数保持性：</strong>指误差项在反向传播中的范数保持不变，满足<span class="math inline">\(||\delta^{l-1}||^2=||\delta^l||^2=||(W^l)^T\delta^l||^2\)</span>。</p>
-<p>于是在初始化就可以使用均值为0，方差为<span class="math inline">\(1/M\)</span>的高斯分布来做初始化</p>
-<hr>
-<p>或者采用更直接的方式：直接将 <span class="math inline">\(W^l\)</span>初始化为正交矩阵，即<span class="math inline">\(W^l(W^l)^T=I\)</span></p>
+<h1 id="配置git">配置git</h1>
+<p>mac自带git，所以只需要配置下用户名和邮箱</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;John Doe&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;johndoe@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装brew">安装brew</h1>
+<p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>根据返回的最后内容执行提示的代码，将brew添加到path中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile</span><br></pre></td></tr></table></figure>
+<p>最后在终端中输入brew测试是否添加成功</p>
+<h1 id="安装iterm2">安装iTerm2</h1>
+<p><a target="_blank" rel="noopener" href="https://iterm2.com/index.html">iTerm2 - macOS Terminal
+Replacement</a></p>
+<h1 id="安装oh-my-zsh">安装oh-my-zsh</h1>
+<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp;
+open source framework for Zsh</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装zsh主题">安装zsh主题</h1>
+<p>我选择安装powerlevel10k主题，链接在这里https://github.com/romkatv/powerlevel10k</p>
 <ol type="1">
-<li>y地方用均值为0，方差为1的高斯分布初始化一个矩阵</li>
-<li>将这个矩阵用奇异值分解得到两个正交矩阵，用其中之一作为权重矩阵</li>
+<li><p>安装字体（可跳过）</p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Regular.ttf">MesloLGS
+NF Regular.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Bold.ttf">MesloLGS
+NF Bold.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Italic.ttf">MesloLGS
+NF Italic.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Bold_Italic.ttf">MesloLGS
+NF Bold Italic.ttf</a></p></li>
+<li><p>手动安装主题文件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编辑配置文件，修改主题为10k</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用其他编辑器打开这个文件</p>
+<p>然后找到第11行修改主题为</p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powerlevel10k/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<li><p>重启iterm，加载主题文件</p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png"></p></li>
+<li><p>依次根据样式进行配置</p></li>
+<li><p>重启iterm就可以看到崭新的主题了</p></li>
 </ol>
-<aside>
-<p>💡 正交初始化通常用在RNN的循环边上的权重矩阵</p>
-</aside></li>
-</ul></li>
-</ul>
-<h2 id="数据预处理">数据预处理</h2>
-<h3 id="尺度不变性scale-invariance">尺度不变性（Scale Invariance）</h3>
-<p>对于机器算法中的数据，在缩放部分特征或者全部特征后，不影响学习和预测。</p>
-<p>例如：将厘米单位的特征，缩放为毫米单位。</p>
-<p><em>NOTE:KNN算法的尺度不变性较差，因为其计算的欧式距离对数据要求高</em></p>
-<p>不同输入特征的尺度差异较大会带来两个问题：</p>
+<h1 id="安装oh-my-zsh自动补全插件">安装oh-my-zsh自动补全插件</h1>
+<p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">GitHub -
+zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
 <ol type="1">
-<li>参数初始化困难</li>
-<li>优化效率较低</li>
+<li><p>下载插件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编辑zshrc配置文件，增加插件，修改配色</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line"># 此处修改autosuggestions插件的配色</span><br><span class="line">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=&quot;fg=#d0d0d0,underline&quot;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>重开iterm</p></li>
 </ol>
-<h3 id="归一化规范化-normalization">归一化（规范化 Normalization）</h3>
-<ul>
-<li><p><strong>最小最大值规范化</strong>：</p>
-<p>找到数据中的最小最大值，将所有数据缩放到这个范围内</p></li>
-<li><p><strong>标准化（Z值规范化）</strong>：</p>
-<p>对每一维数据计算均值和方差</p>
-<p><span class="math display">\[
-  \mu = \frac{1}{N} \sum \limits _{n=1}^Nx^n
-  \]</span></p>
-<p><span class="math display">\[
-  \sigma ^2 = \frac{1}{N}\sum \limits _{n=1}^N (x^n-\mu)^2
-  \]</span></p>
-<p>然后将特征<span class="math inline">\(x^n\)</span>进行变换：</p>
-<p><span class="math display">\[
-  \hat x^n = \frac{x^n-\mu}{\sigma}
-  \]</span></p>
-<p>标准差<span class="math inline">\(\sigma\)</span>做分母不为零的含义：</p>
-<p>表示这一维度的特征相同，不重要可以直接去掉</p></li>
-<li><p><strong>白化（whitening，PCA）</strong>:</p>
-<p>去除所有成分之间的相关性</p>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%205.png" alt="标准化和白化">
-<figcaption aria-hidden="true">标准化和白化</figcaption>
-</figure></li>
-</ul>
-<h3 id="逐层规范化">逐层规范化</h3>
-<p>ML中的常用方法，应用到DL的目的是：</p>
-<ol type="1">
-<li><p>更好的尺度不变性</p>
-<p>解决内部协变量偏移问题，防止在深度学习中某一个层的输入分布的微小变化引起更深层中的较大偏移。</p></li>
-<li><p>更平滑的优化地形</p></li>
-</ol>
-<ul>
-<li>规范化方法
-<ul>
-<li><p><strong>批量规范化（Batch Normalization）</strong></p>
-<p>对于一个神经网络，第<span class="math inline">\(l\)</span>层的净输入为<span class="math inline">\(z^l\)</span>，神经元的输出为<span class="math inline">\(a^l\)</span>，即：</p>
-<p><span class="math display">\[
-  a^l = f(z^l)=f(Wa^{l-1}+b)
-  \]</span></p>
-<p>对于一个样本数为k的批量样本，计算其方差和均值：</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  &amp;\boldsymbol{\mu}_{\mathcal{B}}=\frac{1}{K} \sum_{k=1}^{K}
-\boldsymbol{z}^{(k, l)} \\
-  &amp;\boldsymbol\sigma_{\mathcal{B}}^{2}=\frac{1}{K}
-\sum_{k=1}^{K}\left(\boldsymbol{z}^{(k,
-l)}-\boldsymbol{\mu}_{\mathcal{B}}\right) \odot\left(\boldsymbol{z}^{(k,
-l)}-\boldsymbol{\mu}_{\mathcal{B}}\right) .
-  \end{aligned}
-  \]</span></p>
-<p>批量规范化：</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  \hat{\boldsymbol{z}}^{l}
-&amp;=\frac{\boldsymbol{z}^{l}-\mu_{\mathcal{B}}}{\sqrt{\sigma_{\mathcal{B}}^{2}+\epsilon}}
-\odot \boldsymbol{\gamma}+\boldsymbol{\beta} \\
-  &amp; \triangleq \mathrm{BN}_{\gamma,
-\boldsymbol{\beta}}\left(\boldsymbol{z}^{l}\right),
-  \end{aligned}
-  \]</span></p>
-<p>其中<span class="math inline">\(\boldsymbol{\gamma}\)</span>是缩放参数向量，<span class="math inline">\(\boldsymbol{\beta}\)</span>是平移参数向量，都是可学习参数。能够增强规范化的能力。</p>
-<aside>
-<p>💡 批量规范化可以作为神经网络的一层（BN层）直接加入网络结构中。</p>
-</aside></li>
-<li><p><strong>层规范化（Layer Normalization）</strong></p>
-<p>不看batch的内容，对一层内所有神经元进行规范化</p>
-<p>计算层内均值和方差：</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  \mu^{l} &amp;=\frac{1}{M_{l}} \sum_{i=1}^{M_{l}} z_{i}^{l} \\
-  (\sigma^{l})^{2} &amp;=\frac{1}{M_{l}}
-\sum_{i=1}^{M_{l}}\left(z_{i}^{l}-\mu^{l}\right)^{2}
-  \end{aligned}
-  \]</span></p>
-<p>层规范化：</p>
-<p><span class="math display">\[
-  \begin{aligned}
-  \hat{\boldsymbol{z}}^{l}
-&amp;=\frac{\boldsymbol{z}^{l}-\mu^{l}}{\sqrt{(\sigma^{(l)})^{2}+\epsilon}}
-\odot \boldsymbol{\gamma}+\boldsymbol\beta \\
-  &amp; \triangleq \mathrm{LN}_{\boldsymbol {\gamma,
-\beta}}\left(\boldsymbol{z}^{l}\right)
-  \end{aligned}
-  \]</span></p>
-<aside>
-<p>💡
-层规范化也可以作为神经网络的一层（LN层）直接加入网络结构中。应用较多。</p>
-</aside>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%206.png" alt="BN和LN的区别">
-<figcaption aria-hidden="true">BN和LN的区别</figcaption>
-</figure>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%207.png" alt="各种规范化的对比">
-<figcaption aria-hidden="true">各种规范化的对比</figcaption>
-</figure></li>
-<li><p>权重规范化</p></li>
-<li><p>局部响应规范化</p></li>
-</ul></li>
-</ul>
-<h2 id="超参数优化">超参数优化</h2>
-<h3 id="超参数">超参数</h3>
-<ul>
-<li>层数</li>
-<li>每层神经元个数</li>
-<li>激活函数</li>
-<li>学习率（以及动态调整算法）</li>
-<li>正则化系数</li>
-<li>mini-batch大小</li>
-</ul>
-<h3 id="优化方法">优化方法</h3>
-<ul>
-<li><p>网格搜索</p>
-<p>对每一个超参数取几个”经验值“，比如对于学习率<span class="math inline">\(\alpha\)</span>，可以设置</p>
-<p><span class="math display">\[
-  \alpha  \in \{0.01,0.1,0.5,1.0\}
-  \]</span></p></li>
-<li><p>随机搜索</p>
-<p>对超参数进行随机组合</p></li>
-<li><p>贝叶斯优化</p></li>
-<li><p>动态资源分配</p></li>
-<li><p>神经架构搜索</p></li>
-</ul>
-<h2 id="网络正则化">网络正则化</h2>
-<p>由于神经网络的拟合能力强，会将模型过度参数化，会导致模型泛化性差。为提高神经网络的泛化能力通常要加入正则化。</p>
-<p><strong>正则化</strong>就是所有损害优化方法的方法。通常分为两种方式：</p>
-<ol type="1">
-<li>增加优化约束：L1、L2约束</li>
-<li>干扰优化过程：提前停止、随机梯度下降、暂退法、权重衰减。</li>
-</ol>
-<h3 id="早停法">早停法</h3>
-<p>引入<strong>验证集（Validation
-Dataset）</strong>测试每一次迭代的参数时候在验证集上最优，如果在验证集上错误率不再下降就停止迭代。防止过拟合。</p>
-<h3 id="权重衰减">权重衰减</h3>
-<p>限制权重取值范围。在每次参数更新时，引入一个衰减系数<span class="math inline">\(\beta\)</span></p>
-<p><span class="math display">\[
-\theta_t=(1-\beta)\theta_{t-1}-\alpha \bold g_t
-\]</span></p>
-<h3 id="暂退法dropout">暂退法（Dropout）</h3>
-<p>有一个神经层<span class="math inline">\(y=f(Wx+b)\)</span>，引入一个随机的掩蔽函数<span class="math inline">\(mask(x)=m\odot x\)</span>，<span class="math inline">\(m \in \{0,1\}^D\)</span>.得到神经层的输出<span class="math inline">\(y=f(Wmask(x)+b)\)</span>.</p>
-<aside>
-💡
-可以理解为从原始网络中采样得到一个子网络，如果有n个神经元，则可以采样出<span class="math inline">\(2^n\)</span>个子网络。
-</aside>
-<h3 id="ell_1和ell_2正则化"><span class="math inline">\(\ell_1\)</span>和<span class="math inline">\(\ell_2\)</span>正则化</h3>
-<p>在原本的优化问题中加入<span class="math inline">\(\ell_1\)</span><span class="math inline">\(\ell_2\)</span>范数防止过拟合</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;\theta^{*}=\underset{\theta}{\arg \min } \frac{1}{N} \sum_{n=1}^N
-\mathcal{L}\left(y^{(n)}, f\left(\boldsymbol{x}^{(n)} ;
-\theta\right)\right) \\
-&amp;\text { s.t. } \quad \ell_{p}(\theta) \leq 1
-\end{aligned}
-\]</span></p>
-<p><span class="math inline">\(\ell_2\)</span>正则化的参数更新结果为：<span class="math inline">\(\theta_t =
-\theta_{t-1}-\alpha(g_t+\lambda\theta_{t-1})=(1-\alpha\lambda)\theta_{t-1}-\alpha
-g_t\)</span></p>
-<p>形式上和权重衰减的类似：<span class="math inline">\(\theta_t=(1-\beta)\theta_{t-1}-\alpha \bold
-g_t\)</span></p>
-<aside>
-💡 在SGD中 <span class="math inline">\(\ell_2\)</span>
-正则化和权重衰减是等价的，但在复杂的优化算法如Adam中则不能等价。
-</aside>
-<figure>
-<img src="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/Untitled%208.png" alt="不同范数的约束条件示例">
-<figcaption aria-hidden="true">不同范数的约束条件示例</figcaption>
-</figure>
-<h1 id="总结">总结</h1>
-<table>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>模型</th>
-<th>优化</th>
-<th>正则化</th>
-<th>隐式正则化</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>用ReLU作为激活函数</td>
-<td>SGD+mini-batch(动态学习率、Adam算法优先)</td>
-<td>早停法</td>
-<td>SGD</td>
-</tr>
-<tr class="even">
-<td>残差链接</td>
-<td>每次迭代都重新随机排序</td>
-<td>暂退法</td>
-<td>批量规范化</td>
-</tr>
-<tr class="odd">
-<td>逐层规范化</td>
-<td>数据预处理（规范化）</td>
-<td>权重衰减</td>
-<td><span class="math inline">\(\ell_1\)</span>和<span class="math inline">\(\ell_2\)</span>正则化</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>参数初始化（预训练）</td>
-<td></td>
-<td>数据增强</td>
-</tr>
-</tbody>
-</table>
+<p>查看效果：</p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%201.png"></p>
+<h1 id="配置python和conda">配置python和conda</h1>
+<p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda -
+Conda documentation</a></p>
+<h2 id="安装miniconda对应版本的pkg双击后直接安装在终端测试conda命令是否正常">安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2>
+<h2 id="查看conda环境-创建新python环境">查看conda环境,
+创建新python环境</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line">conda create -n your_env_name python=x.x</span><br><span class="line"></span><br><span class="line">conda activate dl</span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
+<h1 id="安装pytorchapple-silicon版本">安装pytorch（Apple
+Silicon版本）</h1>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a></p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png"></p>
+<p>pytorch从1.13版本开始支持苹果芯片gpu加速,目前（7.30）还得安装nightly版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch -c pytorch-nightly</span><br></pre></td></tr></table></figure>
+<p>用python测试查看版本号，torch版本为1.13开发版就代表安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❯ python</span><br><span class="line">Python 3.8.13 (default, Mar 28 2022, 06:13:39)</span><br><span class="line">[Clang 12.0.0 ] :: Anaconda, Inc. on darwin</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">&gt;&gt;&gt; torch.__version__</span><br><span class="line"><span class="string">&#x27;1.13.0.dev20220729&#x27;</span></span><br></pre></td></tr></table></figure>
 
                 
             </div>
@@ -920,7 +560,7 @@ g_t\)</span></p>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/">https://ash-one.github.io/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/</a>
+                    <a href="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/">https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -958,16 +598,20 @@ g_t\)</span></p>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/ML/">
-                                    <span class="chip bg-color">ML</span>
+                                <a href="/tags/Apple/">
+                                    <span class="chip bg-color">Apple</span>
                                 </a>
                             
-                                <a href="/tags/DL/">
-                                    <span class="chip bg-color">DL</span>
+                                <a href="/tags/%E9%85%8D%E7%BD%AE/">
+                                    <span class="chip bg-color">配置</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                                    <span class="chip bg-color">数学</span>
+                                <a href="/tags/conda/">
+                                    <span class="chip bg-color">conda</span>
+                                </a>
+                            
+                                <a href="/tags/zsh/">
+                                    <span class="chip bg-color">zsh</span>
                                 </a>
                             
                         </div>
@@ -1139,9 +783,10 @@ g_t\)</span></p>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/">
                     <div class="card-image">
@@ -1158,9 +803,9 @@ g_t\)</span></p>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1173,6 +818,7 @@ g_t\)</span></p>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1203,12 +849,12 @@ g_t\)</span></p>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/">
+                <a href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/">
                     <div class="card-image">
                         
-                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=2400" class="responsive-img" alt="机器学习数学基础③数值计算和最优化理论">
+                        <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600" class="responsive-img" alt="神经网络中的优化算法和正则化问题">
                         
-                        <span class="card-title">机器学习数学基础③数值计算和最优化理论</span>
+                        <span class="card-title">神经网络中的优化算法和正则化问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1219,7 +865,7 @@ g_t\)</span></p>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
                             </span>
                         <span class="publish-author">
                             
@@ -1238,6 +884,14 @@ g_t\)</span></p>
                     
                     <a href="/tags/ML/">
                         <span class="chip bg-color">ML</span>
+                    </a>
+                    
+                    <a href="/tags/DL/">
+                        <span class="chip bg-color">DL</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
+                        <span class="chip bg-color">数学</span>
                     </a>
                     
                 </div>
@@ -1368,13 +1022,6 @@ g_t\)</span></p>
 
 </main>
 
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
 
 
 

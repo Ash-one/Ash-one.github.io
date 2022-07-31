@@ -1279,4 +1279,93 @@ g_t\)</span></p>
         <tag>数学</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Apple Silicon MacBook Pro新机配置</title>
+    <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
+    <content><![CDATA[<blockquote>
+<p>本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置</p>
+</blockquote>
+<aside>
+💡 第一次使用苹果的time
+machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用
+</aside>
+<h1 id="配置git">配置git</h1>
+<p>mac自带git，所以只需要配置下用户名和邮箱</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;John Doe&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;johndoe@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装brew">安装brew</h1>
+<p><a href="https://brew.sh/index_zh-cn">Homebrew</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<p>根据返回的最后内容执行提示的代码，将brew添加到path中</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile</span><br></pre></td></tr></table></figure>
+<p>最后在终端中输入brew测试是否添加成功</p>
+<h1 id="安装iterm2">安装iTerm2</h1>
+<p><a href="https://iterm2.com/index.html">iTerm2 - macOS Terminal
+Replacement</a></p>
+<h1 id="安装oh-my-zsh">安装oh-my-zsh</h1>
+<p><a href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp;
+open source framework for Zsh</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h1 id="安装zsh主题">安装zsh主题</h1>
+<p>我选择安装powerlevel10k主题，链接在这里https://github.com/romkatv/powerlevel10k</p>
+<ol type="1">
+<li><p>安装字体（可跳过）</p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Regular.ttf">MesloLGS
+NF Regular.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Bold.ttf">MesloLGS
+NF Bold.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Italic.ttf">MesloLGS
+NF Italic.ttf</a></p>
+<p><a href="Apple-Silicon-MacBook-Pro新机配置/MesloLGS_NF_Bold_Italic.ttf">MesloLGS
+NF Bold Italic.ttf</a></p></li>
+<li><p>手动安装主题文件</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编辑配置文件，修改主题为10k</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用其他编辑器打开这个文件</p>
+<p>然后找到第11行修改主题为</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">powerlevel10k/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<li><p>重启iterm，加载主题文件</p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png"></p></li>
+<li><p>依次根据样式进行配置</p></li>
+<li><p>重启iterm就可以看到崭新的主题了</p></li>
+</ol>
+<h1 id="安装oh-my-zsh自动补全插件">安装oh-my-zsh自动补全插件</h1>
+<p><a href="https://github.com/zsh-users/zsh-autosuggestions">GitHub -
+zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
+<ol type="1">
+<li><p>下载插件</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure></p></li>
+<li><p>编辑zshrc配置文件，增加插件，修改配色</p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line"># 此处修改autosuggestions插件的配色</span><br><span class="line">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=&quot;fg=#d0d0d0,underline&quot;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>重开iterm</p></li>
+</ol>
+<p>查看效果：</p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%201.png"></p>
+<h1 id="配置python和conda">配置python和conda</h1>
+<p><a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda -
+Conda documentation</a></p>
+<h2 id="安装miniconda对应版本的pkg双击后直接安装在终端测试conda命令是否正常">安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2>
+<h2 id="查看conda环境-创建新python环境">查看conda环境,
+创建新python环境</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line">conda create -n your_env_name python=x.x</span><br><span class="line"></span><br><span class="line">conda activate dl</span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
+<h1 id="安装pytorchapple-silicon版本">安装pytorch（Apple
+Silicon版本）</h1>
+<p><a href="https://pytorch.org/">PyTorch</a></p>
+<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png"></p>
+<p>pytorch从1.13版本开始支持苹果芯片gpu加速,目前（7.30）还得安装nightly版本</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install pytorch -c pytorch-nightly</span><br></pre></td></tr></table></figure>
+<p>用python测试查看版本号，torch版本为1.13开发版就代表安装成功</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">❯ python</span><br><span class="line">Python 3.8.13 (default, Mar 28 2022, 06:13:39)</span><br><span class="line">[Clang 12.0.0 ] :: Anaconda, Inc. on darwin</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">&gt;&gt;&gt; torch.__version__</span><br><span class="line"><span class="string">&#x27;1.13.0.dev20220729&#x27;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Apple</tag>
+        <tag>配置</tag>
+        <tag>conda</tag>
+        <tag>zsh</tag>
+      </tags>
+  </entry>
 </search>
