@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Apple Silicon MacBook Pro新机配置, 灰一茶话会">
+    <meta name="keywords" content="Hexo安装和配置插件, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Apple Silicon MacBook Pro新机配置 | 灰一茶话会</title>
+    <title>Hexo安装和配置插件 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.loli.net/2022/07/31/ltJQnPGuHSZE6xy.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Apple Silicon MacBook Pro新机配置</h1>
+                    <h1 class="description center-align post-title">Hexo安装和配置插件</h1>
                 </div>
             </div>
         </div>
@@ -391,20 +391,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Apple/">
-                                <span class="chip bg-color">Apple</span>
+                            <a href="/tags/blog/">
+                                <span class="chip bg-color">blog</span>
                             </a>
                         
                             <a href="/tags/%E9%85%8D%E7%BD%AE/">
                                 <span class="chip bg-color">配置</span>
                             </a>
                         
-                            <a href="/tags/conda/">
-                                <span class="chip bg-color">conda</span>
-                            </a>
-                        
-                            <a href="/tags/zsh/">
-                                <span class="chip bg-color">zsh</span>
+                            <a href="/tags/Hexo/">
+                                <span class="chip bg-color">Hexo</span>
                             </a>
                         
                     </div>
@@ -428,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-07-31
+                    2022-08-01
                 </div>
                 
 
@@ -437,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    639
+                    710
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    2 Min
+                    3 Min
                 </div>
                 
 
@@ -459,81 +455,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置</p>
-</blockquote>
-<aside>
-💡 第一次使用苹果的time
-machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用
+                <h1 id="Hexo安装和配置插件"><a href="#Hexo安装和配置插件" class="headerlink" title="Hexo安装和配置插件"></a>Hexo安装和配置插件</h1><aside>
+💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件
 </aside>
-<h1 id="配置git">配置git</h1>
-<p>mac自带git，所以只需要配置下用户名和邮箱</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;John Doe&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;johndoe@example.com&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="安装brew">安装brew</h1>
-<p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<p>根据返回的最后内容执行提示的代码，将brew添加到path中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile</span><br></pre></td></tr></table></figure>
-<p>最后在终端中输入brew测试是否添加成功</p>
-<h1 id="安装iterm2">安装iTerm2</h1>
-<p><a target="_blank" rel="noopener" href="https://iterm2.com/index.html">iTerm2 - macOS Terminal
-Replacement</a></p>
-<h1 id="安装oh-my-zsh">安装oh-my-zsh</h1>
-<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp;
-open source framework for Zsh</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="安装zsh主题">安装zsh主题</h1>
-<p>我选择安装powerlevel10k主题，链接在这里https://github.com/romkatv/powerlevel10k</p>
-<ol type="1">
-<li><p>安装字体（可跳过）</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf">MesloLGS
-NF Regular.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf">MesloLGS
-NF Bold.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf">MesloLGS
-NF Italic.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf">MesloLGS
-NF Bold Italic.ttf</a></p></li>
-<li><p>手动安装主题文件</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
-<li><p>编辑配置文件，修改主题为10k</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-<p>也可以使用其他编辑器打开这个文件</p>
-<p>然后找到第11行修改主题为</p>
-<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powerlevel10k/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
-<li><p>重启iterm，加载主题文件</p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png"></p></li>
-<li><p>依次根据样式进行配置</p></li>
-<li><p>重启iterm就可以看到崭新的主题了</p></li>
+
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h2><p>可以直接在nodejs官网下载安装包</p>
+<h2 id="准备路径后安装hexo"><a href="#准备路径后安装hexo" class="headerlink" title="准备路径后安装hexo"></a>准备路径后安装hexo</h2><p>在想要安装node的路径下建立一个新的文件夹，避免装在根目录下</p>
+<p>在新的文件夹下执行命令安装hexo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+
+<p>测试hexo命令</p>
+<h1 id="安装各种插件"><a href="#安装各种插件" class="headerlink" title="安装各种插件"></a>安装各种插件</h1><h2 id="pandoc渲染latex公式"><a href="#pandoc渲染latex公式" class="headerlink" title="pandoc渲染latex公式"></a>pandoc渲染latex公式</h2><p>先在官网安装pandoc的包</p>
+<p><a target="_blank" rel="noopener" href="https://pandoc.org/installing.html">Installing pandoc</a></p>
+<p>再执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装mermaid流程图插件"><a href="#安装mermaid流程图插件" class="headerlink" title="安装mermaid流程图插件"></a>安装mermaid流程图插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-filter-mermaid-diagrams</span><br></pre></td></tr></table></figure>
+
+<p>安装后不能直接使用，需要修改部分文件，修改内容如下</p>
+<p>参考文章：</p>
+<p><a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">Hexo博客在matery主题下插入mermaid流程图</a></p>
+<h2 id="安装支持本地图片的插件"><a href="#安装支持本地图片的插件" class="headerlink" title="安装支持本地图片的插件"></a>安装支持本地图片的插件</h2><ol>
+<li><p>插件安装</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于插件内容老旧失效，找到文件进行修改</p>
+<p> 位置在&#x2F;node_modules&#x2F;hexo-asset-image&#x2F;index.js</p>
+ <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getPosition</span>(<span class="params">str, m, i</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">split</span>(m, i).<span class="title function_">join</span>(m).<span class="property">length</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="title class_">String</span>(hexo.<span class="property">version</span>).<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.<span class="property">config</span>;</span><br><span class="line">  <span class="keyword">if</span>(config.<span class="property">post_asset_folder</span>)&#123;</span><br><span class="line">    	<span class="keyword">var</span> link = data.<span class="property">permalink</span>;</span><br><span class="line">	<span class="keyword">if</span>(version.<span class="property">length</span> &gt; <span class="number">0</span> &amp;&amp; <span class="title class_">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.<span class="title function_">substring</span>(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.<span class="property">length</span>; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.<span class="title function_">load</span>(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>).<span class="title function_">replace</span>(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.<span class="title function_">test</span>(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.<span class="title function_">test</span>(src)) &#123;</span><br><span class="line">			  <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.<span class="property">length</span> &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.<span class="title function_">shift</span>();</span><br><span class="line">			  src = srcArray.<span class="title function_">join</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			  $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>, config.<span class="property">root</span> + link + src);</span><br><span class="line">			  <span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.<span class="property">root</span> + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>($(<span class="variable language_">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.<span class="title function_">html</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开hexo配置文件_config.yml，找到这个配置项开启功能，目的是在每次使用hexo new生成新博客时，自动生成一个同名的目录存放静态文件</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="安装oh-my-zsh自动补全插件">安装oh-my-zsh自动补全插件</h1>
-<p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">GitHub -
-zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
-<ol type="1">
-<li><p>下载插件</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure></p></li>
-<li><p>编辑zshrc配置文件，增加插件，修改配色</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line"># 此处修改autosuggestions插件的配色</span><br><span class="line">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=&quot;fg=#d0d0d0,underline&quot;</span><br></pre></td></tr></table></figure></p></li>
-<li><p>重开iterm</p></li>
-</ol>
-<p>查看效果：</p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%201.png"></p>
-<h1 id="配置python和conda">配置python和conda</h1>
-<p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda -
-Conda documentation</a></p>
-<h2 id="安装miniconda对应版本的pkg双击后直接安装在终端测试conda命令是否正常">安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2>
-<h2 id="查看conda环境-创建新python环境">查看conda环境,
-创建新python环境</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line">conda create -n your_env_name python=x.x</span><br><span class="line"></span><br><span class="line">conda activate dl</span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
-<h1 id="安装pytorchapple-silicon版本">安装pytorch（Apple
-Silicon版本）</h1>
-<p><a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a></p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png"></p>
-<p>pytorch从1.13版本开始支持苹果芯片gpu加速,目前（7.30）还得安装nightly版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch -c pytorch-nightly</span><br></pre></td></tr></table></figure>
-<p>用python测试查看版本号，torch版本为1.13开发版就代表安装成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❯ python</span><br><span class="line">Python 3.8.13 (default, Mar 28 2022, 06:13:39)</span><br><span class="line">[Clang 12.0.0 ] :: Anaconda, Inc. on darwin</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">&gt;&gt;&gt; torch.__version__</span><br><span class="line"><span class="string">&#x27;1.13.0.dev20220729&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>可以生成测试是否能正常加载blog中的本地图片</p>
+<p>如果没能正确生成可以使用命令清理文件重新编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7006594302604214280">解决hexo引用本地图片无法显示的问题 - 掘金</a></p>
 
                 
             </div>
@@ -560,7 +517,7 @@ Silicon版本）</h1>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/">https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</a>
+                    <a href="https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/">https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -598,20 +555,16 @@ Silicon版本）</h1>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Apple/">
-                                    <span class="chip bg-color">Apple</span>
+                                <a href="/tags/blog/">
+                                    <span class="chip bg-color">blog</span>
                                 </a>
                             
                                 <a href="/tags/%E9%85%8D%E7%BD%AE/">
                                     <span class="chip bg-color">配置</span>
                                 </a>
                             
-                                <a href="/tags/conda/">
-                                    <span class="chip bg-color">conda</span>
-                                </a>
-                            
-                                <a href="/tags/zsh/">
-                                    <span class="chip bg-color">zsh</span>
+                                <a href="/tags/Hexo/">
+                                    <span class="chip bg-color">Hexo</span>
                                 </a>
                             
                         </div>
@@ -783,9 +736,10 @@ Silicon版本）</h1>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/">
                     <div class="card-image">
@@ -802,9 +756,9 @@ Silicon版本）</h1>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -817,6 +771,7 @@ Silicon版本）</h1>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -843,12 +798,12 @@ Silicon版本）</h1>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/">
+                <a href="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/">
                     <div class="card-image">
                         
-                        <img src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600" class="responsive-img" alt="神经网络中的优化算法和正则化问题">
+                        <img src="https://s2.loli.net/2022/07/31/ltJQnPGuHSZE6xy.jpg" class="responsive-img" alt="Apple Silicon MacBook Pro新机配置">
                         
-                        <span class="card-title">神经网络中的优化算法和正则化问题</span>
+                        <span class="card-title">Apple Silicon MacBook Pro新机配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -865,8 +820,8 @@ Silicon版本）</h1>
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    学习
+                            <a href="/categories/tech/" class="post-category">
+                                    技术
                                 </a>
                             
                             
@@ -876,16 +831,20 @@ Silicon版本）</h1>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/ML/">
-                        <span class="chip bg-color">ML</span>
+                    <a href="/tags/Apple/">
+                        <span class="chip bg-color">Apple</span>
                     </a>
                     
-                    <a href="/tags/DL/">
-                        <span class="chip bg-color">DL</span>
+                    <a href="/tags/%E9%85%8D%E7%BD%AE/">
+                        <span class="chip bg-color">配置</span>
                     </a>
                     
-                    <a href="/tags/%E6%95%B0%E5%AD%A6/">
-                        <span class="chip bg-color">数学</span>
+                    <a href="/tags/conda/">
+                        <span class="chip bg-color">conda</span>
+                    </a>
+                    
+                    <a href="/tags/zsh/">
+                        <span class="chip bg-color">zsh</span>
                     </a>
                     
                 </div>
