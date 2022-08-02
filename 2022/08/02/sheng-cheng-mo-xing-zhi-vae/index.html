@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo安装和配置插件, 灰一茶话会">
+    <meta name="keywords" content="生成模型之VAE, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo安装和配置插件 | 灰一茶话会</title>
+    <title>生成模型之VAE | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hexo安装和配置插件</h1>
+                    <h1 class="description center-align post-title">生成模型之VAE</h1>
                 </div>
             </div>
         </div>
@@ -391,16 +391,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/blog/">
-                                <span class="chip bg-color">blog</span>
+                            <a href="/tags/DL/">
+                                <span class="chip bg-color">DL</span>
                             </a>
                         
-                            <a href="/tags/%E9%85%8D%E7%BD%AE/">
-                                <span class="chip bg-color">配置</span>
+                            <a href="/tags/VAE/">
+                                <span class="chip bg-color">VAE</span>
                             </a>
                         
-                            <a href="/tags/Hexo/">
-                                <span class="chip bg-color">Hexo</span>
+                            <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/">
+                                <span class="chip bg-color">生成模型</span>
                             </a>
                         
                     </div>
@@ -411,8 +411,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/tech/" class="post-category">
-                                技术
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                学习
                             </a>
                         
                     </div>
@@ -424,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-08-01
+                    2022-08-02
                 </div>
                 
 
@@ -433,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    710
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    3 Min
+                    8 Min
                 </div>
                 
 
@@ -455,42 +455,207 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Hexo安装和配置插件"><a href="#Hexo安装和配置插件" class="headerlink" title="Hexo安装和配置插件"></a>Hexo安装和配置插件</h1><aside>
-💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件
+                <h1 id="生成模型之variational-auto-encoder">生成模型之Variational
+Auto-Encoder</h1>
+<blockquote>
+<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
+(Auto-encoder) (上) - 基本概念</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
+Unsupervised Learning - Deep Generative Model (Part II)</a></p>
+</blockquote>
+<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
+<aside>
+💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
+<h2 id="压缩自动编码器">压缩自动编码器</h2>
+<pre class="mermaid">graph LR
+  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<h2 id="降噪自动编码器">降噪自动编码器</h2>
+<pre class="mermaid">graph LR
+  原图.-原图+噪声
+    原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
+<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
+<p>输入信息常常由各种信息纠缠在一起，如</p>
+<ul>
+<li>图片中存在物体、纹理</li>
+<li>声音中存在文本内容、说话人信息</li>
+<li>一句话包含格式、语法</li>
+<li>……</li>
+</ul>
+<p>这时候需要通过解缠得到不同维度包含的信息</p>
+<p>应用：Voice Conversion语者转换</p>
+<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
+<h2 id="ae和vae区别">AE和VAE区别</h2>
+<p>Auto-encoder</p>
+<pre class="mermaid">graph LR
+  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
+<p>VAE</p>
+<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
+<pre class="mermaid">graph LR
+  input --> NN-Encoder --> mu
+    NN-Encoder --> sigma
+    sigma --exp--> times((相乘))
+    e --> times
+    mu --> plus((相加))
+    times -->plus
+    plus --> z -->
 
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装node环境"><a href="#安装node环境" class="headerlink" title="安装node环境"></a>安装node环境</h2><p>可以直接在nodejs官网下载安装包</p>
-<h2 id="准备路径后安装hexo"><a href="#准备路径后安装hexo" class="headerlink" title="准备路径后安装hexo"></a>准备路径后安装hexo</h2><p>在想要安装node的路径下建立一个新的文件夹，避免装在根目录下</p>
-<p>在新的文件夹下执行命令安装hexo</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
-
-<p>测试hexo命令</p>
-<h1 id="安装各种插件"><a href="#安装各种插件" class="headerlink" title="安装各种插件"></a>安装各种插件</h1><h2 id="pandoc渲染latex公式"><a href="#pandoc渲染latex公式" class="headerlink" title="pandoc渲染latex公式"></a>pandoc渲染latex公式</h2><p>先在官网安装pandoc的包</p>
-<p><a target="_blank" rel="noopener" href="https://pandoc.org/installing.html">Installing pandoc</a></p>
-<p>再执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装mermaid流程图插件"><a href="#安装mermaid流程图插件" class="headerlink" title="安装mermaid流程图插件"></a>安装mermaid流程图插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-filter-mermaid-diagrams</span><br></pre></td></tr></table></figure>
-
-<p>安装后不能直接使用，需要修改部分文件，修改内容如下</p>
-<p>参考文章：</p>
-<p><a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">Hexo博客在matery主题下插入mermaid流程图</a></p>
-<h2 id="安装支持本地图片的插件"><a href="#安装支持本地图片的插件" class="headerlink" title="安装支持本地图片的插件"></a>安装支持本地图片的插件</h2><ol>
-<li><p>插件安装</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于插件内容老旧失效，找到文件进行修改</p>
-<p> 位置在&#x2F;node_modules&#x2F;hexo-asset-image&#x2F;index.js</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getPosition</span>(<span class="params">str, m, i</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">split</span>(m, i).<span class="title function_">join</span>(m).<span class="property">length</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="title class_">String</span>(hexo.<span class="property">version</span>).<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.<span class="property">config</span>;</span><br><span class="line">  <span class="keyword">if</span>(config.<span class="property">post_asset_folder</span>)&#123;</span><br><span class="line">    	<span class="keyword">var</span> link = data.<span class="property">permalink</span>;</span><br><span class="line">	<span class="keyword">if</span>(version.<span class="property">length</span> &gt; <span class="number">0</span> &amp;&amp; <span class="title class_">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.<span class="title function_">substring</span>(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.<span class="property">length</span>; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.<span class="title function_">load</span>(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>).<span class="title function_">replace</span>(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.<span class="title function_">test</span>(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.<span class="title function_">test</span>(src)) &#123;</span><br><span class="line">			  <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.<span class="property">length</span> &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.<span class="title function_">shift</span>();</span><br><span class="line">			  src = srcArray.<span class="title function_">join</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			  $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>, config.<span class="property">root</span> + link + src);</span><br><span class="line">			  <span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.<span class="property">root</span> + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>($(<span class="variable language_">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.<span class="title function_">html</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>打开hexo配置文件_config.yml，找到这个配置项开启功能，目的是在每次使用hexo new生成新博客时，自动生成一个同名的目录存放静态文件</p>
- <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+ NN-Decoder--> output</pre>
+<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
+<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
+<p>所以需要最小化如下函数：</p>
+<p><span class="math display">\[
+\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
+\]</span></p>
+<h2 id="vae推导">VAE推导</h2>
+<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
+<blockquote>
+<p>部分内容参考</p>
+<p><a target="_blank" rel="noopener" href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
+</blockquote>
+<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
+<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
+<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
+</figure>
+<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
+<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
+<p><span class="math display">\[
+P(x)=\sum \limits _mP(m)P(x|m)
+\]</span></p>
+<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
+<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
+<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
+</figure>
+<p>高斯混合模型连续变量</p>
+<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
+<aside>
+💡
+与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
+</aside>
+<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
+<p>于是P(x)的分布就可以表示为:</p>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>所以我们的目标就变成求解上面这个公式。</p>
+<h3 id="求解目标公式">求解目标公式</h3>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
+N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
+<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
+<pre class="mermaid">graph LR
+    z --> NN-Decoder --> mu
+    NN-Decoder --> sigma</pre>
+<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
+N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
+<pre class="mermaid">graph LR
+  x --> NN-Encoder --> mu'
+    NN-Encoder --> sigma'</pre>
+<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
+<ul>
+<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<ul>
+<li>Note:最大似然估计的使用
+<ol type="1">
+<li>写出似然函数</li>
+<li>对似然函数取对数</li>
+<li>两边同时求导(多个变量就求偏导)</li>
+<li>令导数为0,解出似然方程</li>
 </ol>
-<p>可以生成测试是否能正常加载blog中的本地图片</p>
-<p>如果没能正确生成可以使用命令清理文件重新编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>例子</p>
+<figure>
+<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
+<figcaption aria-hidden="true">最大似然函数例题</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
+</figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
+q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
+$$
+<span class="math display">\[\begin{aligned}
+\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
+_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
+&amp;=\int \limits _zq(z|x)\log
+(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
+\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
++KL(q(z|x)||P(z|x))
 
-<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7006594302604214280">解决hexo引用本地图片无法显示的问题 - 掘金</a></p>
+\end{aligned}\]</span>
+<p>$$</p>
+<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
+<p><span class="math display">\[
+\log P(x) \geqslant \int \limits _z
+q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
+\]</span></p>
+<p><span class="math display">\[
+\log P(x) = L_b+KL(q(z|x)||P(z|x))
+\]</span></p>
+<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
+<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
+<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
+<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
+</figure>
+<p>logP(x)和新问题的关系</p>
+<p>根据<span class="math inline">\(P(x)=\int\limits
+_zP(z)P(x|z)dz\)</span>:</p>
+<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
+<p>再根据<span class="math inline">\(\log P(x) =
+L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
+<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
+<p>此时我们发现：</p>
+<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
+<aside>
+💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
+</aside>
+<blockquote>
+<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
+</blockquote>
+<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
+_zq(z|x)\log P(x|z)dz \\
+&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
+\end{aligned}
+\]</span></p>
+<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
+<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
+_{i=1} ^n
+(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
+Variational Bayes》</p>
+<p>求B的最大值：</p>
+<p><span class="math display">\[
+\max B = \max E_{q(z|x)}[\log P(x|z)]
+\]</span></p>
+<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
+P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
+<pre class="mermaid">graph LR
+  x --> NN-Encoder --> mu'
+    NN-Encoder --> sigma'
+    mu'-->z
+    sigma'-->z
+    z-->NN-Decoder-->mu
+    NN-Decoder-->sigma
+    mu .-越接近越好.-> x</pre>
+<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 
                 
             </div>
@@ -517,7 +682,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/">https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/</a>
+                    <a href="https://ash-one.github.io/2022/08/02/sheng-cheng-mo-xing-zhi-vae/">https://ash-one.github.io/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -555,16 +720,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/blog/">
-                                    <span class="chip bg-color">blog</span>
+                                <a href="/tags/DL/">
+                                    <span class="chip bg-color">DL</span>
                                 </a>
                             
-                                <a href="/tags/%E9%85%8D%E7%BD%AE/">
-                                    <span class="chip bg-color">配置</span>
+                                <a href="/tags/VAE/">
+                                    <span class="chip bg-color">VAE</span>
                                 </a>
                             
-                                <a href="/tags/Hexo/">
-                                    <span class="chip bg-color">Hexo</span>
+                                <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/">
+                                    <span class="chip bg-color">生成模型</span>
                                 </a>
                             
                         </div>
@@ -736,9 +901,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/">
                     <div class="card-image">
@@ -756,9 +922,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -771,6 +937,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -797,12 +964,12 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/">
+                <a href="/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/">
                     <div class="card-image">
                         
-                        <img src="https://s2.loli.net/2022/07/31/ltJQnPGuHSZE6xy.jpg" class="responsive-img" alt="Apple Silicon MacBook Pro新机配置">
+                        <img src="https://images.unsplash.com/photo-1500989145603-8e7ef71d639e?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600" class="responsive-img" alt="Hexo安装和配置插件">
                         
-                        <span class="card-title">Apple Silicon MacBook Pro新机配置</span>
+                        <span class="card-title">Hexo安装和配置插件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -813,7 +980,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-07-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-01
                             </span>
                         <span class="publish-author">
                             
@@ -830,20 +997,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Apple/">
-                        <span class="chip bg-color">Apple</span>
+                    <a href="/tags/blog/">
+                        <span class="chip bg-color">blog</span>
                     </a>
                     
                     <a href="/tags/%E9%85%8D%E7%BD%AE/">
                         <span class="chip bg-color">配置</span>
                     </a>
                     
-                    <a href="/tags/conda/">
-                        <span class="chip bg-color">conda</span>
-                    </a>
-                    
-                    <a href="/tags/zsh/">
-                        <span class="chip bg-color">zsh</span>
+                    <a href="/tags/Hexo/">
+                        <span class="chip bg-color">Hexo</span>
                     </a>
                     
                 </div>
@@ -974,6 +1137,13 @@
 
 </main>
 
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
