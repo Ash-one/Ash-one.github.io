@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="esxi安装黑群晖记录, 灰一茶话会">
+    <meta name="keywords" content="Ubuntu上的基于docker搭建Hadoop集群, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>esxi安装黑群晖记录 | 灰一茶话会</title>
+    <title>Ubuntu上的基于docker搭建Hadoop集群 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.loli.net/2022/10/02/HEDrClcuB1XoQPn.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">esxi安装黑群晖记录</h1>
+                    <h1 class="description center-align post-title">Ubuntu上的基于docker搭建Hadoop集群</h1>
                 </div>
             </div>
         </div>
@@ -391,16 +391,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                                <span class="chip bg-color">虚拟机</span>
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
                             </a>
                         
-                            <a href="/tags/esxi/">
-                                <span class="chip bg-color">esxi</span>
+                            <a href="/tags/ubuntu/">
+                                <span class="chip bg-color">ubuntu</span>
                             </a>
                         
-                            <a href="/tags/%E7%BE%A4%E6%99%96/">
-                                <span class="chip bg-color">群晖</span>
+                            <a href="/tags/hadoop/">
+                                <span class="chip bg-color">hadoop</span>
                             </a>
                         
                     </div>
@@ -424,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-10-02
+                    2022-10-07
                 </div>
                 
 
@@ -433,14 +433,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    850
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    3 Min
+                    7 Min
                 </div>
                 
 
@@ -455,69 +455,87 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="esxi系统安装"><a href="#esxi系统安装" class="headerlink" title="esxi系统安装"></a>esxi系统安装</h1><p>用U盘刷好系统，具体省略</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>黑群晖镜像链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g">https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</a></p>
-<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
-<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
-<h2 id="img转vmdk"><a href="#img转vmdk" class="headerlink" title="img转vmdk"></a>img转vmdk</h2><h3 id="本地qemu工具转换"><a href="#本地qemu工具转换" class="headerlink" title="本地qemu工具转换"></a>本地qemu工具转换</h3><p>众所周知，esxi的系统需要单独制作vmdk文件</p>
-<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
-<p>没安装qemu的先使用brew安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install qemu</span><br></pre></td></tr></table></figure>
-
-<p>qemu转换img为vmdk的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert -f raw name.img -O vmdk name.vmdk</span><br></pre></td></tr></table></figure>
-
-<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
-<h3 id="上传到esxi系统转换"><a href="#上传到esxi系统转换" class="headerlink" title="上传到esxi系统转换"></a>上传到esxi系统转换</h3><ol>
-<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
-<p><img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH"></p>
-</li>
-<li><p><strong>右键存储-浏览数据存储</strong> 点击上载，将本地的vmdk上传到esxi上</p>
-</li>
-<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /vmfs/volumes/datastore1/</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径"></p>
-</li>
-<li><p>执行转换命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmkfstools -i ds3617.vmdk ds3617_esxi.vmdk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p>
-</li>
-</ol>
-<h1 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><ol>
-<li>创建类型：新虚拟机</li>
-<li>名称、兼容性：随便选一个linux</li>
-<li>选择存储：装在系统盘上</li>
-<li><strong>自定义设置</strong></li>
-</ol>
-<h2 id="自定义设置"><a href="#自定义设置" class="headerlink" title="自定义设置"></a>自定义设置</h2><p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
-<h3 id="添加SATA控制器"><a href="#添加SATA控制器" class="headerlink" title="添加SATA控制器"></a>添加SATA控制器</h3><p>添加其他设备- SATA控制器</p>
-<h3 id="添加硬盘"><a href="#添加硬盘" class="headerlink" title="添加硬盘"></a>添加硬盘</h3><p>我添加一块现有硬盘和一块新标准硬盘</p>
+                <h1 id="docker操作">Docker操作</h1>
+<p>先学习一下基础的docker命令，后面常用，这里放出来备查</p>
+<h2 id="查看容器container">查看容器container</h2>
+<p>docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器
+3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
+<h2 id="删除容器">删除容器</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rm 1051267f9afb</span><br></pre></td></tr></table></figure>
+<h2 id="查看镜像image">查看镜像image</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images</span><br></pre></td></tr></table></figure>
+<h2 id="删除镜像">删除镜像</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rmi 5d0da3dc9764</span><br></pre></td></tr></table></figure>
+<h2 id="启动容器">启动容器</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
 <ul>
-<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
-<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
-<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
+<li>-d表示在后台运行，需要进入容器</li>
 </ul>
-<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
-<h1 id="启动黑群晖虚拟机"><a href="#启动黑群晖虚拟机" class="headerlink" title="启动黑群晖虚拟机"></a>启动黑群晖虚拟机</h1><p>启动后在esxi中显示如图</p>
-<blockquote>
-<p>Loading Linux…</p>
-<p>Starting kernel with SATA boot</p>
-</blockquote>
-<p><img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功"></p>
-<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
-<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
-<blockquote>
-<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
-</blockquote>
-<blockquote>
-<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
-</blockquote>
-<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
-<p>PS：</p>
-<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it be349f8dd945 bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用exec 进入容器时exit命令不会结束容器</li>
+</ul>
+<h1 id="hadoop集群搭建">Hadoop集群搭建</h1>
+<h2 id="准备镜像">准备镜像</h2>
+<p>我选择的是dockerhub上的<code>weicg/hadoop:1.2</code>,同样是一位初学者制作的，试用还算可以（单机可以开箱即用）不过这里搭建集群还需要修改一些内容。来源：https://hub.docker.com/r/weicg/hadoop</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker pull weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
+<p>我们打算建立一个<strong>一主两从</strong>的集群，需要开三个容器</p>
+<h2 id="建立网桥">建立网桥</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge hadoop-br</span><br></pre></td></tr></table></figure>
+<h2 id="开启多个容器">开启多个容器</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd --network hadoop-br --name hadoop1 -p 50070:50070 -p 8088:8088 weicg/hadoop:1.2</span><br><span class="line">sudo docker run -itd --network hadoop-br --name hadoop2 weicg/hadoop:1.2</span><br><span class="line">sudo docker run -itd --network hadoop-br --name hadoop3 weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
+<p>得到三个容器</p>
+<ul>
+<li>23c1187f8492</li>
+<li>676e08f5ecc5</li>
+<li>d2ec810e1e89</li>
+</ul>
+<p>进入这些容器只需要</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker exec -it hadoop1 bash</span><br><span class="line">sudo docker exec -it hadoop2 bash</span><br><span class="line">sudo docker exec -it hadoop3 bash</span><br></pre></td></tr></table></figure>
+<h2 id="查看网桥配置">查看网桥配置</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect hadoop-br </span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Containers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;23c1187f84929b19883f3ff3452688fca46c101e43bdfcc2a0cabaa4cd4fc593&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;27504f3d67c0a1e884ab8420c717b7bf5f3aa7db211360fa19a0d501fa6f9ed7&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:02&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.2/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;676e08f5ecc5273542efd51e554ef1fa8790b2aa4a57fa3516cb39d6b09cfb7f&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop2&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b766f1d85e339558f0bbf89e52e8e9a103c8d8e5b593dbcb6832367a925dcb4f&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:03&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.3/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;d2ec810e1e897f47add8b09f8a813b6c23ab892fddd0706b88373d7f67f76b2f&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop3&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;552975d97feddc22fcf5d4ac1afa61be698846f08727e249d7581aaa33e220c2&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:04&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.4/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到三个docker的ip地址</p>
+<p>172.18.0.2 hadoop1</p>
+<p>172.18.0.3 hadoop2</p>
+<p>172.18.0.4 hadoop3</p>
+<p>使用<code>ping</code>命令分别检查是否网络通畅</p>
+<p>以下命令需要分别进入三个容器内执行</p>
+<p>1.更改hosts文件<code>vim /etc/hosts</code>,加入如下配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">172.18.0.2 hadoop1 </span><br><span class="line">172.18.0.3 hadoop2 </span><br><span class="line">172.18.0.4 hadoop3 </span><br></pre></td></tr></table></figure>
+<p>2.分别在三个容器内配置ssh,因为镜像已经生成了密钥，此处将本机密钥加入本机的访问列表中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>
+<p>完成后可以<code>ssh root@hadoop2</code>查看是否成功配置ssh和网络</p>
+<h2 id="配置hadoop文件">配置hadoop文件</h2>
+<p>进入hadoop1,创建一些配置用到的文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/hadoop</span><br><span class="line">mkdir /home/hadoop/tmp /home/hadoop/hdfs_name /home/hadoop/hdfs_data</span><br></pre></td></tr></table></figure>
+<p>切到hadoop配置目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd $HADOOP_HOME/etc/hadoop/</span><br></pre></td></tr></table></figure>
+<p>下面的编辑部分可以直接拷贝覆盖粘贴</p>
+<h3 id="编辑core-site.xml">编辑core-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>io.file.buffer.size<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>131702<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="编辑hdfs-site.xml">编辑hdfs-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/hdfs_name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/hdfs_data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:9001<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="编辑mapred-site.xml">编辑mapred-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="编辑yarn-site.xml">编辑yarn-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.auxservices.mapreduce.shuffle.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8032<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8030<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8031<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8033<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8088<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把上面配置好的文件拷贝到2、3号机</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r /home/hadoop hadoop2:/</span><br><span class="line">scp -r /home/hadoop hadoop3:/</span><br></pre></td></tr></table></figure>
+<h2 id="可选增加sbin目录的环境变量方便随意启动">（可选）增加sbin目录的环境变量，方便随意启动</h2>
+<ol type="1">
+<li><p>分别连接三台机器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it hadoop1 bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hadoop2 bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hadoop3 bash</span><br></pre></td></tr></table></figure></li>
+<li><p>将hadoop/sbin目录加入PATH环境变量中<code>vim ～/.bashrc</code></p>
+<p>追加内容<code>export PATH=$PATH:$HADOOP_HOME/sbin</code></p>
+<p>然后执行<code>source ~/.bashrc</code></p></li>
+</ol>
+<p><strong>这一步略过的话，启动hadoop的相关命令需要先<code>cd $HADOOP_HOME/sbin</code></strong></p>
+<h2 id="启动hadoop">启动HADOOP</h2>
+<p>进入hadoop1号主节点</p>
+<p>第一次启动需要格式化hdfs，后续不需要执行这一条<code>hdfs namenode -format</code></p>
+<p>一键启动<code>start-all.sh</code></p>
 
                 
             </div>
@@ -544,7 +562,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/">https://ash-one.github.io/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</a>
+                    <a href="https://ash-one.github.io/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/">https://ash-one.github.io/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -582,16 +600,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                                    <span class="chip bg-color">虚拟机</span>
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
                                 </a>
                             
-                                <a href="/tags/esxi/">
-                                    <span class="chip bg-color">esxi</span>
+                                <a href="/tags/ubuntu/">
+                                    <span class="chip bg-color">ubuntu</span>
                                 </a>
                             
-                                <a href="/tags/%E7%BE%A4%E6%99%96/">
-                                    <span class="chip bg-color">群晖</span>
+                                <a href="/tags/hadoop/">
+                                    <span class="chip bg-color">hadoop</span>
                                 </a>
                             
                         </div>
@@ -763,9 +781,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/">
                     <div class="card-image">
@@ -783,9 +802,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -798,6 +817,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -824,12 +844,12 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/">
+                <a href="/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/">
                     <div class="card-image">
                         
-                        <img src="https://images.unsplash.com/photo-1603694681044-e71c5993d6cd?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600he" class="responsive-img" alt="生成模型之VAE">
+                        <img src="https://s2.loli.net/2022/10/02/HEDrClcuB1XoQPn.png" class="responsive-img" alt="esxi安装黑群晖记录">
                         
-                        <span class="card-title">生成模型之VAE</span>
+                        <span class="card-title">esxi安装黑群晖记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -840,14 +860,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    学习
+                            <a href="/categories/tech/" class="post-category">
+                                    技术
                                 </a>
                             
                             
@@ -857,16 +877,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/DL/">
-                        <span class="chip bg-color">DL</span>
+                    <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+                        <span class="chip bg-color">虚拟机</span>
                     </a>
                     
-                    <a href="/tags/VAE/">
-                        <span class="chip bg-color">VAE</span>
+                    <a href="/tags/esxi/">
+                        <span class="chip bg-color">esxi</span>
                     </a>
                     
-                    <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/">
-                        <span class="chip bg-color">生成模型</span>
+                    <a href="/tags/%E7%BE%A4%E6%99%96/">
+                        <span class="chip bg-color">群晖</span>
                     </a>
                     
                 </div>
