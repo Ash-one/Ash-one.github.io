@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="esxi安装黑群晖记录, 灰一茶话会">
+    <meta name="keywords" content="使用wireguard搭建属于自己的虚拟内网, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>esxi安装黑群晖记录 | 灰一茶话会</title>
+    <title>使用wireguard搭建属于自己的虚拟内网 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://s2.loli.net/2022/10/02/HEDrClcuB1XoQPn.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">esxi安装黑群晖记录</h1>
+                    <h1 class="description center-align post-title">使用wireguard搭建属于自己的虚拟内网</h1>
                 </div>
             </div>
         </div>
@@ -391,16 +391,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                                <span class="chip bg-color">虚拟机</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
                             </a>
                         
-                            <a href="/tags/esxi/">
-                                <span class="chip bg-color">esxi</span>
+                            <a href="/tags/%E5%86%85%E7%BD%91/">
+                                <span class="chip bg-color">内网</span>
                             </a>
                         
-                            <a href="/tags/%E7%BE%A4%E6%99%96/">
-                                <span class="chip bg-color">群晖</span>
+                            <a href="/tags/wireguard/">
+                                <span class="chip bg-color">wireguard</span>
                             </a>
                         
                     </div>
@@ -424,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-10-02
+                    2022-10-16
                 </div>
                 
 
@@ -433,7 +433,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    850
+                    1k
                 </div>
                 
 
@@ -455,69 +455,73 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="esxi系统安装"><a href="#esxi系统安装" class="headerlink" title="esxi系统安装"></a>esxi系统安装</h1><p>用U盘刷好系统，具体省略</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>黑群晖镜像链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g">https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</a></p>
-<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
-<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
-<h2 id="img转vmdk"><a href="#img转vmdk" class="headerlink" title="img转vmdk"></a>img转vmdk</h2><h3 id="本地qemu工具转换"><a href="#本地qemu工具转换" class="headerlink" title="本地qemu工具转换"></a>本地qemu工具转换</h3><p>众所周知，esxi的系统需要单独制作vmdk文件</p>
-<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
-<p>没安装qemu的先使用brew安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install qemu</span><br></pre></td></tr></table></figure>
-
-<p>qemu转换img为vmdk的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qemu-img convert -f raw name.img -O vmdk name.vmdk</span><br></pre></td></tr></table></figure>
-
-<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
-<h3 id="上传到esxi系统转换"><a href="#上传到esxi系统转换" class="headerlink" title="上传到esxi系统转换"></a>上传到esxi系统转换</h3><ol>
-<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
-<p><img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH"></p>
-</li>
-<li><p><strong>右键存储-浏览数据存储</strong> 点击上载，将本地的vmdk上传到esxi上</p>
-</li>
-<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /vmfs/volumes/datastore1/</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径"></p>
-</li>
-<li><p>执行转换命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmkfstools -i ds3617.vmdk ds3617_esxi.vmdk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p>
-</li>
-</ol>
-<h1 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><ol>
-<li>创建类型：新虚拟机</li>
-<li>名称、兼容性：随便选一个linux</li>
-<li>选择存储：装在系统盘上</li>
-<li><strong>自定义设置</strong></li>
-</ol>
-<h2 id="自定义设置"><a href="#自定义设置" class="headerlink" title="自定义设置"></a>自定义设置</h2><p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
-<h3 id="添加SATA控制器"><a href="#添加SATA控制器" class="headerlink" title="添加SATA控制器"></a>添加SATA控制器</h3><p>添加其他设备- SATA控制器</p>
-<h3 id="添加硬盘"><a href="#添加硬盘" class="headerlink" title="添加硬盘"></a>添加硬盘</h3><p>我添加一块现有硬盘和一块新标准硬盘</p>
+                <h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
+<blockquote>
+<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
+</blockquote>
+<h2 id="wireguard结果展示">wireguard结果展示</h2>
+<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
+<p>在部署完成后是这样的效果：</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
+<figcaption aria-hidden="true">部署完成测速</figcaption>
+</figure>
+<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
+<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
+<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
+<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="image-20221016121811707">
+<figcaption aria-hidden="true">image-20221016121811707</figcaption>
+</figure>
+<blockquote>
+<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
+</blockquote>
+<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
+<blockquote>
+<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
+</blockquote>
+<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
+<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d \</span><br><span class="line">  --name=wg-easy \</span><br><span class="line">  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \</span><br><span class="line">  -e PASSWORD=passwd123 (🚨这里输入你的密码) \</span><br><span class="line">  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\</span><br><span class="line">  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\</span><br><span class="line">  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\</span><br><span class="line">  -v ~/.wg-easy:/etc/wireguard \</span><br><span class="line">  -p 51820:51820/udp \</span><br><span class="line">  -p 51821:51821/tcp \</span><br><span class="line">  --cap-add=NET_ADMIN \</span><br><span class="line">  --cap-add=SYS_MODULE \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  weejewel/wg-easy</span><br></pre></td></tr></table></figure>
+<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
+<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
+</figure>
+<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
+<ol type="1">
+<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
+<li><p>如果是Mac和Windows也是一样的配置方法：</p>
 <ul>
-<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
-<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
-<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
+<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a target="_blank" rel="noopener" href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>客户端内添加隧道，选择xxx.conf</li>
+<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
+</ul></li>
+<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
+<ul>
+<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
+<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
+<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
 </ul>
-<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
-<h1 id="启动黑群晖虚拟机"><a href="#启动黑群晖虚拟机" class="headerlink" title="启动黑群晖虚拟机"></a>启动黑群晖虚拟机</h1><p>启动后在esxi中显示如图</p>
-<blockquote>
-<p>Loading Linux…</p>
-<p>Starting kernel with SATA boot</p>
-</blockquote>
-<p><img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功"></p>
-<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
-<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
-<blockquote>
-<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
-</blockquote>
-<blockquote>
-<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
-</blockquote>
-<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
-<p>PS：</p>
-<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="image-20221016161236707">
+<figcaption aria-hidden="true">image-20221016161236707</figcaption>
+</figure></li>
+<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
+<ul>
+<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="image-20221016162618677">
+<figcaption aria-hidden="true">image-20221016162618677</figcaption>
+</figure></li>
+<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
+<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
+</ul></li>
+</ol>
 
                 
             </div>
@@ -544,7 +548,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/">https://ash-one.github.io/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</a>
+                    <a href="https://ash-one.github.io/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/">https://ash-one.github.io/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -582,16 +586,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
-                                    <span class="chip bg-color">虚拟机</span>
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
                                 </a>
                             
-                                <a href="/tags/esxi/">
-                                    <span class="chip bg-color">esxi</span>
+                                <a href="/tags/%E5%86%85%E7%BD%91/">
+                                    <span class="chip bg-color">内网</span>
                                 </a>
                             
-                                <a href="/tags/%E7%BE%A4%E6%99%96/">
-                                    <span class="chip bg-color">群晖</span>
+                                <a href="/tags/wireguard/">
+                                    <span class="chip bg-color">wireguard</span>
                                 </a>
                             
                         </div>
@@ -763,9 +767,68 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="使用wireguard搭建属于自己的虚拟内网">
+                        
+                        <span class="card-title">使用wireguard搭建属于自己的虚拟内网</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/tech/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%86%85%E7%BD%91/">
+                        <span class="chip bg-color">内网</span>
+                    </a>
+                    
+                    <a href="/tags/wireguard/">
+                        <span class="chip bg-color">wireguard</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/">
                     <div class="card-image">
@@ -782,9 +845,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -810,62 +873,6 @@
                     
                     <a href="/tags/hadoop/">
                         <span class="chip bg-color">hadoop</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/">
-                    <div class="card-image">
-                        
-                        <img src="https://images.unsplash.com/photo-1603694681044-e71c5993d6cd?ixlib=rb-1.2.1&q=80&cs=tinysrgb&fm=jpg&crop=entropy&w=3600he" class="responsive-img" alt="生成模型之VAE">
-                        
-                        <span class="card-title">生成模型之VAE</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    学习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/DL/">
-                        <span class="chip bg-color">DL</span>
-                    </a>
-                    
-                    <a href="/tags/VAE/">
-                        <span class="chip bg-color">VAE</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/">
-                        <span class="chip bg-color">生成模型</span>
                     </a>
                     
                 </div>
