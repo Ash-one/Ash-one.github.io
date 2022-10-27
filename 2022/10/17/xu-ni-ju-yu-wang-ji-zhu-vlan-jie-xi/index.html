@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="使用wireguard搭建属于自己的虚拟内网, 灰一茶话会">
+    <meta name="keywords" content="虚拟局域网技术VLAN解析, 灰一茶话会">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>使用wireguard搭建属于自己的虚拟内网 | 灰一茶话会</title>
+    <title>虚拟局域网技术VLAN解析 | 灰一茶话会</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -270,12 +270,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">使用wireguard搭建属于自己的虚拟内网</h1>
+                    <h1 class="description center-align post-title">虚拟局域网技术VLAN解析</h1>
                 </div>
             </div>
         </div>
@@ -389,33 +389,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                                <span class="chip bg-color">网络</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%86%85%E7%BD%91/">
-                                <span class="chip bg-color">内网</span>
-                            </a>
-                        
-                            <a href="/tags/wireguard/">
-                                <span class="chip bg-color">wireguard</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/tech/" class="post-category">
-                                技术
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -424,7 +403,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-10-16
+                    2022-10-17
                 </div>
                 
 
@@ -433,14 +412,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    1k
+                    453
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    3 Min
+                    1 Min
                 </div>
                 
 
@@ -455,73 +434,36 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
-<blockquote>
-<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
-</blockquote>
-<h2 id="wireguard结果展示">wireguard结果展示</h2>
-<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
-<p>在部署完成后是这样的效果：</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
-<figcaption aria-hidden="true">部署完成测速</figcaption>
-</figure>
-<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
-<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
-<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
-<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="访问虚拟内网中的hadoop">
-<figcaption aria-hidden="true">访问虚拟内网中的hadoop</figcaption>
-</figure>
-<blockquote>
-<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
-</blockquote>
-<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
-<blockquote>
-<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
-</blockquote>
-<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
-<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -d \</span><br><span class="line">  --name=wg-easy \</span><br><span class="line">  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \</span><br><span class="line">  -e PASSWORD=passwd123 (🚨这里输入你的密码) \</span><br><span class="line">  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\</span><br><span class="line">  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\</span><br><span class="line">  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\</span><br><span class="line">  -v ~/.wg-easy:/etc/wireguard \</span><br><span class="line">  -p 51820:51820/udp \</span><br><span class="line">  -p 51821:51821/tcp \</span><br><span class="line">  --cap-add=NET_ADMIN \</span><br><span class="line">  --cap-add=SYS_MODULE \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  weejewel/wg-easy</span><br></pre></td></tr></table></figure>
-<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
-<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
-</figure>
-<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
+                <h1 id="虚拟局域网技术">虚拟局域网技术</h1>
+<p>## 前言</p>
+<p>工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的<u>广播风暴</u>可能会导致网络瘫痪。</p>
+<p>广播信息的来源主要是涉及到地址解析、名称解析的行为：</p>
 <ol type="1">
-<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
-<li><p>如果是Mac和Windows也是一样的配置方法：</p>
-<ul>
-<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a target="_blank" rel="noopener" href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>客户端内添加隧道，选择xxx.conf</li>
-<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
-</ul></li>
-<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
-<ul>
-<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
-<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
-<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
-</ul>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="wireguard查看当前开放的虚拟网卡">
-<figcaption aria-hidden="true">wireguard查看当前开放的虚拟网卡</figcaption>
-</figure></li>
-<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
-<ul>
-<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="群晖内的套件中心">
-<figcaption aria-hidden="true">群晖内的套件中心</figcaption>
-</figure></li>
-<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
-<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
-</ul></li>
+<li>网络层
+TCP/IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP</li>
+<li>会话层协议：网上基本输入输出系统NETBIOS</li>
+<li>应用层协议：链路本地多播名称解析LLMNR</li>
 </ol>
+<p>网络中的广播信息无处不在，想要克制不去使用是<strong>不现实的</strong>，因此我们应该想办法减小广播的影响范围即广播域。</p>
+<p>对于网络负载过高、通信性能下降的情况，往往需要管理员手动更改网络拓扑结构，如变更主机网段、硬件线路改造等。出现VLAN之后就<strong>只需要修改网络结构</strong>。</p>
+<h2 id="定义">定义</h2>
+<p>虚拟局域网（Virtual
+LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN是一个广播域，VLAN内的主机间通信就和在一个LAN内一样，而VLAN间则不能直接互通，这样，广播报文就被限制在一个VLAN内。</p>
+<h2 id="实现">实现</h2>
+<h1 id="虚拟扩展局域网">虚拟扩展局域网</h1>
+<h2 id="vlan的限制">VLAN的限制</h2>
+<p>传统VLAN标识ID字段的VID只有12bit，最多能取4094个值，对于大型的应用场景能力有限。</p>
+<h2 id="vxlan">VXLAN</h2>
+<h3 id="定义-1">定义</h3>
+<p>本质上是隧道技术。</p>
+<h3 id="原理解析">原理解析</h3>
+<h2 id="优缺点">优缺点</h2>
+<h2 id="虚拟局域网技术展望">虚拟局域网技术展望</h2>
+<h1 id="虚拟局域网实验">虚拟局域网实验</h1>
+<p>把一个物理网络从逻辑上划分为几个单独的局域网</p>
+<h2 id="没有划分vlan的网络">没有划分VLAN的网络</h2>
+<h2 id="划分vlan的网络">划分VLAN的网络</h2>
+<h2 id="vlan之间互通">VLAN之间互通</h2>
 
                 
             </div>
@@ -548,7 +490,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ash-one.github.io/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/">https://ash-one.github.io/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</a>
+                    <a href="https://ash-one.github.io/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/">https://ash-one.github.io/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -585,19 +527,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
-                                    <span class="chip bg-color">网络</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%86%85%E7%BD%91/">
-                                    <span class="chip bg-color">内网</span>
-                                </a>
-                            
-                                <a href="/tags/wireguard/">
-                                    <span class="chip bg-color">wireguard</span>
-                                </a>
-                            
+                            <span class="chip bg-color">No tag</span>
                         </div>
                     
                 </div>
@@ -771,13 +701,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/">
+                <a href="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="虚拟局域网技术VLAN解析">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="使用中转服务器代理访问内网bySSinDocker">
                         
-                        <span class="card-title">虚拟局域网技术VLAN解析</span>
+                        <span class="card-title">使用中转服务器代理访问内网bySSinDocker</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -788,15 +718,31 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-17
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            灰一
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/tech/" class="post-category">
+                                    技术
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E4%BB%A3%E7%90%86/">
+                        <span class="chip bg-color">代理</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -808,12 +754,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/">
+                <a href="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/">
                     <div class="card-image">
                         
-                        <img src="https://www.leixue.com/uploads/2018/08/Big-Data-Hadoop.jpg" class="responsive-img" alt="Ubuntu上基于docker搭建Hadoop集群">
                         
-                        <span class="card-title">Ubuntu上基于docker搭建Hadoop集群</span>
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="使用wireguard搭建属于自己的虚拟内网">
+                        
+                        <span class="card-title">使用wireguard搭建属于自己的虚拟内网</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -824,7 +771,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-16
                             </span>
                         <span class="publish-author">
                             
@@ -841,16 +788,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/docker/">
-                        <span class="chip bg-color">docker</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
                     </a>
                     
-                    <a href="/tags/ubuntu/">
-                        <span class="chip bg-color">ubuntu</span>
+                    <a href="/tags/%E5%86%85%E7%BD%91/">
+                        <span class="chip bg-color">内网</span>
                     </a>
                     
-                    <a href="/tags/hadoop/">
-                        <span class="chip bg-color">hadoop</span>
+                    <a href="/tags/wireguard/">
+                        <span class="chip bg-color">wireguard</span>
                     </a>
                     
                 </div>
