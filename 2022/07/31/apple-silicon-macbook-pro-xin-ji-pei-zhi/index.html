@@ -16,16 +16,16 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用  配置git mac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --global">
+    <meta name="description" content="本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用     配置gitmac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --glob">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Apple Silicon MacBook Pro新机配置">
 <meta property="og:url" content="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用  配置git mac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --global">
+<meta property="og:description" content="本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用     配置gitmac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --glob">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png">
-<meta property="og:image" content="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%201.png">
-<meta property="og:image" content="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png">
+<meta property="og:image" content="https://ash-one.github.io/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled.png">
+<meta property="og:image" content="https://ash-one.github.io/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled%201.png">
+<meta property="og:image" content="https://ash-one.github.io/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled%202.png">
 <meta property="article:published_time" content="2022-07-31T08:37:05.000Z">
 <meta property="article:modified_time" content="2022-07-31T09:09:20.230Z">
 <meta property="article:author" content="灰一">
@@ -34,7 +34,7 @@
 <meta property="article:tag" content="conda">
 <meta property="article:tag" content="zsh">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ash-one.github.io/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png">
+<meta name="twitter:image" content="https://ash-one.github.io/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled.png">
   
   
   
@@ -303,78 +303,72 @@
 <p>本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置</p>
 </blockquote>
 <aside>
-💡 第一次使用苹果的time
-machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用
-</aside>
-<h1 id="配置git">配置git</h1>
-<p>mac自带git，所以只需要配置下用户名和邮箱</p>
+💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用
+  </aside>
+
+<h1 id="配置git"><a href="#配置git" class="headerlink" title="配置git"></a>配置git</h1><p>mac自带git，所以只需要配置下用户名和邮箱</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;John Doe&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;johndoe@example.com&quot;</span><br></code></pre></td></tr></table></figure>
-<h1 id="安装brew">安装brew</h1>
-<p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a></p>
+
+<h1 id="安装brew"><a href="#安装brew" class="headerlink" title="安装brew"></a>安装brew</h1><p><a target="_blank" rel="noopener" href="https://brew.sh/index_zh-cn">Homebrew</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
 <p>根据返回的最后内容执行提示的代码，将brew添加到path中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile<br></code></pre></td></tr></table></figure>
+
 <p>最后在终端中输入brew测试是否添加成功</p>
-<h1 id="安装iterm2">安装iTerm2</h1>
-<p><a target="_blank" rel="noopener" href="https://iterm2.com/index.html">iTerm2 - macOS Terminal
-Replacement</a></p>
-<h1 id="安装oh-my-zsh">安装oh-my-zsh</h1>
-<p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp;
-open source framework for Zsh</a></p>
+<h1 id="安装iTerm2"><a href="#安装iTerm2" class="headerlink" title="安装iTerm2"></a>安装iTerm2</h1><p><a target="_blank" rel="noopener" href="https://iterm2.com/index.html">iTerm2 - macOS Terminal Replacement</a></p>
+<h1 id="安装oh-my-zsh"><a href="#安装oh-my-zsh" class="headerlink" title="安装oh-my-zsh"></a>安装oh-my-zsh</h1><p><a target="_blank" rel="noopener" href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp; open source framework for Zsh</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
-<h1 id="安装zsh主题">安装zsh主题</h1>
-<p>我选择安装powerlevel10k主题，链接在这里https://github.com/romkatv/powerlevel10k</p>
-<ol type="1">
+
+<h1 id="安装zsh主题"><a href="#安装zsh主题" class="headerlink" title="安装zsh主题"></a>安装zsh主题</h1><p>我选择安装powerlevel10k主题，链接在这里<a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k">https://github.com/romkatv/powerlevel10k</a></p>
+<ol>
 <li><p>安装字体（可跳过）</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf">MesloLGS
-NF Regular.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf">MesloLGS
-NF Bold.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf">MesloLGS
-NF Italic.ttf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf">MesloLGS
-NF Bold Italic.ttf</a></p></li>
+<p> <a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf">MesloLGS NF Regular.ttf</a></p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf">MesloLGS NF Bold.ttf</a></p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf">MesloLGS NF Italic.ttf</a></p>
+<p> <a target="_blank" rel="noopener" href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf">MesloLGS NF Bold Italic.ttf</a></p>
+</li>
 <li><p>手动安装主题文件</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k<br></code></pre></td></tr></table></figure></p></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k<br></code></pre></td></tr></table></figure>
+</li>
 <li><p>编辑配置文件，修改主题为10k</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure></p>
-<p>也可以使用其他编辑器打开这个文件</p>
-<p>然后找到第11行修改主题为</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">powerlevel10k/powerlevel10k<br></code></pre></td></tr></table></figure></p></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure>
+<p> 也可以使用其他编辑器打开这个文件</p>
+<p> 然后找到第11行修改主题为</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">powerlevel10k/powerlevel10k<br></code></pre></td></tr></table></figure>
+</li>
 <li><p>重启iterm，加载主题文件</p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png" srcset="/img/loading.gif" lazyload></p></li>
-<li><p>依次根据样式进行配置</p></li>
-<li><p>重启iterm就可以看到崭新的主题了</p></li>
+<p> <img src="/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>依次根据样式进行配置</p>
+</li>
+<li><p>重启iterm就可以看到崭新的主题了</p>
+</li>
 </ol>
-<h1 id="安装oh-my-zsh自动补全插件">安装oh-my-zsh自动补全插件</h1>
-<p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">GitHub -
-zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
-<ol type="1">
+<h1 id="安装oh-my-zsh自动补全插件"><a href="#安装oh-my-zsh自动补全插件" class="headerlink" title="安装oh-my-zsh自动补全插件"></a>安装oh-my-zsh自动补全插件</h1><p><a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">GitHub - zsh-users&#x2F;zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
+<ol>
 <li><p>下载插件</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br></code></pre></td></tr></table></figure></p></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br></code></pre></td></tr></table></figure>
+</li>
 <li><p>编辑zshrc配置文件，增加插件，修改配色</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure></p>
-<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs makefile">plugins=( <br>    <span class="hljs-comment"># other plugins...</span><br>    zsh-autosuggestions<br>)<br><span class="hljs-comment"># 此处修改autosuggestions插件的配色</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#d0d0d0,underline&quot;</span><br></code></pre></td></tr></table></figure></p></li>
-<li><p>重开iterm</p></li>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure>
+ <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs makefile">plugins=( <br>    <span class="hljs-comment"># other plugins...</span><br>    zsh-autosuggestions<br>)<br><span class="hljs-comment"># 此处修改autosuggestions插件的配色</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#d0d0d0,underline&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重开iterm</p>
+</li>
 </ol>
 <p>查看效果：</p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%201.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="配置python和conda">配置python和conda</h1>
-<p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda -
-Conda documentation</a></p>
-<h2 id="安装miniconda对应版本的pkg双击后直接安装在终端测试conda命令是否正常">安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2>
-<h2 id="查看conda环境-创建新python环境">查看conda环境,
-创建新python环境</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">env</span> list<br>conda create -n your_env_name python=x.x<br><br>conda activate dl<br>conda deactivate<br></code></pre></td></tr></table></figure>
-<h1 id="安装pytorchapple-silicon版本">安装pytorch（Apple
-Silicon版本）</h1>
-<p><a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a></p>
-<p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled%201.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="配置python和conda"><a href="#配置python和conda" class="headerlink" title="配置python和conda"></a>配置python和conda</h1><p><a target="_blank" rel="noopener" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda - Conda documentation</a></p>
+<h2 id="安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常"><a href="#安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常" class="headerlink" title="安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常"></a>安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2><h2 id="查看conda环境-创建新python环境"><a href="#查看conda环境-创建新python环境" class="headerlink" title="查看conda环境, 创建新python环境"></a>查看conda环境, 创建新python环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">env</span> list<br>conda create -n your_env_name python=x.x<br><br>conda activate dl<br>conda deactivate<br></code></pre></td></tr></table></figure>
+
+<h1 id="安装pytorch（Apple-Silicon版本）"><a href="#安装pytorch（Apple-Silicon版本）" class="headerlink" title="安装pytorch（Apple Silicon版本）"></a>安装pytorch（Apple Silicon版本）</h1><p><a target="_blank" rel="noopener" href="https://pytorch.org/">PyTorch</a></p>
+<p><img src="/Apple-Silicon-MacBook-Pro%E6%96%B0%E6%9C%BA%E9%85%8D%E7%BD%AE/Untitled%202.png" srcset="/img/loading.gif" lazyload></p>
 <p>pytorch从1.13版本开始支持苹果芯片gpu加速,目前（7.30）还得安装nightly版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install pytorch -c pytorch-nightly<br></code></pre></td></tr></table></figure>
+
 <p>用python测试查看版本号，torch版本为1.13开发版就代表安装成功</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">❯ python<br>Python 3.8.13 (default, Mar 28 2022, 06:13:39)<br>[Clang 12.0.0 ] :: Anaconda, Inc. on darwin<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; import torch<br>&gt;&gt;&gt; torch.__version__<br><span class="hljs-string">&#x27;1.13.0.dev20220729&#x27;</span><br></code></pre></td></tr></table></figure>
-
                 
               </div>
             
@@ -536,6 +530,19 @@ Silicon版本）</h1>
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

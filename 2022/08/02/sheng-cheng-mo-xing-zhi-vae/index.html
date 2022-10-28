@@ -16,20 +16,20 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="生成模型之Variational Auto-Encoder  本篇内容主要参考台大李宏毅教授的视频，作为笔记使用 【機器學習2021】自編碼器 (Auto-encoder) (上) - 基本概念 ML Lecture 18: Unsupervised Learning - Deep Generative Model (Part II)  Auto-Encoder自动编码器  💡 可以认为是自监督">
+    <meta name="description" content="生成模型之Variational Auto-Encoder 本篇内容主要参考台大李宏毅教授的视频，作为笔记使用 【機器學習2021】自編碼器 (Auto-encoder) (上) - 基本概念 ML Lecture 18: Unsupervised Learning - Deep Generative Model (Part II)  Auto-Encoder自动编码器 💡 可以认为是自监督学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成模型之VAE">
 <meta property="og:url" content="https://ash-one.github.io/2022/08/02/sheng-cheng-mo-xing-zhi-vae/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="生成模型之Variational Auto-Encoder  本篇内容主要参考台大李宏毅教授的视频，作为笔记使用 【機器學習2021】自編碼器 (Auto-encoder) (上) - 基本概念 ML Lecture 18: Unsupervised Learning - Deep Generative Model (Part II)  Auto-Encoder自动编码器  💡 可以认为是自监督">
+<meta property="og:description" content="生成模型之Variational Auto-Encoder 本篇内容主要参考台大李宏毅教授的视频，作为笔记使用 【機器學習2021】自編碼器 (Auto-encoder) (上) - 基本概念 ML Lecture 18: Unsupervised Learning - Deep Generative Model (Part II)  Auto-Encoder自动编码器 💡 可以认为是自监督学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png">
-<meta property="og:image" content="https://ash-one.github.io/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png">
+<meta property="og:image" content="https://ash-one.github.io/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B9%8BVAE/Untitled.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg">
 <meta property="article:published_time" content="2022-08-02T10:14:36.000Z">
-<meta property="article:modified_time" content="2022-08-02T21:53:40.860Z">
+<meta property="article:modified_time" content="2022-10-28T12:20:06.320Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="DL">
 <meta property="article:tag" content="VAE">
@@ -300,28 +300,23 @@
             
               <div class="markdown-body">
                 
-                <h1 id="生成模型之variational-auto-encoder">生成模型之Variational
-Auto-Encoder</h1>
-<blockquote>
+                <h1 id="生成模型之Variational-Auto-Encoder"><a href="#生成模型之Variational-Auto-Encoder" class="headerlink" title="生成模型之Variational Auto-Encoder"></a>生成模型之Variational Auto-Encoder</h1><blockquote>
 <p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
-(Auto-encoder) (上) - 基本概念</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
-Unsupervised Learning - Deep Generative Model (Part II)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器 (Auto-encoder) (上) - 基本概念</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18: Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 </blockquote>
-<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
-<aside>
+<h1 id="Auto-Encoder自动编码器"><a href="#Auto-Encoder自动编码器" class="headerlink" title="Auto-Encoder自动编码器"></a>Auto-Encoder自动编码器</h1><aside>
 💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
-<h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">graph LR
+
+<h2 id="压缩自动编码器"><a href="#压缩自动编码器" class="headerlink" title="压缩自动编码器"></a>压缩自动编码器</h2><pre class="mermaid">graph LR
   高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
-<h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre class="mermaid">graph LR
+
+<h2 id="降噪自动编码器"><a href="#降噪自动编码器" class="headerlink" title="降噪自动编码器"></a>降噪自动编码器</h2><pre class="mermaid">graph LR
   原图.-原图+噪声
     原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
-<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
-<p>输入信息常常由各种信息纠缠在一起，如</p>
+
+<h2 id="解缠（Feature-Disentangle）"><a href="#解缠（Feature-Disentangle）" class="headerlink" title="解缠（Feature Disentangle）"></a>解缠（Feature Disentangle）</h2><p>输入信息常常由各种信息纠缠在一起，如</p>
 <ul>
 <li>图片中存在物体、纹理</li>
 <li>声音中存在文本内容、说话人信息</li>
@@ -330,11 +325,10 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 </ul>
 <p>这时候需要通过解缠得到不同维度包含的信息</p>
 <p>应用：Voice Conversion语者转换</p>
-<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
-<h2 id="ae和vae区别">AE和VAE区别</h2>
-<p>Auto-encoder</p>
+<h1 id="VAE变分自动编码器"><a href="#VAE变分自动编码器" class="headerlink" title="VAE变分自动编码器"></a>VAE变分自动编码器</h1><h2 id="AE和VAE区别"><a href="#AE和VAE区别" class="headerlink" title="AE和VAE区别"></a>AE和VAE区别</h2><p>Auto-encoder</p>
 <pre class="mermaid">graph LR
   高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
+
 <p>VAE</p>
 <p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
 <pre class="mermaid">graph LR
@@ -347,67 +341,49 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
     plus --> z -->
 
  NN-Decoder--> output</pre>
-<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
+
+<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，$z_i&#x3D;\exp(\sigma_i)\times e_i + \mu_i$</p>
 <p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
 <p>所以需要最小化如下函数：</p>
-<p><span class="math display">\[
-\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
-\]</span></p>
-<h2 id="vae推导">VAE推导</h2>
-<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
-<blockquote>
+<p>$$<br>\min \sum \limits _{i&#x3D;1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)<br>$$</p>
+<h2 id="VAE推导"><a href="#VAE推导" class="headerlink" title="VAE推导"></a>VAE推导</h2><h3 id="高斯混合模型（GMM）"><a href="#高斯混合模型（GMM）" class="headerlink" title="高斯混合模型（GMM）"></a>高斯混合模型（GMM）</h3><blockquote>
 <p>部分内容参考</p>
-<p><a target="_blank" rel="noopener" href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型–变分自编码器</a></p>
 </blockquote>
 <p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
 <p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" srcset="/img/loading.gif" lazyload alt="高斯混合模型离散变量">
-<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
-</figure>
+<p><img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" srcset="/img/loading.gif" lazyload alt="高斯混合模型离散变量"></p>
 <p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
-<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
-<p><span class="math display">\[
-P(x)=\sum \limits _mP(m)P(x|m)
-\]</span></p>
-<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
+<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布$N(\mu^m,\sigma^m)$，P(x)可表示为所有这些高斯分布的和：</p>
+<p>$$<br>P(x)&#x3D;\sum \limits _mP(m)P(x|m)<br>$$</p>
+<p>其中，$m\sim P(m)$，$x|m \sim N(\mu^m,\sigma^m)$</p>
 <p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" srcset="/img/loading.gif" lazyload alt="高斯混合模型连续变量">
-<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
-</figure>
+<p><img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" srcset="/img/loading.gif" lazyload alt="高斯混合模型连续变量"></p>
 <p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
 <aside>
-💡
-与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
+💡 与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
 </aside>
-<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
+
+<p>$z\sim N(0,I)$，$x|z\sim N(\mu(z),\sigma(z))$，其中$\mu$是得到z均值的函数，$\sigma$是得到z方差的函数。</p>
 <p>于是P(x)的分布就可以表示为:</p>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
+<p>$$<br>P(x)&#x3D;\int\limits _zP(z)P(x|z)dz<br>$$</p>
 <p>所以我们的目标就变成求解上面这个公式。</p>
-<h3 id="求解目标公式">求解目标公式</h3>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
-N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
-<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
+<h3 id="求解目标公式"><a href="#求解目标公式" class="headerlink" title="求解目标公式"></a>求解目标公式</h3><p>$$<br>P(x)&#x3D;\int\limits _zP(z)P(x|z)dz<br>$$</p>
+<p>其中$P(z)$已知，$P(x|z)$未知，$P(x|z)$中$x|z\sim N(\mu(z),\sigma(z))$，所以求<strong>解$P(x|z)$转换为求解$\mu,\sigma$两个函数的表达式</strong>。</p>
+<p><strong>如何求解$\mu,\sigma$函数?使用神经网络!</strong></p>
 <pre class="mermaid">graph LR
     z --> NN-Decoder --> mu
     NN-Decoder --> sigma</pre>
-<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
-N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
+
+<p>同时我们再加上一个**新的函数$q(z|x)$**用来表示任意高斯分布，其中$z|x \sim  N(\mu’(x),\sigma’(x))$，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
 <pre class="mermaid">graph LR
   x --> NN-Encoder --> mu'
     NN-Encoder --> sigma'</pre>
-<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
+
+<p>因为实际上我们有数据x，现在是在求解参数，所以需要求$P(x)$的最大似然函数$L&#x3D;\sum \limits _x \log P(x)$</p>
 <ul>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
-<ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
+<li>**最大似然估计(MLE):**在”模型已定,参数$\theta$未知”的情况下,通过观测数据来估计未知参数$\theta$的一种方法,要求所有采样都是独立同分布.<ul>
+<li>Note:最大似然估计的使用<ol>
 <li>写出似然函数</li>
 <li>对似然函数取对数</li>
 <li>两边同时求导(多个变量就求偏导)</li>
@@ -415,80 +391,45 @@ N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够�
 </ol>
 <ul>
 <li><p>例子</p>
-<figure>
-<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" srcset="/img/loading.gif" lazyload alt="最大似然函数例题">
-<figcaption aria-hidden="true">最大似然函数例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" srcset="/img/loading.gif" lazyload alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
+<p>  <img src="/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B9%8BVAE/Untitled.png" srcset="/img/loading.gif" lazyload alt="最大似然函数例题"></p>
+<p>  <img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" srcset="/img/loading.gif" lazyload alt="例题解答"></p>
+</li>
 </ul>
-<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
-q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
-<p><span class="math display">\[
-\begin{aligned}
-\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
-_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
-&amp;=\int \limits _zq(z|x)\log
-(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
-\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-+KL(q(z|x)||P(z|x))
-\end{aligned}
-\]</span></p>
-<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
-<p><span class="math display">\[
-\log P(x) \geqslant \int \limits _z
-q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-\]</span></p>
-<p><span class="math display">\[
-\log P(x) = L_b+KL(q(z|x)||P(z|x))
-\]</span></p>
-<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
-<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
-<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" srcset="/img/loading.gif" lazyload alt="logP(x)和新问题的关系">
-<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
-</figure>
-<p>根据<span class="math inline">\(P(x)=\int\limits
-_zP(z)P(x|z)dz\)</span>:</p>
-<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
-<p>再根据<span class="math inline">\(\log P(x) =
-L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
-<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>由于$q(z|x)$是一个任意的高斯分布，于是有$\int \limits _z q(z|x)dz&#x3D;1$，表示整个高斯分布的面积为1。</p>
+<p>$$<br>\begin{aligned}<br>\log P(x) &amp;&#x3D;\int \limits _zq(z|x)\log P(x)dz \ &amp;&#x3D;\int \limits _zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \<br>&amp;&#x3D;\int \limits _zq(z|x)\log (\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \<br>&amp;&#x3D; \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int \limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \<br>&amp;&#x3D; \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz +KL(q(z|x)||P(z|x))<br>\end{aligned}<br>$$</p>
+<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界$L_b$</p>
+<p>$$<br>\log P(x) \geqslant \int \limits _z q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz<br>$$</p>
+<p>$$<br>\log P(x) &#x3D; L_b+KL(q(z|x)||P(z|x))<br>$$</p>
+<p>这里将原本的问题：求$P(x|z)$使得$\log P(x)$最大化</p>
+<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得$\log P(x)$最大化</strong></p>
+<p>看起来像是多了一个$q(z|x)$，其实不然，我们开始观察$\log P(x)$跟这两项的关系：</p>
+<p><img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" srcset="/img/loading.gif" lazyload alt="logP(x)和新问题的关系"></p>
+<p>根据$P(x)&#x3D;\int\limits _zP(z)P(x|z)dz$:</p>
+<p>当我们保持$P(x|z)$不变时，$P(z)$不会变，$P(x)$也不会变，$\log P(x)$也不会变</p>
+<p>再根据$\log P(x) &#x3D; L_b+KL(q(z|x)||P(z|x))$：</p>
+<p>整个$\log P(x)$的大小不变，$L_b$越大，KL散度越小，当KL散度减小到零时，$\log P(x)&#x3D;L_b$，<strong>而$L_b$此时只和$q(z|x)$有关。</strong></p>
 <p>此时我们发现：</p>
-<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
+<p>求$\max \log P(x)$等价于求$\max L_b$</p>
 <aside>
-💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
+💡 宏观上我们可以将此时的VAE理解为两个部分：
+调节$P(x|z)$，就是在调节NN-Decoder
+调节$q(z|x)$，就是在调节NN-Encoder
 </aside>
+
 <blockquote>
 <p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
 </blockquote>
-<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
-_zq(z|x)\log P(x|z)dz \\
-&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
-\end{aligned}
-\]</span></p>
-<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
-<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
-_{i=1} ^n
-(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
-Variational Bayes》</p>
+<p>开始求解$\max L_b$</p>
+<p>$$<br>\begin{aligned}<br>L_b &amp;&#x3D; \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \<br>&amp;&#x3D; \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits _zq(z|x)\log P(x|z)dz \<br>&amp;&#x3D;-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz<br>\end{aligned}<br>$$</p>
+<p>记第一项为A，第二项为B，现在求解$L_b$的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
+<p>展开A后可以得到约束项：$\min \sum \limits _{i&#x3D;1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)$，证明方法来自VAE原论文《Auto-Encoding Variational Bayes》</p>
 <p>求B的最大值：</p>
-<p><span class="math display">\[
-\max B = \max E_{q(z|x)}[\log P(x|z)]
-\]</span></p>
-<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
-P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
+<p>$$<br>\max B &#x3D; \max E_{q(z|x)}[\log P(x|z)]<br>$$</p>
+<p>可理解为<strong>提供一个x的值，在$q(z|x)$这个分布下，让$\log P(x|z)$值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
 <pre class="mermaid">graph LR
   x --> NN-Encoder --> mu'
     NN-Encoder --> sigma'
@@ -497,6 +438,7 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
     z-->NN-Decoder-->mu
     NN-Decoder-->sigma
     mu .-越接近越好.-> x</pre>
+
 <p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 
                 
@@ -658,6 +600,19 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

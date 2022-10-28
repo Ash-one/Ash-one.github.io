@@ -16,12 +16,12 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="机器学习数学基础②概率论与信息论 基础概念  随机变量:可以是连续的也可以是离散的 概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性 联合概率分布:\(P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)\)表示x&#x3D;\(x\)和y&#x3D;\(y\)同时发生的概率,简写为\(P(x,y)\) 概率函数和似然函数  Note:区别 对于一个函数\(P(x|\theta)\),其中">
+    <meta name="description" content="机器学习数学基础②概率论与信息论基础概念 随机变量:可以是连续的也可以是离散的  概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性  联合概率分布:$P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)$表示x&#x3D;$x$和y&#x3D;$y$同时发生的概率,简写为$P(x,y)$  概率函数和似然函数  Note:区别   对于一个函数$P(">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习数学基础②概率论和信息论">
 <meta property="og:url" content="https://ash-one.github.io/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="机器学习数学基础②概率论与信息论 基础概念  随机变量:可以是连续的也可以是离散的 概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性 联合概率分布:\(P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)\)表示x&#x3D;\(x\)和y&#x3D;\(y\)同时发生的概率,简写为\(P(x,y)\) 概率函数和似然函数  Note:区别 对于一个函数\(P(x|\theta)\),其中">
+<meta property="og:description" content="机器学习数学基础②概率论与信息论基础概念 随机变量:可以是连续的也可以是离散的  概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性  联合概率分布:$P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)$表示x&#x3D;$x$和y&#x3D;$y$同时发生的概率,简写为$P(x,y)$  概率函数和似然函数  Note:区别   对于一个函数$P(">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png">
@@ -245,7 +245,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.5k 字
         
       </span>
     
@@ -256,7 +256,7 @@
         
         
         
-          20 分钟
+          21 分钟
         
       </span>
     
@@ -299,54 +299,50 @@
             
               <div class="markdown-body">
                 
-                <h1 id="机器学习数学基础②概率论与信息论">机器学习数学基础②概率论与信息论</h1>
-<h1 id="基础概念">基础概念</h1>
-<ul>
-<li><p>随机变量:可以是连续的也可以是离散的</p></li>
-<li><p>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</p></li>
-<li><p>联合概率分布:<span class="math inline">\(P(\mathrm x =x,\mathrm
-y=y)\)</span>表示x=<span class="math inline">\(x\)</span>和y=<span class="math inline">\(y\)</span>同时发生的概率,简写为<span class="math inline">\(P(x,y)\)</span></p></li>
+                <h1 id="机器学习数学基础②概率论与信息论"><a href="#机器学习数学基础②概率论与信息论" class="headerlink" title="机器学习数学基础②概率论与信息论"></a>机器学习数学基础②概率论与信息论</h1><h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><ul>
+<li><p>随机变量:可以是连续的也可以是离散的</p>
+</li>
+<li><p>概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性</p>
+</li>
+<li><p>联合概率分布:$P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)$表示x&#x3D;$x$和y&#x3D;$y$同时发生的概率,简写为$P(x,y)$</p>
+</li>
 <li><p>概率函数和似然函数</p>
 <ul>
 <li><p>Note:区别</p>
-<p>对于一个函数<span class="math inline">\(P(x|\theta)\)</span>,其中x表示一个具体的数据,<span class="math inline">\(\theta\)</span>表示模型的参数.</p>
-<p>如果<span class="math inline">\(\theta\)</span>已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
-<p>如果x已知,<span class="math inline">\(\theta\)</span>为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p></li>
-</ul></li>
-<li><p>期望:<span class="math inline">\(E(X)=\sum \limits
-_{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></p></li>
-<li><p>方差:各个样本数据分别与平均数之差的平方和的平均数<span class="math inline">\(Var(x)\)</span></p></li>
-<li><p>协方差:衡量随机变量X和Y之间的总体误差<span class="math inline">\(Cov(X,Y)\)</span></p></li>
+<p>  对于一个函数$P(x|\theta)$,其中x表示一个具体的数据,$\theta$表示模型的参数.</p>
+<p>  如果$\theta$已知,x为变量,这个函数就是<strong>概率函数</strong>.表示对于不同的样本点x,其出现的概率是多少.</p>
+<p>  如果x已知,$\theta$为变量,这个函数就是<strong>似然函数</strong>.表示对于不同的参数,出现x样本点的概率是多少.</p>
+</li>
 </ul>
-<h1 id="重要概念">重要概念</h1>
-<ul>
-<li><strong>条件概率</strong>:对于给定<span class="math inline">\(X=x\)</span>时发生<span class="math inline">\(Y=y\)</span>的概率记为<span class="math inline">\(P(Y=y|X=x)\)</span>,计算公式为<span class="math inline">\(P(Y=y|X=x)=\frac {P(x,y)}{P(X=x)}\)</span></li>
-<li><strong>先验概率和后验概率</strong></li>
-<li><strong>贝叶斯公式</strong>:利用先验概率计算后验概率
+</li>
+<li><p>期望:$E(X)&#x3D;\sum \limits _{k&#x3D;1}^{n}x_kP(x_k), E(x)&#x3D;\int xf(x)dx$</p>
+</li>
+<li><p>方差:各个样本数据分别与平均数之差的平方和的平均数$Var(x)$</p>
+</li>
+<li><p>协方差:衡量随机变量X和Y之间的总体误差$Cov(X,Y)$</p>
+</li>
+</ul>
+<h1 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h1><ul>
+<li><p><strong>条件概率</strong>:对于给定$X&#x3D;x$时发生$Y&#x3D;y$的概率记为$P(Y&#x3D;y|X&#x3D;x)$,计算公式为$P(Y&#x3D;y|X&#x3D;x)&#x3D;\frac {P(x,y)}{P(X&#x3D;x)}$</p>
+</li>
+<li><p><strong>先验概率和后验概率</strong></p>
+</li>
+<li><p><strong>贝叶斯公式</strong>:利用先验概率计算后验概率</p>
 <ul>
 <li><p>Note:贝叶斯公式推导</p>
-<p><span class="math display">\[
-  P(B|A)=\frac {P(AB)}{P(A)}, P(A|B)=\frac {P(AB)}{P(B)}
-  \]</span></p>
-<p><span class="math display">\[
-  P(AB)=P(B|A)P(A)=P(A|B)P(B)
-  \]</span></p>
-<p><span class="math display">\[
-  P(B|A)=\frac {P(B|A)P(B)}{P(A)}
-  \]</span></p>
-<p>全概率公式求<span class="math inline">\(P(A)\)</span></p>
-<p><span class="math display">\[
-  P(A)=\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)
-  \]</span></p>
-<p>代入得到贝叶斯公式:</p>
-<p><span class="math display">\[
-  P(B_i|A)=\frac {P(A|B_i)P(B_i)}{\sum \limits _{i=1}^{N}P(A|B_i)P(B_i)}
-  \]</span></p></li>
-</ul></li>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<p>  $$<br>  P(B|A)&#x3D;\frac {P(AB)}{P(A)}, P(A|B)&#x3D;\frac {P(AB)}{P(B)}<br>  $$</p>
+<p>  $$<br>  P(AB)&#x3D;P(B|A)P(A)&#x3D;P(A|B)P(B)<br>  $$</p>
+<p>  $$<br>  P(B|A)&#x3D;\frac {P(B|A)P(B)}{P(A)}<br>  $$</p>
+<p>  全概率公式求$P(A)$</p>
+<p>  $$<br>  P(A)&#x3D;\sum \limits _{i&#x3D;1}^{N}P(A|B_i)P(B_i)<br>  $$</p>
+<p>  代入得到贝叶斯公式:</p>
+<p>  $$<br>  P(B_i|A)&#x3D;\frac {P(A|B_i)P(B_i)}{\sum \limits _{i&#x3D;1}^{N}P(A|B_i)P(B_i)}<br>  $$</p>
+</li>
+</ul>
+</li>
+<li><p>**最大似然估计(MLE):**在”模型已定,参数$\theta$未知”的情况下,通过观测数据来估计未知参数$\theta$的一种方法,要求所有采样都是独立同分布.</p>
 <ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
+<li>Note:最大似然估计的使用<ol>
 <li>写出似然函数</li>
 <li>对似然函数取对数</li>
 <li>两边同时求导(多个变量就求偏导)</li>
@@ -354,107 +350,71 @@ _{k=1}^{n}x_kP(x_k), E(x)=\int xf(x)dx\)</span></p></li>
 </ol>
 <ul>
 <li><p>例子</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" srcset="/img/loading.gif" lazyload alt="例题">
-<figcaption aria-hidden="true">例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" srcset="/img/loading.gif" lazyload alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
+<p>  <img src="https://s2.loli.net/2022/07/26/yXuBHYVrIP5LpNZ.png" srcset="/img/loading.gif" lazyload alt="例题"></p>
+<p>  <img src="https://s2.loli.net/2022/07/26/LFjf2RnIMZbyuOo.png" srcset="/img/loading.gif" lazyload alt="例题解答"></p>
+</li>
 </ul>
-<h1 id="常见分布函数">常见分布函数</h1>
-<ol type="1">
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="常见分布函数"><a href="#常见分布函数" class="headerlink" title="常见分布函数"></a>常见分布函数</h1><ol>
 <li><p>0-1分布</p>
-<p><span class="math display">\[
-P(X=1)=p \\ P(X=0)=1-p
-\]</span></p></li>
+<p> $$<br> P(X&#x3D;1)&#x3D;p \ P(X&#x3D;0)&#x3D;1-p<br> $$</p>
+</li>
 <li><p>几何分布</p>
-<p>离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:<span class="math inline">\(P(X=k)=(1-p)^{k-1}p\)</span></p>
-<p><span class="math display">\[
-E(X)=\frac {1}{p} \\ Var(X)=\frac {1-p}{p^2}
-\]</span></p></li>
+<p> 离散型概率分布.在n次伯努利试验中,前k-1次失败,第k次成功的概率,其概率分布函数为:$P(X&#x3D;k)&#x3D;(1-p)^{k-1}p$</p>
+<p> $$<br> E(X)&#x3D;\frac {1}{p} \ Var(X)&#x3D;\frac {1-p}{p^2}<br> $$</p>
+</li>
 <li><p>二项分布</p>
-<p>n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:<span class="math inline">\(P(X=k)=C_n^kp^k(1-p)^{n-k}\)</span> <span class="math display">\[
-E(X)=np \\ Var(X)=np(1-p)
-\]</span></p></li>
-<li><p>高斯分布/正态分布</p>
-<p>ML中最常用的概率分布.其中 <span class="math inline">\(\mu\)</span>决定分布中心的位置,<span class="math inline">\(\sigma\)</span> 标准差决定正态分布的幅度.</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" srcset="/img/loading.gif" lazyload alt="正态分布例图">
-<figcaption aria-hidden="true">正态分布例图</figcaption>
-</figure>
-<p><span class="math display">\[
-X \sim N(\mu,\sigma^2)
-\]</span></p></li>
+<p> n次伯努利试验中,每次试验只有两种可能结果,并且两种结果相互独立.在n次重复独立试验中事件发生k次的概率为:$P(X&#x3D;k)&#x3D;C_n^kp^k(1-p)^{n-k}$<br> $$<br> E(X)&#x3D;np \ Var(X)&#x3D;np(1-p)<br> $$</p>
+</li>
+<li><p>高斯分布&#x2F;正态分布</p>
+<p> ML中最常用的概率分布.其中 $\mu$决定分布中心的位置,$\sigma$ 标准差决定正态分布的幅度.</p>
+<p> <img src="https://s2.loli.net/2022/07/26/EXJlHW7oDNhqCbI.png" srcset="/img/loading.gif" lazyload alt="正态分布例图"></p>
+<p> $$<br> X \sim N(\mu,\sigma^2)<br> $$</p>
+</li>
 <li><p>指数分布</p>
-<p>指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中<span class="math inline">\(\lambda
-&gt;0\)</span>表示每单位时间内发生事件的次数.</p>
-<figure>
-<img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" srcset="/img/loading.gif" lazyload alt="指数分布例图">
-<figcaption aria-hidden="true">指数分布例图</figcaption>
-</figure>
-<p><span class="math display">\[
-X\sim Exp(\lambda)
-\]</span></p>
-<p>概率密度函数为:</p>
-<p><span class="math display">\[
-f(x;\lambda)=
-\left\{
-\begin{aligned}
-&amp;\lambda e^{-\lambda x} &amp;x\geq0 \\
-&amp;0&amp;x&lt;0
-\end{aligned}
-\right.
-\]</span></p>
-<p>特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:<span class="math inline">\(E(x)=\frac {1}{\lambda}\)</span>.</p></li>
+<p> 指数分布是一种连续概率分布,可以用来表示独立随机事件发生的时间间隔.其中$\lambda &gt;0$表示每单位时间内发生事件的次数.</p>
+<p> <img src="https://s2.loli.net/2022/07/26/afSYlZeE3C8jOKy.png" srcset="/img/loading.gif" lazyload alt="指数分布例图"></p>
+<p> $$<br> X\sim Exp(\lambda)<br> $$</p>
+<p> 概率密度函数为:</p>
+<p> $$<br> f(x;\lambda)&#x3D;<br> \left{<br> \begin{aligned}<br> &amp;\lambda e^{-\lambda x} &amp;x\geq0 \<br> &amp;0&amp;x&lt;0<br> \end{aligned}<br> \right.<br> $$</p>
+<p> 特点为无记忆性,在任意时间段内某个事件发生的概率相同,结合期望理解.期望为:$E(x)&#x3D;\frac {1}{\lambda}$.</p>
+</li>
 <li><p>泊松分布</p>
-<p>泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数<span class="math inline">\(\lambda\)</span>是随机事件发生次数的数学期望.</p>
-<figure>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" srcset="/img/loading.gif" lazyload alt="泊松分布例图">
-<figcaption aria-hidden="true">泊松分布例图</figcaption>
-</figure>
-<p>概率密度函数为:</p>
-<p><span class="math display">\[
-P(X=k)=\frac {e^{-\lambda}\lambda^k}{k!}
-\]</span></p>
-<p>泊松分布表示为:</p>
-<p><span class="math display">\[
-X \sim Pois(\lambda)
-\]</span></p>
-<p>性质有</p>
-<ol type="1">
-<li><p>期望与方差相等,都等于参数<span class="math inline">\(\lambda\)</span></p></li>
+<p> 泊松分布是一种常见的离散概率分布.适合描述单位时间内随机事件发生的次数的概率分布.参数$\lambda$是随机事件发生次数的数学期望.</p>
+<p> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Poisson_pmf.svg/650px-Poisson_pmf.svg.png" srcset="/img/loading.gif" lazyload alt="泊松分布例图"></p>
+<p> 概率密度函数为:</p>
+<p> $$<br> P(X&#x3D;k)&#x3D;\frac {e^{-\lambda}\lambda^k}{k!}<br> $$</p>
+<p> 泊松分布表示为:</p>
+<p> $$<br> X \sim Pois(\lambda)<br> $$</p>
+<p> 性质有</p>
+<ol>
+<li><p>期望与方差相等,都等于参数$\lambda$</p>
+</li>
 <li><p>两个独立且服从泊松分布的随机变量,其和仍然服从泊松分布</p>
-<p><span class="math display">\[
-X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\\
-X+Y \sim Poisson(\lambda_1+\lambda_2)
-\]</span></p></li>
-</ol></li>
+<p> $$<br> X \sim Poisson(\lambda_1),Y \sim Possion(\lambda_2)\<br> X+Y \sim Poisson(\lambda_1+\lambda_2)<br> $$</p>
+</li>
 </ol>
-<h1 id="信息论">信息论</h1>
-<p><strong>自信息:</strong></p>
-<p>一个事件x=<span class="math inline">\(x\)</span>的自信息为<span class="math inline">\(I(x)=-\log P(x)\)</span></p>
+</li>
+</ol>
+<h1 id="信息论"><a href="#信息论" class="headerlink" title="信息论"></a>信息论</h1><p><strong>自信息:</strong></p>
+<p>一个事件x&#x3D;$x$的自信息为$I(x)&#x3D;-\log P(x)$</p>
 <p><strong>香农熵:</strong></p>
 <p>一个分布P(x)的事件产生的信息总量的期望</p>
-<p><span class="math display">\[
-H(x)=\mathbb{E}_{X\sim P}[I(x)]=-\mathbb{E}_{X\sim P}[\log P(x)]
-\]</span></p>
+<p>$$<br>H(x)&#x3D;\mathbb{E}<em>{X\sim P}[I(x)]&#x3D;-\mathbb{E}</em>{X\sim P}[\log P(x)]<br>$$</p>
 <p><strong>KL散度(KL divergence):</strong></p>
 <p>衡量两个单独的概率分布P(x)和Q(x)的差异.KL散度非负,为0时表示分布相同.</p>
-<p><span class="math display">\[
-D_{KL}(P||Q)=\mathbb{E}_{X\sim P}\left[ \log \frac {P(x)}{Q(x)}
-\right]=\mathbb{E}_{X\sim P}[\log P(x)- \log Q(x)]
-\]</span></p>
+<p>$$<br>D_{KL}(P||Q)&#x3D;\mathbb{E}<em>{X\sim P}\left[ \log \frac {P(x)}{Q(x)} \right]&#x3D;\mathbb{E}</em>{X\sim P}[\log P(x)- \log Q(x)]<br>$$</p>
 <aside>
 💡 KL散度中的P分布和Q分布不能交换顺序
 </aside>
+
+
+
 <p><strong>交叉熵(cross-entropy):</strong></p>
-<p><span class="math display">\[
-H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
-\]</span></p>
+<p>$$<br>H(P,Q)&#x3D;H(P)+D_{KL}(P||Q)&#x3D;-\mathbb{E}_{X\sim P}\log Q(x)<br>$$</p>
 <aside>
 💡 在信息论中0log0结果取0
 </aside>
@@ -616,6 +576,19 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

@@ -16,21 +16,21 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="目的 通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。   在外网可以使用代理服务器访问内网服务  搭建步骤 概览  为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口 为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps 终">
+    <meta name="description" content="目的通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。  搭建步骤概览 为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口  为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps  终端设备上使用Shadowrocket连接ss">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用中转服务器代理访问内网bySSinDocker">
 <meta property="og:url" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="目的 通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。   在外网可以使用代理服务器访问内网服务  搭建步骤 概览  为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口 为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps 终">
+<meta property="og:description" content="目的通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。  搭建步骤概览 为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口  为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps  终端设备上使用Shadowrocket连接ss">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png">
+<meta property="og:image" content="https://ash-one.github.io/%E4%BD%BF%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91bySSinDocker/image-20221027122230481.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png">
-<meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png">
+<meta property="og:image" content="https://ash-one.github.io/%E4%BD%BF%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91bySSinDocker/image-20221027171938222.png">
 <meta property="og:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png">
 <meta property="article:published_time" content="2022-10-27T04:05:00.000Z">
 <meta property="article:modified_time" content="2022-10-27T09:57:14.896Z">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="网络">
 <meta property="article:tag" content="代理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ash-one.github.io/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png">
+<meta name="twitter:image" content="https://ash-one.github.io/%E4%BD%BF%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91bySSinDocker/image-20221027122230481.png">
   
   
   
@@ -303,53 +303,56 @@
             
               <div class="markdown-body">
                 
-                <h1 id="目的">目的</h1>
-<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" srcset="/img/loading.gif" lazyload alt="在外网可以使用代理服务器访问内网服务">
-<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
-</figure>
-<h1 id="搭建步骤">搭建步骤</h1>
-<h2 id="概览">概览</h2>
-<ol type="1">
-<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
-<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
-<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
+                <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
+<p><img src="/%E4%BD%BF%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91bySSinDocker/image-20221027122230481.png" srcset="/img/loading.gif" lazyload alt="在外网可以使用代理服务器访问内网服务"></p>
+<h1 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h1><h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><ol>
+<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p>
+</li>
+<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p>
+</li>
+<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p>
+</li>
 </ol>
-<h2 id="搭建ss服务器">搭建SS服务器</h2>
-<p>此处选择的docker镜像是<a target="_blank" rel="noopener" href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
+<h2 id="搭建SS服务器"><a href="#搭建SS服务器" class="headerlink" title="搭建SS服务器"></a>搭建SS服务器</h2><p>此处选择的docker镜像是<a target="_blank" rel="noopener" href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists&#x2F;shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
-<h2 id="搭建frpc">搭建frpc</h2>
-<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
+
+<h2 id="搭建frpc"><a href="#搭建frpc" class="headerlink" title="搭建frpc"></a>搭建frpc</h2><p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
 <p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
 <p>frpc.ini配置示例</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
+
 <p>运行frpc</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
-<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
-<p>进入小火箭点击右上角的加号</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" srcset="/img/loading.gif" lazyload alt="image-20221027144752017" style="zoom: 25%;"></p>
+
+
+
+<h2 id="配置Shadowrocket小火箭"><a href="#配置Shadowrocket小火箭" class="headerlink" title="配置Shadowrocket小火箭"></a>配置Shadowrocket小火箭</h2><p>进入小火箭点击右上角的加号</p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" srcset="/img/loading.gif" lazyload alt="image-20221027144752017" style="zoom: 25%;">
+
 <p>填写内容，需要对应ss服务器上的配置填写</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" srcset="/img/loading.gif" lazyload alt="image-20221027145506511" style="zoom: 25%;"></p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" srcset="/img/loading.gif" lazyload alt="image-20221027145506511" style="zoom: 25%;">
+
 <p>然后可以在首页的本地节点中看到刚添加的节点</p>
 <p>点击连通性测试查看是否网络已打通</p>
-<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" srcset="/img/loading.gif" lazyload alt="image-20221027150207562" style="zoom:25%;"></p>
+<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0&#x2F;24，而小火箭默认是不转发192.168.0.0&#x2F;16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" srcset="/img/loading.gif" lazyload alt="image-20221027150207562" style="zoom:25%;">
+
 <p>进入后点击通用</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" srcset="/img/loading.gif" lazyload alt="image-20221027150257581" style="zoom:25%;"></p>
-<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" srcset="/img/loading.gif" lazyload alt="image-20221027150257581" style="zoom:25%;">
+
+<p>我删除这里的两个192.168.0.0&#x2F;16网段，你需要根据自己的内网网段删除。</p>
 <p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" srcset="/img/loading.gif" lazyload alt="image-20221027171319764" style="zoom:25%;"></p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" srcset="/img/loading.gif" lazyload alt="image-20221027171319764" style="zoom:25%;">
+
 <p>我这里测试我的内网网关</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" srcset="/img/loading.gif" lazyload alt="image-20221027171655099" style="zoom:25%;"></p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" srcset="/img/loading.gif" lazyload alt="image-20221027171655099" style="zoom:25%;">
+
 <p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
 <p>或者你可以像我一样添加整个网段。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" srcset="/img/loading.gif" lazyload alt="image-20221027171938222">
-<figcaption aria-hidden="true">image-20221027171938222</figcaption>
-</figure>
+<p><img src="/%E4%BD%BF%E7%94%A8%E4%B8%AD%E8%BD%AC%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%A3%E7%90%86%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91bySSinDocker/image-20221027171938222.png" srcset="/img/loading.gif" lazyload alt="image-20221027171938222"></p>
 <p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" srcset="/img/loading.gif" lazyload alt="image-20221027172217114" style="zoom: 25%;"></p>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" srcset="/img/loading.gif" lazyload alt="image-20221027172217114" style="zoom: 25%;">
+
 <p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
 
                 
@@ -503,6 +506,19 @@
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

@@ -16,12 +16,12 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="虚拟局域网技术 ## 前言 工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制">
+    <meta name="description" content="虚拟局域网技术前言工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟局域网技术VLAN解析">
 <meta property="og:url" content="https://ash-one.github.io/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="虚拟局域网技术 ## 前言 工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制">
+<meta property="og:description" content="虚拟局域网技术前言工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-17T08:23:24.000Z">
 <meta property="article:modified_time" content="2022-10-17T12:56:36.928Z">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          571 字
+          574 字
         
       </span>
     
@@ -291,37 +291,20 @@
             
               <div class="markdown-body">
                 
-                <h1 id="虚拟局域网技术">虚拟局域网技术</h1>
-<p>## 前言</p>
-<p>工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的<u>广播风暴</u>可能会导致网络瘫痪。</p>
+                <h1 id="虚拟局域网技术"><a href="#虚拟局域网技术" class="headerlink" title="虚拟局域网技术"></a>虚拟局域网技术</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的<u>广播风暴</u>可能会导致网络瘫痪。</p>
 <p>广播信息的来源主要是涉及到地址解析、名称解析的行为：</p>
-<ol type="1">
-<li>网络层
-TCP/IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP</li>
+<ol>
+<li>网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP</li>
 <li>会话层协议：网上基本输入输出系统NETBIOS</li>
 <li>应用层协议：链路本地多播名称解析LLMNR</li>
 </ol>
 <p>网络中的广播信息无处不在，想要克制不去使用是<strong>不现实的</strong>，因此我们应该想办法减小广播的影响范围即广播域。</p>
 <p>对于网络负载过高、通信性能下降的情况，往往需要管理员手动更改网络拓扑结构，如变更主机网段、硬件线路改造等。出现VLAN之后就<strong>只需要修改网络结构</strong>。</p>
-<h2 id="定义">定义</h2>
-<p>虚拟局域网（Virtual
-LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN是一个广播域，VLAN内的主机间通信就和在一个LAN内一样，而VLAN间则不能直接互通，这样，广播报文就被限制在一个VLAN内。</p>
-<h2 id="实现">实现</h2>
-<h1 id="虚拟扩展局域网">虚拟扩展局域网</h1>
-<h2 id="vlan的限制">VLAN的限制</h2>
-<p>传统VLAN标识ID字段的VID只有12bit，最多能取4094个值，对于大型的应用场景能力有限。</p>
-<h2 id="vxlan">VXLAN</h2>
-<h3 id="定义-1">定义</h3>
-<p>本质上是隧道技术。</p>
-<h3 id="原理解析">原理解析</h3>
-<h2 id="优缺点">优缺点</h2>
-<h2 id="虚拟局域网技术展望">虚拟局域网技术展望</h2>
-<h1 id="虚拟局域网实验">虚拟局域网实验</h1>
-<p>把一个物理网络从逻辑上划分为几个单独的局域网</p>
-<h2 id="没有划分vlan的网络">没有划分VLAN的网络</h2>
-<h2 id="划分vlan的网络">划分VLAN的网络</h2>
-<h2 id="vlan之间互通">VLAN之间互通</h2>
-
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>虚拟局域网（Virtual LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN是一个广播域，VLAN内的主机间通信就和在一个LAN内一样，而VLAN间则不能直接互通，这样，广播报文就被限制在一个VLAN内。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h1 id="虚拟扩展局域网"><a href="#虚拟扩展局域网" class="headerlink" title="虚拟扩展局域网"></a>虚拟扩展局域网</h1><h2 id="VLAN的限制"><a href="#VLAN的限制" class="headerlink" title="VLAN的限制"></a>VLAN的限制</h2><p>传统VLAN标识ID字段的VID只有12bit，最多能取4094个值，对于大型的应用场景能力有限。</p>
+<h2 id="VXLAN"><a href="#VXLAN" class="headerlink" title="VXLAN"></a>VXLAN</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>本质上是隧道技术。</p>
+<h3 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h3><h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h2 id="虚拟局域网技术展望"><a href="#虚拟局域网技术展望" class="headerlink" title="虚拟局域网技术展望"></a>虚拟局域网技术展望</h2><h1 id="虚拟局域网实验"><a href="#虚拟局域网实验" class="headerlink" title="虚拟局域网实验"></a>虚拟局域网实验</h1><p>把一个物理网络从逻辑上划分为几个单独的局域网</p>
+<h2 id="没有划分VLAN的网络"><a href="#没有划分VLAN的网络" class="headerlink" title="没有划分VLAN的网络"></a>没有划分VLAN的网络</h2><h2 id="划分VLAN的网络"><a href="#划分VLAN的网络" class="headerlink" title="划分VLAN的网络"></a>划分VLAN的网络</h2><h2 id="VLAN之间互通"><a href="#VLAN之间互通" class="headerlink" title="VLAN之间互通"></a>VLAN之间互通</h2>
                 
               </div>
             
@@ -449,6 +432,19 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

@@ -16,12 +16,12 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Flutter学习笔记 StatelessWidget和StatefulWidget  StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造。  开发时如何">
+    <meta name="description" content="Flutter学习笔记StatelessWidget和StatefulWidget StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。   StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造。  开发时如何选">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flutter学习笔记">
 <meta property="og:url" content="https://ash-one.github.io/2021/09/28/flutter-xue-xi-bi-ji/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="Flutter学习笔记 StatelessWidget和StatefulWidget  StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造。  开发时如何">
+<meta property="og:description" content="Flutter学习笔记StatelessWidget和StatefulWidget StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。   StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造。  开发时如何选">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-09-28T13:20:16.000Z">
 <meta property="article:modified_time" content="2021-09-28T13:34:25.675Z">
@@ -293,21 +293,15 @@
             
               <div class="markdown-body">
                 
-                <h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
+                <h1 id="Flutter学习笔记"><a href="#Flutter学习笔记" class="headerlink" title="Flutter学习笔记"></a>Flutter学习笔记</h1><h2 id="StatelessWidget和StatefulWidget"><a href="#StatelessWidget和StatefulWidget" class="headerlink" title="StatelessWidget和StatefulWidget"></a>StatelessWidget和StatefulWidget</h2><ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。  </li>
 <li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
 </ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
+<h2 id="开发时如何选择"><a href="#开发时如何选择" class="headerlink" title="开发时如何选择"></a>开发时如何选择</h2><ul>
+<li>优先使用 StatelessWidget  </li>
 <li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
 <li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>将会调用到setState((){}) 的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
 <li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
 </ul>
 
@@ -468,6 +462,19 @@
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid/dist/mermaid.min.js/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 
