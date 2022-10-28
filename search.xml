@@ -12,12 +12,12 @@ machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面�
 </aside>
 <h1 id="配置git">配置git</h1>
 <p>mac自带git，所以只需要配置下用户名和邮箱</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;John Doe&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;johndoe@example.com&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;John Doe&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;johndoe@example.com&quot;</span><br></code></pre></td></tr></table></figure>
 <h1 id="安装brew">安装brew</h1>
 <p><a href="https://brew.sh/index_zh-cn">Homebrew</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/bin/bash -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
 <p>根据返回的最后内容执行提示的代码，将brew添加到path中</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27;</span> &gt;&gt; /Users/ashone/.zprofile<br></code></pre></td></tr></table></figure>
 <p>最后在终端中输入brew测试是否添加成功</p>
 <h1 id="安装iterm2">安装iTerm2</h1>
 <p><a href="https://iterm2.com/index.html">iTerm2 - macOS Terminal
@@ -25,7 +25,7 @@ Replacement</a></p>
 <h1 id="安装oh-my-zsh">安装oh-my-zsh</h1>
 <p><a href="https://ohmyz.sh/#install">Oh My Zsh - a delightful &amp;
 open source framework for Zsh</a></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sh -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span><br></code></pre></td></tr></table></figure>
 <h1 id="安装zsh主题">安装zsh主题</h1>
 <p>我选择安装powerlevel10k主题，链接在这里https://github.com/romkatv/powerlevel10k</p>
 <ol type="1">
@@ -39,12 +39,12 @@ NF Italic.ttf</a></p>
 <p><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf">MesloLGS
 NF Bold Italic.ttf</a></p></li>
 <li><p>手动安装主题文件</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="hljs-variable">$&#123;ZSH_CUSTOM:-<span class="hljs-variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k<br></code></pre></td></tr></table></figure></p></li>
 <li><p>编辑配置文件，修改主题为10k</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure></p>
 <p>也可以使用其他编辑器打开这个文件</p>
 <p>然后找到第11行修改主题为</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">powerlevel10k/powerlevel10k</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">powerlevel10k/powerlevel10k<br></code></pre></td></tr></table></figure></p></li>
 <li><p>重启iterm，加载主题文件</p>
 <p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled.png"></p></li>
 <li><p>依次根据样式进行配置</p></li>
@@ -55,10 +55,10 @@ NF Bold Italic.ttf</a></p></li>
 zsh-users/zsh-autosuggestions: Fish-like autosuggestions for zsh</a></p>
 <ol type="1">
 <li><p>下载插件</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="hljs-variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions<br></code></pre></td></tr></table></figure></p></li>
 <li><p>编辑zshrc配置文件，增加插件，修改配色</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">code ~/.zshrc</span><br></pre></td></tr></table></figure></p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">plugins=( </span><br><span class="line">    # other plugins...</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br><span class="line"># 此处修改autosuggestions插件的配色</span><br><span class="line">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=&quot;fg=#d0d0d0,underline&quot;</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">code ~/.zshrc<br></code></pre></td></tr></table></figure></p>
+<p><figure class="highlight makefile"><table><tr><td class="code"><pre><code class="hljs makefile">plugins=( <br>    <span class="hljs-comment"># other plugins...</span><br>    zsh-autosuggestions<br>)<br><span class="hljs-comment"># 此处修改autosuggestions插件的配色</span><br>ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=<span class="hljs-string">&quot;fg=#d0d0d0,underline&quot;</span><br></code></pre></td></tr></table></figure></p></li>
 <li><p>重开iterm</p></li>
 </ol>
 <p>查看效果：</p>
@@ -69,15 +69,15 @@ Conda documentation</a></p>
 <h2 id="安装miniconda对应版本的pkg双击后直接安装在终端测试conda命令是否正常">安装miniconda对应版本的pkg，双击后直接安装，在终端测试conda命令是否正常</h2>
 <h2 id="查看conda环境-创建新python环境">查看conda环境,
 创建新python环境</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line">conda create -n your_env_name python=x.x</span><br><span class="line"></span><br><span class="line">conda activate dl</span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">env</span> list<br>conda create -n your_env_name python=x.x<br><br>conda activate dl<br>conda deactivate<br></code></pre></td></tr></table></figure>
 <h1 id="安装pytorchapple-silicon版本">安装pytorch（Apple
 Silicon版本）</h1>
 <p><a href="https://pytorch.org/">PyTorch</a></p>
 <p><img src="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/Untitled%202.png"></p>
 <p>pytorch从1.13版本开始支持苹果芯片gpu加速,目前（7.30）还得安装nightly版本</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">conda install pytorch -c pytorch-nightly</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">conda install pytorch -c pytorch-nightly<br></code></pre></td></tr></table></figure>
 <p>用python测试查看版本号，torch版本为1.13开发版就代表安装成功</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">❯ python</span><br><span class="line">Python 3.8.13 (default, Mar 28 2022, 06:13:39)</span><br><span class="line">[Clang 12.0.0 ] :: Anaconda, Inc. on darwin</span><br><span class="line">Type <span class="string">&quot;help&quot;</span>, <span class="string">&quot;copyright&quot;</span>, <span class="string">&quot;credits&quot;</span> or <span class="string">&quot;license&quot;</span> <span class="keyword">for</span> more information.</span><br><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">&gt;&gt;&gt; torch.__version__</span><br><span class="line"><span class="string">&#x27;1.13.0.dev20220729&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">❯ python<br>Python 3.8.13 (default, Mar 28 2022, 06:13:39)<br>[Clang 12.0.0 ] :: Anaconda, Inc. on darwin<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; import torch<br>&gt;&gt;&gt; torch.__version__<br><span class="hljs-string">&#x27;1.13.0.dev20220729&#x27;</span><br></code></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>技术</category>
@@ -127,13 +127,13 @@ Silicon版本）</h1>
 <p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
 </blockquote>
 <p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <p>而实际上在matery主题中没有该文件</p>
 <h2 id="解决方法">解决方法</h2>
 <h3 id="第一步-增加js代码">第一步 增加js代码</h3>
 <p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
 <p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;% if (theme.mermaid.enable) &#123; %&gt;</span><br><span class="line">  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    if (window.mermaid) &#123;</span><br><span class="line">      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
 <p><strong>注意到去掉了原本中间的版本控制,
 因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
 <ul>
@@ -142,7 +142,7 @@ dark | forest | neutral</em></li>
 </ul>
 <h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
 <p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">mermaid:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mermaid:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <h2 id="结语">结语</h2>
 <p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
 <p>如果没能成功加载, 可以查看源代码查找mermaid,
@@ -170,7 +170,7 @@ dark | forest | neutral</em></li>
 <h2 id="准备路径后安装hexo">准备路径后安装hexo</h2>
 <p>在想要安装node的路径下建立一个新的文件夹，避免装在根目录下</p>
 <p>在新的文件夹下执行命令安装hexo</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> hexo<br></code></pre></td></tr></table></figure>
 <p>测试hexo命令</p>
 <h1 id="安装各种插件">安装各种插件</h1>
 <h2 id="pandoc渲染latex公式">pandoc渲染latex公式</h2>
@@ -178,26 +178,26 @@ dark | forest | neutral</em></li>
 <p><a href="https://pandoc.org/installing.html">Installing
 pandoc</a></p>
 <p>再执行命令</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-renderer-pandoc --save</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">npm install hexo-renderer-pandoc --save<br></code></pre></td></tr></table></figure>
 <h2 id="安装mermaid流程图插件">安装mermaid流程图插件</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-filter-mermaid-diagrams</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">npm install --save hexo-filter-mermaid-diagrams<br></code></pre></td></tr></table></figure>
 <p>安装后不能直接使用，需要修改部分文件，修改内容如下</p>
 <p>参考文章：</p>
 <p><a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">Hexo博客在matery主题下插入mermaid流程图</a></p>
 <h2 id="安装支持本地图片的插件">安装支持本地图片的插件</h2>
 <ol type="1">
 <li><p>插件安装</p>
-<p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">npm install hexo-asset-image --save<br></code></pre></td></tr></table></figure></p></li>
 <li><p>由于插件内容老旧失效，找到文件进行修改</p>
 <p>位置在/node_modules/hexo-asset-image/index.js</p>
-<p><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getPosition</span>(<span class="params">str, m, i</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> str.<span class="title function_">split</span>(m, i).<span class="title function_">join</span>(m).<span class="property">length</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="title class_">String</span>(hexo.<span class="property">version</span>).<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>);</span><br><span class="line">hexo.<span class="property">extend</span>.<span class="property">filter</span>.<span class="title function_">register</span>(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.<span class="property">config</span>;</span><br><span class="line">  <span class="keyword">if</span>(config.<span class="property">post_asset_folder</span>)&#123;</span><br><span class="line">    	<span class="keyword">var</span> link = data.<span class="property">permalink</span>;</span><br><span class="line">	<span class="keyword">if</span>(version.<span class="property">length</span> &gt; <span class="number">0</span> &amp;&amp; <span class="title class_">Number</span>(version[<span class="number">0</span>]) == <span class="number">3</span>)</span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	   <span class="keyword">var</span> beginPos = <span class="title function_">getPosition</span>(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">	<span class="keyword">var</span> endPos = link.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;/&#x27;</span>) + <span class="number">1</span>;</span><br><span class="line">    link = link.<span class="title function_">substring</span>(beginPos, endPos);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.<span class="property">length</span>; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.<span class="title function_">load</span>(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">		<span class="keyword">if</span> ($(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>))&#123;</span><br><span class="line">			<span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">			<span class="keyword">var</span> src = $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>).<span class="title function_">replace</span>(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			<span class="keyword">if</span>(!<span class="regexp">/http[s]*.*|\/\/.*/</span>.<span class="title function_">test</span>(src) &amp;&amp;</span><br><span class="line">			   !<span class="regexp">/^\s*\//</span>.<span class="title function_">test</span>(src)) &#123;</span><br><span class="line">			  <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">			  <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">			  <span class="keyword">var</span> linkArray = link.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">var</span> srcArray = src.<span class="title function_">split</span>(<span class="string">&#x27;/&#x27;</span>).<span class="title function_">filter</span>(<span class="keyword">function</span>(<span class="params">elem</span>)&#123;</span><br><span class="line">				<span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">			  &#125;);</span><br><span class="line">			  <span class="keyword">if</span>(srcArray.<span class="property">length</span> &gt; <span class="number">1</span>)</span><br><span class="line">				srcArray.<span class="title function_">shift</span>();</span><br><span class="line">			  src = srcArray.<span class="title function_">join</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">			  $(<span class="variable language_">this</span>).<span class="title function_">attr</span>(<span class="string">&#x27;src&#x27;</span>, config.<span class="property">root</span> + link + src);</span><br><span class="line">			  <span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.<span class="property">root</span> + link + src);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">			<span class="variable language_">console</span>.<span class="property">info</span>&amp;&amp;<span class="variable language_">console</span>.<span class="title function_">info</span>($(<span class="variable language_">this</span>));</span><br><span class="line">		&#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.<span class="title function_">html</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight jsx"><table><tr><td class="code"><pre><code class="hljs jsx"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-keyword">var</span> cheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;cheerio&#x27;</span>);<br><br><span class="hljs-comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPosition</span>(<span class="hljs-params">str, m, i</span>) &#123;<br>  <span class="hljs-keyword">return</span> str.<span class="hljs-title function_">split</span>(m, i).<span class="hljs-title function_">join</span>(m).<span class="hljs-property">length</span>;<br>&#125;<br><br><span class="hljs-keyword">var</span> version = <span class="hljs-title class_">String</span>(hexo.<span class="hljs-property">version</span>).<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>);<br>hexo.<span class="hljs-property">extend</span>.<span class="hljs-property">filter</span>.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;after_post_render&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)&#123;<br>  <span class="hljs-keyword">var</span> config = hexo.<span class="hljs-property">config</span>;<br>  <span class="hljs-keyword">if</span>(config.<span class="hljs-property">post_asset_folder</span>)&#123;<br>    	<span class="hljs-keyword">var</span> link = data.<span class="hljs-property">permalink</span>;<br>	<span class="hljs-keyword">if</span>(version.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-title class_">Number</span>(version[<span class="hljs-number">0</span>]) == <span class="hljs-number">3</span>)<br>	   <span class="hljs-keyword">var</span> beginPos = <span class="hljs-title function_">getPosition</span>(link, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">else</span><br>	   <span class="hljs-keyword">var</span> beginPos = <span class="hljs-title function_">getPosition</span>(link, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">3</span>) + <span class="hljs-number">1</span>;<br>	<span class="hljs-comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span><br>	<span class="hljs-keyword">var</span> endPos = link.<span class="hljs-title function_">lastIndexOf</span>(<span class="hljs-string">&#x27;/&#x27;</span>) + <span class="hljs-number">1</span>;<br>    link = link.<span class="hljs-title function_">substring</span>(beginPos, endPos);<br><br>    <span class="hljs-keyword">var</span> toprocess = [<span class="hljs-string">&#x27;excerpt&#x27;</span>, <span class="hljs-string">&#x27;more&#x27;</span>, <span class="hljs-string">&#x27;content&#x27;</span>];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; toprocess.<span class="hljs-property">length</span>; i++)&#123;<br>      <span class="hljs-keyword">var</span> key = toprocess[i];<br> <br>      <span class="hljs-keyword">var</span> $ = cheerio.<span class="hljs-title function_">load</span>(data[key], &#123;<br>        <span class="hljs-attr">ignoreWhitespace</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">xmlMode</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">lowerCaseTags</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">decodeEntities</span>: <span class="hljs-literal">false</span><br>      &#125;);<br><br>      $(<span class="hljs-string">&#x27;img&#x27;</span>).<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>		<span class="hljs-keyword">if</span> ($(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>))&#123;<br>			<span class="hljs-comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span><br>			<span class="hljs-keyword">var</span> src = $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>);<br>			<span class="hljs-keyword">if</span>(!<span class="hljs-regexp">/http[s]*.*|\/\/.*/</span>.<span class="hljs-title function_">test</span>(src) &amp;&amp;<br>			   !<span class="hljs-regexp">/^\s*\//</span>.<span class="hljs-title function_">test</span>(src)) &#123;<br>			  <span class="hljs-comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span><br>			  <span class="hljs-comment">// In addition, to support multi-level local directory.</span><br>			  <span class="hljs-keyword">var</span> linkArray = link.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;/&#x27;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)&#123;<br>				<span class="hljs-keyword">return</span> elem != <span class="hljs-string">&#x27;&#x27;</span>;<br>			  &#125;);<br>			  <span class="hljs-keyword">var</span> srcArray = src.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;/&#x27;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)&#123;<br>				<span class="hljs-keyword">return</span> elem != <span class="hljs-string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="hljs-string">&#x27;.&#x27;</span>;<br>			  &#125;);<br>			  <span class="hljs-keyword">if</span>(srcArray.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>)<br>				srcArray.<span class="hljs-title function_">shift</span>();<br>			  src = srcArray.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;/&#x27;</span>);<br>			  $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>, config.<span class="hljs-property">root</span> + link + src);<br>			  <span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;update link as:--&gt;&quot;</span>+config.<span class="hljs-property">root</span> + link + src);<br>			&#125;<br>		&#125;<span class="hljs-keyword">else</span>&#123;<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;no src attr, skipped...&quot;</span>);<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>($(<span class="hljs-variable language_">this</span>));<br>		&#125;<br>      &#125;);<br>      data[key] = $.<span class="hljs-title function_">html</span>();<br>    &#125;<br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure></p></li>
 <li><p>打开hexo配置文件_config.yml，找到这个配置项开启功能，目的是在每次使用hexo
 new生成新博客时，自动生成一个同名的目录存放静态文件</p>
-<p><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></p></li>
+<p><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
 <p>可以生成测试是否能正常加载blog中的本地图片</p>
 <p>如果没能正确生成可以使用命令清理文件重新编译</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">hexo clean<br></code></pre></td></tr></table></figure>
 <h1 id="参考链接">参考链接</h1>
 <p><a href="https://juejin.cn/post/7006594302604214280">解决hexo引用本地图片无法显示的问题
 - 掘金</a></p>
@@ -222,16 +222,16 @@ you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p
 <h2 id="quick-start">Quick Start</h2>
 <h3 id="create-a-new-post">Create a new post</h3>
 <p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br><span class="line">$ hexo new post <span class="string">&quot;这是一个新的笔记&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 <h3 id="命令可以组合使用">命令可以组合使用</h3>
 <blockquote>
@@ -265,8 +265,8 @@ you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p
 </li>
 <li><strong>字典 dictionary</strong><br>
 以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br>
-取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d=&#123;<span class="string">&#x27;name&#x27;</span>:<span class="string">&#x27;wow&#x27;</span>,<span class="string">&#x27;age&#x27;</span>:<span class="number">17</span>&#125;  </span><br><span class="line">d[<span class="string">&#x27;name&#x27;</span>]=</span><br></pre></td></tr></table></figure> #### 索引与切片
-请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">info=[<span class="string">&#x27;hello&#x27;</span>,<span class="string">&#x27;what&#x27;</span>,<span class="number">5432</span>]  </span><br><span class="line">info2=[ [<span class="string">&#x27;world&#x27;</span>,<span class="string">&#x27;you&#x27;</span>],[<span class="number">231</span>,<span class="string">&#x27;how&#x27;</span>] ]   </span><br><span class="line">info[<span class="number">1</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info[<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br><span class="line">info2[<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">0</span>]=  </span><br><span class="line">info2[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>:<span class="number">3</span>]=  </span><br></pre></td></tr></table></figure> ***</li>
+取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">d=&#123;<span class="hljs-string">&#x27;name&#x27;</span>:<span class="hljs-string">&#x27;wow&#x27;</span>,<span class="hljs-string">&#x27;age&#x27;</span>:<span class="hljs-number">17</span>&#125;  <br>d[<span class="hljs-string">&#x27;name&#x27;</span>]=<br></code></pre></td></tr></table></figure> #### 索引与切片
+请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">info=[<span class="hljs-string">&#x27;hello&#x27;</span>,<span class="hljs-string">&#x27;what&#x27;</span>,<span class="hljs-number">5432</span>]  <br>info2=[ [<span class="hljs-string">&#x27;world&#x27;</span>,<span class="hljs-string">&#x27;you&#x27;</span>],[<span class="hljs-number">231</span>,<span class="hljs-string">&#x27;how&#x27;</span>] ]   <br>info[<span class="hljs-number">1</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br>info2[<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br></code></pre></td></tr></table></figure> ***</li>
 </ol>
 <h2 id="运算符">运算符</h2>
 <h3 id="算数运算符">算数运算符</h3>
@@ -310,18 +310,18 @@ else:<br>
   语句</p>
 </blockquote>
 <p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> x%<span class="number">2</span>==<span class="number">0</span>:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;偶数&#x27;</span>)  </span><br><span class="line">esle:  </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&#x27;奇数&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> x%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;偶数&#x27;</span>)  <br>esle:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;奇数&#x27;</span>)<br></code></pre></td></tr></table></figure></p>
 <h2 id="循环结构">循环结构</h2>
 <h4 id="for循环">for循环</h4>
 <p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br>
   循环体</p>
 <p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">101</span>,<span class="number">1</span>):  </span><br><span class="line">		s+=i  </span><br><span class="line">		<span class="built_in">print</span>(i)  </span><br></pre></td></tr></table></figure> #### while循环
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">101</span>,<span class="hljs-number">1</span>):  <br>		s+=i  <br>		<span class="hljs-built_in">print</span>(i)  <br></code></pre></td></tr></table></figure> #### while循环
 循环条件为<code>True</code>时进入循环，否则退出循环<br>
 &gt;while 循环条件:<br>
   循环体</p>
 <p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s=<span class="number">0</span>  </span><br><span class="line">i=<span class="number">0</span>  </span><br><span class="line"><span class="keyword">while</span> i&lt;=<span class="number">100</span>:  </span><br><span class="line">    s+=i</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"><span class="built_in">print</span>(s)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br>i=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">while</span> i&lt;=<span class="hljs-number">100</span>:  <br>    s+=i<br>    i+=<span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(i)<br><span class="hljs-built_in">print</span>(s)<br></code></pre></td></tr></table></figure></p>
 <p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br>
 <strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br>
 <strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
@@ -338,6 +338,356 @@ else:<br>
         <tag>Python</tag>
         <tag>信息技术</tag>
         <tag>支教</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu上基于docker搭建Hadoop集群</title>
+    <url>/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/</url>
+    <content><![CDATA[<h1 id="docker操作">Docker操作</h1>
+<p>先学习一下基础的docker命令，后面常用，这里放出来备查</p>
+<h2 id="查看容器container">查看容器container</h2>
+<p>docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器
+3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">sudo docker ps -<span class="hljs-selector-tag">a</span><br></code></pre></td></tr></table></figure>
+<h2 id="删除容器">删除容器</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rm <span class="hljs-number">1051267</span>f9afb<br></code></pre></td></tr></table></figure>
+<h2 id="查看镜像image">查看镜像image</h2>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo docker images</span><br></code></pre></td></tr></table></figure>
+<h2 id="删除镜像">删除镜像</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rmi <span class="hljs-number">5</span>d0da3dc9764<br></code></pre></td></tr></table></figure>
+<h2 id="启动容器">启动容器</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker run -itd weicg/hadoop:<span class="hljs-number">1</span>.<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>-d表示在后台运行，需要进入容器</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> be349f8dd945 bash<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用exec 进入容器时exit命令不会结束容器</li>
+</ul>
+<h1 id="hadoop集群搭建">Hadoop集群搭建</h1>
+<h2 id="准备镜像">准备镜像</h2>
+<p>我选择的是dockerhub上的<code>weicg/hadoop:1.2</code>,同样是一位初学者制作的，试用还算可以（单机可以开箱即用）不过这里搭建集群还需要修改一些内容。来源：https://hub.docker.com/r/weicg/hadoop</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker pull weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
+<p>我们打算建立一个<strong>一主两从</strong>的集群，需要开三个容器</p>
+<h2 id="建立网桥">建立网桥</h2>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">sudo docker network <span class="hljs-built_in">create</span> <span class="hljs-comment">--driver bridge hadoop-br</span><br></code></pre></td></tr></table></figure>
+<h2 id="开启多个容器">开启多个容器</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -itd --network hadoop-br --name hadoop1 -p 50070:50070 -p 8088:8088 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop2 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop3 weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
+<p>得到三个容器</p>
+<ul>
+<li>23c1187f8492</li>
+<li>676e08f5ecc5</li>
+<li>d2ec810e1e89</li>
+</ul>
+<p>进入这些容器只需要</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> hadoop1 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop2 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop3 bash<br></code></pre></td></tr></table></figure>
+<h2 id="查看网桥配置">查看网桥配置</h2>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">sudo docker network <span class="hljs-keyword">inspect </span>hadoop-<span class="hljs-keyword">br </span><br></code></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;Containers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;23c1187f84929b19883f3ff3452688fca46c101e43bdfcc2a0cabaa4cd4fc593&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop1&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;27504f3d67c0a1e884ab8420c717b7bf5f3aa7db211360fa19a0d501fa6f9ed7&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:02&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.2/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;676e08f5ecc5273542efd51e554ef1fa8790b2aa4a57fa3516cb39d6b09cfb7f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;b766f1d85e339558f0bbf89e52e8e9a103c8d8e5b593dbcb6832367a925dcb4f&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:03&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.3/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;d2ec810e1e897f47add8b09f8a813b6c23ab892fddd0706b88373d7f67f76b2f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop3&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;552975d97feddc22fcf5d4ac1afa61be698846f08727e249d7581aaa33e220c2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:04&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.4/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>可以看到三个docker的ip地址</p>
+<p>172.18.0.2 hadoop1</p>
+<p>172.18.0.3 hadoop2</p>
+<p>172.18.0.4 hadoop3</p>
+<p>使用<code>ping</code>命令分别检查是否网络通畅</p>
+<p>以下命令需要分别进入三个容器内执行</p>
+<p>1.更改hosts文件<code>vim /etc/hosts</code>,加入如下配置</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.18.0.2</span> hadoop1 <br><span class="hljs-number">172.18.0.3</span> hadoop2 <br><span class="hljs-number">172.18.0.4</span> hadoop3 <br></code></pre></td></tr></table></figure>
+<p>2.分别在三个容器内配置ssh,因为镜像已经生成了密钥，此处将本机密钥加入本机的访问列表中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh<br><span class="hljs-built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys<br></code></pre></td></tr></table></figure>
+<p>完成后可以<code>ssh root@hadoop2</code>查看是否成功配置ssh和网络。</p>
+<h2 id="配置hadoop文件">配置hadoop文件</h2>
+<p>进入hadoop1,创建一些配置用到的文件夹</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir <span class="hljs-regexp">/home/</span>hadoop<br>mkdir <span class="hljs-regexp">/home/</span>hadoop<span class="hljs-regexp">/tmp /</span>home<span class="hljs-regexp">/hadoop/</span>hdfs_name <span class="hljs-regexp">/home/</span>hadoop/hdfs_data<br></code></pre></td></tr></table></figure>
+<p>切到hadoop配置目录</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cd <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop/<br></code></pre></td></tr></table></figure>
+<p>下面的编辑部分可以直接拷贝覆盖粘贴</p>
+<h3 id="编辑workers文件">编辑workers文件</h3>
+<p><code>vim workers</code></p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">hadoop2<br>hadoop3<br></code></pre></td></tr></table></figure>
+<h3 id="编辑core-site.xml">编辑core-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>fs.defaultFS<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>hadoop.tmp.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/tmp<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>io.file.buffer.size<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>131702<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑hdfs-site.xml">编辑hdfs-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_name<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.data.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_data<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:9001<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑mapred-site.xml">编辑mapred-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.framework.name<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>yarn<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:10020<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:19888<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑yarn-site.xml">编辑yarn-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>mapreduce_shuffle<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.auxservices.mapreduce.shuffle.class<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8032<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8030<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8031<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8033<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8088<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>把上面配置好的文件拷贝到2、3号机</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop2:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop3:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop2:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop3:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br></code></pre></td></tr></table></figure>
+<h2 id="可选增加sbin目录的环境变量方便随意启动">（可选）增加sbin目录的环境变量，方便随意启动</h2>
+<ol type="1">
+<li><p>分别连接三台机器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it hadoop1 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop2 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop3 bash<br></code></pre></td></tr></table></figure></li>
+<li><p>将hadoop/sbin目录加入PATH环境变量中<code>vim ～/.bashrc</code></p>
+<p>追加内容<code>export PATH=$PATH:$HADOOP_HOME/sbin</code></p>
+<p>然后执行<code>source ~/.bashrc</code></p></li>
+</ol>
+<p><strong>这一步略过的话，启动hadoop的相关命令需要先<code>cd $HADOOP_HOME/sbin</code></strong></p>
+<h2 id="启动hadoop">启动HADOOP</h2>
+<p>进入hadoop1号主节点</p>
+<p>第一次启动需要格式化hdfs，后续<strong><u>绝对不要再</u></strong>执行这一条<code>hdfs namenode -format</code></p>
+<p>先在主节点上启动文件系统：<code>start-dfs.sh</code></p>
+<p>使用<code>jps</code>命令此时可以观察到：</p>
+<p>hadoop1上启动了<u>名称节点</u>和<u>第二名称节点</u>（第二名称节点可以配置在其他节点上）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>1649 NameNode<br>1854 SecondaryNameNode<br>1967 Jps<br></code></pre></td></tr></table></figure>
+<p>hadoop2和hadoop3上启动了<u>数据节点</u>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>294 DataNode<br>361 Jps<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>279 Jps<br>188 DataNode<br></code></pre></td></tr></table></figure>
+<p>第二步在主节点上启动yarn管理系统：<code>start-yarn.sh</code></p>
+<p>Hadoop1:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>3751 Jps<br>3255 SecondaryNameNode<br>3049 NameNode<br>3455 ResourceManager<br></code></pre></td></tr></table></figure>
+<p>Hadoop2和hadoop3:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>851 NodeManager<br>731 DataNode<br>975 Jps<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>644 DataNode<br>890 Jps<br>766 NodeManager<br></code></pre></td></tr></table></figure>
+<p>可以看到两台从节点都多了一个NodeManager</p>
+<p>此时hadoop应用已经成功运行。</p>
+<p>启动应用<u>不推荐</u>使用start-all</p>
+<p>停止应用：<code>stop-dfs.sh</code>和<code>stop-yarn.sh</code>或者<code>stop-all.sh</code></p>
+<blockquote>
+<p>在hadoop运行中有哪个datanode掉了很正常🤣🤣</p>
+<p>使用下面命令在数据节点上重开⬇️</p>
+<p><code>hdfs --daemon start datanode</code></p>
+</blockquote>
+<p>在宿主机上可以通过IP:8088查看Hadoop运行状态。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>ubuntu</tag>
+        <tag>hadoop</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>esxi安装黑群晖记录</title>
+    <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
+    <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
+<p>用U盘刷好系统，具体省略</p>
+<h1 id="准备">准备</h1>
+<h2 id="镜像">镜像</h2>
+<p>黑群晖镜像链接:
+https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
+<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
+<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
+<h2 id="硬件准备">硬件准备</h2>
+<p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
+<h2 id="img转vmdk">img转vmdk</h2>
+<h3 id="本地qemu工具转换">本地qemu工具转换</h3>
+<p>众所周知，esxi的系统需要单独制作vmdk文件</p>
+<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
+<p>没安装qemu的先使用brew安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">brew install qemu<br></code></pre></td></tr></table></figure>
+<p>qemu转换img为vmdk的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">qemu-img convert -f raw name.img -O vmdk name.vmdk<br></code></pre></td></tr></table></figure>
+<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
+<h3 id="上传到esxi系统转换">上传到esxi系统转换</h3>
+<ol type="1">
+<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
+<figure>
+<img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH">
+<figcaption aria-hidden="true">启动SSH</figcaption>
+</figure></li>
+<li><p><strong>右键存储-浏览数据存储</strong>
+点击上载，将本地的vmdk上传到esxi上</p></li>
+<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /vmfs/volumes/datastore1/<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径">
+<figcaption aria-hidden="true">查看路径</figcaption>
+</figure></li>
+<li><p>执行转换命令</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">vmkfstools -<span class="hljs-selector-tag">i</span> ds3617<span class="hljs-selector-class">.vmdk</span> ds3617_esxi.vmdk<br></code></pre></td></tr></table></figure></li>
+<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p></li>
+</ol>
+<h1 id="创建虚拟机">创建虚拟机</h1>
+<ol type="1">
+<li>创建类型：新虚拟机</li>
+<li>名称、兼容性：随便选一个linux</li>
+<li>选择存储：装在系统盘上</li>
+<li><strong>自定义设置</strong></li>
+</ol>
+<h2 id="自定义设置">自定义设置</h2>
+<p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
+<h3 id="添加sata控制器">添加SATA控制器</h3>
+<p>添加其他设备- SATA控制器</p>
+<h3 id="添加硬盘">添加硬盘</h3>
+<p>我添加一块现有硬盘和一块新标准硬盘</p>
+<ul>
+<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
+<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
+<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
+</ul>
+<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
+<h1 id="启动黑群晖虚拟机">启动黑群晖虚拟机</h1>
+<p>启动后在esxi中显示如图</p>
+<blockquote>
+<p>Loading Linux...</p>
+<p>Starting kernel with SATA boot</p>
+</blockquote>
+<figure>
+<img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功">
+<figcaption aria-hidden="true">启动成功</figcaption>
+</figure>
+<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
+<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
+<blockquote>
+<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
+</blockquote>
+<blockquote>
+<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
+</blockquote>
+<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
+<p>PS：</p>
+<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>虚拟机</tag>
+        <tag>esxi</tag>
+        <tag>群晖</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用中转服务器代理访问内网bySSinDocker</title>
+    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
+    <content><![CDATA[<h1 id="目的">目的</h1>
+<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
+<figure>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
+<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
+</figure>
+<h1 id="搭建步骤">搭建步骤</h1>
+<h2 id="概览">概览</h2>
+<ol type="1">
+<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
+<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
+<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
+</ol>
+<h2 id="搭建ss服务器">搭建SS服务器</h2>
+<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
+<h2 id="搭建frpc">搭建frpc</h2>
+<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
+<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
+<p>frpc.ini配置示例</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
+<p>运行frpc</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
+<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
+<p>进入小火箭点击右上角的加号</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
+<p>填写内容，需要对应ss服务器上的配置填写</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
+<p>然后可以在首页的本地节点中看到刚添加的节点</p>
+<p>点击连通性测试查看是否网络已打通</p>
+<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
+<p>进入后点击通用</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
+<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
+<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
+<p>我这里测试我的内网网关</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
+<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
+<p>或者你可以像我一样添加整个网段。</p>
+<figure>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
+<figcaption aria-hidden="true">image-20221027171938222</figcaption>
+</figure>
+<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
+<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用wireguard搭建属于自己的虚拟内网</title>
+    <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
+    <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
+<blockquote>
+<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
+</blockquote>
+<h2 id="wireguard结果展示">wireguard结果展示</h2>
+<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
+<p>在部署完成后是这样的效果：</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
+<figcaption aria-hidden="true">部署完成测速</figcaption>
+</figure>
+<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
+<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
+<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
+<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="访问虚拟内网中的hadoop">
+<figcaption aria-hidden="true">访问虚拟内网中的hadoop</figcaption>
+</figure>
+<blockquote>
+<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
+</blockquote>
+<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
+<blockquote>
+<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
+</blockquote>
+<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
+<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -d \<br>  --name=wg-easy \<br>  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \<br>  -e PASSWORD=passwd123 (🚨这里输入你的密码) \<br>  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\<br>  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\<br>  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\<br>  -v ~/.wg-easy:/etc/wireguard \<br>  -p 51820:51820/udp \<br>  -p 51821:51821/tcp \<br>  --cap-add=NET_ADMIN \<br>  --cap-add=SYS_MODULE \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.ip_forward=1&quot;</span> \<br>  --restart unless-stopped \<br>  weejewel/wg-easy<br></code></pre></td></tr></table></figure>
+<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
+<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
+</figure>
+<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
+<ol type="1">
+<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
+<li><p>如果是Mac和Windows也是一样的配置方法：</p>
+<ul>
+<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>客户端内添加隧道，选择xxx.conf</li>
+<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
+</ul></li>
+<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
+<ul>
+<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
+<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
+<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
+</ul>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="wireguard查看当前开放的虚拟网卡">
+<figcaption aria-hidden="true">wireguard查看当前开放的虚拟网卡</figcaption>
+</figure></li>
+<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
+<ul>
+<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="群晖内的套件中心">
+<figcaption aria-hidden="true">群晖内的套件中心</figcaption>
+</figure></li>
+<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
+<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
+</ul></li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>内网</tag>
+        <tag>wireguard</tag>
       </tags>
   </entry>
   <entry>
@@ -651,6 +1001,31 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
       </tags>
   </entry>
   <entry>
+    <title>清河村支教回忆</title>
+    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
+    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
+  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
+<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
+  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
+<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
+<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
+<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
+  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
+<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
+  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
+<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
+<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
+<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>支教</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习数学基础③数值计算和最优化理论</title>
     <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
     <content><![CDATA[<h1 id="数值计算">数值计算</h1>
@@ -716,31 +1091,6 @@ f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
       </categories>
       <tags>
         <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>清河村支教回忆</title>
-    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
-    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
-  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
-<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
-  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
-<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
-<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
-<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
-  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
-<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
-  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
-<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
-<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
-<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>支教</tag>
-        <tag>随笔</tag>
       </tags>
   </entry>
   <entry>
@@ -898,287 +1248,6 @@ P_{G})\)</span><br>
       <tags>
         <tag>网络</tag>
         <tag>DNS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之Flow-based-Model(2)</title>
-    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
-    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
-Model（2）流模型</h1>
-<h2 id="推导">推导</h2>
-<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
-\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
-<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
-其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
-<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
-即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
-便得到最佳<span class="math inline">\(G^*\)</span></p>
-<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
-<ol type="1">
-<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
-<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
-</ol>
-<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
-<h2 id="多个生成器的情况">多个生成器的情况</h2>
-<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
-其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
-<blockquote>
-<p>依旧是取左式最大</p>
-</blockquote>
-<h2 id="流模型实质">流模型实质</h2>
-<p>以一个生成器为例:</p>
-<pre class="mermaid">graph LR
-z --> G --> x</pre>
-<p><span class="math display">\[
-logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
-\]</span></p>
-<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
-右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
-因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre class="mermaid">graph RL
-x --> G-1 --> z</pre>
-<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>欲使左式最大, 右侧两项应尽可能大</p>
-<ul>
-<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
-因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
-最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
-</ul>
-<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
-使用第二项约束结果防止全零, 最终得到最佳生成器</p>
-<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
-<figure>
-<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
-<figcaption aria-hidden="true">coupling-layer</figcaption>
-</figure>
-<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
-\begin{equation}
-\left\{
-\begin{aligned}
-z_{i\leq d}&amp;=x^i\\
-z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
-\end{aligned}
-\right.
-\end{equation}
-\]</span></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之VAE</title>
-    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
-    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
-Auto-Encoder</h1>
-<blockquote>
-<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
-<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
-(Auto-encoder) (上) - 基本概念</a></p>
-<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
-Unsupervised Learning - Deep Generative Model (Part II)</a></p>
-</blockquote>
-<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
-<aside>
-💡 可以认为是自监督学习的一种方法，不需要标注
-</aside>
-<h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">graph LR
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
-<h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre class="mermaid">graph LR
-  原图.-原图+噪声
-    原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
-<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
-<p>输入信息常常由各种信息纠缠在一起，如</p>
-<ul>
-<li>图片中存在物体、纹理</li>
-<li>声音中存在文本内容、说话人信息</li>
-<li>一句话包含格式、语法</li>
-<li>……</li>
-</ul>
-<p>这时候需要通过解缠得到不同维度包含的信息</p>
-<p>应用：Voice Conversion语者转换</p>
-<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
-<h2 id="ae和vae区别">AE和VAE区别</h2>
-<p>Auto-encoder</p>
-<pre class="mermaid">graph LR
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
-<p>VAE</p>
-<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
-<pre class="mermaid">graph LR
-  input --> NN-Encoder --> mu
-    NN-Encoder --> sigma
-    sigma --exp--> times((相乘))
-    e --> times
-    mu --> plus((相加))
-    times -->plus
-    plus --> z -->
-
- NN-Decoder--> output</pre>
-<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
-<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
-<p>所以需要最小化如下函数：</p>
-<p><span class="math display">\[
-\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
-\]</span></p>
-<h2 id="vae推导">VAE推导</h2>
-<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
-<blockquote>
-<p>部分内容参考</p>
-<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
-</blockquote>
-<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
-<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
-<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
-</figure>
-<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
-<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
-<p><span class="math display">\[
-P(x)=\sum \limits _mP(m)P(x|m)
-\]</span></p>
-<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
-<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
-<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
-</figure>
-<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
-<aside>
-💡
-与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
-</aside>
-<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
-<p>于是P(x)的分布就可以表示为:</p>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>所以我们的目标就变成求解上面这个公式。</p>
-<h3 id="求解目标公式">求解目标公式</h3>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
-N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
-<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
-<pre class="mermaid">graph LR
-    z --> NN-Decoder --> mu
-    NN-Decoder --> sigma</pre>
-<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
-N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'</pre>
-<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
-<ul>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
-<ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
-<li>写出似然函数</li>
-<li>对似然函数取对数</li>
-<li>两边同时求导(多个变量就求偏导)</li>
-<li>令导数为0,解出似然方程</li>
-</ol>
-<ul>
-<li><p>例子</p>
-<figure>
-<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
-<figcaption aria-hidden="true">最大似然函数例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
-</ul>
-<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
-q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
-<p><span class="math display">\[
-\begin{aligned}
-\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
-_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
-&amp;=\int \limits _zq(z|x)\log
-(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
-\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-+KL(q(z|x)||P(z|x))
-\end{aligned}
-\]</span></p>
-<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
-<p><span class="math display">\[
-\log P(x) \geqslant \int \limits _z
-q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-\]</span></p>
-<p><span class="math display">\[
-\log P(x) = L_b+KL(q(z|x)||P(z|x))
-\]</span></p>
-<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
-<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
-<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
-<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
-</figure>
-<p>根据<span class="math inline">\(P(x)=\int\limits
-_zP(z)P(x|z)dz\)</span>:</p>
-<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
-<p>再根据<span class="math inline">\(\log P(x) =
-L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
-<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
-<p>此时我们发现：</p>
-<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
-<aside>
-💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
-</aside>
-<blockquote>
-<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
-</blockquote>
-<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
-_zq(z|x)\log P(x|z)dz \\
-&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
-\end{aligned}
-\]</span></p>
-<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
-<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
-_{i=1} ^n
-(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
-Variational Bayes》</p>
-<p>求B的最大值：</p>
-<p><span class="math display">\[
-\max B = \max E_{q(z|x)}[\log P(x|z)]
-\]</span></p>
-<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
-P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'
-    mu'-->z
-    sigma'-->z
-    z-->NN-Decoder-->mu
-    NN-Decoder-->sigma
-    mu .-越接近越好.-> x</pre>
-<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>DL</tag>
-        <tag>VAE</tag>
-        <tag>生成模型</tag>
       </tags>
   </entry>
   <entry>
@@ -1582,12 +1651,7 @@ g_t\)</span></p>
 </figure>
 <h1 id="总结">总结</h1>
 <table>
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
+
 <thead>
 <tr class="header">
 <th>模型</th>
@@ -1634,338 +1698,214 @@ g_t\)</span></p>
       </tags>
   </entry>
   <entry>
-    <title>esxi安装黑群晖记录</title>
-    <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
-    <content><![CDATA[<h1 id="esxi系统安装"><a href="#esxi系统安装" class="headerlink" title="esxi系统安装"></a>esxi系统安装</h1><p>用U盘刷好系统，具体省略</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p>黑群晖镜像链接: <a href="https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g">https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</a></p>
-<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
-<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
-<h2 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h2><p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
-<h2 id="img转vmdk"><a href="#img转vmdk" class="headerlink" title="img转vmdk"></a>img转vmdk</h2><h3 id="本地qemu工具转换"><a href="#本地qemu工具转换" class="headerlink" title="本地qemu工具转换"></a>本地qemu工具转换</h3><p>众所周知，esxi的系统需要单独制作vmdk文件</p>
-<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
-<p>没安装qemu的先使用brew安装</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install qemu</span><br></pre></td></tr></table></figure>
-
-<p>qemu转换img为vmdk的命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">qemu-img convert -f raw name.img -O vmdk name.vmdk</span><br></pre></td></tr></table></figure>
-
-<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
-<h3 id="上传到esxi系统转换"><a href="#上传到esxi系统转换" class="headerlink" title="上传到esxi系统转换"></a>上传到esxi系统转换</h3><ol>
-<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
-<p><img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH"></p>
-</li>
-<li><p><strong>右键存储-浏览数据存储</strong> 点击上载，将本地的vmdk上传到esxi上</p>
-</li>
-<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /vmfs/volumes/datastore1/</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径"></p>
-</li>
-<li><p>执行转换命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vmkfstools -i ds3617.vmdk ds3617_esxi.vmdk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p>
-</li>
-</ol>
-<h1 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h1><ol>
-<li>创建类型：新虚拟机</li>
-<li>名称、兼容性：随便选一个linux</li>
-<li>选择存储：装在系统盘上</li>
-<li><strong>自定义设置</strong></li>
-</ol>
-<h2 id="自定义设置"><a href="#自定义设置" class="headerlink" title="自定义设置"></a>自定义设置</h2><p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
-<h3 id="添加SATA控制器"><a href="#添加SATA控制器" class="headerlink" title="添加SATA控制器"></a>添加SATA控制器</h3><p>添加其他设备- SATA控制器</p>
-<h3 id="添加硬盘"><a href="#添加硬盘" class="headerlink" title="添加硬盘"></a>添加硬盘</h3><p>我添加一块现有硬盘和一块新标准硬盘</p>
-<ul>
-<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
-<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
-<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
-</ul>
-<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
-<h1 id="启动黑群晖虚拟机"><a href="#启动黑群晖虚拟机" class="headerlink" title="启动黑群晖虚拟机"></a>启动黑群晖虚拟机</h1><p>启动后在esxi中显示如图</p>
+    <title>生成模型之VAE</title>
+    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
+    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
+Auto-Encoder</h1>
 <blockquote>
-<p>Loading Linux…</p>
-<p>Starting kernel with SATA boot</p>
+<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
+<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
+(Auto-encoder) (上) - 基本概念</a></p>
+<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
+Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 </blockquote>
-<p><img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功"></p>
-<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
-<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
+<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
+<aside>
+💡 可以认为是自监督学习的一种方法，不需要标注
+</aside>
+<h2 id="压缩自动编码器">压缩自动编码器</h2>
+<pre class="mermaid">graph LR
+  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<h2 id="降噪自动编码器">降噪自动编码器</h2>
+<pre class="mermaid">graph LR
+  原图.-原图+噪声
+    原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
+<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
+<p>输入信息常常由各种信息纠缠在一起，如</p>
+<ul>
+<li>图片中存在物体、纹理</li>
+<li>声音中存在文本内容、说话人信息</li>
+<li>一句话包含格式、语法</li>
+<li>……</li>
+</ul>
+<p>这时候需要通过解缠得到不同维度包含的信息</p>
+<p>应用：Voice Conversion语者转换</p>
+<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
+<h2 id="ae和vae区别">AE和VAE区别</h2>
+<p>Auto-encoder</p>
+<pre class="mermaid">graph LR
+  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
+<p>VAE</p>
+<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
+<pre class="mermaid">graph LR
+  input --> NN-Encoder --> mu
+    NN-Encoder --> sigma
+    sigma --exp--> times((相乘))
+    e --> times
+    mu --> plus((相加))
+    times -->plus
+    plus --> z -->
+
+ NN-Decoder--> output</pre>
+<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
+<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
+<p>所以需要最小化如下函数：</p>
+<p><span class="math display">\[
+\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
+\]</span></p>
+<h2 id="vae推导">VAE推导</h2>
+<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
 <blockquote>
-<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
+<p>部分内容参考</p>
+<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
 </blockquote>
-<blockquote>
-<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
-</blockquote>
-<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
-<p>PS：</p>
-<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>esxi</tag>
-        <tag>群晖</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu上基于docker搭建Hadoop集群</title>
-    <url>/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/</url>
-    <content><![CDATA[<h1 id="docker操作">Docker操作</h1>
-<p>先学习一下基础的docker命令，后面常用，这里放出来备查</p>
-<h2 id="查看容器container">查看容器container</h2>
-<p>docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器
-3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker ps -a</span><br></pre></td></tr></table></figure>
-<h2 id="删除容器">删除容器</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker rm 1051267f9afb</span><br></pre></td></tr></table></figure>
-<h2 id="查看镜像image">查看镜像image</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker images</span><br></pre></td></tr></table></figure>
-<h2 id="删除镜像">删除镜像</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker rmi 5d0da3dc9764</span><br></pre></td></tr></table></figure>
-<h2 id="启动容器">启动容器</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker run -itd weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
+<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
+<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
+<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
+</figure>
+<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
+<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
+<p><span class="math display">\[
+P(x)=\sum \limits _mP(m)P(x|m)
+\]</span></p>
+<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
+<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
+<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
+</figure>
+<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
+<aside>
+💡
+与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
+</aside>
+<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
+<p>于是P(x)的分布就可以表示为:</p>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>所以我们的目标就变成求解上面这个公式。</p>
+<h3 id="求解目标公式">求解目标公式</h3>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
+N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
+<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
+<pre class="mermaid">graph LR
+    z --> NN-Decoder --> mu
+    NN-Decoder --> sigma</pre>
+<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
+N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
+<pre class="mermaid">graph LR
+  x --> NN-Encoder --> mu'
+    NN-Encoder --> sigma'</pre>
+<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
 <ul>
-<li>-d表示在后台运行，需要进入容器</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker exec -it be349f8dd945 bash</span><br></pre></td></tr></table></figure>
+<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
 <ul>
-<li>使用exec 进入容器时exit命令不会结束容器</li>
-</ul>
-<h1 id="hadoop集群搭建">Hadoop集群搭建</h1>
-<h2 id="准备镜像">准备镜像</h2>
-<p>我选择的是dockerhub上的<code>weicg/hadoop:1.2</code>,同样是一位初学者制作的，试用还算可以（单机可以开箱即用）不过这里搭建集群还需要修改一些内容。来源：https://hub.docker.com/r/weicg/hadoop</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker pull weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
-<p>我们打算建立一个<strong>一主两从</strong>的集群，需要开三个容器</p>
-<h2 id="建立网桥">建立网桥</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker network create --driver bridge hadoop-br</span><br></pre></td></tr></table></figure>
-<h2 id="开启多个容器">开启多个容器</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run -itd --network hadoop-br --name hadoop1 -p 50070:50070 -p 8088:8088 weicg/hadoop:1.2</span><br><span class="line">sudo docker run -itd --network hadoop-br --name hadoop2 weicg/hadoop:1.2</span><br><span class="line">sudo docker run -itd --network hadoop-br --name hadoop3 weicg/hadoop:1.2</span><br></pre></td></tr></table></figure>
-<p>得到三个容器</p>
-<ul>
-<li>23c1187f8492</li>
-<li>676e08f5ecc5</li>
-<li>d2ec810e1e89</li>
-</ul>
-<p>进入这些容器只需要</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker exec -it hadoop1 bash</span><br><span class="line">sudo docker exec -it hadoop2 bash</span><br><span class="line">sudo docker exec -it hadoop3 bash</span><br></pre></td></tr></table></figure>
-<h2 id="查看网桥配置">查看网桥配置</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker network inspect hadoop-br </span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;Containers&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;23c1187f84929b19883f3ff3452688fca46c101e43bdfcc2a0cabaa4cd4fc593&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;27504f3d67c0a1e884ab8420c717b7bf5f3aa7db211360fa19a0d501fa6f9ed7&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:02&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.2/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;676e08f5ecc5273542efd51e554ef1fa8790b2aa4a57fa3516cb39d6b09cfb7f&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop2&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;b766f1d85e339558f0bbf89e52e8e9a103c8d8e5b593dbcb6832367a925dcb4f&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:03&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.3/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;d2ec810e1e897f47add8b09f8a813b6c23ab892fddd0706b88373d7f67f76b2f&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;Name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hadoop3&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;EndpointID&quot;</span><span class="punctuation">:</span> <span class="string">&quot;552975d97feddc22fcf5d4ac1afa61be698846f08727e249d7581aaa33e220c2&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;MacAddress&quot;</span><span class="punctuation">:</span> <span class="string">&quot;02:42:ac:12:00:04&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv4Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;172.18.0.4/16&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;IPv6Address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>可以看到三个docker的ip地址</p>
-<p>172.18.0.2 hadoop1</p>
-<p>172.18.0.3 hadoop2</p>
-<p>172.18.0.4 hadoop3</p>
-<p>使用<code>ping</code>命令分别检查是否网络通畅</p>
-<p>以下命令需要分别进入三个容器内执行</p>
-<p>1.更改hosts文件<code>vim /etc/hosts</code>,加入如下配置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">172.18.0.2 hadoop1 </span><br><span class="line">172.18.0.3 hadoop2 </span><br><span class="line">172.18.0.4 hadoop3 </span><br></pre></td></tr></table></figure>
-<p>2.分别在三个容器内配置ssh,因为镜像已经生成了密钥，此处将本机密钥加入本机的访问列表中。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/.ssh</span><br><span class="line">cat id_rsa.pub &gt;&gt; authorized_keys</span><br></pre></td></tr></table></figure>
-<p>完成后可以<code>ssh root@hadoop2</code>查看是否成功配置ssh和网络。</p>
-<h2 id="配置hadoop文件">配置hadoop文件</h2>
-<p>进入hadoop1,创建一些配置用到的文件夹</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir /home/hadoop</span><br><span class="line">mkdir /home/hadoop/tmp /home/hadoop/hdfs_name /home/hadoop/hdfs_data</span><br></pre></td></tr></table></figure>
-<p>切到hadoop配置目录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd $HADOOP_HOME/etc/hadoop/</span><br></pre></td></tr></table></figure>
-<p>下面的编辑部分可以直接拷贝覆盖粘贴</p>
-<h3 id="编辑workers文件">编辑workers文件</h3>
-<p><code>vim workers</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hadoop2</span><br><span class="line">hadoop3</span><br></pre></td></tr></table></figure>
-<h3 id="编辑core-site.xml">编辑core-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>io.file.buffer.size<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>131702<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="编辑hdfs-site.xml">编辑hdfs-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/hdfs_name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/home/hadoop/hdfs_data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:9001<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="编辑mapred-site.xml">编辑mapred-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="编辑yarn-site.xml">编辑yarn-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.auxservices.mapreduce.shuffle.class<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8032<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8030<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8031<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8033<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hadoop1:8088<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>把上面配置好的文件拷贝到2、3号机</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">scp -r /home/hadoop hadoop2:/home/</span><br><span class="line">scp -r /home/hadoop hadoop3:/home/</span><br><span class="line">scp -r $HADOOP_HOME/etc/hadoop/ hadoop2:$HADOOP_HOME/etc/hadoop/</span><br><span class="line">scp -r $HADOOP_HOME/etc/hadoop/ hadoop3:$HADOOP_HOME/etc/hadoop/</span><br></pre></td></tr></table></figure>
-<h2 id="可选增加sbin目录的环境变量方便随意启动">（可选）增加sbin目录的环境变量，方便随意启动</h2>
+<li>Note:最大似然估计的使用
 <ol type="1">
-<li><p>分别连接三台机器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it hadoop1 bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hadoop2 bash</span><br><span class="line">docker <span class="built_in">exec</span> -it hadoop3 bash</span><br></pre></td></tr></table></figure></li>
-<li><p>将hadoop/sbin目录加入PATH环境变量中<code>vim ～/.bashrc</code></p>
-<p>追加内容<code>export PATH=$PATH:$HADOOP_HOME/sbin</code></p>
-<p>然后执行<code>source ~/.bashrc</code></p></li>
+<li>写出似然函数</li>
+<li>对似然函数取对数</li>
+<li>两边同时求导(多个变量就求偏导)</li>
+<li>令导数为0,解出似然方程</li>
 </ol>
-<p><strong>这一步略过的话，启动hadoop的相关命令需要先<code>cd $HADOOP_HOME/sbin</code></strong></p>
-<h2 id="启动hadoop">启动HADOOP</h2>
-<p>进入hadoop1号主节点</p>
-<p>第一次启动需要格式化hdfs，后续<strong><u>绝对不要再</u></strong>执行这一条<code>hdfs namenode -format</code></p>
-<p>先在主节点上启动文件系统：<code>start-dfs.sh</code></p>
-<p>使用<code>jps</code>命令此时可以观察到：</p>
-<p>hadoop1上启动了<u>名称节点</u>和<u>第二名称节点</u>（第二名称节点可以配置在其他节点上）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="comment"># jps</span></span><br><span class="line">1649 NameNode</span><br><span class="line">1854 SecondaryNameNode</span><br><span class="line">1967 Jps</span><br></pre></td></tr></table></figure>
-<p>hadoop2和hadoop3上启动了<u>数据节点</u>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="comment"># jps</span></span><br><span class="line">294 DataNode</span><br><span class="line">361 Jps</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@c5bea89663f9:/<span class="comment"># jps</span></span><br><span class="line">279 Jps</span><br><span class="line">188 DataNode</span><br></pre></td></tr></table></figure>
-<p>第二步在主节点上启动yarn管理系统：<code>start-yarn.sh</code></p>
-<p>Hadoop1:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="comment"># jps</span></span><br><span class="line">3751 Jps</span><br><span class="line">3255 SecondaryNameNode</span><br><span class="line">3049 NameNode</span><br><span class="line">3455 ResourceManager</span><br></pre></td></tr></table></figure>
-<p>Hadoop2和hadoop3:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="comment"># jps</span></span><br><span class="line">851 NodeManager</span><br><span class="line">731 DataNode</span><br><span class="line">975 Jps</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@c5bea89663f9:/<span class="comment"># jps</span></span><br><span class="line">644 DataNode</span><br><span class="line">890 Jps</span><br><span class="line">766 NodeManager</span><br></pre></td></tr></table></figure>
-<p>可以看到两台从节点都多了一个NodeManager</p>
-<p>此时hadoop应用已经成功运行。</p>
-<p>启动应用<u>不推荐</u>使用start-all</p>
-<p>停止应用：<code>stop-dfs.sh</code>和<code>stop-yarn.sh</code>或者<code>stop-all.sh</code></p>
-<blockquote>
-<p>在hadoop运行中有哪个datanode掉了很正常🤣🤣</p>
-<p>使用下面命令在数据节点上重开⬇️</p>
-<p><code>hdfs --daemon start datanode</code></p>
-</blockquote>
-<p>在宿主机上可以通过IP:8088查看Hadoop运行状态。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>ubuntu</tag>
-        <tag>hadoop</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用wireguard搭建属于自己的虚拟内网</title>
-    <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
-    <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
-<blockquote>
-<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
-</blockquote>
-<h2 id="wireguard结果展示">wireguard结果展示</h2>
-<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
-<p>在部署完成后是这样的效果：</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
-<figcaption aria-hidden="true">部署完成测速</figcaption>
-</figure>
-<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
-<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
-<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
-<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="访问虚拟内网中的hadoop">
-<figcaption aria-hidden="true">访问虚拟内网中的hadoop</figcaption>
-</figure>
-<blockquote>
-<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
-</blockquote>
-<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
-<blockquote>
-<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
-</blockquote>
-<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
-<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker run -d \</span><br><span class="line">  --name=wg-easy \</span><br><span class="line">  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \</span><br><span class="line">  -e PASSWORD=passwd123 (🚨这里输入你的密码) \</span><br><span class="line">  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\</span><br><span class="line">  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\</span><br><span class="line">  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\</span><br><span class="line">  -v ~/.wg-easy:/etc/wireguard \</span><br><span class="line">  -p 51820:51820/udp \</span><br><span class="line">  -p 51821:51821/tcp \</span><br><span class="line">  --cap-add=NET_ADMIN \</span><br><span class="line">  --cap-add=SYS_MODULE \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \</span><br><span class="line">  --sysctl=<span class="string">&quot;net.ipv4.ip_forward=1&quot;</span> \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  weejewel/wg-easy</span><br></pre></td></tr></table></figure>
-<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
-<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
-</figure>
-<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
-<ol type="1">
-<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
-<li><p>如果是Mac和Windows也是一样的配置方法：</p>
 <ul>
-<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>客户端内添加隧道，选择xxx.conf</li>
-<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
-</ul></li>
-<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
-<ul>
-<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
-<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
-<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
-</ul>
+<li><p>例子</p>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="wireguard查看当前开放的虚拟网卡">
-<figcaption aria-hidden="true">wireguard查看当前开放的虚拟网卡</figcaption>
+<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
+<figcaption aria-hidden="true">最大似然函数例题</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
 </figure></li>
-<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
-<ul>
-<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
-<figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="群晖内的套件中心">
-<figcaption aria-hidden="true">群晖内的套件中心</figcaption>
-</figure></li>
-<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
-<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
 </ul></li>
-</ol>
+</ul></li>
+</ul>
+<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
+q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
+_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
+&amp;=\int \limits _zq(z|x)\log
+(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
+\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
++KL(q(z|x)||P(z|x))
+\end{aligned}
+\]</span></p>
+<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
+<p><span class="math display">\[
+\log P(x) \geqslant \int \limits _z
+q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
+\]</span></p>
+<p><span class="math display">\[
+\log P(x) = L_b+KL(q(z|x)||P(z|x))
+\]</span></p>
+<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
+<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
+<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
+<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
+</figure>
+<p>根据<span class="math inline">\(P(x)=\int\limits
+_zP(z)P(x|z)dz\)</span>:</p>
+<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
+<p>再根据<span class="math inline">\(\log P(x) =
+L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
+<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
+<p>此时我们发现：</p>
+<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
+<aside>
+💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
+</aside>
+<blockquote>
+<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
+</blockquote>
+<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
+_zq(z|x)\log P(x|z)dz \\
+&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
+\end{aligned}
+\]</span></p>
+<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
+<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
+_{i=1} ^n
+(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
+Variational Bayes》</p>
+<p>求B的最大值：</p>
+<p><span class="math display">\[
+\max B = \max E_{q(z|x)}[\log P(x|z)]
+\]</span></p>
+<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
+P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
+<pre class="mermaid">graph LR
+  x --> NN-Encoder --> mu'
+    NN-Encoder --> sigma'
+    mu'-->z
+    sigma'-->z
+    z-->NN-Decoder-->mu
+    NN-Decoder-->sigma
+    mu .-越接近越好.-> x</pre>
+<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>网络</tag>
-        <tag>内网</tag>
-        <tag>wireguard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用中转服务器代理访问内网bySSinDocker</title>
-    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
-    <content><![CDATA[<h1 id="目的">目的</h1>
-<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
-<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
-</figure>
-<h1 id="搭建步骤">搭建步骤</h1>
-<h2 id="概览">概览</h2>
-<ol type="1">
-<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
-<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
-<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
-</ol>
-<h2 id="搭建ss服务器">搭建SS服务器</h2>
-<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">						--name ss \</span><br><span class="line">           -p 8388:8388 \</span><br><span class="line">           -p 8388:8388/udp \</span><br><span class="line">           -e METHOD=aes-256-gcm \</span><br><span class="line">           -e PASSWORD=YOUR_PASSWORD \</span><br><span class="line">						gists/shadowsocks-libev</span><br></pre></td></tr></table></figure>
-<h2 id="搭建frpc">搭建frpc</h2>
-<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
-<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
-<p>frpc.ini配置示例</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = YOUR_IP</span><br><span class="line">server_port = 7000</span><br><span class="line">token = YOUR_TOKEN</span><br><span class="line"></span><br><span class="line">[ss]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 8388</span><br><span class="line">remote_port = 8389</span><br></pre></td></tr></table></figure>
-<p>运行frpc</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run  -d \</span><br><span class="line">						--name frpc \</span><br><span class="line">						--network host \ </span><br><span class="line"> 						-v /etc/frp/frpc.ini:/etc/frp/frpc.ini \</span><br><span class="line">						snowdreamtech/frpc</span><br></pre></td></tr></table></figure>
-<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
-<p>进入小火箭点击右上角的加号</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
-<p>填写内容，需要对应ss服务器上的配置填写</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
-<p>然后可以在首页的本地节点中看到刚添加的节点</p>
-<p>点击连通性测试查看是否网络已打通</p>
-<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
-<p>进入后点击通用</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
-<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
-<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
-<p>我这里测试我的内网网关</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
-<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
-<p>或者你可以像我一样添加整个网段。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
-<figcaption aria-hidden="true">image-20221027171938222</figcaption>
-</figure>
-<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
-<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>代理</tag>
+        <tag>DL</tag>
+        <tag>VAE</tag>
+        <tag>生成模型</tag>
       </tags>
   </entry>
   <entry>
@@ -2002,5 +1942,75 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 <h2 id="划分vlan的网络">划分VLAN的网络</h2>
 <h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
+  </entry>
+  <entry>
+    <title>生成模型之Flow-based-Model(2)</title>
+    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
+    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
+Model（2）流模型</h1>
+<h2 id="推导">推导</h2>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
+其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
+即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
+便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
+<ol type="1">
+<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
+<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
+</ol>
+<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
+<h2 id="多个生成器的情况">多个生成器的情况</h2>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
+其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
+<blockquote>
+<p>依旧是取左式最大</p>
+</blockquote>
+<h2 id="流模型实质">流模型实质</h2>
+<p>以一个生成器为例:</p>
+<pre class="mermaid">graph LR
+z --> G --> x</pre>
+<p><span class="math display">\[
+logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
+\]</span></p>
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
+右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
+因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<pre class="mermaid">graph RL
+x --> G-1 --> z</pre>
+<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>欲使左式最大, 右侧两项应尽可能大</p>
+<ul>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
+因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
+最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+</ul>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
+使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+<figure>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
+<figcaption aria-hidden="true">coupling-layer</figcaption>
+</figure>
+<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
+\begin{equation}
+\left\{
+\begin{aligned}
+z_{i\leq d}&amp;=x^i\\
+z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
+\end{aligned}
+\right.
+\end{equation}
+\]</span></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
   </entry>
 </search>
