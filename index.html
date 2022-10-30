@@ -250,7 +250,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/" target="_self">
         <div>
-          目的通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。  搭建步骤概览 为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口  为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps  终端设备上使用Shadowrocket连接ss
+          目的 通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。   在外网可以使用代理服务器访问内网服务  搭建步骤 概览  为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口 为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps 终
         </div>
       </a>
 
@@ -313,7 +313,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/" target="_self">
         <div>
-          虚拟局域网技术前言工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP&#x2F;IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制
+          虚拟局域网技术 ## 前言 工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的广播风暴可能会导致网络瘫痪。 广播信息的来源主要是涉及到地址解析、名称解析的行为：  网络层 TCP/IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP 会话层协议：网上基本输入输出系统NETBIOS 应用层协议：链路本地多播名称解析LLMNR  网络中的广播信息无处不在，想要克制
         </div>
       </a>
 
@@ -346,7 +346,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/" target="_self">
         <div>
-          使用wireguard搭建属于自己的虚拟内网 本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。  wireguard结果展示wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。 在部署完成后是这样的效果：  右侧测速结果显示5.67&#x2
+          使用wireguard搭建属于自己的虚拟内网  本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。  wireguard结果展示 wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。 在部署完成后是这样的效果：   部署完成测速  右侧测速结
         </div>
       </a>
 
@@ -411,7 +411,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/" target="_self">
         <div>
-          Docker操作先学习一下基础的docker命令，后面常用，这里放出来备查 查看容器containerdocker ps 的命令包括：1）-a 列出所有容器2）-l 列出最新创建容器3）-n&#x3D;2 列出最近创建的2个容器4）-q 仅列出容器ID5）-s 显示容器大小  1sudo docker ps -a  删除容器1sudo docker rm 1051267f9afb  查看镜像ima
+          Docker操作 先学习一下基础的docker命令，后面常用，这里放出来备查 查看容器container docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器 3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小 1sudo docker ps -a 删除容器 1sudo docker rm 1051267f9afb 查看镜像ima
         </div>
       </a>
 
@@ -476,7 +476,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/" target="_self">
         <div>
-          esxi系统安装用U盘刷好系统，具体省略 准备镜像黑群晖镜像链接: https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g 其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的ds2617xs 镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本 硬件准备最好准备一块以
+          esxi系统安装 用U盘刷好系统，具体省略 准备 镜像 黑群晖镜像链接: https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g 其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的ds2617xs 镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本 硬件准备 最好准
         </div>
       </a>
 
@@ -606,7 +606,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/" target="_self">
         <div>
-          Hexo安装和配置插件 💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件   准备工作安装node环境可以直接在nodejs官网下载安装包 准备路径后安装hexo在想要安装node的路径下建立一个新的文件夹，避免装在根目录下 在新的文件夹下执行命令安装hexo 1npm install hexo  测试hexo命令 安装各种插件pandoc渲染latex
+          Hexo安装和配置插件  💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件  准备工作 安装node环境 可以直接在nodejs官网下载安装包 准备路径后安装hexo 在想要安装node的路径下建立一个新的文件夹，避免装在根目录下 在新的文件夹下执行命令安装hexo 1npm install hexo 测试hexo命令 安装各种插件 pandoc渲染la
         </div>
       </a>
 
@@ -671,7 +671,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/" target="_self">
         <div>
-          本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用     配置gitmac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --glob
+          本文记录下由intel转移到m1的过程中重装各种环境和工具的命令和配置   💡 第一次使用苹果的time machine进行迁移，给我的感觉就像把旧电脑的硬盘直接摆在面前一样，迁移文件很好用  配置git mac自带git，所以只需要配置下用户名和邮箱 12git config --global user.name &quot;John Doe&quot;git config --global
         </div>
       </a>
 
@@ -738,7 +738,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/" target="_self">
         <div>
-          本文主要参考邱锡鹏老师的nndl-book，作为笔记使用 神经网络与深度学习（第7-10讲）（更新至：第9讲 无监督学习）_哔哩哔哩_bilibili  非凸优化问题高维空间中常常遇到的都是非凸函数 非凸优化问题中难点有：  如何逃离鞍点 会出现平坦最小值  鞍点在某些维度上是最高点,另一些维度上是最低点.其一阶导数为0,二阶梯度Hessian矩阵不是半正定矩阵.  平坦最小值 由于DL中的参数
+          本文主要参考邱锡鹏老师的nndl-book，作为笔记使用 神经网络与深度学习（第7-10讲）（更新至：第9讲 无监督学习）_哔哩哔哩_bilibili  非凸优化问题 高维空间中常常遇到的都是非凸函数 非凸优化问题中难点有：  如何逃离鞍点 会出现平坦最小值  鞍点 在某些维度上是最高点,另一些维度上是最低点.其一阶导数为0,二阶梯度Hessian矩阵不是半正定矩阵.   鞍点示例  平坦最小值
         </div>
       </a>
 
@@ -803,7 +803,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/" target="_self">
         <div>
-          数值计算上溢和下溢在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.  下溢(underflow):当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除。 **上溢(overflow):**当大量级的数被近似为$\infin$或$-\infin$时发生上溢。进一步的运算通常将这些无限值变为非数字。
+          数值计算 上溢和下溢 在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.  下溢(underflow):当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除。 上溢(overflow):当大量级的数被近似为\(\infin\)或\(-\infin\)时发生上溢。进一步的运算通常将这些无限值变为非数字
         </div>
       </a>
 
@@ -864,7 +864,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/" target="_self">
         <div>
-          机器学习数学基础②概率论与信息论基础概念 随机变量:可以是连续的也可以是离散的  概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性  联合概率分布:$P(\mathrm x &#x3D;x,\mathrm y&#x3D;y)$表示x&#x3D;$x$和y&#x3D;$y$同时发生的概率,简写为$P(x,y)$  概率函数和似然函数  Note:区别   对于一个函数$P(
+          机器学习数学基础②概率论与信息论 基础概念  随机变量:可以是连续的也可以是离散的 概率分布:符合随机变量取值范围的某个对象属于某个类别或服从某种趋势的可能性 联合概率分布:\(P(\mathrm x =x,\mathrm y=y)\)表示x=\(x\)和y=\(y\)同时发生的概率,简写为\(P(x,y)\) 概率函数和似然函数  Note:区别 对于一个函数\(P(x|\theta)\),其中
         </div>
       </a>
 
@@ -927,7 +927,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/" target="_self">
         <div>
-          机器学习数学基础①线性代数线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间, 这个过程使用过的方法叫线性变换, 而矩阵就是两个向量空间之间线性变换的表达形式 基础概念 矩阵  向量  矩阵乘法: 点积  矩阵转置  逆矩阵: 两个方阵相乘结果为单位阵, 记为$A^{-1}$,称$A$为可逆矩阵  正交: 向量$x$与$y$正交, 则$x \cdot y&#x3D;0$, 意味
+          机器学习数学基础①线性代数 线性代数的核心问题是将一个向量空间的子空间映射到另一个向量空间的子空间, 这个过程使用过的方法叫线性变换, 而矩阵就是两个向量空间之间线性变换的表达形式 基础概念  矩阵 向量 矩阵乘法: 点积 矩阵转置 逆矩阵: 两个方阵相乘结果为单位阵, 记为\(A^{-1}\),称\(A\)为可逆矩阵 正交: 向量\(x\)与\(y\)正交, 则\(x \cdot y=0\),
         </div>
       </a>
 

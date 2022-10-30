@@ -247,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          850 字
+          896 字
         
       </span>
     
@@ -302,35 +302,58 @@
               <div class="markdown-body">
                 
                 <blockquote>
-<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M, 而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败, 本文解决了这两个问题</p>
+<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
+而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
+本文解决了这两个问题</p>
 </blockquote>
 <p>先说结论:</p>
-<p>在客户机DNS服务器设置为网关(ikuai)的情况下, 必须设置爱快的DNS加速服务中使用代理模式才能生效, 同时要开启强制客户端DNS代理, 而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
+<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
+必须设置爱快的DNS加速服务中使用代理模式才能生效,
+同时要开启强制客户端DNS代理,
+而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
 <p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <p>以下是完整版:</p>
 <p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
-<p>①查看是否是运营商限制了下行带宽: 测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
-<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题, 所以问题可能在ikuai上</p>
-<p><img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" srcset="/img/loading.gif" lazyload alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分"></p>
-<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai, 在未做其他修改的情况下出现了无法解析DNS的情况</p>
-<p><img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" srcset="/img/loading.gif" lazyload alt="7X6kQ9LiKyqpxIu"></p>
+<p>①查看是否是运营商限制了下行带宽:
+测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
+<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
+所以问题可能在ikuai上</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" srcset="/img/loading.gif" lazyload alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
+<figcaption aria-hidden="true">家中原始网络拓扑图,
+分为经过软路由的改造部分和初始路由器部分</figcaption>
+</figure>
+<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
+在未做其他修改的情况下出现了无法解析DNS的情况</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" srcset="/img/loading.gif" lazyload alt="7X6kQ9LiKyqpxIu">
+<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
+</figure>
 <blockquote>
-<p>qq和微信都是不需要解析DNS的软件, 如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
+<p>qq和微信都是不需要解析DNS的软件,
+如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
 </blockquote>
-<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯, 均不能正常上网</p>
-<p><img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" srcset="/img/loading.gif" lazyload alt="ikuai内的设置, 无法解析DNS"></p>
+<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
+均不能正常上网</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" srcset="/img/loading.gif" lazyload alt="ikuai内的设置, 无法解析DNS">
+<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
+</figure>
 <p>ikuai内的设置, 无法解析DNS</p>
-<p>然后怀疑是不是ikuai本身就无法正常上网, 使用ikuai内的测试工具发现能够ping通域名</p>
+<p>然后怀疑是不是ikuai本身就无法正常上网,
+使用ikuai内的测试工具发现能够ping通域名</p>
 <p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况, 在网上和论坛搜索了很久都没有找到相关的情况</p>
+<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
+在网上和论坛搜索了很久都没有找到相关的情况</p>
 <p>最后的最后在ikuai官方的手册里找到了答案</p>
-<p><a target="_blank" rel="noopener" href="https://www.ikuai8.com/index.php?option=com_content&view=article&id=129:dns&catid=39&Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view&#x3D;article&amp;id&#x3D;129:dns&amp;catid&#x3D;39&amp;Itemid&#x3D;228</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
 <p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg" srcset="/img/loading.gif" lazyload></p>
 <p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
 <p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg" srcset="/img/loading.gif" lazyload></p>
 <blockquote>
-<p>回到最初的降速问题, 经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽…果然没再出问题，可能是过了个年周围的邻居变多了吧…</p>
+<p>回到最初的降速问题,
+经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
 </blockquote>
 
                 
