@@ -4,6 +4,69 @@
   
   
   <entry>
+    <title>Expressive TTS</title>
+    <link href="/2023/02/10/expressive-tts/"/>
+    <url>/2023/02/10/expressive-tts/</url>
+    
+    <content type="html"><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1><h2 id="styletoken-tts">StyleToken-TTS</h2><figure><img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构"><figcaption aria-hidden="true">ST-TTS模型结构</figcaption></figure><h2 id="instructtts">InstructTTS</h2><p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p><p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p><figure><img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS"><figcaption aria-hidden="true">InstructTTS</figcaption></figure><figure><img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构"><figcaption aria-hidden="true">模型结构</figcaption></figure><p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>语音合成</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>VALL-E</title>
+    <link href="/2023/01/13/vall-e/"/>
+    <url>/2023/01/13/vall-e/</url>
+    
+    <content type="html"><![CDATA[<h1 id="vall-e">VALL-E</h1><h2 id="模型">模型</h2><p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p><p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p><figure><img src="/2023/01/13/vall-e/model.png" alt="模型总览"><figcaption aria-hidden="true">模型总览</figcaption></figure><h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2><p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p><p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p><p>后面出现了矢量量化（vector quantization），应用在vq-wav2vec、HuBERT。</p><p>文章采用AudioLM的方法，神经编码解码器模型（neural codec models），优点如下：</p><ul><li>在低比特率下表现比传统音频编解码器更好。</li><li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li><li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li><li>可以做到减少时间序列长度。</li></ul><p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic code matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p><figure><img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ"><figcaption aria-hidden="true">RVQ</figcaption></figure><p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p><h2 id="模型-1">模型</h2><p>优化目标：<span class="math inline">\(\max p(C|x,\tilde C)\)</span></p><figure><img src="/2023/01/13/vall-e/LM.png" alt="LM"><figcaption aria-hidden="true">LM</figcaption></figure><h2 id="推理">推理</h2><p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p><ul><li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li><li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li></ul><h2 id="数据">数据</h2><p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p><p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p><p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p><p>16个 NVIDIA TESLA V100 32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到 5 × 10−4 的峰值，然后对其进行线性衰减。</p><h2 id="分析">分析</h2><ul><li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li><li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li><li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li><li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li><li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li><li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>语音合成</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>《声与情：播音用声的实证研究》笔记</title>
+    <link href="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/"/>
+    <url>/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>链接：https://www.zhizhen.com/detail_38502727e7500f26ca5684ae8f3c3b6429bcb36a14c533e11921b0a3ea25510134114c969f2eae5c9837344477b6470412f90171de0b6360e6b1c5d917c82372d97823f6a9338067eed855d3fbe548a5?&amp;apistrclassfy=0_7_3</p></blockquote><h1 id="意义">意义</h1><p>播音学原则：<strong>以情带声</strong></p><p>探讨<u>播音语言的艺术用声</u>在韵律节奏上的</p><ul><li>规律、特点</li><li>声学表现特征</li><li>发音人的呼吸特点</li></ul><p>用于指导：</p><ul><li>具体实践，解决主持人和播音员的用声问题</li><li>播音教学</li></ul><h1 id="实验内容">实验内容</h1><h2 id="设备">设备</h2><ul><li><p>话筒和调音台：语音信号</p></li><li><p>电子声门仪：嗓音信号</p></li><li><p>呼吸带：胸呼吸信号、腹呼吸信号</p></li></ul><h3 id="实证研究一">实证研究一</h3><table><thead><tr class="header"><th style="text-align: center;">语料分类</th><th style="text-align: center;">语料来源</th><th style="text-align: center;">字数</th><th style="text-align: center;">发言人</th><th style="text-align: center;">有效人数</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">散文语句</td><td style="text-align: center;">《匆匆》《石缝间的生命》完整片段</td><td style="text-align: center;">200+</td><td style="text-align: center;">吉林大学播音专业大三学生</td><td style="text-align: center;">4</td></tr><tr class="even"><td style="text-align: center;">新闻语句</td><td style="text-align: center;"></td><td style="text-align: center;">200+</td><td style="text-align: center;">吉林大学播音专业大三学生</td><td style="text-align: center;">6</td></tr></tbody></table><table><thead><tr class="header"><th style="text-align: center;">文本类型</th><th style="text-align: center;">物理特征</th><th style="text-align: left;">实验结果</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">散文语句</td><td style="text-align: center;">停顿</td><td style="text-align: left;">不带情感的小停顿多于大停顿 带情感的大停顿多于不带情感的大停顿 带情感的小停顿多于等于大停顿数量</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">基频</td><td style="text-align: left;">变化不大。男80-250Hz，女150-330Hz</td></tr><tr class="odd"><td style="text-align: center;"></td><td style="text-align: center;">能量</td><td style="text-align: left;">变化不大。15-17dB</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">呼吸</td><td style="text-align: left;">有感情呼吸在次数、重置幅度都变多。其中腹呼吸抖动比胸呼吸多，说明有更多的偷气。胸腹呼吸起伏走向大体一致。</td></tr><tr class="odd"><td style="text-align: center;">新闻语句</td><td style="text-align: center;">停顿</td><td style="text-align: left;">不对比有无情感。</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">基频</td><td style="text-align: left;">男100-200Hz，女150-300Hz</td></tr><tr class="odd"><td style="text-align: center;"></td><td style="text-align: center;">能量</td><td style="text-align: left;">男22.82-89.51dB，女22.52-89.47dB</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">呼吸</td><td style="text-align: left;">胸腹呼吸起伏走向大体一致。</td></tr></tbody></table><h3 id="实证研究二">实证研究二</h3><table><thead><tr class="header"><th style="text-align: center;">语料分类</th><th style="text-align: center;">语料来源</th><th style="text-align: center;">字数</th><th style="text-align: center;">发言人</th><th style="text-align: center;">有效人数</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">散文语句</td><td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td><td style="text-align: center;">300-</td><td style="text-align: center;">吉林大学播音专业大一学生（第三周）</td><td style="text-align: center;">6</td></tr><tr class="even"><td style="text-align: center;">散文语句</td><td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td><td style="text-align: center;">300-</td><td style="text-align: center;">吉林大学播音专业大一学生（第八周）</td><td style="text-align: center;">6</td></tr></tbody></table><p><u><strong>这里会要求学生的情感宁过勿欠</strong></u></p><table><thead><tr class="header"><th style="text-align: center;">文本类型</th><th style="text-align: center;">物理特征</th><th style="text-align: left;">实验结果</th></tr></thead><tbody><tr class="odd"><td style="text-align: center;">散文语句</td><td style="text-align: center;">停顿</td><td style="text-align: left;">总数多，带情感的大停顿显著多于小停顿，时长有所不同</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">基频</td><td style="text-align: left;">女150-290Hz变为150-320Hz，男100-260Hz变为120-230Hz</td></tr><tr class="odd"><td style="text-align: center;"></td><td style="text-align: center;">能量</td><td style="text-align: left;">有情的能量低</td></tr><tr class="even"><td style="text-align: center;"></td><td style="text-align: center;">呼吸</td><td style="text-align: left;">有情的呼吸重置次数增多，幅度加大，无声段时长更长。胸腹呼吸基本保持一致。</td></tr><tr class="odd"><td style="text-align: center;"></td><td style="text-align: center;">时长</td><td style="text-align: left;">带情感的句子时长是不带情感的时长近乎2倍</td></tr></tbody></table><h1 id="播音学解释">播音学解释</h1><p>“声足情欠”“情足声欠”说明不和谐，“情欠”不好，“声欠”也不好，这都影响韵律。</p><p><strong>音步</strong>作为汉语的小节奏单元，本文把汉语中的音步概括为：</p><p>由若干个音节构成的语音片段，在音步内和音步间也存在长短、高低、强弱的对比，且<u><strong>音步间被停顿分开</strong></u>。本文对散文语句的韵律层级的划分也将从音步开始。</p><p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221106140548462.png" alt="image-20221106140548462" style="zoom:50%;"></p><p>①叶军：《汉语语句韵律的功能研究》：http://www.docin.com/p-12614263.html.</p><p>在实际的言语中，韵律有着不同的层级，各层级之间的过渡和接口则承载着非常重要的言语节律特征。在声学上，它们主要表现为停延。<strong>停延是说话或朗读时语流中声音的中断和延连</strong>，它起到言语在语流中的分合作用。</p><p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222828943.png" alt="image-20221103222828943" style="zoom:50%;"></p><p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222922094.png" alt="image-20221103222922094" style="zoom:50%;"></p><p>节奏的技巧是欲高先低，欲低先高；欲轻先重，欲重先轻；逢慢必先快，逢快必先慢，即<strong>节奏是通过高低、快慢、轻重</strong>体现。</p><p>从上文论述中，我们得出理论上的假设是：情感的表现与音高变化、声音强度、快慢有关，而这些又都与呼吸停顿直接相关，恰恰<strong>停顿最能体现汉语言节奏的特点</strong>，因而本文就是通过实证性的研究证明播音艺术语言使用中，情感影响呼吸，呼吸影响停延，停延表现语言节奏，这些语音的实际表现形式又决定了播音语言语义信息及情感信息表达的信度和效度。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>使用中转服务器代理访问内网bySSinDocker</title>
     <link href="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/"/>
     <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
