@@ -58,7 +58,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -69,28 +69,13 @@
   <script  src="/js/color-schema.js" ></script>
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
 
   
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -123,7 +108,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -135,7 +120,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -147,7 +132,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -159,7 +144,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -171,7 +156,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -179,15 +164,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -204,7 +190,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="今天早起了吗(0/1)"></span>
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
           
         </div>
 
@@ -242,6 +228,71 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/" target="_self">
+          使用Bert进行中文NER命名实体识别feat.fastNLP
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/" target="_self">
+        <div>
+          前言 chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。  （只是为了作业找了这么多借口）  本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-18 18:54" pubdate>
+              2023-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Bert/">#Bert</a>
+            
+              <a href="/tags/NLP/">#NLP</a>
+            
+              <a href="/tags/NER/">#NER</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/02/10/expressive-tts/" target="_self">
           Expressive TTS
         </a>
@@ -250,7 +301,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/02/10/expressive-tts/" target="_self">
         <div>
-          富有表现力的语音合成系统 StyleToken-TTS  ST-TTS模型结构  InstructTTS demo地址：http://dongchaoyang.top/InstructTTS/ 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。  InstructTTS   模型结构
+          富有表现力的语音合成系统 StyleToken-TTS   ST-TTS模型结构  InstructTTS demo地址：http://dongchaoyang.top/InstructTTS/ 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。   InstructTTS    模型结构
         </div>
       </a>
 
@@ -311,7 +362,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2023/01/13/vall-e/" target="_self">
         <div>
-          VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https://valle-demo.github.io/  模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}=65536\)个值，整个序列长度接近5
+          VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https://valle-demo.github.io/   模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}=65536\)个值，整个序列长度接近
         </div>
       </a>
 
@@ -879,71 +930,6 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/" target="_self">
-          神经网络中的优化算法和正则化问题
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/31/shen-jing-wang-luo-zhong-de-you-hua-suan-fa-he-zheng-ze-hua-wen-ti/" target="_self">
-        <div>
-          本文主要参考邱锡鹏老师的nndl-book，作为笔记使用 神经网络与深度学习（第7-10讲）（更新至：第9讲 无监督学习）_哔哩哔哩_bilibili  非凸优化问题 高维空间中常常遇到的都是非凸函数 非凸优化问题中难点有：  如何逃离鞍点 会出现平坦最小值  鞍点 在某些维度上是最高点,另一些维度上是最低点.其一阶导数为0,二阶梯度Hessian矩阵不是半正定矩阵.   鞍点示例  平坦最小值
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-31 13:50" pubdate>
-              2022-07-31
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/ML/">#ML</a>
-            
-              <a href="/tags/DL/">#DL</a>
-            
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
@@ -1046,11 +1032,9 @@
 
 
 
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
-
 
 
 

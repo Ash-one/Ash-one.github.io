@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Expressive TTS</title>
+    <url>/2023/02/10/expressive-tts/</url>
+    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="styletoken-tts">StyleToken-TTS</h2>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
+<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
+</figure>
+<h2 id="instructtts">InstructTTS</h2>
+<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
+<figcaption aria-hidden="true">InstructTTS</figcaption>
+</figure>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
+<figcaption aria-hidden="true">模型结构</figcaption>
+</figure>
+<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Apple Silicon MacBook Pro新机配置</title>
     <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
     <content><![CDATA[<blockquote>
@@ -90,35 +148,6 @@ Silicon版本）</h1>
       </tags>
   </entry>
   <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
-</ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo博客在matery主题下插入mermaid流程图</title>
     <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
     <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
@@ -156,34 +185,6 @@ dark | forest | neutral</em></li>
         <tag>hexo</tag>
         <tag>typora</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hexo快速使用指北</title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>Hexo安装和配置插件</title>
@@ -240,105 +241,32 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
       </tags>
   </entry>
   <entry>
-    <title>Python基础知识点</title>
-    <url>/2021/09/18/python-ji-chu-zhi-shi-dian/</url>
-    <content><![CDATA[<h1 id="python基础知识点">Python基础知识点</h1>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
 <blockquote>
-<p>本篇为给高二学生上课用的复习内容, 高二学生都能看懂!!!</p>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
 </blockquote>
-<h2 id="数据类型6个">数据类型6个</h2>
-<ol type="1">
-<li><strong>整型 int</strong><br>
-数学中的整数，如1，-8080，0<br>
-</li>
-<li><strong>实型（浮点数）float</strong><br>
-数学中的实数，如3.14，9e-4<br>
-</li>
-<li><strong>字符串 string</strong><br>
-以引号开始结束的一串字符，如<code>'this is a string'</code><br>
-</li>
-<li><strong>布尔型 bool</strong><br>
-只有<code>True</code>和<code>False</code>两个值<br>
-</li>
-<li><strong>列表 list</strong><br>
-以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br>
-</li>
-<li><strong>字典 dictionary</strong><br>
-以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br>
-取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">d=&#123;<span class="hljs-string">&#x27;name&#x27;</span>:<span class="hljs-string">&#x27;wow&#x27;</span>,<span class="hljs-string">&#x27;age&#x27;</span>:<span class="hljs-number">17</span>&#125;  <br>d[<span class="hljs-string">&#x27;name&#x27;</span>]=<br></code></pre></td></tr></table></figure> #### 索引与切片
-请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">info=[<span class="hljs-string">&#x27;hello&#x27;</span>,<span class="hljs-string">&#x27;what&#x27;</span>,<span class="hljs-number">5432</span>]  <br>info2=[ [<span class="hljs-string">&#x27;world&#x27;</span>,<span class="hljs-string">&#x27;you&#x27;</span>],[<span class="hljs-number">231</span>,<span class="hljs-string">&#x27;how&#x27;</span>] ]   <br>info[<span class="hljs-number">1</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br>info2[<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br></code></pre></td></tr></table></figure> ***</li>
-</ol>
-<h2 id="运算符">运算符</h2>
-<h3 id="算数运算符">算数运算符</h3>
-<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br>
-<code>%</code>取余数 <code>**</code>乘方</p>
-<p><em>算数运算符得到的结果为数</em> ### 关系运算符
-<code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于
-小于等于<br>
-<code>==</code>等于<code>!=</code>不等于<br>
-<code>in</code>包含于</p>
-<p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<h3 id="逻辑运算符">逻辑运算符</h3>
-<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br>
-<code>or</code>
-或运算，只要有一个<code>True</code>结果就为<code>True</code><br>
-<code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
-<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
-<hr>
-<h2 id="变量和赋值">变量和赋值</h2>
-<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br>
-<strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
-<p><strong>赋值语句</strong><br>
-<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br>
-&gt;n=0 #将0赋值给变量n<br>
-n=n+1 #将n+1的值赋给变量n<br>
-n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
-<p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
-<h2 id="常用函数">常用函数</h2>
-<p><code>print(x)</code>输出x的值<br>
-<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br>
-<code>int(x)</code>将x转换为整型<br>
-<code>float(x)</code>将x转换为浮点数</p>
-<hr>
-<h2 id="分支结构">分支结构</h2>
-<blockquote>
-<p>if 条件:<br>
-  语句<br>
-elif 条件:<br>
-  语句<br>
-else:<br>
-  语句</p>
-</blockquote>
-<p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> x%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;偶数&#x27;</span>)  <br>esle:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;奇数&#x27;</span>)<br></code></pre></td></tr></table></figure></p>
-<h2 id="循环结构">循环结构</h2>
-<h4 id="for循环">for循环</h4>
-<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br>
-  循环体</p>
-<p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">101</span>,<span class="hljs-number">1</span>):  <br>		s+=i  <br>		<span class="hljs-built_in">print</span>(i)  <br></code></pre></td></tr></table></figure> #### while循环
-循环条件为<code>True</code>时进入循环，否则退出循环<br>
-&gt;while 循环条件:<br>
-  循环体</p>
-<p>例：<br>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br>i=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">while</span> i&lt;=<span class="hljs-number">100</span>:  <br>    s+=i<br>    i+=<span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(i)<br><span class="hljs-built_in">print</span>(s)<br></code></pre></td></tr></table></figure></p>
-<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br>
-<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br>
-<strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
-<hr>
-<h2 id="习题">习题</h2>
-<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br>
-请在下方书写<br>
-<em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
 ]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>信息技术</tag>
-        <tag>支教</tag>
-      </tags>
   </entry>
   <entry>
     <title>Ubuntu上基于docker搭建Hadoop集群</title>
@@ -460,6 +388,176 @@ else:<br>
       </tags>
   </entry>
   <entry>
+    <title>Python基础知识点</title>
+    <url>/2021/09/18/python-ji-chu-zhi-shi-dian/</url>
+    <content><![CDATA[<h1 id="python基础知识点">Python基础知识点</h1>
+<blockquote>
+<p>本篇为给高二学生上课用的复习内容, 高二学生都能看懂!!!</p>
+</blockquote>
+<h2 id="数据类型6个">数据类型6个</h2>
+<ol type="1">
+<li><strong>整型 int</strong><br>
+数学中的整数，如1，-8080，0<br>
+</li>
+<li><strong>实型（浮点数）float</strong><br>
+数学中的实数，如3.14，9e-4<br>
+</li>
+<li><strong>字符串 string</strong><br>
+以引号开始结束的一串字符，如<code>'this is a string'</code><br>
+</li>
+<li><strong>布尔型 bool</strong><br>
+只有<code>True</code>和<code>False</code>两个值<br>
+</li>
+<li><strong>列表 list</strong><br>
+以中括号开始结束的一种数据类型，如<code>[1,2,3,4,5]</code><br>
+</li>
+<li><strong>字典 dictionary</strong><br>
+以大括号开始结束，存储内容为键值对，如<code>&#123;'name':'wow','age':17&#125;</code><br>
+取出下列字典中的'name'键对应的值： <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">d=&#123;<span class="hljs-string">&#x27;name&#x27;</span>:<span class="hljs-string">&#x27;wow&#x27;</span>,<span class="hljs-string">&#x27;age&#x27;</span>:<span class="hljs-number">17</span>&#125;  <br>d[<span class="hljs-string">&#x27;name&#x27;</span>]=<br></code></pre></td></tr></table></figure> #### 索引与切片
+请写出下列索引与切片的结果 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">info=[<span class="hljs-string">&#x27;hello&#x27;</span>,<span class="hljs-string">&#x27;what&#x27;</span>,<span class="hljs-number">5432</span>]  <br>info2=[ [<span class="hljs-string">&#x27;world&#x27;</span>,<span class="hljs-string">&#x27;you&#x27;</span>],[<span class="hljs-number">231</span>,<span class="hljs-string">&#x27;how&#x27;</span>] ]   <br>info[<span class="hljs-number">1</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br>info2[<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=  <br>info2[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">3</span>]=  <br></code></pre></td></tr></table></figure> ***</li>
+</ol>
+<h2 id="运算符">运算符</h2>
+<h3 id="算数运算符">算数运算符</h3>
+<p><code>+-*/</code>加减乘除 <code>//</code>整除，结果取整数部分<br>
+<code>%</code>取余数 <code>**</code>乘方</p>
+<p><em>算数运算符得到的结果为数</em> ### 关系运算符
+<code>&gt;&lt;</code>大于小于 <code>&gt;= &lt;=</code>大于等于
+小于等于<br>
+<code>==</code>等于<code>!=</code>不等于<br>
+<code>in</code>包含于</p>
+<p><em>关系运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<p><code>and</code>与运算，只有两个<code>True</code>结果才为<code>True</code><br>
+<code>or</code>
+或运算，只要有一个<code>True</code>结果就为<code>True</code><br>
+<code>not</code>非运算，<code>not True</code>结果为<code>False</code></p>
+<p><em>逻辑运算得到的结果为布尔型，即<code>True</code>和<code>False</code></em></p>
+<hr>
+<h2 id="变量和赋值">变量和赋值</h2>
+<p><strong>常量</strong>：0，3.14，60000，pi，e等数学上的客观数字<br>
+<strong>变量</strong>：在编程中声明/定义的一个代号，用于存储数据。变量名可以包括字母、数字、下划线，不可以用数字开头</p>
+<p><strong>赋值语句</strong><br>
+<code>=</code>用于赋值，将等号右侧的值赋给左侧的变量<br>
+&gt;n=0 #将0赋值给变量n<br>
+n=n+1 #将n+1的值赋给变量n<br>
+n+=1 #将n+1的值赋给变量n，即n的值增加1</p>
+<p><em>注意：<code>==</code>和<code>=</code>在用法上完全不同</em></p>
+<h2 id="常用函数">常用函数</h2>
+<p><code>print(x)</code>输出x的值<br>
+<code>input(x)</code>将x的值输出在屏幕上，并读取用户的输入，以字符串存储<br>
+<code>int(x)</code>将x转换为整型<br>
+<code>float(x)</code>将x转换为浮点数</p>
+<hr>
+<h2 id="分支结构">分支结构</h2>
+<blockquote>
+<p>if 条件:<br>
+  语句<br>
+elif 条件:<br>
+  语句<br>
+else:<br>
+  语句</p>
+</blockquote>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> x%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;偶数&#x27;</span>)  <br>esle:  <br>		<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;奇数&#x27;</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="循环结构">循环结构</h2>
+<h4 id="for循环">for循环</h4>
+<p>序列遍历完成后退出循环 &gt;for 变量 in 序列:<br>
+  循环体</p>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">101</span>,<span class="hljs-number">1</span>):  <br>		s+=i  <br>		<span class="hljs-built_in">print</span>(i)  <br></code></pre></td></tr></table></figure> #### while循环
+循环条件为<code>True</code>时进入循环，否则退出循环<br>
+&gt;while 循环条件:<br>
+  循环体</p>
+<p>例：<br>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">s=<span class="hljs-number">0</span>  <br>i=<span class="hljs-number">0</span>  <br><span class="hljs-keyword">while</span> i&lt;=<span class="hljs-number">100</span>:  <br>    s+=i<br>    i+=<span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(i)<br><span class="hljs-built_in">print</span>(s)<br></code></pre></td></tr></table></figure></p>
+<p><strong><em>代码除了横向阅读，也要纵向阅读</em></strong><br>
+<strong><em>横向阅读看<code>功能</code>，纵向阅读看<code>结构</code></em></strong><br>
+<strong><em>注意循环体和分支结构语句块的缩进</em></strong></p>
+<hr>
+<h2 id="习题">习题</h2>
+<p>使用for循环和while循环两种方式计算[100,1000]中所有奇数的和<br>
+请在下方书写<br>
+<em>提示：判断一个数是偶数还是奇数是用余数的方式</em></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>信息技术</tag>
+        <tag>支教</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VALL-E</title>
+    <url>/2023/01/13/vall-e/</url>
+    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
+<h2 id="模型">模型</h2>
+<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
+<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
+<figure>
+<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
+<figcaption aria-hidden="true">模型总览</figcaption>
+</figure>
+<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
+<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
+<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
+<p>后面出现了矢量量化（vector
+quantization），应用在vq-wav2vec、HuBERT。</p>
+<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
+models），优点如下：</p>
+<ul>
+<li>在低比特率下表现比传统音频编解码器更好。</li>
+<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
+<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
+<li>可以做到减少时间序列长度。</li>
+</ul>
+<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
+code
+matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
+<figure>
+<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
+<figcaption aria-hidden="true">RVQ</figcaption>
+</figure>
+<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
+<h2 id="模型-1">模型</h2>
+<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
+C)\)</span></p>
+<figure>
+<img src="/2023/01/13/vall-e/LM.png" alt="LM">
+<figcaption aria-hidden="true">LM</figcaption>
+</figure>
+<h2 id="推理">推理</h2>
+<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
+<ul>
+<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
+<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
+</ul>
+<h2 id="数据">数据</h2>
+<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
+<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
+<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
+<p>16个 NVIDIA TESLA V100
+32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
+5 × 10−4 的峰值，然后对其进行线性衰减。</p>
+<h2 id="分析">分析</h2>
+<ul>
+<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
+<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
+<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
+<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
+<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
+<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>esxi安装黑群晖记录</title>
     <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
     <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
@@ -548,6 +646,339 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
         <tag>虚拟机</tag>
         <tag>esxi</tag>
         <tag>群晖</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《声与情：播音用声的实证研究》笔记</title>
+    <url>/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/</url>
+    <content><![CDATA[<blockquote>
+<p>链接：https://www.zhizhen.com/detail_38502727e7500f26ca5684ae8f3c3b6429bcb36a14c533e11921b0a3ea25510134114c969f2eae5c9837344477b6470412f90171de0b6360e6b1c5d917c82372d97823f6a9338067eed855d3fbe548a5?&amp;apistrclassfy=0_7_3</p>
+</blockquote>
+<h1 id="意义">意义</h1>
+<p>播音学原则：<strong>以情带声</strong></p>
+<p>探讨<u>播音语言的艺术用声</u>在韵律节奏上的</p>
+<ul>
+<li>规律、特点</li>
+<li>声学表现特征</li>
+<li>发音人的呼吸特点</li>
+</ul>
+<p>用于指导：</p>
+<ul>
+<li>具体实践，解决主持人和播音员的用声问题</li>
+<li>播音教学</li>
+</ul>
+<h1 id="实验内容">实验内容</h1>
+<h2 id="设备">设备</h2>
+<ul>
+<li><p>话筒和调音台：语音信号</p></li>
+<li><p>电子声门仪：嗓音信号</p></li>
+<li><p>呼吸带：胸呼吸信号、腹呼吸信号</p></li>
+</ul>
+<h3 id="实证研究一">实证研究一</h3>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">语料分类</th>
+<th style="text-align: center;">语料来源</th>
+<th style="text-align: center;">字数</th>
+<th style="text-align: center;">发言人</th>
+<th style="text-align: center;">有效人数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">散文语句</td>
+<td style="text-align: center;">《匆匆》《石缝间的生命》完整片段</td>
+<td style="text-align: center;">200+</td>
+<td style="text-align: center;">吉林大学播音专业大三学生</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">新闻语句</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">200+</td>
+<td style="text-align: center;">吉林大学播音专业大三学生</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">文本类型</th>
+<th style="text-align: center;">物理特征</th>
+<th style="text-align: left;">实验结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">散文语句</td>
+<td style="text-align: center;">停顿</td>
+<td style="text-align: left;">不带情感的小停顿多于大停顿
+带情感的大停顿多于不带情感的大停顿 带情感的小停顿多于等于大停顿数量</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">基频</td>
+<td style="text-align: left;">变化不大。男80-250Hz，女150-330Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">能量</td>
+<td style="text-align: left;">变化不大。15-17dB</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">呼吸</td>
+<td style="text-align: left;">有感情呼吸在次数、重置幅度都变多。其中腹呼吸抖动比胸呼吸多，说明有更多的偷气。胸腹呼吸起伏走向大体一致。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">新闻语句</td>
+<td style="text-align: center;">停顿</td>
+<td style="text-align: left;">不对比有无情感。</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">基频</td>
+<td style="text-align: left;">男100-200Hz，女150-300Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">能量</td>
+<td style="text-align: left;">男22.82-89.51dB，女22.52-89.47dB</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">呼吸</td>
+<td style="text-align: left;">胸腹呼吸起伏走向大体一致。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实证研究二">实证研究二</h3>
+<table style="width:100%;">
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">语料分类</th>
+<th style="text-align: center;">语料来源</th>
+<th style="text-align: center;">字数</th>
+<th style="text-align: center;">发言人</th>
+<th style="text-align: center;">有效人数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">散文语句</td>
+<td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td>
+<td style="text-align: center;">300-</td>
+<td style="text-align: center;">吉林大学播音专业大一学生（第三周）</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">散文语句</td>
+<td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td>
+<td style="text-align: center;">300-</td>
+<td style="text-align: center;">吉林大学播音专业大一学生（第八周）</td>
+<td style="text-align: center;">6</td>
+</tr>
+</tbody>
+</table>
+<p><u><strong>这里会要求学生的情感宁过勿欠</strong></u></p>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">文本类型</th>
+<th style="text-align: center;">物理特征</th>
+<th style="text-align: left;">实验结果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">散文语句</td>
+<td style="text-align: center;">停顿</td>
+<td style="text-align: left;">总数多，带情感的大停顿显著多于小停顿，时长有所不同</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">基频</td>
+<td style="text-align: left;">女150-290Hz变为150-320Hz，男100-260Hz变为120-230Hz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">能量</td>
+<td style="text-align: left;">有情的能量低</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">呼吸</td>
+<td style="text-align: left;">有情的呼吸重置次数增多，幅度加大，无声段时长更长。胸腹呼吸基本保持一致。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">时长</td>
+<td style="text-align: left;">带情感的句子时长是不带情感的时长近乎2倍</td>
+</tr>
+</tbody>
+</table>
+<h1 id="播音学解释">播音学解释</h1>
+<p>“声足情欠”“情足声欠”说明不和谐，“情欠”不好，“声欠”也不好，这都影响韵律。</p>
+<p><strong>音步</strong>作为汉语的小节奏单元，本文把汉语中的音步概括为：</p>
+<p>由若干个音节构成的语音片段，在音步内和音步间也存在长短、高低、强弱的对比，且<u><strong>音步间被停顿分开</strong></u>。本文对散文语句的韵律层级的划分也将从音步开始。</p>
+<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221106140548462.png" alt="image-20221106140548462" style="zoom:50%;"></p>
+<p>①叶军：《汉语语句韵律的功能研究》：http://www.docin.com/p-12614263.html.</p>
+<p>在实际的言语中，韵律有着不同的层级，各层级之间的过渡和接口则承载着非常重要的言语节律特征。在声学上，它们主要表现为停延。<strong>停延是说话或朗读时语流中声音的中断和延连</strong>，它起到言语在语流中的分合作用。</p>
+<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222828943.png" alt="image-20221103222828943" style="zoom:50%;"></p>
+<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222922094.png" alt="image-20221103222922094" style="zoom:50%;"></p>
+<p>节奏的技巧是欲高先低，欲低先高；欲轻先重，欲重先轻；逢慢必先快，逢快必先慢，即<strong>节奏是通过高低、快慢、轻重</strong>体现。</p>
+<p>从上文论述中，我们得出理论上的假设是：情感的表现与音高变化、声音强度、快慢有关，而这些又都与呼吸停顿直接相关，恰恰<strong>停顿最能体现汉语言节奏的特点</strong>，因而本文就是通过实证性的研究证明播音艺术语言使用中，情感影响呼吸，呼吸影响停延，停延表现语言节奏，这些语音的实际表现形式又决定了播音语言语义信息及情感信息表达的信度和效度。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>使用Bert进行中文NER命名实体识别feat.fastNLP</title>
+    <url>/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png" alt="NewBing进行ner">
+<figcaption aria-hidden="true">NewBing进行ner</figcaption>
+</figure>
+<p>虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。</p>
+<blockquote>
+<p>（只是为了作业找了这么多借口）</p>
+</blockquote>
+<p>本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预测准确率，最终部署在服务器上可视化呈现。</p>
+<p>fastNLP<a href="http://document.fastnlp.top/docs/fastNLP/">文档</a>和<a href="https://gitee.com/fastnlp/fastNLP">gitee仓库</a>最近更新在五个月前，还比较活跃。fastNLP在手册上有序列标注的<a href="http://www.fastnlp.top/docs/fastNLP/master/tutorials/torch/fastnlp_torch_tutorial_seq_labeling.html">源码实现</a>，本文基于此进行改写。</p>
+<h1 id="数据预处理">数据预处理</h1>
+<h2 id="使用内置的dataloader加载weibo数据集">使用内置的dataloader加载Weibo数据集</h2>
+<p>fastNLP自带库中有许多内置数据集，这里选择微博数据集展示，其实体类别分为人物，机构组织，地址和地缘政治实体四个类别，且每个类别可细分为特指（NAM，如“张三”标签为“PER.NAM”）和泛指（NOM，如“男人”标签为“PER.NOM”）。总数据量1890条。</p>
+<table>
+<thead>
+<tr class="header">
+<th>含义</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>地区名特指，如深圳</td>
+<td>B-GPE.NAM I-GPE.NAM</td>
+</tr>
+<tr class="even">
+<td>地名特指，如华克山庄</td>
+<td>B-LOC.NAM I-LOC.NAM</td>
+</tr>
+<tr class="odd">
+<td>地名泛指，如寺庙</td>
+<td>B-LOC.NOM I-LOC.NOM</td>
+</tr>
+<tr class="even">
+<td>组织名特指</td>
+<td>B-ORG.NAM I-ORG.NAM</td>
+</tr>
+<tr class="odd">
+<td>组织名泛指</td>
+<td>B-ORG.NOM I-ORG.NOM</td>
+</tr>
+<tr class="even">
+<td>人名特指，如方进玉</td>
+<td>B-PER.NAM I-PER.NAM</td>
+</tr>
+<tr class="odd">
+<td>人名泛指，如男人</td>
+<td>B-PER.NOM I-PER.NOM</td>
+</tr>
+<tr class="even">
+<td>其他</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>17个标签的分布如图所示：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/数据集标签总览.png" alt="数据集标签总览">
+<figcaption aria-hidden="true">数据集标签总览</figcaption>
+</figure>
+<p>接下来开始使用fastNLP库的loader下载并加载数据到<code>data_bundle</code>中。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.io <span class="hljs-keyword">import</span> WeiboNERLoader<br>data_bundle = WeiboNERLoader().load()<br><span class="hljs-built_in">print</span>(data_bundle)<br><span class="hljs-built_in">print</span>(data_bundle.get_dataset(<span class="hljs-string">&#x27;train&#x27;</span>)[:<span class="hljs-number">4</span>])<br></code></pre></td></tr></table></figure>
+<p><code>data_bundle</code>和它的名字一样，是训练集、验证集、测试集的打包，需要分别提取。</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">In</span> total <span class="hljs-number">3</span> datasets:<br>        dev has <span class="hljs-number">270</span> instances.<br>        test has <span class="hljs-number">270</span> instances.<br>        train has <span class="hljs-number">1350</span> instances.<br><br>+------------------------------------------+------------------------------------------+<br>| raw_chars                                | target                                   |<br>+------------------------------------------+------------------------------------------+<br>| <span class="hljs-meta">[</span><span class="hljs-string">&#x27;科&#x27;</span>, <span class="hljs-string">&#x27;技&#x27;</span>, <span class="hljs-string">&#x27;全&#x27;</span>, <span class="hljs-string">&#x27;方&#x27;</span>, <span class="hljs-string">&#x27;位&#x27;</span>, <span class="hljs-string">&#x27;资&#x27;</span>, <span class="hljs-params">...</span> | <span class="hljs-meta">[</span><span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;... |</span><br><span class="hljs-string">| [&#x27;</span>对<span class="hljs-string">&#x27;, &#x27;</span>，<span class="hljs-string">&#x27;, &#x27;</span>输<span class="hljs-string">&#x27;, &#x27;</span>给<span class="hljs-string">&#x27;, &#x27;</span>一<span class="hljs-string">&#x27;, &#x27;</span>个<span class="hljs-string">&#x27;, ... | [&#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>B<span class="hljs-params">-PER...</span> |<br>| <span class="hljs-meta">[</span><span class="hljs-string">&#x27;今&#x27;</span>, <span class="hljs-string">&#x27;天&#x27;</span>, <span class="hljs-string">&#x27;下&#x27;</span>, <span class="hljs-string">&#x27;午&#x27;</span>, <span class="hljs-string">&#x27;起&#x27;</span>, <span class="hljs-string">&#x27;来&#x27;</span>, <span class="hljs-params">...</span> | <span class="hljs-meta">[</span><span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;... |</span><br><span class="hljs-string">| [&#x27;</span>今<span class="hljs-string">&#x27;, &#x27;</span>年<span class="hljs-string">&#x27;, &#x27;</span>拜<span class="hljs-string">&#x27;, &#x27;</span>年<span class="hljs-string">&#x27;, &#x27;</span>不<span class="hljs-string">&#x27;, &#x27;</span>短<span class="hljs-string">&#x27;, ... | [&#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span><span class="hljs-params">...</span> |<br>+------------------------------------------+------------------------------------------+<br></code></pre></td></tr></table></figure>
+<h2 id="计算数据集中的属性">计算数据集中的属性</h2>
+<p>使用BertTokenizer和BPE算法处理文本，得到<code>input_ids|input_len | first| seq_len | new_target</code>这几列，其中<code>first</code>表示<code>bpe</code>算法的结果，在后面的模型中会使用，这里使用<code>new_target</code>作为最终label的编码表示。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> cache_results, Vocabulary<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_data</span>(<span class="hljs-params">data_bundle, model_name</span>):<br>    tokenizer = BertTokenizer.from_pretrained(model_name)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">bpe</span>(<span class="hljs-params">raw_words</span>):<br>        bpes = [tokenizer.cls_token_id]<br>        first = [<span class="hljs-number">0</span>]<br>        first_index = <span class="hljs-number">1</span>  <span class="hljs-comment"># 记录第一个bpe的位置</span><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> raw_words:<br>            bpe = tokenizer.encode(word, add_special_tokens=<span class="hljs-literal">False</span>)<br>            bpes.extend(bpe)<br>            first.append(first_index)<br>            first_index += <span class="hljs-built_in">len</span>(bpe)<br>        bpes.append(tokenizer.sep_token_id)<br>        first.append(first_index)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_ids&#x27;</span>: bpes, <span class="hljs-string">&#x27;input_len&#x27;</span>: <span class="hljs-built_in">len</span>(bpes), <span class="hljs-string">&#x27;first&#x27;</span>: first, <span class="hljs-string">&#x27;seq_len&#x27;</span>: <span class="hljs-built_in">len</span>(raw_words)&#125;<br>    <span class="hljs-comment"># 对data_bundle中每个dataset的每一条数据中的raw_chars使用bpe函数，并且将返回的结果加入到每条数据中。</span><br>    data_bundle.apply_field_more(bpe, field_name=<span class="hljs-string">&#x27;raw_chars&#x27;</span>, num_proc=<span class="hljs-number">4</span>)<br>		<span class="hljs-comment"># --------------------------------------------这里需要注意field_name</span><br>    <span class="hljs-comment"># tag的词表，由于这是词表，所以不需要有padding和unk</span><br>    tag_vocab = Vocabulary(padding=<span class="hljs-literal">None</span>, unknown=<span class="hljs-literal">None</span>)<br>    <span class="hljs-comment"># 从 train 数据的 raw_target 中获取建立词表</span><br>    tag_vocab.from_dataset(data_bundle.get_dataset(<span class="hljs-string">&#x27;train&#x27;</span>), field_name=<span class="hljs-string">&#x27;target&#x27;</span>)<br>    <span class="hljs-comment"># 使用词表将每个 dataset 中的target转为数字，并且将写入到new_target这个field中</span><br>    tag_vocab.index_dataset(data_bundle.datasets.values(), field_name=<span class="hljs-string">&#x27;target&#x27;</span>, new_field_name=<span class="hljs-string">&#x27;new_target&#x27;</span>)<br>    <br>    <span class="hljs-comment"># 可以将 vocabulary 绑定到 data_bundle 上，方便之后使用。</span><br>    data_bundle.set_vocab(tag_vocab, field_name=<span class="hljs-string">&#x27;new_target&#x27;</span>)<br>    <br>    <span class="hljs-keyword">return</span> data_bundle, tokenizer<br><br>data_bundle, tokenizer = process_data(data_bundle, <span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br><span class="hljs-built_in">print</span>(data_bundle)<br><span class="hljs-built_in">print</span>(data_bundle.get_dataset(<span class="hljs-string">&quot;train&quot;</span>)[:<span class="hljs-number">4</span>])<br></code></pre></td></tr></table></figure>
+<p>可以看出<code>input_len</code>比<code>seq_len</code>多两个，分别是一头一尾两个token。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">[08<span class="hljs-function">:23</span><span class="hljs-function">:40</span> AM] INFO     In total 3 datasets:                                  1356482314.py<span class="hljs-function">:35</span><br>                               dev has 270 instances.                                        <br>                               test has 270 instances.                                       <br>                               train has 1350 instances.                                     <br>                       In total 1 vocabs:                                                    <br>                               new_target has 17 entries.                                    <br>                                                                                             <br>              INFO     +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+- 1356482314.py<span class="hljs-function">:36</span><br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+                                                                    <br>                       | raw_chars      | target         | input_ids      |                  <br>                       input_len | first          | seq_len | new_target                     <br>                       |                                                                 <br>                       +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+-                 <br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+                                                                    <br>                       | [&#x27;科&#x27;, &#x27;技&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 4906,<span class="hljs-string">...</span> |                  <br>                       28        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 26      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;对&#x27;, &#x27;，&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 2190,<span class="hljs-string">...</span> |                  <br>                       17        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 15      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;今&#x27;, &#x27;天&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 791, <span class="hljs-string">...</span> |                  <br>                       81        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 79      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;今&#x27;, &#x27;年&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 791, <span class="hljs-string">...</span> |                  <br>                       20        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 18      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+-                 <br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+ <br></code></pre></td></tr></table></figure>
+<h2 id="将计算后的数据放入dataloader">将计算后的数据放入dataloader</h2>
+<p>制作dataloader方便遍历，bs大小256大约占用20G显存。</p>
+<p><strong>对输入和输出分别进行padding</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>dataloaders = prepare_torch_dataloader(data_bundle, batch_size=<span class="hljs-number">256</span>)<br><br><span class="hljs-keyword">for</span> dl <span class="hljs-keyword">in</span> dataloaders.values():<br>    <span class="hljs-comment"># 可以通过 set_pad 修改 padding 的行为。</span><br>    dl.set_pad(<span class="hljs-string">&#x27;input_ids&#x27;</span>, pad_val=tokenizer.pad_token_id)<br>    dl.set_pad(<span class="hljs-string">&#x27;new_target&#x27;</span>, pad_val=-<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="bert模型微调">Bert模型微调</h1>
+<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考。</p>
+<h2 id="设计模型">设计模型</h2>
+<p>fastNLP的模型基于torch，所以写法是一样的；同时内置的transformer库也是huggingface的直接迁移，用法上完全一样，只是默认的模型加载路径和huggingface的transformer库不一样，如果同时使用可能会发现缓存位置不同而重复下载。</p>
+<ul>
+<li>这里使用<code>hfl/rbt3</code>这个中文Bert模型，大小约500M，<code>BertModel.from_pretrained()</code>函数会从远程拉取该模型保存在缓存后加载（复旦源，国内很快）。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
+<p><code>forward</code>函数和torch写法相同，<code>train_step</code>会被后面声明的trainer对象调用，计算训练的每一步loss，<code>evaluate_step</code>会被后面声明的evaluator对象调用，相当于预测函数，返回的是预测标签对应的数字index。</p>
+<h2 id="开始训练">开始训练</h2>
+<p>这里我们准备Trainer对象的各个参数，具体细节不做深入解释，看名字很好理解。</p>
+<p><strong>其中Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整。</strong>如果你和我一样是按照官方文档的写法，直接调用官方loader加载，在这里就需要这个函数，因为在文档里的ipython结果是从文件读取的，列名称和loader加载的不同。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> SpanFPreRecMetric<br><br>optimizer = optim.Adam(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;f&quot;</span>: SpanFPreRecMetric(tag_vocab=data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)),<br>&#125;<br><br><span class="hljs-comment"># ————重要函数----Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;new_target&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;f#f&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">[11:36:55 AM] INFO     The best performance for<span class="hljs-built_in"> monitor </span>f<span class="hljs-comment">#f:0.573477  progress_callback.py:37</span><br>                       was achieved in Epoch:47, Global Batch:282.                           <br>                       The evaluation result:                                                <br>                       &#123;&#x27;f<span class="hljs-comment">#f&#x27;: 0.573477, &#x27;pre#f&#x27;: 0.535714, &#x27;rec#f&#x27;:                         </span><br>                       0.616967&#125;                                                             <br>              INFO     Loading best model from buffer with    load_best_model_callback.py:120<br>                       f<span class="hljs-comment">#f: 0.573477 (achieved in Epoch: 47,                                 </span><br>                       Global Batch: 282) ... <br></code></pre></td></tr></table></figure>
+<h2 id="模型保存和加载">模型保存和加载</h2>
+<p>训练好模型之后需要进行保存，这里使用torch的保存，fastNLP也有自己的保存方法，是相同的。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>torch.save(model,<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br>ner_model = torch.load(<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="使用模型预测">使用模型预测</h1>
+<p>由于后续需要部署到服务器上进行使用，这里需要构建好整个预测流程，fastNLP工具包本身没有这个功能，只是用来快速构建模型验证，但是预测流程本身与训练流程相同，并不复杂。</p>
+<ul>
+<li>将预测文本放入dataset，再放入databundle，经过bpe计算，</li>
+<li>放入dataloader，交给evaluator调用预测函数得到预测结果。</li>
+</ul>
+<h2 id="构建dataset">构建dataset</h2>
+<p>其实是构建一个只有一条数据的的dataset再放入databundle对象中。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.io <span class="hljs-keyword">import</span> DataBundle<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> DataSet, Instance<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">text2dataset</span>(<span class="hljs-params">text:<span class="hljs-built_in">str</span></span>):<br>    ds = DataSet()<br>    <span class="hljs-keyword">if</span> text != <span class="hljs-string">&#x27;&#x27;</span>:  <br>        ds.append(Instance(raw_words = <span class="hljs-built_in">list</span>(text)))<br>    <span class="hljs-keyword">return</span> ds<br><br>text = <span class="hljs-string">&#x27;我今天就要在中国传媒大学吃上崔永元真面！&#x27;</span><br><br>predict_data_bundle = DataBundle(datasets=&#123;<br>    <span class="hljs-string">&quot;predict&quot;</span>: text2dataset(text),<br>&#125;)<br><span class="hljs-built_in">print</span>(predict_data_bundle)<br><span class="hljs-built_in">print</span>(predict_data_bundle.get_dataset(<span class="hljs-string">&quot;predict&quot;</span>))<br></code></pre></td></tr></table></figure>
+<p>结果如下，这里Instance对象赋给输入的列名是<code>raw_words</code>，和前面默认loader加载是不同的。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada"><span class="hljs-comment">--------------------------+| raw_words|+---------------------------------------+                                           </span><br>| [<span class="hljs-string">&#x27;我&#x27;</span>, <span class="hljs-string">&#x27;今&#x27;</span>, <span class="hljs-string">&#x27;天&#x27;</span>, <span class="hljs-string">&#x27;就&#x27;</span>, <span class="hljs-string">&#x27;要&#x27;</span>, <span class="hljs-string">&#x27;在&#x27;</span>, <span class="hljs-string">&#x27;中&#x27;</span>, <span class="hljs-string">&#x27;国&#x27;</span>, <span class="hljs-string">&#x27;传&#x27;</span>, <span class="hljs-string">&#x27;媒&#x27;</span>, <span class="hljs-string">&#x27;大&#x27;</span>, <span class="hljs-string">&#x27;学&#x27;</span>, ... |                                         <br>+<span class="hljs-comment">------------------------------------------------------------------------------+ </span><br></code></pre></td></tr></table></figure>
+<h2 id="构建dataloader">构建dataloader</h2>
+<p>其实就是把前面的函数改一改，甚至可以将前面的函数加参数重构，重复使用。<strong>需要注意的是loader的列名不一样</strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> cache_results, Vocabulary<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_predict_data</span>(<span class="hljs-params">data_bundle, model_name</span>):<br><br>    tokenizer = BertTokenizer.from_pretrained(model_name)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">bpe</span>(<span class="hljs-params">raw_words</span>):<br>        bpes = [tokenizer.cls_token_id]<br>        first = [<span class="hljs-number">0</span>]<br>        first_index = <span class="hljs-number">1</span>  <span class="hljs-comment"># 记录第一个bpe的位置</span><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> raw_words:<br>            bpe = tokenizer.encode(word, add_special_tokens=<span class="hljs-literal">False</span>)<br>            bpes.extend(bpe)<br>            first.append(first_index)<br>            first_index += <span class="hljs-built_in">len</span>(bpe)<br>        bpes.append(tokenizer.sep_token_id)<br>        first.append(first_index)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_ids&#x27;</span>: bpes, <span class="hljs-string">&#x27;input_len&#x27;</span>: <span class="hljs-built_in">len</span>(bpes), <span class="hljs-string">&#x27;first&#x27;</span>: first, <span class="hljs-string">&#x27;seq_len&#x27;</span>: <span class="hljs-built_in">len</span>(raw_words)&#125;<br>    <span class="hljs-comment"># 对data_bundle中每个dataset的每一条数据中的raw_words使用bpe函数，并且将返回的结果加入到每条数据中。</span><br>    data_bundle.apply_field_more(bpe, field_name=<span class="hljs-string">&#x27;raw_words&#x27;</span>, num_proc=<span class="hljs-number">1</span>)<br><br>    <span class="hljs-keyword">return</span> data_bundle, tokenizer<br><br>predict_data_bundle, predict_tokenizer = process_predict_data(predict_data_bundle, <span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(predict_data_bundle)<br><span class="hljs-built_in">print</span>(predict_data_bundle.get_dataset(<span class="hljs-string">&quot;predict&quot;</span>))<br><br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>predict_dataloaders = prepare_torch_dataloader(predict_data_bundle, batch_size=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>结果如下，和前面的loader相比只是少了target一列，不过因为是做预测本身也用不到。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+<br>| raw_words | input_ids | input_len | first | seq_len |<br>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+<br>| [&#x27;我&#x27;, &#x27;今&#x27;, &#x27;天<span class="hljs-string">...</span> | [101, 2769, 791.<span class="hljs-string">..</span> | 22 | [0, 1, 2, 3, 4,<span class="hljs-string">...</span> | 20 |                                      <br>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+ <br></code></pre></td></tr></table></figure>
+<h2 id="进行预测">进行预测</h2>
+<h3 id="第一种方法evaluator对象进行预测">第一种方法：Evaluator对象进行预测</h3>
+<p>通常的预测方法是构建一个evaluator对象用于调用模型的预测函数，<strong>这里需要加载数据集中的vocab用于进行idx2word</strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict_output_labeling</span>(<span class="hljs-params">evaluator, batch</span>):<br>    outputs = evaluator.evaluate_step(batch)[<span class="hljs-string">&quot;pred&quot;</span>]<br>    raw_words = batch[<span class="hljs-string">&quot;raw_words&quot;</span>]<br>    <span class="hljs-keyword">for</span> words, output <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(raw_words, outputs):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;sentence:&quot;</span>, words)<br>        labels = [data_bundle.get_vocab(<span class="hljs-string">&quot;new_target&quot;</span>).idx2word[idx] <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> output[:<span class="hljs-built_in">len</span>(words)].tolist() ]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>, labels)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;outputs:&#x27;</span>,outputs)<br>predictor = Evaluator(model=ner_model, dataloaders=predict_dataloaders[<span class="hljs-string">&quot;predict&quot;</span>],<br>                      device=<span class="hljs-number">0</span>, evaluate_batch_step_fn=predict_output_labeling)<br>predictor.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>预测结果如下：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/预测结果.png" alt="预测结果">
+<figcaption aria-hidden="true">预测结果</figcaption>
+</figure>
+<p>这种方法查看预测结果是没有问题的，但是evaluator没有设置返回的参数，我们无法保存预测的结果用于后面部署可视化展示。</p>
+<h3 id="第二种方法手动调用模型中的evaluate_step方法">第二种方法：手动调用模型中的<code>evaluate_step</code>方法</h3>
+<p>考虑到我们部署的需求，需要提前将label和idx的对应关系提取出来，在预测后得到outputs列表后翻译成label。下面是一些工具函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">label_idx_list = <span class="hljs-built_in">list</span>(data_bundle.get_vocab(<span class="hljs-string">&quot;new_target&quot;</span>))<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write_list_into_text</span>(<span class="hljs-params">path,label_idx_list</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> label_idx_list:<br>            f.writelines(<span class="hljs-built_in">str</span>(pair[<span class="hljs-number">0</span>])+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(pair[<span class="hljs-number">1</span>]))<br>            f.write(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;write over!&#x27;</span>)<br>        <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_list_from_text</span>(<span class="hljs-params">path</span>):<br>    final_list = []<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        lines = f.readlines()<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines:<br>            line = line.strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)<br>            final_list.append((line[<span class="hljs-number">0</span>],<span class="hljs-built_in">int</span>(line[<span class="hljs-number">1</span>])))<br>    <span class="hljs-keyword">return</span> final_list<br>    <br>write_list_into_text(<span class="hljs-string">&#x27;label_idx_list.txt&#x27;</span>,label_idx_list)<br>label_idx_list = read_list_from_text(<span class="hljs-string">&#x27;label_idx_list.txt&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">idx2label</span>(<span class="hljs-params">label_idx_list:<span class="hljs-built_in">list</span>,idx:<span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-comment"># [(&#x27;O&#x27;,0),(label,idx)...]</span><br>    <span class="hljs-comment"># 用于idx和label转换</span><br>    <span class="hljs-comment"># return label</span><br>    label = <span class="hljs-literal">None</span><br>    <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> label_idx_list:<br>        <span class="hljs-keyword">if</span> pair[<span class="hljs-number">1</span>] == idx:<br>             label = pair[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> label<br></code></pre></td></tr></table></figure>
+<p>接下来很简单，将制作好的输入数据整理成tensor，调用模型的<code>evaluate_step</code>方法进行预测。</p>
+<blockquote>
+<p>⚠️这里由于手动调用模型，一定记得使用eval函数将模型设置为评估模式，关闭dropout的影响。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dev = <span class="hljs-built_in">next</span>(ner_model.parameters()).device<br>ner_model.<span class="hljs-built_in">eval</span>()<br><br><span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> predict_dataloaders[<span class="hljs-string">&#x27;predict&#x27;</span>]:<br>    input_ids = torch.LongTensor(data[<span class="hljs-string">&#x27;input_ids&#x27;</span>]).to(dev)<br>    input_len = torch.LongTensor(data[<span class="hljs-string">&#x27;input_len&#x27;</span>]).to(dev)<br>    first =     torch.LongTensor(data[<span class="hljs-string">&#x27;first&#x27;</span>]).to(dev)<br><br>    result = ner_model.evaluate_step(input_ids,input_len,first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p>预测结果如下：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png" alt="手动预测的结果">
+<figcaption aria-hidden="true">手动预测的结果</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>NER</tag>
       </tags>
   </entry>
   <entry>
@@ -1001,74 +1432,6 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
-    <title>机器学习数学基础③数值计算和最优化理论</title>
-    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
-    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
-<h2 id="上溢和下溢">上溢和下溢</h2>
-<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
-<ul>
-<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
-</ul>
-<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
-<figure>
-<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
-<figcaption aria-hidden="true">softmax函数</figcaption>
-</figure>
-<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
-<h1 id="最优化">最优化</h1>
-<h2 id="最优化理论">最优化理论</h2>
-<p><strong>经验风险最小化</strong></p>
-<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
-<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
-<h3 id="凸集">1.凸集</h3>
-<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
-<figure>
-<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
-<figcaption aria-hidden="true">凸集和非凸集</figcaption>
-</figure>
-<p>数学定义: 一个集合<span class="math inline">\(S\subset
-R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
-S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
-\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
-x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
-<h3 id="超平面和半空间">2.超平面和半空间</h3>
-<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
-<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
-<h3 id="凸集分离定理">3.凸集分离定理</h3>
-<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
-<figcaption aria-hidden="true">凸集分离</figcaption>
-</figure>
-<h3 id="凸函数">4.凸函数</h3>
-<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
-<figure>
-<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
-<figcaption aria-hidden="true">凸函数</figcaption>
-</figure>
-<aside>
-💡 在图中直线始终在凸函数曲线上方
-</aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
-1\)</span>,有:</p>
-<p><span class="math display">\[
-f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
-\]</span></p>
-<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
-<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
-<aside>
-💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
-</aside>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>清河村支教回忆</title>
     <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
     <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
@@ -1157,76 +1520,6 @@ f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
       <tags>
         <tag>网络</tag>
         <tag>DNS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之Flow-based-Model(2)</title>
-    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
-    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
-Model（2）流模型</h1>
-<h2 id="推导">推导</h2>
-<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
-\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
-<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
-其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
-<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
-即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
-便得到最佳<span class="math inline">\(G^*\)</span></p>
-<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
-<ol type="1">
-<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
-<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
-</ol>
-<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
-<h2 id="多个生成器的情况">多个生成器的情况</h2>
-<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
-其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
-<blockquote>
-<p>依旧是取左式最大</p>
-</blockquote>
-<h2 id="流模型实质">流模型实质</h2>
-<p>以一个生成器为例:</p>
-<pre class="mermaid">graph LR
-z --> G --> x</pre>
-<p><span class="math display">\[
-logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
-\]</span></p>
-<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
-右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
-因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre class="mermaid">graph RL
-x --> G-1 --> z</pre>
-<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>欲使左式最大, 右侧两项应尽可能大</p>
-<ul>
-<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
-因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
-最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
-</ul>
-<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
-使用第二项约束结果防止全零, 最终得到最佳生成器</p>
-<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
-<figure>
-<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
-<figcaption aria-hidden="true">coupling-layer</figcaption>
-</figure>
-<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
-\begin{equation}
-\left\{
-\begin{aligned}
-z_{i\leq d}&amp;=x^i\\
-z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
-\end{aligned}
-\right.
-\end{equation}
-\]</span></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Deep Learning</tag>
       </tags>
   </entry>
   <entry>
@@ -1321,6 +1614,144 @@ P_{G})\)</span><br>
       </tags>
   </entry>
   <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>生成模型之Flow-based-Model(2)</title>
+    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
+    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
+Model（2）流模型</h1>
+<h2 id="推导">推导</h2>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
+其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
+即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
+便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
+<ol type="1">
+<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
+<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
+</ol>
+<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
+<h2 id="多个生成器的情况">多个生成器的情况</h2>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
+其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
+<blockquote>
+<p>依旧是取左式最大</p>
+</blockquote>
+<h2 id="流模型实质">流模型实质</h2>
+<p>以一个生成器为例:</p>
+<pre class="mermaid">graph LR
+z --> G --> x</pre>
+<p><span class="math display">\[
+logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
+\]</span></p>
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
+右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
+因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<pre class="mermaid">graph RL
+x --> G-1 --> z</pre>
+<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>欲使左式最大, 右侧两项应尽可能大</p>
+<ul>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
+因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
+最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+</ul>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
+使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+<figure>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
+<figcaption aria-hidden="true">coupling-layer</figcaption>
+</figure>
+<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
+\begin{equation}
+\left\{
+\begin{aligned}
+z_{i\leq d}&amp;=x^i\\
+z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
+\end{aligned}
+\right.
+\end{equation}
+\]</span></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>生成模型之VAE</title>
     <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
     <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
@@ -1337,11 +1768,21 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
 <h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">graph LR 
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<pre class="mermaid">classDiagram
+Class01 <|-- averylongclass : cool class03 *-- class04 class05 o-- class06 class07 .. class08 class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label</--></|--></pre>
+<pre class="mermaid">graph LR
+    高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
 <h2 id="降噪自动编码器">降噪自动编码器</h2>
 <pre class="mermaid">graph LR
-  原图.-原图+噪声
+    原图.-原图+噪声
     原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
 <h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
 <p>输入信息常常由各种信息纠缠在一起，如</p>
@@ -1530,41 +1971,6 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
         <tag>VAE</tag>
         <tag>生成模型</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>虚拟局域网技术VLAN解析</title>
-    <url>/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/</url>
-    <content><![CDATA[<h1 id="虚拟局域网技术">虚拟局域网技术</h1>
-<p>## 前言</p>
-<p>工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的<u>广播风暴</u>可能会导致网络瘫痪。</p>
-<p>广播信息的来源主要是涉及到地址解析、名称解析的行为：</p>
-<ol type="1">
-<li>网络层
-TCP/IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP</li>
-<li>会话层协议：网上基本输入输出系统NETBIOS</li>
-<li>应用层协议：链路本地多播名称解析LLMNR</li>
-</ol>
-<p>网络中的广播信息无处不在，想要克制不去使用是<strong>不现实的</strong>，因此我们应该想办法减小广播的影响范围即广播域。</p>
-<p>对于网络负载过高、通信性能下降的情况，往往需要管理员手动更改网络拓扑结构，如变更主机网段、硬件线路改造等。出现VLAN之后就<strong>只需要修改网络结构</strong>。</p>
-<h2 id="定义">定义</h2>
-<p>虚拟局域网（Virtual
-LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN是一个广播域，VLAN内的主机间通信就和在一个LAN内一样，而VLAN间则不能直接互通，这样，广播报文就被限制在一个VLAN内。</p>
-<h2 id="实现">实现</h2>
-<h1 id="虚拟扩展局域网">虚拟扩展局域网</h1>
-<h2 id="vlan的限制">VLAN的限制</h2>
-<p>传统VLAN标识ID字段的VID只有12bit，最多能取4094个值，对于大型的应用场景能力有限。</p>
-<h2 id="vxlan">VXLAN</h2>
-<h3 id="定义-1">定义</h3>
-<p>本质上是隧道技术。</p>
-<h3 id="原理解析">原理解析</h3>
-<h2 id="优缺点">优缺点</h2>
-<h2 id="虚拟局域网技术展望">虚拟局域网技术展望</h2>
-<h1 id="虚拟局域网实验">虚拟局域网实验</h1>
-<p>把一个物理网络从逻辑上划分为几个单独的局域网</p>
-<h2 id="没有划分vlan的网络">没有划分VLAN的网络</h2>
-<h2 id="划分vlan的网络">划分VLAN的网络</h2>
-<h2 id="vlan之间互通">VLAN之间互通</h2>
-]]></content>
   </entry>
   <entry>
     <title>神经网络中的优化算法和正则化问题</title>
@@ -2014,271 +2420,38 @@ g_t\)</span></p>
       </tags>
   </entry>
   <entry>
-    <title>Expressive TTS</title>
-    <url>/2023/02/10/expressive-tts/</url>
-    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
-<h2 id="styletoken-tts">StyleToken-TTS</h2>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构"><figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
-</figure>
-<h2 id="instructtts">InstructTTS</h2>
-<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS"><figcaption aria-hidden="true">InstructTTS</figcaption>
-</figure>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构"><figcaption aria-hidden="true">模型结构</figcaption>
-</figure>
-<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VALL-E</title>
-    <url>/2023/01/13/vall-e/</url>
-    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
-<h2 id="模型">模型</h2>
-<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
-<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
-<figure>
-<img src="/2023/01/13/vall-e/model.png" alt="模型总览"><figcaption aria-hidden="true">模型总览</figcaption>
-</figure>
-<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
-<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
-<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
-<p>后面出现了矢量量化（vector quantization），应用在vq-wav2vec、HuBERT。</p>
-<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec models），优点如下：</p>
-<ul>
-<li>在低比特率下表现比传统音频编解码器更好。</li>
-<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
-<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
-<li>可以做到减少时间序列长度。</li>
-</ul>
-<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic code matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
-<figure>
-<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ"><figcaption aria-hidden="true">RVQ</figcaption>
-</figure>
-<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
-<h2 id="模型-1">模型</h2>
-<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde C)\)</span></p>
-<figure>
-<img src="/2023/01/13/vall-e/LM.png" alt="LM"><figcaption aria-hidden="true">LM</figcaption>
-</figure>
-<h2 id="推理">推理</h2>
-<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
-<ul>
-<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
-<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
-</ul>
-<h2 id="数据">数据</h2>
-<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
-<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
-<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
-<p>16个 NVIDIA TESLA V100 32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到 5 × 10−4 的峰值，然后对其进行线性衰减。</p>
-<h2 id="分析">分析</h2>
-<ul>
-<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
-<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
-<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
-<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
-<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
-<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>《声与情：播音用声的实证研究》笔记</title>
-    <url>/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/</url>
-    <content><![CDATA[<blockquote>
-<p>链接：https://www.zhizhen.com/detail_38502727e7500f26ca5684ae8f3c3b6429bcb36a14c533e11921b0a3ea25510134114c969f2eae5c9837344477b6470412f90171de0b6360e6b1c5d917c82372d97823f6a9338067eed855d3fbe548a5?&amp;apistrclassfy=0_7_3</p>
-</blockquote>
-<h1 id="意义">意义</h1>
-<p>播音学原则：<strong>以情带声</strong></p>
-<p>探讨<u>播音语言的艺术用声</u>在韵律节奏上的</p>
-<ul>
-<li>规律、特点</li>
-<li>声学表现特征</li>
-<li>发音人的呼吸特点</li>
-</ul>
-<p>用于指导：</p>
-<ul>
-<li>具体实践，解决主持人和播音员的用声问题</li>
-<li>播音教学</li>
-</ul>
-<h1 id="实验内容">实验内容</h1>
-<h2 id="设备">设备</h2>
-<ul>
-<li><p>话筒和调音台：语音信号</p></li>
-<li><p>电子声门仪：嗓音信号</p></li>
-<li><p>呼吸带：胸呼吸信号、腹呼吸信号</p></li>
-</ul>
-<h3 id="实证研究一">实证研究一</h3>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">语料分类</th>
-<th style="text-align: center;">语料来源</th>
-<th style="text-align: center;">字数</th>
-<th style="text-align: center;">发言人</th>
-<th style="text-align: center;">有效人数</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">散文语句</td>
-<td style="text-align: center;">《匆匆》《石缝间的生命》完整片段</td>
-<td style="text-align: center;">200+</td>
-<td style="text-align: center;">吉林大学播音专业大三学生</td>
-<td style="text-align: center;">4</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">新闻语句</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">200+</td>
-<td style="text-align: center;">吉林大学播音专业大三学生</td>
-<td style="text-align: center;">6</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">文本类型</th>
-<th style="text-align: center;">物理特征</th>
-<th style="text-align: left;">实验结果</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">散文语句</td>
-<td style="text-align: center;">停顿</td>
-<td style="text-align: left;">不带情感的小停顿多于大停顿 带情感的大停顿多于不带情感的大停顿 带情感的小停顿多于等于大停顿数量</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">基频</td>
-<td style="text-align: left;">变化不大。男80-250Hz，女150-330Hz</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">能量</td>
-<td style="text-align: left;">变化不大。15-17dB</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">呼吸</td>
-<td style="text-align: left;">有感情呼吸在次数、重置幅度都变多。其中腹呼吸抖动比胸呼吸多，说明有更多的偷气。胸腹呼吸起伏走向大体一致。</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">新闻语句</td>
-<td style="text-align: center;">停顿</td>
-<td style="text-align: left;">不对比有无情感。</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">基频</td>
-<td style="text-align: left;">男100-200Hz，女150-300Hz</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">能量</td>
-<td style="text-align: left;">男22.82-89.51dB，女22.52-89.47dB</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">呼吸</td>
-<td style="text-align: left;">胸腹呼吸起伏走向大体一致。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="实证研究二">实证研究二</h3>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">语料分类</th>
-<th style="text-align: center;">语料来源</th>
-<th style="text-align: center;">字数</th>
-<th style="text-align: center;">发言人</th>
-<th style="text-align: center;">有效人数</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">散文语句</td>
-<td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td>
-<td style="text-align: center;">300-</td>
-<td style="text-align: center;">吉林大学播音专业大一学生（第三周）</td>
-<td style="text-align: center;">6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">散文语句</td>
-<td style="text-align: center;">《大海啊故乡》、《乡愁》、《夜过北海桥》</td>
-<td style="text-align: center;">300-</td>
-<td style="text-align: center;">吉林大学播音专业大一学生（第八周）</td>
-<td style="text-align: center;">6</td>
-</tr>
-</tbody>
-</table>
-<p><u><strong>这里会要求学生的情感宁过勿欠</strong></u></p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;">文本类型</th>
-<th style="text-align: center;">物理特征</th>
-<th style="text-align: left;">实验结果</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">散文语句</td>
-<td style="text-align: center;">停顿</td>
-<td style="text-align: left;">总数多，带情感的大停顿显著多于小停顿，时长有所不同</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">基频</td>
-<td style="text-align: left;">女150-290Hz变为150-320Hz，男100-260Hz变为120-230Hz</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">能量</td>
-<td style="text-align: left;">有情的能量低</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">呼吸</td>
-<td style="text-align: left;">有情的呼吸重置次数增多，幅度加大，无声段时长更长。胸腹呼吸基本保持一致。</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;">时长</td>
-<td style="text-align: left;">带情感的句子时长是不带情感的时长近乎2倍</td>
-</tr>
-</tbody>
-</table>
-<h1 id="播音学解释">播音学解释</h1>
-<p>“声足情欠”“情足声欠”说明不和谐，“情欠”不好，“声欠”也不好，这都影响韵律。</p>
-<p><strong>音步</strong>作为汉语的小节奏单元，本文把汉语中的音步概括为：</p>
-<p>由若干个音节构成的语音片段，在音步内和音步间也存在长短、高低、强弱的对比，且<u><strong>音步间被停顿分开</strong></u>。本文对散文语句的韵律层级的划分也将从音步开始。</p>
-<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221106140548462.png" alt="image-20221106140548462" style="zoom:50%;"></p>
-<p>①叶军：《汉语语句韵律的功能研究》：http://www.docin.com/p-12614263.html.</p>
-<p>在实际的言语中，韵律有着不同的层级，各层级之间的过渡和接口则承载着非常重要的言语节律特征。在声学上，它们主要表现为停延。<strong>停延是说话或朗读时语流中声音的中断和延连</strong>，它起到言语在语流中的分合作用。</p>
-<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222828943.png" alt="image-20221103222828943" style="zoom:50%;"></p>
-<p><img src="/2022/11/03/sheng-yu-qing-bo-yin-yong-sheng-de-shi-zheng-yan-jiu-bi-ji/image-20221103222922094.png" alt="image-20221103222922094" style="zoom:50%;"></p>
-<p>节奏的技巧是欲高先低，欲低先高；欲轻先重，欲重先轻；逢慢必先快，逢快必先慢，即<strong>节奏是通过高低、快慢、轻重</strong>体现。</p>
-<p>从上文论述中，我们得出理论上的假设是：情感的表现与音高变化、声音强度、快慢有关，而这些又都与呼吸停顿直接相关，恰恰<strong>停顿最能体现汉语言节奏的特点</strong>，因而本文就是通过实证性的研究证明播音艺术语言使用中，情感影响呼吸，呼吸影响停延，停延表现语言节奏，这些语音的实际表现形式又决定了播音语言语义信息及情感信息表达的信度和效度。</p>
+    <title>虚拟局域网技术VLAN解析</title>
+    <url>/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/</url>
+    <content><![CDATA[<h1 id="虚拟局域网技术">虚拟局域网技术</h1>
+<p>## 前言</p>
+<p>工作在数据链路层的以太网交换机由于以太网规模的扩大导致广播域扩大，造成的<u>广播风暴</u>可能会导致网络瘫痪。</p>
+<p>广播信息的来源主要是涉及到地址解析、名称解析的行为：</p>
+<ol type="1">
+<li>网络层
+TCP/IP协议栈中的协议：地址解析协议ARP，路由信息协议RIP，DHCP</li>
+<li>会话层协议：网上基本输入输出系统NETBIOS</li>
+<li>应用层协议：链路本地多播名称解析LLMNR</li>
+</ol>
+<p>网络中的广播信息无处不在，想要克制不去使用是<strong>不现实的</strong>，因此我们应该想办法减小广播的影响范围即广播域。</p>
+<p>对于网络负载过高、通信性能下降的情况，往往需要管理员手动更改网络拓扑结构，如变更主机网段、硬件线路改造等。出现VLAN之后就<strong>只需要修改网络结构</strong>。</p>
+<h2 id="定义">定义</h2>
+<p>虚拟局域网（Virtual
+LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通信技术。每个VLAN是一个广播域，VLAN内的主机间通信就和在一个LAN内一样，而VLAN间则不能直接互通，这样，广播报文就被限制在一个VLAN内。</p>
+<h2 id="实现">实现</h2>
+<h1 id="虚拟扩展局域网">虚拟扩展局域网</h1>
+<h2 id="vlan的限制">VLAN的限制</h2>
+<p>传统VLAN标识ID字段的VID只有12bit，最多能取4094个值，对于大型的应用场景能力有限。</p>
+<h2 id="vxlan">VXLAN</h2>
+<h3 id="定义-1">定义</h3>
+<p>本质上是隧道技术。</p>
+<h3 id="原理解析">原理解析</h3>
+<h2 id="优缺点">优缺点</h2>
+<h2 id="虚拟局域网技术展望">虚拟局域网技术展望</h2>
+<h1 id="虚拟局域网实验">虚拟局域网实验</h1>
+<p>把一个物理网络从逻辑上划分为几个单独的局域网</p>
+<h2 id="没有划分vlan的网络">没有划分VLAN的网络</h2>
+<h2 id="划分vlan的网络">划分VLAN的网络</h2>
+<h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
   </entry>
 </search>

@@ -16,12 +16,12 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="富有表现力的语音合成系统 StyleToken-TTS  ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。  InstructTTS   模型结构">
+    <meta name="description" content="富有表现力的语音合成系统 StyleToken-TTS   ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。   InstructTTS    模型结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Expressive TTS">
 <meta property="og:url" content="https://ash-one.github.io/2023/02/10/expressive-tts/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="富有表现力的语音合成系统 StyleToken-TTS  ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。  InstructTTS   模型结构">
+<meta property="og:description" content="富有表现力的语音合成系统 StyleToken-TTS   ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。   InstructTTS    模型结构">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png">
@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -85,28 +85,13 @@
   <script  src="/js/color-schema.js" ></script>
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
 
   
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -139,7 +124,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -151,7 +136,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -163,7 +148,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -175,7 +160,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -187,7 +172,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -195,15 +180,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -300,16 +286,19 @@
                 <h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
 <h2 id="styletoken-tts">StyleToken-TTS</h2>
 <figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" srcset="/img/loading.gif" lazyload alt="ST-TTS模型结构"><figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" srcset="/img/loading.gif" lazyload alt="ST-TTS模型结构">
+<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
 </figure>
 <h2 id="instructtts">InstructTTS</h2>
 <p>demo地址：<a target="_blank" rel="noopener" href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
 <p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p>
 <figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" srcset="/img/loading.gif" lazyload alt="InstructTTS"><figcaption aria-hidden="true">InstructTTS</figcaption>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" srcset="/img/loading.gif" lazyload alt="InstructTTS">
+<figcaption aria-hidden="true">InstructTTS</figcaption>
 </figure>
 <figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" srcset="/img/loading.gif" lazyload alt="模型结构"><figcaption aria-hidden="true">模型结构</figcaption>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" srcset="/img/loading.gif" lazyload alt="模型结构">
+<figcaption aria-hidden="true">模型结构</figcaption>
 </figure>
 <p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" srcset="/img/loading.gif" lazyload alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
 
@@ -402,6 +391,12 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/" title="使用Bert进行中文NER命名实体识别feat.fastNLP">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用Bert进行中文NER命名实体识别feat.fastNLP</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
@@ -427,7 +422,10 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -555,11 +553,9 @@
 
 
 
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
-
 
 
 

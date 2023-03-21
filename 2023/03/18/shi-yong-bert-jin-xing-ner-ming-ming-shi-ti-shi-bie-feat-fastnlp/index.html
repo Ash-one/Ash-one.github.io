@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="灰一">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言 chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。  （只是为了作业找了这么多借口）  本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Bert进行中文NER命名实体识别feat.fastNLP">
+<meta property="og:url" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/index.html">
+<meta property="og:site_name" content="灰一茶话会">
+<meta property="og:description" content="前言 chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。  （只是为了作业找了这么多借口）  本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/数据集标签总览.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/预测结果.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png">
+<meta property="article:published_time" content="2023-03-18T10:54:22.000Z">
+<meta property="article:modified_time" content="2023-03-20T06:36:06.321Z">
+<meta property="article:author" content="灰一">
+<meta property="article:tag" content="Bert">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="NER">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png">
+  
+  
+  
+  <title>使用Bert进行中文NER命名实体识别feat.fastNLP - 灰一茶话会</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用Bert进行中文NER命名实体识别feat.fastNLP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-18 18:54" pubdate>
+          2023年3月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          111 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用Bert进行中文NER命名实体识别feat.fastNLP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言">前言</h1>
+<p>chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png" srcset="/img/loading.gif" lazyload alt="NewBing进行ner">
+<figcaption aria-hidden="true">NewBing进行ner</figcaption>
+</figure>
+<p>虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。</p>
+<blockquote>
+<p>（只是为了作业找了这么多借口）</p>
+</blockquote>
+<p>本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预测准确率，最终部署在服务器上可视化呈现。</p>
+<p>fastNLP<a target="_blank" rel="noopener" href="http://document.fastnlp.top/docs/fastNLP/">文档</a>和<a target="_blank" rel="noopener" href="https://gitee.com/fastnlp/fastNLP">gitee仓库</a>最近更新在五个月前，还比较活跃。fastNLP在手册上有序列标注的<a target="_blank" rel="noopener" href="http://www.fastnlp.top/docs/fastNLP/master/tutorials/torch/fastnlp_torch_tutorial_seq_labeling.html">源码实现</a>，本文基于此进行改写。</p>
+<h1 id="数据预处理">数据预处理</h1>
+<h2 id="使用内置的dataloader加载weibo数据集">使用内置的dataloader加载Weibo数据集</h2>
+<p>fastNLP自带库中有许多内置数据集，这里选择微博数据集展示，其实体类别分为人物，机构组织，地址和地缘政治实体四个类别，且每个类别可细分为特指（NAM，如“张三”标签为“PER.NAM”）和泛指（NOM，如“男人”标签为“PER.NOM”）。总数据量1890条。</p>
+<table>
+<thead>
+<tr class="header">
+<th>含义</th>
+<th>标签</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>地区名特指，如深圳</td>
+<td>B-GPE.NAM I-GPE.NAM</td>
+</tr>
+<tr class="even">
+<td>地名特指，如华克山庄</td>
+<td>B-LOC.NAM I-LOC.NAM</td>
+</tr>
+<tr class="odd">
+<td>地名泛指，如寺庙</td>
+<td>B-LOC.NOM I-LOC.NOM</td>
+</tr>
+<tr class="even">
+<td>组织名特指</td>
+<td>B-ORG.NAM I-ORG.NAM</td>
+</tr>
+<tr class="odd">
+<td>组织名泛指</td>
+<td>B-ORG.NOM I-ORG.NOM</td>
+</tr>
+<tr class="even">
+<td>人名特指，如方进玉</td>
+<td>B-PER.NAM I-PER.NAM</td>
+</tr>
+<tr class="odd">
+<td>人名泛指，如男人</td>
+<td>B-PER.NOM I-PER.NOM</td>
+</tr>
+<tr class="even">
+<td>其他</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+<p>17个标签的分布如图所示：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/数据集标签总览.png" srcset="/img/loading.gif" lazyload alt="数据集标签总览">
+<figcaption aria-hidden="true">数据集标签总览</figcaption>
+</figure>
+<p>接下来开始使用fastNLP库的loader下载并加载数据到<code>data_bundle</code>中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.io <span class="hljs-keyword">import</span> WeiboNERLoader<br>data_bundle = WeiboNERLoader().load()<br><span class="hljs-built_in">print</span>(data_bundle)<br><span class="hljs-built_in">print</span>(data_bundle.get_dataset(<span class="hljs-string">&#x27;train&#x27;</span>)[:<span class="hljs-number">4</span>])<br></code></pre></td></tr></table></figure>
+<p><code>data_bundle</code>和它的名字一样，是训练集、验证集、测试集的打包，需要分别提取。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">In</span> total <span class="hljs-number">3</span> datasets:<br>        dev has <span class="hljs-number">270</span> instances.<br>        test has <span class="hljs-number">270</span> instances.<br>        train has <span class="hljs-number">1350</span> instances.<br><br>+------------------------------------------+------------------------------------------+<br>| raw_chars                                | target                                   |<br>+------------------------------------------+------------------------------------------+<br>| <span class="hljs-meta">[</span><span class="hljs-string">&#x27;科&#x27;</span>, <span class="hljs-string">&#x27;技&#x27;</span>, <span class="hljs-string">&#x27;全&#x27;</span>, <span class="hljs-string">&#x27;方&#x27;</span>, <span class="hljs-string">&#x27;位&#x27;</span>, <span class="hljs-string">&#x27;资&#x27;</span>, <span class="hljs-params">...</span> | <span class="hljs-meta">[</span><span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;... |</span><br><span class="hljs-string">| [&#x27;</span>对<span class="hljs-string">&#x27;, &#x27;</span>，<span class="hljs-string">&#x27;, &#x27;</span>输<span class="hljs-string">&#x27;, &#x27;</span>给<span class="hljs-string">&#x27;, &#x27;</span>一<span class="hljs-string">&#x27;, &#x27;</span>个<span class="hljs-string">&#x27;, ... | [&#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>B<span class="hljs-params">-PER...</span> |<br>| <span class="hljs-meta">[</span><span class="hljs-string">&#x27;今&#x27;</span>, <span class="hljs-string">&#x27;天&#x27;</span>, <span class="hljs-string">&#x27;下&#x27;</span>, <span class="hljs-string">&#x27;午&#x27;</span>, <span class="hljs-string">&#x27;起&#x27;</span>, <span class="hljs-string">&#x27;来&#x27;</span>, <span class="hljs-params">...</span> | <span class="hljs-meta">[</span><span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;O&#x27;</span>, <span class="hljs-string">&#x27;... |</span><br><span class="hljs-string">| [&#x27;</span>今<span class="hljs-string">&#x27;, &#x27;</span>年<span class="hljs-string">&#x27;, &#x27;</span>拜<span class="hljs-string">&#x27;, &#x27;</span>年<span class="hljs-string">&#x27;, &#x27;</span>不<span class="hljs-string">&#x27;, &#x27;</span>短<span class="hljs-string">&#x27;, ... | [&#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span>O<span class="hljs-string">&#x27;, &#x27;</span><span class="hljs-params">...</span> |<br>+------------------------------------------+------------------------------------------+<br></code></pre></td></tr></table></figure>
+<h2 id="计算数据集中的属性">计算数据集中的属性</h2>
+<p>使用BertTokenizer和BPE算法处理文本，得到<code>input_ids|input_len | first| seq_len | new_target</code>这几列，其中<code>first</code>表示<code>bpe</code>算法的结果，在后面的模型中会使用，这里使用<code>new_target</code>作为最终label的编码表示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> cache_results, Vocabulary<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_data</span>(<span class="hljs-params">data_bundle, model_name</span>):<br>    tokenizer = BertTokenizer.from_pretrained(model_name)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">bpe</span>(<span class="hljs-params">raw_words</span>):<br>        bpes = [tokenizer.cls_token_id]<br>        first = [<span class="hljs-number">0</span>]<br>        first_index = <span class="hljs-number">1</span>  <span class="hljs-comment"># 记录第一个bpe的位置</span><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> raw_words:<br>            bpe = tokenizer.encode(word, add_special_tokens=<span class="hljs-literal">False</span>)<br>            bpes.extend(bpe)<br>            first.append(first_index)<br>            first_index += <span class="hljs-built_in">len</span>(bpe)<br>        bpes.append(tokenizer.sep_token_id)<br>        first.append(first_index)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_ids&#x27;</span>: bpes, <span class="hljs-string">&#x27;input_len&#x27;</span>: <span class="hljs-built_in">len</span>(bpes), <span class="hljs-string">&#x27;first&#x27;</span>: first, <span class="hljs-string">&#x27;seq_len&#x27;</span>: <span class="hljs-built_in">len</span>(raw_words)&#125;<br>    <span class="hljs-comment"># 对data_bundle中每个dataset的每一条数据中的raw_chars使用bpe函数，并且将返回的结果加入到每条数据中。</span><br>    data_bundle.apply_field_more(bpe, field_name=<span class="hljs-string">&#x27;raw_chars&#x27;</span>, num_proc=<span class="hljs-number">4</span>)<br>		<span class="hljs-comment"># --------------------------------------------这里需要注意field_name</span><br>    <span class="hljs-comment"># tag的词表，由于这是词表，所以不需要有padding和unk</span><br>    tag_vocab = Vocabulary(padding=<span class="hljs-literal">None</span>, unknown=<span class="hljs-literal">None</span>)<br>    <span class="hljs-comment"># 从 train 数据的 raw_target 中获取建立词表</span><br>    tag_vocab.from_dataset(data_bundle.get_dataset(<span class="hljs-string">&#x27;train&#x27;</span>), field_name=<span class="hljs-string">&#x27;target&#x27;</span>)<br>    <span class="hljs-comment"># 使用词表将每个 dataset 中的target转为数字，并且将写入到new_target这个field中</span><br>    tag_vocab.index_dataset(data_bundle.datasets.values(), field_name=<span class="hljs-string">&#x27;target&#x27;</span>, new_field_name=<span class="hljs-string">&#x27;new_target&#x27;</span>)<br>    <br>    <span class="hljs-comment"># 可以将 vocabulary 绑定到 data_bundle 上，方便之后使用。</span><br>    data_bundle.set_vocab(tag_vocab, field_name=<span class="hljs-string">&#x27;new_target&#x27;</span>)<br>    <br>    <span class="hljs-keyword">return</span> data_bundle, tokenizer<br><br>data_bundle, tokenizer = process_data(data_bundle, <span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br><span class="hljs-built_in">print</span>(data_bundle)<br><span class="hljs-built_in">print</span>(data_bundle.get_dataset(<span class="hljs-string">&quot;train&quot;</span>)[:<span class="hljs-number">4</span>])<br></code></pre></td></tr></table></figure>
+<p>可以看出<code>input_len</code>比<code>seq_len</code>多两个，分别是一头一尾两个token。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">[08<span class="hljs-function">:23</span><span class="hljs-function">:40</span> AM] INFO     In total 3 datasets:                                  1356482314.py<span class="hljs-function">:35</span><br>                               dev has 270 instances.                                        <br>                               test has 270 instances.                                       <br>                               train has 1350 instances.                                     <br>                       In total 1 vocabs:                                                    <br>                               new_target has 17 entries.                                    <br>                                                                                             <br>              INFO     +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+- 1356482314.py<span class="hljs-function">:36</span><br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+                                                                    <br>                       | raw_chars      | target         | input_ids      |                  <br>                       input_len | first          | seq_len | new_target                     <br>                       |                                                                 <br>                       +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+-                 <br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+                                                                    <br>                       | [&#x27;科&#x27;, &#x27;技&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 4906,<span class="hljs-string">...</span> |                  <br>                       28        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 26      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;对&#x27;, &#x27;，&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 2190,<span class="hljs-string">...</span> |                  <br>                       17        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 15      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;今&#x27;, &#x27;天&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 791, <span class="hljs-string">...</span> |                  <br>                       81        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 79      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       | [&#x27;今&#x27;, &#x27;年&#x27;<span class="hljs-string">...</span> | [&#x27;O&#x27;, &#x27;O&#x27;, <span class="hljs-string">...</span> | [101, 791, <span class="hljs-string">...</span> |                  <br>                       20        | [0, 1, 2, 3.<span class="hljs-string">..</span> | 18      | [0, 0, 0, 0.<span class="hljs-string">..</span>                 <br>                       |                                                                     <br>                       +<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">----------------</span>+-                 <br>                       <span class="hljs-params">----------</span>+<span class="hljs-params">----------------</span>+<span class="hljs-params">---------</span>+<span class="hljs-params">---------------</span>                 <br>                       -+ <br></code></pre></td></tr></table></figure>
+<h2 id="将计算后的数据放入dataloader">将计算后的数据放入dataloader</h2>
+<p>制作dataloader方便遍历，bs大小256大约占用20G显存。</p>
+<p><strong>对输入和输出分别进行padding</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>dataloaders = prepare_torch_dataloader(data_bundle, batch_size=<span class="hljs-number">256</span>)<br><br><span class="hljs-keyword">for</span> dl <span class="hljs-keyword">in</span> dataloaders.values():<br>    <span class="hljs-comment"># 可以通过 set_pad 修改 padding 的行为。</span><br>    dl.set_pad(<span class="hljs-string">&#x27;input_ids&#x27;</span>, pad_val=tokenizer.pad_token_id)<br>    dl.set_pad(<span class="hljs-string">&#x27;new_target&#x27;</span>, pad_val=-<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="bert模型微调">Bert模型微调</h1>
+<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考。</p>
+<h2 id="设计模型">设计模型</h2>
+<p>fastNLP的模型基于torch，所以写法是一样的；同时内置的transformer库也是huggingface的直接迁移，用法上完全一样，只是默认的模型加载路径和huggingface的transformer库不一样，如果同时使用可能会发现缓存位置不同而重复下载。</p>
+<ul>
+<li>这里使用<code>hfl/rbt3</code>这个中文Bert模型，大小约500M，<code>BertModel.from_pretrained()</code>函数会从远程拉取该模型保存在缓存后加载（复旦源，国内很快）。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
+<p><code>forward</code>函数和torch写法相同，<code>train_step</code>会被后面声明的trainer对象调用，计算训练的每一步loss，<code>evaluate_step</code>会被后面声明的evaluator对象调用，相当于预测函数，返回的是预测标签对应的数字index。</p>
+<h2 id="开始训练">开始训练</h2>
+<p>这里我们准备Trainer对象的各个参数，具体细节不做深入解释，看名字很好理解。</p>
+<p><strong>其中Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整。</strong>如果你和我一样是按照官方文档的写法，直接调用官方loader加载，在这里就需要这个函数，因为在文档里的ipython结果是从文件读取的，列名称和loader加载的不同。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> SpanFPreRecMetric<br><br>optimizer = optim.Adam(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;f&quot;</span>: SpanFPreRecMetric(tag_vocab=data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)),<br>&#125;<br><br><span class="hljs-comment"># ————重要函数----Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;new_target&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;f#f&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs smali">[11:36:55 AM] INFO     The best performance for<span class="hljs-built_in"> monitor </span>f<span class="hljs-comment">#f:0.573477  progress_callback.py:37</span><br>                       was achieved in Epoch:47, Global Batch:282.                           <br>                       The evaluation result:                                                <br>                       &#123;&#x27;f<span class="hljs-comment">#f&#x27;: 0.573477, &#x27;pre#f&#x27;: 0.535714, &#x27;rec#f&#x27;:                         </span><br>                       0.616967&#125;                                                             <br>              INFO     Loading best model from buffer with    load_best_model_callback.py:120<br>                       f<span class="hljs-comment">#f: 0.573477 (achieved in Epoch: 47,                                 </span><br>                       Global Batch: 282) ... <br></code></pre></td></tr></table></figure>
+<h2 id="模型保存和加载">模型保存和加载</h2>
+<p>训练好模型之后需要进行保存，这里使用torch的保存，fastNLP也有自己的保存方法，是相同的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>torch.save(model,<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br>ner_model = torch.load(<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="使用模型预测">使用模型预测</h1>
+<p>由于后续需要部署到服务器上进行使用，这里需要构建好整个预测流程，fastNLP工具包本身没有这个功能，只是用来快速构建模型验证，但是预测流程本身与训练流程相同，并不复杂。</p>
+<ul>
+<li>将预测文本放入dataset，再放入databundle，经过bpe计算，</li>
+<li>放入dataloader，交给evaluator调用预测函数得到预测结果。</li>
+</ul>
+<h2 id="构建dataset">构建dataset</h2>
+<p>其实是构建一个只有一条数据的的dataset再放入databundle对象中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.io <span class="hljs-keyword">import</span> DataBundle<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> DataSet, Instance<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">text2dataset</span>(<span class="hljs-params">text:<span class="hljs-built_in">str</span></span>):<br>    ds = DataSet()<br>    <span class="hljs-keyword">if</span> text != <span class="hljs-string">&#x27;&#x27;</span>:  <br>        ds.append(Instance(raw_words = <span class="hljs-built_in">list</span>(text)))<br>    <span class="hljs-keyword">return</span> ds<br><br>text = <span class="hljs-string">&#x27;我今天就要在中国传媒大学吃上崔永元真面！&#x27;</span><br><br>predict_data_bundle = DataBundle(datasets=&#123;<br>    <span class="hljs-string">&quot;predict&quot;</span>: text2dataset(text),<br>&#125;)<br><span class="hljs-built_in">print</span>(predict_data_bundle)<br><span class="hljs-built_in">print</span>(predict_data_bundle.get_dataset(<span class="hljs-string">&quot;predict&quot;</span>))<br></code></pre></td></tr></table></figure>
+<p>结果如下，这里Instance对象赋给输入的列名是<code>raw_words</code>，和前面默认loader加载是不同的。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-comment">--------------------------+| raw_words|+---------------------------------------+                                           </span><br>| [<span class="hljs-string">&#x27;我&#x27;</span>, <span class="hljs-string">&#x27;今&#x27;</span>, <span class="hljs-string">&#x27;天&#x27;</span>, <span class="hljs-string">&#x27;就&#x27;</span>, <span class="hljs-string">&#x27;要&#x27;</span>, <span class="hljs-string">&#x27;在&#x27;</span>, <span class="hljs-string">&#x27;中&#x27;</span>, <span class="hljs-string">&#x27;国&#x27;</span>, <span class="hljs-string">&#x27;传&#x27;</span>, <span class="hljs-string">&#x27;媒&#x27;</span>, <span class="hljs-string">&#x27;大&#x27;</span>, <span class="hljs-string">&#x27;学&#x27;</span>, ... |                                         <br>+<span class="hljs-comment">------------------------------------------------------------------------------+ </span><br></code></pre></td></tr></table></figure>
+<h2 id="构建dataloader">构建dataloader</h2>
+<p>其实就是把前面的函数改一改，甚至可以将前面的函数加参数重构，重复使用。<strong>需要注意的是loader的列名不一样</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> cache_results, Vocabulary<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">process_predict_data</span>(<span class="hljs-params">data_bundle, model_name</span>):<br><br>    tokenizer = BertTokenizer.from_pretrained(model_name)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">bpe</span>(<span class="hljs-params">raw_words</span>):<br>        bpes = [tokenizer.cls_token_id]<br>        first = [<span class="hljs-number">0</span>]<br>        first_index = <span class="hljs-number">1</span>  <span class="hljs-comment"># 记录第一个bpe的位置</span><br>        <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> raw_words:<br>            bpe = tokenizer.encode(word, add_special_tokens=<span class="hljs-literal">False</span>)<br>            bpes.extend(bpe)<br>            first.append(first_index)<br>            first_index += <span class="hljs-built_in">len</span>(bpe)<br>        bpes.append(tokenizer.sep_token_id)<br>        first.append(first_index)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;input_ids&#x27;</span>: bpes, <span class="hljs-string">&#x27;input_len&#x27;</span>: <span class="hljs-built_in">len</span>(bpes), <span class="hljs-string">&#x27;first&#x27;</span>: first, <span class="hljs-string">&#x27;seq_len&#x27;</span>: <span class="hljs-built_in">len</span>(raw_words)&#125;<br>    <span class="hljs-comment"># 对data_bundle中每个dataset的每一条数据中的raw_words使用bpe函数，并且将返回的结果加入到每条数据中。</span><br>    data_bundle.apply_field_more(bpe, field_name=<span class="hljs-string">&#x27;raw_words&#x27;</span>, num_proc=<span class="hljs-number">1</span>)<br><br>    <span class="hljs-keyword">return</span> data_bundle, tokenizer<br><br>predict_data_bundle, predict_tokenizer = process_predict_data(predict_data_bundle, <span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(predict_data_bundle)<br><span class="hljs-built_in">print</span>(predict_data_bundle.get_dataset(<span class="hljs-string">&quot;predict&quot;</span>))<br><br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>predict_dataloaders = prepare_torch_dataloader(predict_data_bundle, batch_size=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>结果如下，和前面的loader相比只是少了target一列，不过因为是做预测本身也用不到。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+<br>| raw_words | input_ids | input_len | first | seq_len |<br>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+<br>| [&#x27;我&#x27;, &#x27;今&#x27;, &#x27;天<span class="hljs-string">...</span> | [101, 2769, 791.<span class="hljs-string">..</span> | 22 | [0, 1, 2, 3, 4,<span class="hljs-string">...</span> | 20 |                                      <br>+<span class="hljs-params">---------------------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">-----------</span>+<span class="hljs-params">--------------------</span>+<span class="hljs-params">---------</span>+ <br></code></pre></td></tr></table></figure>
+<h2 id="进行预测">进行预测</h2>
+<h3 id="第一种方法evaluator对象进行预测">第一种方法：Evaluator对象进行预测</h3>
+<p>通常的预测方法是构建一个evaluator对象用于调用模型的预测函数，<strong>这里需要加载数据集中的vocab用于进行idx2word</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict_output_labeling</span>(<span class="hljs-params">evaluator, batch</span>):<br>    outputs = evaluator.evaluate_step(batch)[<span class="hljs-string">&quot;pred&quot;</span>]<br>    raw_words = batch[<span class="hljs-string">&quot;raw_words&quot;</span>]<br>    <span class="hljs-keyword">for</span> words, output <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(raw_words, outputs):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;sentence:&quot;</span>, words)<br>        labels = [data_bundle.get_vocab(<span class="hljs-string">&quot;new_target&quot;</span>).idx2word[idx] <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> output[:<span class="hljs-built_in">len</span>(words)].tolist() ]<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;labels:&quot;</span>, labels)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;outputs:&#x27;</span>,outputs)<br>predictor = Evaluator(model=ner_model, dataloaders=predict_dataloaders[<span class="hljs-string">&quot;predict&quot;</span>],<br>                      device=<span class="hljs-number">0</span>, evaluate_batch_step_fn=predict_output_labeling)<br>predictor.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>预测结果如下：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/预测结果.png" srcset="/img/loading.gif" lazyload alt="预测结果">
+<figcaption aria-hidden="true">预测结果</figcaption>
+</figure>
+<p>这种方法查看预测结果是没有问题的，但是evaluator没有设置返回的参数，我们无法保存预测的结果用于后面部署可视化展示。</p>
+<h3 id="第二种方法手动调用模型中的evaluate_step方法">第二种方法：手动调用模型中的<code>evaluate_step</code>方法</h3>
+<p>考虑到我们部署的需求，需要提前将label和idx的对应关系提取出来，在预测后得到outputs列表后翻译成label。下面是一些工具函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python">label_idx_list = <span class="hljs-built_in">list</span>(data_bundle.get_vocab(<span class="hljs-string">&quot;new_target&quot;</span>))<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write_list_into_text</span>(<span class="hljs-params">path,label_idx_list</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> label_idx_list:<br>            f.writelines(<span class="hljs-built_in">str</span>(pair[<span class="hljs-number">0</span>])+<span class="hljs-string">&#x27;,&#x27;</span>+<span class="hljs-built_in">str</span>(pair[<span class="hljs-number">1</span>]))<br>            f.write(<span class="hljs-string">&#x27;\n&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;write over!&#x27;</span>)<br>        <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read_list_from_text</span>(<span class="hljs-params">path</span>):<br>    final_list = []<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(path,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        lines = f.readlines()<br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines:<br>            line = line.strip().split(<span class="hljs-string">&#x27;,&#x27;</span>)<br>            final_list.append((line[<span class="hljs-number">0</span>],<span class="hljs-built_in">int</span>(line[<span class="hljs-number">1</span>])))<br>    <span class="hljs-keyword">return</span> final_list<br>    <br>write_list_into_text(<span class="hljs-string">&#x27;label_idx_list.txt&#x27;</span>,label_idx_list)<br>label_idx_list = read_list_from_text(<span class="hljs-string">&#x27;label_idx_list.txt&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">idx2label</span>(<span class="hljs-params">label_idx_list:<span class="hljs-built_in">list</span>,idx:<span class="hljs-built_in">int</span></span>):<br>    <span class="hljs-comment"># [(&#x27;O&#x27;,0),(label,idx)...]</span><br>    <span class="hljs-comment"># 用于idx和label转换</span><br>    <span class="hljs-comment"># return label</span><br>    label = <span class="hljs-literal">None</span><br>    <span class="hljs-keyword">for</span> pair <span class="hljs-keyword">in</span> label_idx_list:<br>        <span class="hljs-keyword">if</span> pair[<span class="hljs-number">1</span>] == idx:<br>             label = pair[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> label<br></code></pre></td></tr></table></figure>
+<p>接下来很简单，将制作好的输入数据整理成tensor，调用模型的<code>evaluate_step</code>方法进行预测。</p>
+<blockquote>
+<p>⚠️这里由于手动调用模型，一定记得使用eval函数将模型设置为评估模式，关闭dropout的影响。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">dev = <span class="hljs-built_in">next</span>(ner_model.parameters()).device<br>ner_model.<span class="hljs-built_in">eval</span>()<br><br><span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> predict_dataloaders[<span class="hljs-string">&#x27;predict&#x27;</span>]:<br>    input_ids = torch.LongTensor(data[<span class="hljs-string">&#x27;input_ids&#x27;</span>]).to(dev)<br>    input_len = torch.LongTensor(data[<span class="hljs-string">&#x27;input_len&#x27;</span>]).to(dev)<br>    first =     torch.LongTensor(data[<span class="hljs-string">&#x27;first&#x27;</span>]).to(dev)<br><br>    result = ner_model.evaluate_step(input_ids,input_len,first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br></code></pre></td></tr></table></figure>
+<p>预测结果如下：</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png" srcset="/img/loading.gif" lazyload alt="手动预测的结果">
+<figcaption aria-hidden="true">手动预测的结果</figcaption>
+</figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Bert/">#Bert</a>
+      
+        <a href="/tags/NLP/">#NLP</a>
+      
+        <a href="/tags/NER/">#NER</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用Bert进行中文NER命名实体识别feat.fastNLP</div>
+      <div>https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>灰一</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/10/expressive-tts/" title="Expressive TTS">
+                        <span class="hidden-mobile">Expressive TTS</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -16,12 +16,12 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https:&#x2F;&#x2F;valle-demo.github.io&#x2F;  模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}&#x3D;65536\)个值，整个序列长度接近5">
+    <meta name="description" content="VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https:&#x2F;&#x2F;valle-demo.github.io&#x2F;   模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}&#x3D;65536\)个值，整个序列长度接近">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VALL-E">
 <meta property="og:url" content="https://ash-one.github.io/2023/01/13/vall-e/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https:&#x2F;&#x2F;valle-demo.github.io&#x2F;  模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}&#x3D;65536\)个值，整个序列长度接近5">
+<meta property="og:description" content="VALL-E 模型 使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。 demo演示：https:&#x2F;&#x2F;valle-demo.github.io&#x2F;   模型总览  音频量化 Speech Quantization 对于常见的一秒音频，16位，48kHz，意味着需要每个step有\(2^{16}&#x3D;65536\)个值，整个序列长度接近">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ash-one.github.io/2023/01/13/vall-e/model.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/01/13/vall-e/EnCodec.png">
@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -84,28 +84,13 @@
   <script  src="/js/color-schema.js" ></script>
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
 
   
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -138,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -150,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -162,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -174,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -186,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -194,15 +179,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -301,28 +287,36 @@
 <p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
 <p>demo演示：<a target="_blank" rel="noopener" href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
 <figure>
-<img src="/2023/01/13/vall-e/model.png" srcset="/img/loading.gif" lazyload alt="模型总览"><figcaption aria-hidden="true">模型总览</figcaption>
+<img src="/2023/01/13/vall-e/model.png" srcset="/img/loading.gif" lazyload alt="模型总览">
+<figcaption aria-hidden="true">模型总览</figcaption>
 </figure>
 <h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
 <p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
 <p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
-<p>后面出现了矢量量化（vector quantization），应用在vq-wav2vec、HuBERT。</p>
-<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec models），优点如下：</p>
+<p>后面出现了矢量量化（vector
+quantization），应用在vq-wav2vec、HuBERT。</p>
+<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
+models），优点如下：</p>
 <ul>
 <li>在低比特率下表现比传统音频编解码器更好。</li>
 <li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
 <li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
 <li>可以做到减少时间序列长度。</li>
 </ul>
-<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic code matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
+<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
+code
+matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
 <figure>
-<img src="/2023/01/13/vall-e/EnCodec.png" srcset="/img/loading.gif" lazyload alt="RVQ"><figcaption aria-hidden="true">RVQ</figcaption>
+<img src="/2023/01/13/vall-e/EnCodec.png" srcset="/img/loading.gif" lazyload alt="RVQ">
+<figcaption aria-hidden="true">RVQ</figcaption>
 </figure>
 <p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
 <h2 id="模型-1">模型</h2>
-<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde C)\)</span></p>
+<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
+C)\)</span></p>
 <figure>
-<img src="/2023/01/13/vall-e/LM.png" srcset="/img/loading.gif" lazyload alt="LM"><figcaption aria-hidden="true">LM</figcaption>
+<img src="/2023/01/13/vall-e/LM.png" srcset="/img/loading.gif" lazyload alt="LM">
+<figcaption aria-hidden="true">LM</figcaption>
 </figure>
 <h2 id="推理">推理</h2>
 <p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
@@ -334,7 +328,9 @@
 <p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
 <p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
 <p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
-<p>16个 NVIDIA TESLA V100 32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到 5 × 10−4 的峰值，然后对其进行线性衰减。</p>
+<p>16个 NVIDIA TESLA V100
+32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
+5 × 10−4 的峰值，然后对其进行线性衰减。</p>
 <h2 id="分析">分析</h2>
 <ul>
 <li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
@@ -465,7 +461,10 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -593,11 +592,9 @@
 
 
 
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
-
 
 
 

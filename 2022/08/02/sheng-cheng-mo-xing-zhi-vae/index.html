@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg">
 <meta property="article:published_time" content="2022-08-02T10:14:36.000Z">
-<meta property="article:modified_time" content="2022-10-30T07:38:22.199Z">
+<meta property="article:modified_time" content="2023-03-21T07:36:41.418Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="DL">
 <meta property="article:tag" content="VAE">
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -88,28 +88,13 @@
   <script  src="/js/color-schema.js" ></script>
   
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
 
   
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -142,7 +127,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -154,7 +139,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -166,7 +151,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -178,7 +163,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -190,7 +175,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
@@ -198,15 +183,16 @@
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -246,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.2k 字
         
       </span>
     
@@ -257,7 +243,7 @@
         
         
         
-          34 分钟
+          36 分钟
         
       </span>
     
@@ -314,11 +300,21 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
 <h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">graph LR 
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<pre class="mermaid">classDiagram
+Class01 <|-- averylongclass : cool class03 *-- class04 class05 o-- class06 class07 .. class08 class09 --> C2 : Where am i?
+Class09 --* C3
+Class09 --|> Class07
+Class07 : equals()
+Class07 : Object[] elementData
+Class01 : size()
+Class01 : int chimp
+Class01 : int gorilla
+Class08 <--> C2: Cool label</--></|--></pre>
+<pre class="mermaid">graph LR
+    高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
 <h2 id="降噪自动编码器">降噪自动编码器</h2>
 <pre class="mermaid">graph LR
-  原图.-原图+噪声
+    原图.-原图+噪声
     原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
 <h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
 <p>输入信息常常由各种信息纠缠在一起，如</p>
@@ -623,7 +619,10 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -658,19 +657,6 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 
   
 
-
-
-  <script>
-  Fluid.utils.createScript('https://unpkg.com/browse/mermaid@9.1.7/dist/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"forest"});
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('mermaid' in window) {
-        mermaid.initialize({theme: 'forest'});
-      }
-    });
-  });
-</script>
 
 
 
@@ -764,11 +750,9 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 
 
 
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
-
 
 
 
