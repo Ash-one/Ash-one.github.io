@@ -16,19 +16,21 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。  （只是为了作业找了这么多借口）  本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预">
+    <meta name="description" content="前言  项目工程地址：https:&#x2F;&#x2F;github.com&#x2F;Ash-one&#x2F;ChineseBert-finetuned-NER  chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。 本文对于NER命名实体识别任务，使用复旦大学的fastNLP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Bert进行中文NER命名实体识别feat.fastNLP">
+<meta property="og:title" content="使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）">
 <meta property="og:url" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="前言 chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。  （只是为了作业找了这么多借口）  本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预">
+<meta property="og:description" content="前言  项目工程地址：https:&#x2F;&#x2F;github.com&#x2F;Ash-one&#x2F;ChineseBert-finetuned-NER  chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。   NewBing进行ner  虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。 本文对于NER命名实体识别任务，使用复旦大学的fastNLP">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/结果.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/数据集标签总览.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/三段模型结果.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/预测结果.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png">
 <meta property="article:published_time" content="2023-03-18T10:54:22.000Z">
-<meta property="article:modified_time" content="2023-03-20T06:36:06.321Z">
+<meta property="article:modified_time" content="2023-03-25T15:37:53.730Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="Bert">
 <meta property="article:tag" content="NLP">
@@ -38,7 +40,7 @@
   
   
   
-  <title>使用Bert进行中文NER命名实体识别feat.fastNLP - 灰一茶话会</title>
+  <title>使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇） - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -76,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -86,6 +88,21 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
   
@@ -208,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用Bert进行中文NER命名实体识别feat.fastNLP"></span>
+            <span id="subtitle" data-typed-text="使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）"></span>
           
         </div>
 
@@ -231,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          15k 字
         
       </span>
     
@@ -242,7 +259,7 @@
         
         
         
-          111 分钟
+          128 分钟
         
       </span>
     
@@ -280,22 +297,26 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">使用Bert进行中文NER命名实体识别feat.fastNLP</h1>
+            <h1 style="display: none">使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="前言">前言</h1>
+<blockquote>
+<p>项目工程地址：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+</blockquote>
 <p>chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。</p>
 <figure>
 <img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png" srcset="/img/loading.gif" lazyload alt="NewBing进行ner">
 <figcaption aria-hidden="true">NewBing进行ner</figcaption>
 </figure>
 <p>虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。</p>
-<blockquote>
-<p>（只是为了作业找了这么多借口）</p>
-</blockquote>
 <p>本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预测准确率，最终部署在服务器上可视化呈现。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/结果.png" srcset="/img/loading.gif" lazyload alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
+</figure>
 <p>fastNLP<a target="_blank" rel="noopener" href="http://document.fastnlp.top/docs/fastNLP/">文档</a>和<a target="_blank" rel="noopener" href="https://gitee.com/fastnlp/fastNLP">gitee仓库</a>最近更新在五个月前，还比较活跃。fastNLP在手册上有序列标注的<a target="_blank" rel="noopener" href="http://www.fastnlp.top/docs/fastNLP/master/tutorials/torch/fastnlp_torch_tutorial_seq_labeling.html">源码实现</a>，本文基于此进行改写。</p>
 <h1 id="数据预处理">数据预处理</h1>
 <h2 id="使用内置的dataloader加载weibo数据集">使用内置的dataloader加载Weibo数据集</h2>
@@ -361,20 +382,34 @@
 <p><strong>对输入和输出分别进行padding</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>dataloaders = prepare_torch_dataloader(data_bundle, batch_size=<span class="hljs-number">256</span>)<br><br><span class="hljs-keyword">for</span> dl <span class="hljs-keyword">in</span> dataloaders.values():<br>    <span class="hljs-comment"># 可以通过 set_pad 修改 padding 的行为。</span><br>    dl.set_pad(<span class="hljs-string">&#x27;input_ids&#x27;</span>, pad_val=tokenizer.pad_token_id)<br>    dl.set_pad(<span class="hljs-string">&#x27;new_target&#x27;</span>, pad_val=-<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
 <h1 id="bert模型微调">Bert模型微调</h1>
-<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考。</p>
-<h2 id="设计模型">设计模型</h2>
+<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考，然后在Bert后添加BiLSTM和CRF进行对比。</p>
+<h2 id="设计bertmlp模型">设计Bert+MLP模型</h2>
 <p>fastNLP的模型基于torch，所以写法是一样的；同时内置的transformer库也是huggingface的直接迁移，用法上完全一样，只是默认的模型加载路径和huggingface的transformer库不一样，如果同时使用可能会发现缓存位置不同而重复下载。</p>
 <ul>
 <li>这里使用<code>hfl/rbt3</code>这个中文Bert模型，大小约500M，<code>BertModel.from_pretrained()</code>函数会从远程拉取该模型保存在缓存后加载（复旦源，国内很快）。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
 <p><code>forward</code>函数和torch写法相同，<code>train_step</code>会被后面声明的trainer对象调用，计算训练的每一步loss，<code>evaluate_step</code>会被后面声明的evaluator对象调用，相当于预测函数，返回的是预测标签对应的数字index。</p>
+<h2 id="设计bertbilstmcrf模型">设计Bert+BiLSTM+CRF模型</h2>
+<p>这里需要考虑的是三个模型之间的输入输出要匹配，去掉了bpe算法部分方便将bert结果输入LSTM，另外在CRF模型的输入中mask大小不是Bert输入的带有前后标记的attention
+mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><span class="hljs-keyword">from</span> fastNLP.modules.torch <span class="hljs-keyword">import</span> ConditionalRandomField<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertBilstmCrfNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name,num_class, embedding_dim = <span class="hljs-number">768</span>,hidden_size=<span class="hljs-number">512</span>,dropout=<span class="hljs-number">0.5</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        <br>        self.lstm = nn.LSTM(<br>            input_size=embedding_dim,<br>            num_layers=<span class="hljs-number">2</span>,<br>            hidden_size=hidden_size,<br>            bidirectional=<span class="hljs-literal">True</span>,<br>            batch_first=<span class="hljs-literal">True</span>)<br>        self.dropout = nn.Dropout(dropout)<br>        self.fc = nn.Linear(hidden_size * <span class="hljs-number">2</span>, num_class)<br>        self.crf = ConditionalRandomField(num_class)<br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len,target=<span class="hljs-literal">None</span></span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br><br>        first_bpe_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]<br>        feats, _ = self.lstm(first_bpe_state) <span class="hljs-comment"># 输入lstm</span><br>        feats = self.fc(feats)<br>        feats = self.dropout(feats)<br>        logits = F.log_softmax(feats, dim=-<span class="hljs-number">1</span>)<br>        <br>        mask = seq_len_to_mask(input_len-<span class="hljs-number">2</span>)<br>        <br>        <span class="hljs-keyword">if</span> target <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            pred, _ = self.crf.viterbi_decode(logits, mask)<br>            <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>        <span class="hljs-keyword">else</span>:<br>            loss = self.crf(logits, target, mask).mean()<br>            <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, target</span>):<br>        <span class="hljs-comment"># &#123;&#x27;loss&#x27;:loss&#125;</span><br>        <span class="hljs-keyword">return</span> self(input_ids, input_len,target)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len</span>):<br>        <span class="hljs-comment">#  &#123;&#x27;pred&#x27;: pred&#125;</span><br>        <span class="hljs-keyword">return</span> self(input_ids, input_len)<br><br>model = BertBilstmCrfNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
 <h2 id="开始训练">开始训练</h2>
 <p>这里我们准备Trainer对象的各个参数，具体细节不做深入解释，看名字很好理解。</p>
 <p><strong>其中Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整。</strong>如果你和我一样是按照官方文档的写法，直接调用官方loader加载，在这里就需要这个函数，因为在文档里的ipython结果是从文件读取的，列名称和loader加载的不同。</p>
+<p>实际训练中CRF模型训练需要调大学习率，否则转移矩阵的学习结果会很差，实际使用的lr为2e-2，是mlp模型的一千倍。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> SpanFPreRecMetric<br><br>optimizer = optim.Adam(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;f&quot;</span>: SpanFPreRecMetric(tag_vocab=data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)),<br>&#125;<br><br><span class="hljs-comment"># ————重要函数----Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;new_target&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;f#f&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
-<p>50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</p>
+<ul>
+<li>Bert+MLP模型：50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F1值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</li>
+</ul>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs smali">[11:36:55 AM] INFO     The best performance for<span class="hljs-built_in"> monitor </span>f<span class="hljs-comment">#f:0.573477  progress_callback.py:37</span><br>                       was achieved in Epoch:47, Global Batch:282.                           <br>                       The evaluation result:                                                <br>                       &#123;&#x27;f<span class="hljs-comment">#f&#x27;: 0.573477, &#x27;pre#f&#x27;: 0.535714, &#x27;rec#f&#x27;:                         </span><br>                       0.616967&#125;                                                             <br>              INFO     Loading best model from buffer with    load_best_model_callback.py:120<br>                       f<span class="hljs-comment">#f: 0.573477 (achieved in Epoch: 47,                                 </span><br>                       Global Batch: 282) ... <br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>Bert+BiLSTM+CRF模型：F1值有0.705416，提升明显。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/三段模型结果.png" srcset="/img/loading.gif" lazyload alt="Bert+BiLSTM+CRF模型结果">
+<figcaption aria-hidden="true">Bert+BiLSTM+CRF模型结果</figcaption>
+</figure></li>
+</ul>
 <h2 id="模型保存和加载">模型保存和加载</h2>
 <p>训练好模型之后需要进行保存，这里使用torch的保存，fastNLP也有自己的保存方法，是相同的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>torch.save(model,<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br>ner_model = torch.load(<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
@@ -417,6 +452,8 @@
 <img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png" srcset="/img/loading.gif" lazyload alt="手动预测的结果">
 <figcaption aria-hidden="true">手动预测的结果</figcaption>
 </figure>
+<h2 id="准备部署">准备部署</h2>
+<p>将模型和txt文件保存好，到此为止模型的方面搞定了，接下来就是用flask搭建网页服务器的内容，内容太长，下一篇继续～</p>
 
                 
               </div>
@@ -466,7 +503,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用Bert进行中文NER命名实体识别feat.fastNLP</div>
+      <div>使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</div>
       <div>https://ash-one.github.io/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/</div>
     </div>
     <div class="license-meta">
@@ -510,6 +547,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/" title="使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

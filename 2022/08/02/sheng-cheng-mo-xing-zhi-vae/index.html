@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg">
 <meta property="article:published_time" content="2022-08-02T10:14:36.000Z">
-<meta property="article:modified_time" content="2023-03-21T07:36:41.418Z">
+<meta property="article:modified_time" content="2023-03-21T07:45:52.844Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="DL">
 <meta property="article:tag" content="VAE">
@@ -77,7 +77,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -87,6 +87,21 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
   
@@ -243,7 +258,7 @@
         
         
         
-          36 分钟
+          35 分钟
         
       </span>
     
@@ -300,22 +315,15 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
 <h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">classDiagram
-Class01 <|-- averylongclass : cool class03 *-- class04 class05 o-- class06 class07 .. class08 class09 --> C2 : Where am i?
-Class09 --* C3
-Class09 --|> Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-Class08 <--> C2: Cool label</--></|--></pre>
-<pre class="mermaid">graph LR
-    高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<pre><code class=" mermaid">graph LR
+	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
+</code></pre>
 <h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre class="mermaid">graph LR
-    原图.-原图+噪声
-    原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
+<pre><code class=" mermaid">graph LR
+	原图.-原图+噪声
+	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
+	
+</code></pre>
 <h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
 <p>输入信息常常由各种信息纠缠在一起，如</p>
 <ul>
@@ -329,20 +337,22 @@ Class08 <--> C2: Cool label</--></|--></pre>
 <h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
 <h2 id="ae和vae区别">AE和VAE区别</h2>
 <p>Auto-encoder</p>
-<pre class="mermaid">graph LR
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
+<pre><code class=" mermaid">graph LR
+  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
+</code></pre>
 <p>VAE</p>
 <p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
-<pre class="mermaid">graph LR
-  input --> NN-Encoder --> mu
-    NN-Encoder --> sigma
-    sigma --exp--> times((相乘))
-    e --> times
-    mu --> plus((相加))
-    times -->plus
-    plus --> z -->
+<pre><code class=" mermaid">graph LR
+  input --&gt; NN-Encoder --&gt; mu
+	NN-Encoder --&gt; sigma
+	sigma --exp--&gt; times((相乘))
+	e --&gt; times
+	mu --&gt; plus((相加))
+	times --&gt;plus
+	plus --&gt; z --&gt;
 
- NN-Decoder--> output</pre>
+ NN-Decoder--&gt; output
+</code></pre>
 <p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
 <p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
 <p>所以需要最小化如下函数：</p>
@@ -390,14 +400,16 @@ P(x)=\int\limits _zP(z)P(x|z)dz
 <p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
 N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
 <p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
-<pre class="mermaid">graph LR
-    z --> NN-Decoder --> mu
-    NN-Decoder --> sigma</pre>
+<pre><code class=" mermaid">graph LR
+	z --&gt; NN-Decoder --&gt; mu
+	NN-Decoder --&gt; sigma
+</code></pre>
 <p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
 N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'</pre>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+</code></pre>
 <p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
 <ul>
 <li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
@@ -485,14 +497,16 @@ Variational Bayes》</p>
 \]</span></p>
 <p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
 P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'
-    mu'-->z
-    sigma'-->z
-    z-->NN-Decoder-->mu
-    NN-Decoder-->sigma
-    mu .-越接近越好.-> x</pre>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+	mu&#x27;--&gt;z
+	sigma&#x27;--&gt;z
+	z--&gt;NN-Decoder--&gt;mu
+	NN-Decoder--&gt;sigma
+	mu .-越接近越好.-&gt; x
+
+</code></pre>
 <p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 
                 
@@ -657,6 +671,25 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 
   
 
+
+  
+  
+
+
+
+
+
+  <script>
+  Fluid.utils.createScript('https://unpkg.com/mermaid@9.1.2/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"forest"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 
@@ -849,6 +882,49 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

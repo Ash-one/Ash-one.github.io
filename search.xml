@@ -837,19 +837,23 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
 ]]></content>
   </entry>
   <entry>
-    <title>使用Bert进行中文NER命名实体识别feat.fastNLP</title>
+    <title>使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</title>
     <url>/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
+<blockquote>
+<p>项目工程地址：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+</blockquote>
 <p>chatGPT的大火让很多NLP工作者的研究都陷入僵局，NER这种传统任务对于这种LLM已经可以说是小菜一碟。</p>
 <figure>
 <img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/newbingner.png" alt="NewBing进行ner">
 <figcaption aria-hidden="true">NewBing进行ner</figcaption>
 </figure>
 <p>虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。</p>
-<blockquote>
-<p>（只是为了作业找了这么多借口）</p>
-</blockquote>
 <p>本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预测准确率，最终部署在服务器上可视化呈现。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/结果.png" alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
+</figure>
 <p>fastNLP<a href="http://document.fastnlp.top/docs/fastNLP/">文档</a>和<a href="https://gitee.com/fastnlp/fastNLP">gitee仓库</a>最近更新在五个月前，还比较活跃。fastNLP在手册上有序列标注的<a href="http://www.fastnlp.top/docs/fastNLP/master/tutorials/torch/fastnlp_torch_tutorial_seq_labeling.html">源码实现</a>，本文基于此进行改写。</p>
 <h1 id="数据预处理">数据预处理</h1>
 <h2 id="使用内置的dataloader加载weibo数据集">使用内置的dataloader加载Weibo数据集</h2>
@@ -915,20 +919,34 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
 <p><strong>对输入和输出分别进行padding</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> prepare_torch_dataloader<br><br>dataloaders = prepare_torch_dataloader(data_bundle, batch_size=<span class="hljs-number">256</span>)<br><br><span class="hljs-keyword">for</span> dl <span class="hljs-keyword">in</span> dataloaders.values():<br>    <span class="hljs-comment"># 可以通过 set_pad 修改 padding 的行为。</span><br>    dl.set_pad(<span class="hljs-string">&#x27;input_ids&#x27;</span>, pad_val=tokenizer.pad_token_id)<br>    dl.set_pad(<span class="hljs-string">&#x27;new_target&#x27;</span>, pad_val=-<span class="hljs-number">100</span>)<br></code></pre></td></tr></table></figure>
 <h1 id="bert模型微调">Bert模型微调</h1>
-<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考。</p>
-<h2 id="设计模型">设计模型</h2>
+<p>Bert模型的提供者们往往提供的是预训练模型，我们可以在预训练模型之后添加其他模型或层来改变输出，而将Bert的部分当作对文字编码的部分使用。这里后接MLP作为NER任务的baseline做参考，然后在Bert后添加BiLSTM和CRF进行对比。</p>
+<h2 id="设计bertmlp模型">设计Bert+MLP模型</h2>
 <p>fastNLP的模型基于torch，所以写法是一样的；同时内置的transformer库也是huggingface的直接迁移，用法上完全一样，只是默认的模型加载路径和huggingface的transformer库不一样，如果同时使用可能会发现缓存位置不同而重复下载。</p>
 <ul>
 <li>这里使用<code>hfl/rbt3</code>这个中文Bert模型，大小约500M，<code>BertModel.from_pretrained()</code>函数会从远程拉取该模型保存在缓存后加载（复旦源，国内很快）。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name, num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.3</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br>        first = first.unsqueeze(-<span class="hljs-number">1</span>).repeat(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, last_hidden_state.size(-<span class="hljs-number">1</span>))<br>        first_bpe_state = last_hidden_state.gather(dim=<span class="hljs-number">1</span>, index=first)<br>        first_bpe_state = first_bpe_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        pred = self.mlp(first_bpe_state)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, first, target</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), target)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len, first</span>):<br>        pred = self(input_ids, input_len, first)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>    <br>model = BertNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
 <p><code>forward</code>函数和torch写法相同，<code>train_step</code>会被后面声明的trainer对象调用，计算训练的每一步loss，<code>evaluate_step</code>会被后面声明的evaluator对象调用，相当于预测函数，返回的是预测标签对应的数字index。</p>
+<h2 id="设计bertbilstmcrf模型">设计Bert+BiLSTM+CRF模型</h2>
+<p>这里需要考虑的是三个模型之间的输入输出要匹配，去掉了bpe算法部分方便将bert结果输入LSTM，另外在CRF模型的输入中mask大小不是Bert输入的带有前后标记的attention
+mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> seq_len_to_mask<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><span class="hljs-keyword">from</span> fastNLP.modules.torch <span class="hljs-keyword">import</span> ConditionalRandomField<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertBilstmCrfNER</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model_name,num_class, embedding_dim = <span class="hljs-number">768</span>,hidden_size=<span class="hljs-number">512</span>,dropout=<span class="hljs-number">0.5</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = BertModel.from_pretrained(model_name)<br>        <br>        self.lstm = nn.LSTM(<br>            input_size=embedding_dim,<br>            num_layers=<span class="hljs-number">2</span>,<br>            hidden_size=hidden_size,<br>            bidirectional=<span class="hljs-literal">True</span>,<br>            batch_first=<span class="hljs-literal">True</span>)<br>        self.dropout = nn.Dropout(dropout)<br>        self.fc = nn.Linear(hidden_size * <span class="hljs-number">2</span>, num_class)<br>        self.crf = ConditionalRandomField(num_class)<br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids, input_len,target=<span class="hljs-literal">None</span></span>):<br>        attention_mask = seq_len_to_mask(input_len)<br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)<br>        last_hidden_state = outputs.last_hidden_state<br><br>        first_bpe_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]<br>        feats, _ = self.lstm(first_bpe_state) <span class="hljs-comment"># 输入lstm</span><br>        feats = self.fc(feats)<br>        feats = self.dropout(feats)<br>        logits = F.log_softmax(feats, dim=-<span class="hljs-number">1</span>)<br>        <br>        mask = seq_len_to_mask(input_len-<span class="hljs-number">2</span>)<br>        <br>        <span class="hljs-keyword">if</span> target <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:<br>            pred, _ = self.crf.viterbi_decode(logits, mask)<br>            <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br>        <span class="hljs-keyword">else</span>:<br>            loss = self.crf(logits, target, mask).mean()<br>            <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, input_len, target</span>):<br>        <span class="hljs-comment"># &#123;&#x27;loss&#x27;:loss&#125;</span><br>        <span class="hljs-keyword">return</span> self(input_ids, input_len,target)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids, input_len</span>):<br>        <span class="hljs-comment">#  &#123;&#x27;pred&#x27;: pred&#125;</span><br>        <span class="hljs-keyword">return</span> self(input_ids, input_len)<br><br>model = BertBilstmCrfNER(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)))<br></code></pre></td></tr></table></figure>
 <h2 id="开始训练">开始训练</h2>
 <p>这里我们准备Trainer对象的各个参数，具体细节不做深入解释，看名字很好理解。</p>
 <p><strong>其中Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整。</strong>如果你和我一样是按照官方文档的写法，直接调用官方loader加载，在这里就需要这个函数，因为在文档里的ipython结果是从文件读取的，列名称和loader加载的不同。</p>
+<p>实际训练中CRF模型训练需要调大学习率，否则转移矩阵的学习结果会很差，实际使用的lr为2e-2，是mlp模型的一千倍。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> SpanFPreRecMetric<br><br>optimizer = optim.Adam(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;f&quot;</span>: SpanFPreRecMetric(tag_vocab=data_bundle.get_vocab(<span class="hljs-string">&#x27;new_target&#x27;</span>)),<br>&#125;<br><br><span class="hljs-comment"># ————重要函数----Trainer对象默认调用数据的标签的表头是target，所以这里需要这个函数将我们自己设计的new_target列调整</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;new_target&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;f#f&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
-<p>50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</p>
+<ul>
+<li>Bert+MLP模型：50轮跑完结果如下，自动将最佳模型加载到model对象，这里在验证集上的F1值有0.573477，不算很高，因为Bert直接微调效果有限，但是预测结果有一定的参考价值了。</li>
+</ul>
 <figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">[11:36:55 AM] INFO     The best performance for<span class="hljs-built_in"> monitor </span>f<span class="hljs-comment">#f:0.573477  progress_callback.py:37</span><br>                       was achieved in Epoch:47, Global Batch:282.                           <br>                       The evaluation result:                                                <br>                       &#123;&#x27;f<span class="hljs-comment">#f&#x27;: 0.573477, &#x27;pre#f&#x27;: 0.535714, &#x27;rec#f&#x27;:                         </span><br>                       0.616967&#125;                                                             <br>              INFO     Loading best model from buffer with    load_best_model_callback.py:120<br>                       f<span class="hljs-comment">#f: 0.573477 (achieved in Epoch: 47,                                 </span><br>                       Global Batch: 282) ... <br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>Bert+BiLSTM+CRF模型：F1值有0.705416，提升明显。</p>
+<figure>
+<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/三段模型结果.png" alt="Bert+BiLSTM+CRF模型结果">
+<figcaption aria-hidden="true">Bert+BiLSTM+CRF模型结果</figcaption>
+</figure></li>
+</ul>
 <h2 id="模型保存和加载">模型保存和加载</h2>
 <p>训练好模型之后需要进行保存，这里使用torch的保存，fastNLP也有自己的保存方法，是相同的。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>torch.save(model,<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br>ner_model = torch.load(<span class="hljs-string">&#x27;rbt3-mlp-ner.pth&#x27;</span>)<br></code></pre></td></tr></table></figure>
@@ -971,6 +989,8 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
 <img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/手动预测结果.png" alt="手动预测的结果">
 <figcaption aria-hidden="true">手动预测的结果</figcaption>
 </figure>
+<h2 id="准备部署">准备部署</h2>
+<p>将模型和txt文件保存好，到此为止模型的方面搞定了，接下来就是用flask搭建网页服务器的内容，内容太长，下一篇继续～</p>
 ]]></content>
       <categories>
         <category>学习</category>
@@ -1768,22 +1788,15 @@ Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 💡 可以认为是自监督学习的一种方法，不需要标注
 </aside>
 <h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre class="mermaid">classDiagram
-Class01 <|-- averylongclass : cool class03 *-- class04 class05 o-- class06 class07 .. class08 class09 --> C2 : Where am i?
-Class09 --* C3
-Class09 --|> Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-Class08 <--> C2: Cool label</--></|--></pre>
-<pre class="mermaid">graph LR
-    高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --越接近越好-->高维图片</pre>
+<pre><code class=" mermaid">graph LR
+	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
+</code></pre>
 <h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre class="mermaid">graph LR
-    原图.-原图+噪声
-    原图+噪声 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图 --与原图越接近越好-->原图</pre>
+<pre><code class=" mermaid">graph LR
+	原图.-原图+噪声
+	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
+	
+</code></pre>
 <h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
 <p>输入信息常常由各种信息纠缠在一起，如</p>
 <ul>
@@ -1797,20 +1810,22 @@ Class08 <--> C2: Cool label</--></|--></pre>
 <h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
 <h2 id="ae和vae区别">AE和VAE区别</h2>
 <p>Auto-encoder</p>
-<pre class="mermaid">graph LR
-  高维图片 --> NN-Encoder --> 低维向量 --> NN-Decoder--> 生成图</pre>
+<pre><code class=" mermaid">graph LR
+  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
+</code></pre>
 <p>VAE</p>
 <p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
-<pre class="mermaid">graph LR
-  input --> NN-Encoder --> mu
-    NN-Encoder --> sigma
-    sigma --exp--> times((相乘))
-    e --> times
-    mu --> plus((相加))
-    times -->plus
-    plus --> z -->
+<pre><code class=" mermaid">graph LR
+  input --&gt; NN-Encoder --&gt; mu
+	NN-Encoder --&gt; sigma
+	sigma --exp--&gt; times((相乘))
+	e --&gt; times
+	mu --&gt; plus((相加))
+	times --&gt;plus
+	plus --&gt; z --&gt;
 
- NN-Decoder--> output</pre>
+ NN-Decoder--&gt; output
+</code></pre>
 <p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
 <p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
 <p>所以需要最小化如下函数：</p>
@@ -1858,14 +1873,16 @@ P(x)=\int\limits _zP(z)P(x|z)dz
 <p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
 N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
 <p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
-<pre class="mermaid">graph LR
-    z --> NN-Decoder --> mu
-    NN-Decoder --> sigma</pre>
+<pre><code class=" mermaid">graph LR
+	z --&gt; NN-Decoder --&gt; mu
+	NN-Decoder --&gt; sigma
+</code></pre>
 <p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
 N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'</pre>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+</code></pre>
 <p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
 <ul>
 <li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
@@ -1953,14 +1970,16 @@ Variational Bayes》</p>
 \]</span></p>
 <p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
 P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
-<pre class="mermaid">graph LR
-  x --> NN-Encoder --> mu'
-    NN-Encoder --> sigma'
-    mu'-->z
-    sigma'-->z
-    z-->NN-Decoder-->mu
-    NN-Decoder-->sigma
-    mu .-越接近越好.-> x</pre>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+	mu&#x27;--&gt;z
+	sigma&#x27;--&gt;z
+	z--&gt;NN-Decoder--&gt;mu
+	NN-Decoder--&gt;sigma
+	mu .-越接近越好.-&gt; x
+
+</code></pre>
 <p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 ]]></content>
       <categories>
@@ -2453,5 +2472,48 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 <h2 id="划分vlan的网络">划分VLAN的网络</h2>
 <h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
+  </entry>
+  <entry>
+    <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</title>
+    <url>/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
+<blockquote>
+<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
+</blockquote>
+<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+<figure>
+<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
+</figure>
+<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
+<h1 id="flask服务端">Flask服务端</h1>
+<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
+<h2 id="基础路由">基础路由</h2>
+<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="响应get请求">响应get请求</h2>
+<p>下面这个装饰器专门响应/predict路径的get请求。</p>
+<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
+<blockquote>
+<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
+</blockquote>
+<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+<h1 id="web客户端">Web客户端</h1>
+<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>NER</tag>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
   </entry>
 </search>

@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="灰一">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言 下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。  增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出&quot;崔永元&quot;才是人名，而mlp模型会将“崔永元真”作为一个人名🤣  项目工程的Github仓库地址为：https:&#x2F;&#x2F;github.com&#x2F;Ash-one&#x2F;ChineseBert-finetuned-NER">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)">
+<meta property="og:url" content="https://ash-one.github.io/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/index.html">
+<meta property="og:site_name" content="灰一茶话会">
+<meta property="og:description" content="前言 下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。  增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出&quot;崔永元&quot;才是人名，而mlp模型会将“崔永元真”作为一个人名🤣  项目工程的Github仓库地址为：https:&#x2F;&#x2F;github.com&#x2F;Ash-one&#x2F;ChineseBert-finetuned-NER">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ash-one.github.io/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png">
+<meta property="article:published_time" content="2023-03-25T14:15:30.000Z">
+<meta property="article:modified_time" content="2023-03-25T15:37:52.043Z">
+<meta property="article:author" content="灰一">
+<meta property="article:tag" content="Bert">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="NER">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="flask">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png">
+  
+  
+  
+  <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型) - 灰一茶话会</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ash-one.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"python"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-25 22:15" pubdate>
+          2023年3月25日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言">前言</h1>
+<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
+<blockquote>
+<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
+</blockquote>
+<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+<figure>
+<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" srcset="/img/loading.gif" lazyload alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
+</figure>
+<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
+<h1 id="flask服务端">Flask服务端</h1>
+<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
+<h2 id="基础路由">基础路由</h2>
+<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="响应get请求">响应get请求</h2>
+<p>下面这个装饰器专门响应/predict路径的get请求。</p>
+<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
+<blockquote>
+<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
+</blockquote>
+<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+<h1 id="web客户端">Web客户端</h1>
+<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Bert/">#Bert</a>
+      
+        <a href="/tags/NLP/">#NLP</a>
+      
+        <a href="/tags/NER/">#NER</a>
+      
+        <a href="/tags/python/">#python</a>
+      
+        <a href="/tags/flask/">#flask</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</div>
+      <div>https://ash-one.github.io/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>灰一</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/" title="使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）">
+                        <span class="hidden-mobile">使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
