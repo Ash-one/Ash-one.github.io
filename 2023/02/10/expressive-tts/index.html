@@ -16,27 +16,31 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="富有表现力的语音合成系统 StyleToken-TTS   ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。   InstructTTS    模型结构">
+    <meta name="description" content="富有表现力的语音合成系统 Tacotron-GST 在Tacotron引入了全局风格标签（Global Style Token，GST）。模型包括reference encoder，style attention，style embedding   Tacotron-GST模型结构  StyleToken-TTS 在数据集上增加风格标签，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Expressive TTS">
+<meta property="og:title" content="富有表现力的语音合成系统（Expressive TTS）">
 <meta property="og:url" content="https://ash-one.github.io/2023/02/10/expressive-tts/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="富有表现力的语音合成系统 StyleToken-TTS   ST-TTS模型结构  InstructTTS demo地址：http:&#x2F;&#x2F;dongchaoyang.top&#x2F;InstructTTS&#x2F; 使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。   InstructTTS    模型结构">
+<meta property="og:description" content="富有表现力的语音合成系统 Tacotron-GST 在Tacotron引入了全局风格标签（Global Style Token，GST）。模型包括reference encoder，style attention，style embedding   Tacotron-GST模型结构  StyleToken-TTS 在数据集上增加风格标签，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/tacotron-gst.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/prompt-tts.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/image-20230407211240554.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-17%2013.20.26.png">
 <meta property="article:published_time" content="2023-02-10T04:46:45.000Z">
-<meta property="article:modified_time" content="2023-02-17T05:21:29.947Z">
+<meta property="article:modified_time" content="2023-04-10T06:08:58.717Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="语音合成">
+<meta property="article:tag" content="论文">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/02/10/expressive-tts/tacotron-gst.png">
   
   
   
-  <title>Expressive TTS - 灰一茶话会</title>
+  <title>富有表现力的语音合成系统（Expressive TTS） - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -221,7 +225,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Expressive TTS"></span>
+            <span id="subtitle" data-typed-text="富有表现力的语音合成系统（Expressive TTS）"></span>
           
         </div>
 
@@ -244,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          150 字
+          657 字
         
       </span>
     
@@ -255,7 +259,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -293,20 +297,44 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Expressive TTS</h1>
+            <h1 style="display: none">富有表现力的语音合成系统（Expressive TTS）</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="tacotron-gst">Tacotron-GST</h2>
+<p>在Tacotron引入了<strong>全局风格标签（Global Style
+Token，GST）</strong>。模型包括reference encoder，style attention，style
+embedding</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/tacotron-gst.png" srcset="/img/loading.gif" lazyload alt="Tacotron-GST模型结构">
+<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
+</figure>
 <h2 id="styletoken-tts">StyleToken-TTS</h2>
+<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
+<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
+transcript, style tag} ，有 327
+个风格标签，包括各种情绪、意图、语音语调和速度。</p>
 <figure>
 <img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" srcset="/img/loading.gif" lazyload alt="ST-TTS模型结构">
 <figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
 </figure>
+<h2 id="prompttts">PromptTTS</h2>
+<p>使用微软的TTS合成语音<a target="_blank" rel="noopener" href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
+<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
+<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/prompt-tts.png" srcset="/img/loading.gif" lazyload alt="Prompt-TTS模型结构">
+<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
+</figure>
+<p>其中Content Encoder顶层的Variance
+Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
+<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" srcset="/img/loading.gif" lazyload alt="FastSpeech2" style="zoom: 33%;"></p>
 <h2 id="instructtts">InstructTTS</h2>
+<p>香港中文大学+腾讯AI Lab合作</p>
 <p>demo地址：<a target="_blank" rel="noopener" href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
 <figure>
 <img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" srcset="/img/loading.gif" lazyload alt="InstructTTS">
 <figcaption aria-hidden="true">InstructTTS</figcaption>
@@ -351,6 +379,8 @@
       
         <a href="/tags/%E8%AF%AD%E9%9F%B3%E5%90%88%E6%88%90/">#语音合成</a>
       
+        <a href="/tags/%E8%AE%BA%E6%96%87/">#论文</a>
+      
     </div>
   
 </div>
@@ -361,7 +391,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Expressive TTS</div>
+      <div>富有表现力的语音合成系统（Expressive TTS）</div>
       <div>https://ash-one.github.io/2023/02/10/expressive-tts/</div>
     </div>
     <div class="license-meta">

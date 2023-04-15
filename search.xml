@@ -30,17 +30,41 @@
       </tags>
   </entry>
   <entry>
-    <title>Expressive TTS</title>
+    <title>富有表现力的语音合成系统（Expressive TTS）</title>
     <url>/2023/02/10/expressive-tts/</url>
     <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="tacotron-gst">Tacotron-GST</h2>
+<p>在Tacotron引入了<strong>全局风格标签（Global Style
+Token，GST）</strong>。模型包括reference encoder，style attention，style
+embedding</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
+<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
+</figure>
 <h2 id="styletoken-tts">StyleToken-TTS</h2>
+<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
+<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
+transcript, style tag} ，有 327
+个风格标签，包括各种情绪、意图、语音语调和速度。</p>
 <figure>
 <img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
 <figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
 </figure>
+<h2 id="prompttts">PromptTTS</h2>
+<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
+<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
+<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
+<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
+</figure>
+<p>其中Content Encoder顶层的Variance
+Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
+<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
 <h2 id="instructtts">InstructTTS</h2>
+<p>香港中文大学+腾讯AI Lab合作</p>
 <p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格。</p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
 <figure>
 <img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
 <figcaption aria-hidden="true">InstructTTS</figcaption>
@@ -56,6 +80,7 @@
       </categories>
       <tags>
         <tag>语音合成</tag>
+        <tag>论文</tag>
       </tags>
   </entry>
   <entry>
@@ -851,7 +876,7 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
 <p>虽然没能力搞个GPT出来，搞个简单的Bert微调还是可以做到的。</p>
 <p>本文对于NER命名实体识别任务，使用复旦大学的fastNLP工具包快速完成Bert微调和预测任务，还实现了Bert+BiLSTM+CRF的模型提高预测准确率，最终部署在服务器上可视化呈现。</p>
 <figure>
-<img src="/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/结果.png" alt="结果展示">
+<img src="https://s2.loli.net/2023/03/25/e53mHihFl8JENqV.png" alt="结果展示">
 <figcaption aria-hidden="true">结果展示</figcaption>
 </figure>
 <p>fastNLP<a href="http://document.fastnlp.top/docs/fastNLP/">文档</a>和<a href="https://gitee.com/fastnlp/fastNLP">gitee仓库</a>最近更新在五个月前，还比较活跃。fastNLP在手册上有序列标注的<a href="http://www.fastnlp.top/docs/fastNLP/master/tutorials/torch/fastnlp_torch_tutorial_seq_labeling.html">源码实现</a>，本文基于此进行改写。</p>
@@ -2514,6 +2539,146 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
         <tag>NER</tag>
         <tag>python</tag>
         <tag>flask</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用BERTopic提取文本主题</title>
+    <url>/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/</url>
+    <content><![CDATA[<h1 id="使用bertopic提取文本主题">使用BERTopic提取文本主题</h1>
+<h2 id="加载数据集">加载数据集</h2>
+<p>挂载Google
+Drive用于读取数据集，这里会要求登陆Google账号授权，每次都需要重新授权，建议一开始在colab中选好gpu分配资源。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive<br>drive.mount(<span class="hljs-string">&#x27;/content/drive&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>数据集来自外卖平台中文评论，数据集地址：https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/waimai_10k/waimai_10k.csv，可以直接wget获取。该数据集本身用于情感二分类。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.read_csv(<span class="hljs-string">&#x27;/content/drive/MyDrive/colab/waimai_10k.csv&#x27;</span>)<br>df[<span class="hljs-string">&#x27;label&#x27;</span>].value_counts()<br></code></pre></td></tr></table></figure></p>
+<p>结果为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">0</span>    <span class="hljs-number">7987</span><br><span class="hljs-number">1</span>    <span class="hljs-number">4000</span><br><span class="hljs-attr">Name:</span> <span class="hljs-string">label,</span> <span class="hljs-attr">dtype:</span> <span class="hljs-string">int64</span><br></code></pre></td></tr></table></figure>
+<p>0 表示负面评论<br>
+1 表示正面评论<br>
+不过这些label并不使用，只需要文本review</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.head(n=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/查看数据集dataframe.png" alt="数据集dataframe">
+<figcaption aria-hidden="true">数据集dataframe</figcaption>
+</figure>
+<p>将数据集整理为列表方便输入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dataset = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;review&#x27;</span>]]<br>dataset[:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><code>['很快，好吃，味道足，量大', '没有送水没有送水没有送水', '非常快，态度好。', '方便，快捷，味道可口，快递给力', '菜味道很棒！送餐很及时！', '今天师傅是不是手抖了，微辣格外辣！', '送餐快,态度也特别好,辛苦啦谢谢', '超级快就送到了，这么冷的天气骑士们辛苦了。谢谢你们。麻辣香锅依然很好吃。', '经过上次晚了2小时，这次超级快，20分钟就送到了……', '最后五分钟订的，卖家特别好接单了，谢谢。']</code></p>
+<p>去除停用词（没用到，数据集已经过清洗）</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">stopwords = [<span class="hljs-string">&#x27; &#x27;</span>]+[<span class="hljs-type">line</span>.strip() <span class="hljs-keyword">for</span> <span class="hljs-type">line</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">open</span>(&quot;cn_stopwords.txt&quot;, &quot;rt&quot;, encoding=&quot;utf-8&quot;).readlines()]<br></code></pre></td></tr></table></figure>
+<h2 id="bertopic建模">BERTopic建模</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">!pip install bertopic<br><br><span class="hljs-keyword">from</span> bertopic <span class="hljs-keyword">import</span> BERTopic<br><span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer<br><span class="hljs-keyword">from</span> umap <span class="hljs-keyword">import</span> UMAP<br><span class="hljs-keyword">from</span> hdbscan <span class="hljs-keyword">import</span> HDBSCAN<br><span class="hljs-keyword">from</span> bertopic.vectorizers <span class="hljs-keyword">import</span> ClassTfidfTransformer<br></code></pre></td></tr></table></figure>
+<p>使用<code>sentence-transformers</code>支持多语言的大模型进行embedding，在colab上下载速度很快，约400M瞬间完成。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embedding_model = SentenceTransformer(<span class="hljs-string">&#x27;sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2&#x27;</span>)<br></code></pre></td></tr></table></figure> <strong>降维</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">umap_model = UMAP(n_neighbors=<span class="hljs-number">20</span>, n_components=<span class="hljs-number">5</span>, min_dist=<span class="hljs-number">0.0</span>, metric=<span class="hljs-string">&#x27;cosine&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>聚类</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">hdbscan_model = HDBSCAN(min_cluster_size=<span class="hljs-number">10</span>, metric=<span class="hljs-string">&#x27;euclidean&#x27;</span>, cluster_selection_method=<span class="hljs-string">&#x27;eom&#x27;</span>, prediction_data=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<p>tokenizer <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer<br>vectorizer_model = CountVectorizer()<br></code></pre></td></tr></table></figure>
+<strong>加权</strong>：使用改进tf-idf的c-tf-idf方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">ctfidf_model = ClassTfidfTransformer()<br></code></pre></td></tr></table></figure>
+<p>输入BERTopic模型 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model = BERTopic(<br>​    embedding_model=embedding_model,<br>​    umap_model=umap_model,<br>​    hdbscan_model=hdbscan_model,<br>​    vectorizer_model=vectorizer_model,<br>​    ctfidf_model=ctfidf_model,<br>​    nr_topics=<span class="hljs-number">10</span>                        <br>)<br></code></pre></td></tr></table></figure> 训练 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topics, probabilities = topic_model.fit_transform(dataset)<br></code></pre></td></tr></table></figure></p>
+<h2 id="可视化呈现和结果分析">可视化呈现和结果分析</h2>
+<p><strong>查看聚类结果</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_document_info(dataset)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/聚类后结果.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
+<p>查看各话题文本数量。<br>
+-1表示没有聚类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic_freq()<br></code></pre></td></tr></table></figure>
+<p><img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题文本数量.png" alt="话题文本数量" style="zoom: 50%;"></p>
+<p>查看话题7的文本并按照重要程度排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic(<span class="hljs-number">7</span>)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[(&#x27;就是有点油&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;就是油太大&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;全是油&#x27;, 0.10826034220928046),</span><br><span class="hljs-string"> (&#x27;味道不错&#x27;, 0.07580202124764789),</span><br><span class="hljs-string"> (&#x27;挺好的&#x27;, 0.07380868069892178),</span><br><span class="hljs-string"> (&#x27;灰常满意&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;一层厚厚的油&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手贵&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手好多油啊&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手不错&#x27;, 0.06720667864215085)]</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><strong>可视化查看各话题分数排序</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_barchart()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/分数排序.png" alt="分数排序">
+<figcaption aria-hidden="true">分数排序</figcaption>
+</figure>
+<p>能够看到一部分结果聚类效果很好，比如集中描述送餐慢、凉、咖啡奶茶、披萨、油等主题，而其他一部分看起来好坏参半，原因应该是该主题聚类可能将评价好坏都列为“评价主题”而分到一起。</p>
+<p><strong>可视化呈现点云图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embeddings = embedding_model.encode(dataset, show_progress_bar=<span class="hljs-literal">False</span>)<br>topic_model.visualize_documents(dataset, embeddings=embeddings)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/点云图.png" alt="点云图">
+<figcaption aria-hidden="true">点云图</figcaption>
+</figure>
+<p>点云图中颜色相同的属于同一主题，灰色属于无法聚类的文本。</p>
+<p><strong>可视化呈现热度图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_heatmap()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/热度图.png" alt="热度图">
+<figcaption aria-hidden="true">热度图</figcaption>
+</figure>
+<p>热度图中颜色相近的色块表示相似度高，可以看到01两主题的内容很相似，颜色较深；同时01两个话题与其他话题的相似度都很高；2号主题与其他的相似度较低，可以从颜色和文本中观察到。</p>
+<p><strong>可视化呈现话题间距离</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_topics()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题间距离.png" alt="话题间距离">
+<figcaption aria-hidden="true">话题间距离</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>BERTopic</tag>
+        <tag>文本主题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微调Bert模型完成文本分类feat.fastNLP</title>
+    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
+    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
+TextClassification</h1>
+<h2 id="前言">前言</h2>
+<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
+<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
+<h2 id="外卖数据预处理">外卖数据预处理</h2>
+<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
+<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
+<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
+<figcaption aria-hidden="true">数据集</figcaption>
+</figure>
+<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
+<h2 id="模型搭建">模型搭建</h2>
+<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
+<h2 id="模型训练">模型训练</h2>
+<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
+<blockquote>
+<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
+</blockquote>
+<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
+<figcaption aria-hidden="true">训练完成</figcaption>
+</figure>
+<p>最后得到在验证集上的准确率0.836485</p>
+<h2 id="模型测试">模型测试</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>输出测试集上准确率：这个模型结果为0.8125</p>
+<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
+<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>文本分类</tag>
       </tags>
   </entry>
 </search>
