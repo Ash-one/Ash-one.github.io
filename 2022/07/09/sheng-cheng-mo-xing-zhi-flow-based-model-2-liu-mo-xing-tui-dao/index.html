@@ -320,16 +320,18 @@ Model（2）流模型</h1>
 </blockquote>
 <h2 id="流模型实质">流模型实质</h2>
 <p>以一个生成器为例:</p>
-<pre class="mermaid">graph LR
-z --> G --> x</pre>
+<pre><code class=" mermaid">graph LR
+z --&gt; G --&gt; x
+</code></pre>
 <p><span class="math display">\[
 logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
 \]</span></p>
 <p>发现为得到左式中的<span class="math inline">\(G\)</span>,
 右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre class="mermaid">graph RL
-x --> G-1 --> z</pre>
+<pre><code class=" mermaid">graph RL
+x --&gt; G-1 --&gt; z
+</code></pre>
 <p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
 <p>欲使左式最大, 右侧两项应尽可能大</p>
 <ul>

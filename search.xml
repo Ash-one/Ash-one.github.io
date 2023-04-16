@@ -1,89 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
-</ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>富有表现力的语音合成系统（Expressive TTS）</title>
-    <url>/2023/02/10/expressive-tts/</url>
-    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
-<h2 id="tacotron-gst">Tacotron-GST</h2>
-<p>在Tacotron引入了<strong>全局风格标签（Global Style
-Token，GST）</strong>。模型包括reference encoder，style attention，style
-embedding</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
-<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
-</figure>
-<h2 id="styletoken-tts">StyleToken-TTS</h2>
-<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
-<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
-transcript, style tag} ，有 327
-个风格标签，包括各种情绪、意图、语音语调和速度。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
-<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
-</figure>
-<h2 id="prompttts">PromptTTS</h2>
-<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
-<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
-<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
-<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
-</figure>
-<p>其中Content Encoder顶层的Variance
-Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
-<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
-<h2 id="instructtts">InstructTTS</h2>
-<p>香港中文大学+腾讯AI Lab合作</p>
-<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
-<figcaption aria-hidden="true">InstructTTS</figcaption>
-</figure>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
-<figcaption aria-hidden="true">模型结构</figcaption>
-</figure>
-<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-        <tag>论文</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Apple Silicon MacBook Pro新机配置</title>
     <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
     <content><![CDATA[<blockquote>
@@ -173,6 +90,35 @@ Silicon版本）</h1>
       </tags>
   </entry>
   <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo博客在matery主题下插入mermaid流程图</title>
     <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
     <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
@@ -209,6 +155,60 @@ dark | forest | neutral</em></li>
         <tag>blog</tag>
         <tag>hexo</tag>
         <tag>typora</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>富有表现力的语音合成系统（Expressive TTS）</title>
+    <url>/2023/02/10/expressive-tts/</url>
+    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="tacotron-gst">Tacotron-GST</h2>
+<p>在Tacotron引入了<strong>全局风格标签（Global Style
+Token，GST）</strong>。模型包括reference encoder，style attention，style
+embedding</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
+<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
+</figure>
+<h2 id="styletoken-tts">StyleToken-TTS</h2>
+<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
+<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
+transcript, style tag} ，有 327
+个风格标签，包括各种情绪、意图、语音语调和速度。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
+<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
+</figure>
+<h2 id="prompttts">PromptTTS</h2>
+<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
+<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
+<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
+<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
+</figure>
+<p>其中Content Encoder顶层的Variance
+Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
+<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
+<h2 id="instructtts">InstructTTS</h2>
+<p>香港中文大学+腾讯AI Lab合作</p>
+<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
+<figcaption aria-hidden="true">InstructTTS</figcaption>
+</figure>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
+<figcaption aria-hidden="true">模型结构</figcaption>
+</figure>
+<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+        <tag>论文</tag>
       </tags>
   </entry>
   <entry>
@@ -263,153 +263,6 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
         <tag>配置</tag>
         <tag>blog</tag>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo快速使用指北</title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
-    <title>Ubuntu上基于docker搭建Hadoop集群</title>
-    <url>/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/</url>
-    <content><![CDATA[<h1 id="docker操作">Docker操作</h1>
-<p>先学习一下基础的docker命令，后面常用，这里放出来备查</p>
-<h2 id="查看容器container">查看容器container</h2>
-<p>docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器
-3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">sudo docker ps -<span class="hljs-selector-tag">a</span><br></code></pre></td></tr></table></figure>
-<h2 id="删除容器">删除容器</h2>
-<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rm <span class="hljs-number">1051267</span>f9afb<br></code></pre></td></tr></table></figure>
-<h2 id="查看镜像image">查看镜像image</h2>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo docker images</span><br></code></pre></td></tr></table></figure>
-<h2 id="删除镜像">删除镜像</h2>
-<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rmi <span class="hljs-number">5</span>d0da3dc9764<br></code></pre></td></tr></table></figure>
-<h2 id="启动容器">启动容器</h2>
-<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker run -itd weicg/hadoop:<span class="hljs-number">1</span>.<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
-<ul>
-<li>-d表示在后台运行，需要进入容器</li>
-</ul>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> be349f8dd945 bash<br></code></pre></td></tr></table></figure>
-<ul>
-<li>使用exec 进入容器时exit命令不会结束容器</li>
-</ul>
-<h1 id="hadoop集群搭建">Hadoop集群搭建</h1>
-<h2 id="准备镜像">准备镜像</h2>
-<p>我选择的是dockerhub上的<code>weicg/hadoop:1.2</code>,同样是一位初学者制作的，试用还算可以（单机可以开箱即用）不过这里搭建集群还需要修改一些内容。来源：https://hub.docker.com/r/weicg/hadoop</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker pull weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
-<p>我们打算建立一个<strong>一主两从</strong>的集群，需要开三个容器</p>
-<h2 id="建立网桥">建立网桥</h2>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">sudo docker network <span class="hljs-built_in">create</span> <span class="hljs-comment">--driver bridge hadoop-br</span><br></code></pre></td></tr></table></figure>
-<h2 id="开启多个容器">开启多个容器</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -itd --network hadoop-br --name hadoop1 -p 50070:50070 -p 8088:8088 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop2 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop3 weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
-<p>得到三个容器</p>
-<ul>
-<li>23c1187f8492</li>
-<li>676e08f5ecc5</li>
-<li>d2ec810e1e89</li>
-</ul>
-<p>进入这些容器只需要</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> hadoop1 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop2 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop3 bash<br></code></pre></td></tr></table></figure>
-<h2 id="查看网桥配置">查看网桥配置</h2>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">sudo docker network <span class="hljs-keyword">inspect </span>hadoop-<span class="hljs-keyword">br </span><br></code></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;Containers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;23c1187f84929b19883f3ff3452688fca46c101e43bdfcc2a0cabaa4cd4fc593&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop1&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;27504f3d67c0a1e884ab8420c717b7bf5f3aa7db211360fa19a0d501fa6f9ed7&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:02&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.2/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;676e08f5ecc5273542efd51e554ef1fa8790b2aa4a57fa3516cb39d6b09cfb7f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;b766f1d85e339558f0bbf89e52e8e9a103c8d8e5b593dbcb6832367a925dcb4f&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:03&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.3/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;d2ec810e1e897f47add8b09f8a813b6c23ab892fddd0706b88373d7f67f76b2f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop3&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;552975d97feddc22fcf5d4ac1afa61be698846f08727e249d7581aaa33e220c2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:04&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.4/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<p>可以看到三个docker的ip地址</p>
-<p>172.18.0.2 hadoop1</p>
-<p>172.18.0.3 hadoop2</p>
-<p>172.18.0.4 hadoop3</p>
-<p>使用<code>ping</code>命令分别检查是否网络通畅</p>
-<p>以下命令需要分别进入三个容器内执行</p>
-<p>1.更改hosts文件<code>vim /etc/hosts</code>,加入如下配置</p>
-<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.18.0.2</span> hadoop1 <br><span class="hljs-number">172.18.0.3</span> hadoop2 <br><span class="hljs-number">172.18.0.4</span> hadoop3 <br></code></pre></td></tr></table></figure>
-<p>2.分别在三个容器内配置ssh,因为镜像已经生成了密钥，此处将本机密钥加入本机的访问列表中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh<br><span class="hljs-built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys<br></code></pre></td></tr></table></figure>
-<p>完成后可以<code>ssh root@hadoop2</code>查看是否成功配置ssh和网络。</p>
-<h2 id="配置hadoop文件">配置hadoop文件</h2>
-<p>进入hadoop1,创建一些配置用到的文件夹</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir <span class="hljs-regexp">/home/</span>hadoop<br>mkdir <span class="hljs-regexp">/home/</span>hadoop<span class="hljs-regexp">/tmp /</span>home<span class="hljs-regexp">/hadoop/</span>hdfs_name <span class="hljs-regexp">/home/</span>hadoop/hdfs_data<br></code></pre></td></tr></table></figure>
-<p>切到hadoop配置目录</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cd <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop/<br></code></pre></td></tr></table></figure>
-<p>下面的编辑部分可以直接拷贝覆盖粘贴</p>
-<h3 id="编辑workers文件">编辑workers文件</h3>
-<p><code>vim workers</code></p>
-<figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">hadoop2<br>hadoop3<br></code></pre></td></tr></table></figure>
-<h3 id="编辑core-site.xml">编辑core-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>fs.defaultFS<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>hadoop.tmp.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/tmp<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>io.file.buffer.size<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>131702<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="编辑hdfs-site.xml">编辑hdfs-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_name<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.data.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_data<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:9001<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="编辑mapred-site.xml">编辑mapred-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.framework.name<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>yarn<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:10020<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:19888<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="编辑yarn-site.xml">编辑yarn-site.xml</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>mapreduce_shuffle<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.auxservices.mapreduce.shuffle.class<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8032<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8030<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8031<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8033<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8088<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>把上面配置好的文件拷贝到2、3号机</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop2:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop3:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop2:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop3:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br></code></pre></td></tr></table></figure>
-<h2 id="可选增加sbin目录的环境变量方便随意启动">（可选）增加sbin目录的环境变量，方便随意启动</h2>
-<ol type="1">
-<li><p>分别连接三台机器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it hadoop1 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop2 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop3 bash<br></code></pre></td></tr></table></figure></li>
-<li><p>将hadoop/sbin目录加入PATH环境变量中<code>vim ～/.bashrc</code></p>
-<p>追加内容<code>export PATH=$PATH:$HADOOP_HOME/sbin</code></p>
-<p>然后执行<code>source ~/.bashrc</code></p></li>
-</ol>
-<p><strong>这一步略过的话，启动hadoop的相关命令需要先<code>cd $HADOOP_HOME/sbin</code></strong></p>
-<h2 id="启动hadoop">启动HADOOP</h2>
-<p>进入hadoop1号主节点</p>
-<p>第一次启动需要格式化hdfs，后续<strong><u>绝对不要再</u></strong>执行这一条<code>hdfs namenode -format</code></p>
-<p>先在主节点上启动文件系统：<code>start-dfs.sh</code></p>
-<p>使用<code>jps</code>命令此时可以观察到：</p>
-<p>hadoop1上启动了<u>名称节点</u>和<u>第二名称节点</u>（第二名称节点可以配置在其他节点上）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>1649 NameNode<br>1854 SecondaryNameNode<br>1967 Jps<br></code></pre></td></tr></table></figure>
-<p>hadoop2和hadoop3上启动了<u>数据节点</u>：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>294 DataNode<br>361 Jps<br></code></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>279 Jps<br>188 DataNode<br></code></pre></td></tr></table></figure>
-<p>第二步在主节点上启动yarn管理系统：<code>start-yarn.sh</code></p>
-<p>Hadoop1:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>3751 Jps<br>3255 SecondaryNameNode<br>3049 NameNode<br>3455 ResourceManager<br></code></pre></td></tr></table></figure>
-<p>Hadoop2和hadoop3:</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>851 NodeManager<br>731 DataNode<br>975 Jps<br></code></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>644 DataNode<br>890 Jps<br>766 NodeManager<br></code></pre></td></tr></table></figure>
-<p>可以看到两台从节点都多了一个NodeManager</p>
-<p>此时hadoop应用已经成功运行。</p>
-<p>启动应用<u>不推荐</u>使用start-all</p>
-<p>停止应用：<code>stop-dfs.sh</code>和<code>stop-yarn.sh</code>或者<code>stop-all.sh</code></p>
-<blockquote>
-<p>在hadoop运行中有哪个datanode掉了很正常🤣🤣</p>
-<p>使用下面命令在数据节点上重开⬇️</p>
-<p><code>hdfs --daemon start datanode</code></p>
-</blockquote>
-<p>在宿主机上可以通过IP:8088查看Hadoop运行状态。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>docker</tag>
-        <tag>ubuntu</tag>
-        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -512,6 +365,34 @@ else:<br>
         <tag>信息技术</tag>
         <tag>支教</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
+<blockquote>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title>VALL-E</title>
@@ -671,6 +552,125 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
         <tag>虚拟机</tag>
         <tag>esxi</tag>
         <tag>群晖</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu上基于docker搭建Hadoop集群</title>
+    <url>/2022/10/07/ubuntu-shang-de-ji-yu-docker-da-jian-hadoop-ji-qun/</url>
+    <content><![CDATA[<h1 id="docker操作">Docker操作</h1>
+<p>先学习一下基础的docker命令，后面常用，这里放出来备查</p>
+<h2 id="查看容器container">查看容器container</h2>
+<p>docker ps 的命令包括： 1）-a 列出所有容器 2）-l 列出最新创建容器
+3）-n=2 列出最近创建的2个容器 4）-q 仅列出容器ID 5）-s 显示容器大小</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css">sudo docker ps -<span class="hljs-selector-tag">a</span><br></code></pre></td></tr></table></figure>
+<h2 id="删除容器">删除容器</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rm <span class="hljs-number">1051267</span>f9afb<br></code></pre></td></tr></table></figure>
+<h2 id="查看镜像image">查看镜像image</h2>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sudo docker images</span><br></code></pre></td></tr></table></figure>
+<h2 id="删除镜像">删除镜像</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker rmi <span class="hljs-number">5</span>d0da3dc9764<br></code></pre></td></tr></table></figure>
+<h2 id="启动容器">启动容器</h2>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker run -itd weicg/hadoop:<span class="hljs-number">1</span>.<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>-d表示在后台运行，需要进入容器</li>
+</ul>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> be349f8dd945 bash<br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用exec 进入容器时exit命令不会结束容器</li>
+</ul>
+<h1 id="hadoop集群搭建">Hadoop集群搭建</h1>
+<h2 id="准备镜像">准备镜像</h2>
+<p>我选择的是dockerhub上的<code>weicg/hadoop:1.2</code>,同样是一位初学者制作的，试用还算可以（单机可以开箱即用）不过这里搭建集群还需要修改一些内容。来源：https://hub.docker.com/r/weicg/hadoop</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker pull weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
+<p>我们打算建立一个<strong>一主两从</strong>的集群，需要开三个容器</p>
+<h2 id="建立网桥">建立网桥</h2>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">sudo docker network <span class="hljs-built_in">create</span> <span class="hljs-comment">--driver bridge hadoop-br</span><br></code></pre></td></tr></table></figure>
+<h2 id="开启多个容器">开启多个容器</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -itd --network hadoop-br --name hadoop1 -p 50070:50070 -p 8088:8088 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop2 weicg/hadoop:1.2<br>sudo docker run -itd --network hadoop-br --name hadoop3 weicg/hadoop:1.2<br></code></pre></td></tr></table></figure>
+<p>得到三个容器</p>
+<ul>
+<li>23c1187f8492</li>
+<li>676e08f5ecc5</li>
+<li>d2ec810e1e89</li>
+</ul>
+<p>进入这些容器只需要</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">sudo docker exec -<span class="hljs-keyword">it</span> hadoop1 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop2 bash<br>sudo docker exec -<span class="hljs-keyword">it</span> hadoop3 bash<br></code></pre></td></tr></table></figure>
+<h2 id="查看网桥配置">查看网桥配置</h2>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">sudo docker network <span class="hljs-keyword">inspect </span>hadoop-<span class="hljs-keyword">br </span><br></code></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-attr">&quot;Containers&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;23c1187f84929b19883f3ff3452688fca46c101e43bdfcc2a0cabaa4cd4fc593&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop1&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;27504f3d67c0a1e884ab8420c717b7bf5f3aa7db211360fa19a0d501fa6f9ed7&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:02&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.2/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;676e08f5ecc5273542efd51e554ef1fa8790b2aa4a57fa3516cb39d6b09cfb7f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;b766f1d85e339558f0bbf89e52e8e9a103c8d8e5b593dbcb6832367a925dcb4f&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:03&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.3/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;d2ec810e1e897f47add8b09f8a813b6c23ab892fddd0706b88373d7f67f76b2f&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;Name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hadoop3&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;EndpointID&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;552975d97feddc22fcf5d4ac1afa61be698846f08727e249d7581aaa33e220c2&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;MacAddress&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02:42:ac:12:00:04&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv4Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;172.18.0.4/16&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;IPv6Address&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>可以看到三个docker的ip地址</p>
+<p>172.18.0.2 hadoop1</p>
+<p>172.18.0.3 hadoop2</p>
+<p>172.18.0.4 hadoop3</p>
+<p>使用<code>ping</code>命令分别检查是否网络通畅</p>
+<p>以下命令需要分别进入三个容器内执行</p>
+<p>1.更改hosts文件<code>vim /etc/hosts</code>,加入如下配置</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">172.18.0.2</span> hadoop1 <br><span class="hljs-number">172.18.0.3</span> hadoop2 <br><span class="hljs-number">172.18.0.4</span> hadoop3 <br></code></pre></td></tr></table></figure>
+<p>2.分别在三个容器内配置ssh,因为镜像已经生成了密钥，此处将本机密钥加入本机的访问列表中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh<br><span class="hljs-built_in">cat</span> id_rsa.pub &gt;&gt; authorized_keys<br></code></pre></td></tr></table></figure>
+<p>完成后可以<code>ssh root@hadoop2</code>查看是否成功配置ssh和网络。</p>
+<h2 id="配置hadoop文件">配置hadoop文件</h2>
+<p>进入hadoop1,创建一些配置用到的文件夹</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">mkdir <span class="hljs-regexp">/home/</span>hadoop<br>mkdir <span class="hljs-regexp">/home/</span>hadoop<span class="hljs-regexp">/tmp /</span>home<span class="hljs-regexp">/hadoop/</span>hdfs_name <span class="hljs-regexp">/home/</span>hadoop/hdfs_data<br></code></pre></td></tr></table></figure>
+<p>切到hadoop配置目录</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">cd <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop/<br></code></pre></td></tr></table></figure>
+<p>下面的编辑部分可以直接拷贝覆盖粘贴</p>
+<h3 id="编辑workers文件">编辑workers文件</h3>
+<p><code>vim workers</code></p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">hadoop2<br>hadoop3<br></code></pre></td></tr></table></figure>
+<h3 id="编辑core-site.xml">编辑core-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>fs.defaultFS<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hdfs://hadoop1:9000<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>hadoop.tmp.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/tmp<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>io.file.buffer.size<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>131702<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑hdfs-site.xml">编辑hdfs-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br> <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.name.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_name<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.datanode.data.dir<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>file:/home/hadoop/hdfs_data<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.replication<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:9001<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>dfs.webhdfs.enabled<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑mapred-site.xml">编辑mapred-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.framework.name<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>yarn<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:10020<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:19888<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="编辑yarn-site.xml">编辑yarn-site.xml</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>mapreduce_shuffle<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.nodemanager.auxservices.mapreduce.shuffle.class<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8032<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8030<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8031<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8033<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>hadoop1:8088<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>把上面配置好的文件拷贝到2、3号机</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop2:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-regexp">/home/</span>hadoop hadoop3:<span class="hljs-regexp">/home/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop2:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br>scp -r <span class="hljs-variable">$HADOOP_HOME</span><span class="hljs-regexp">/etc/</span>hadoop<span class="hljs-regexp">/ hadoop3:$HADOOP_HOME/</span>etc<span class="hljs-regexp">/hadoop/</span><br></code></pre></td></tr></table></figure>
+<h2 id="可选增加sbin目录的环境变量方便随意启动">（可选）增加sbin目录的环境变量，方便随意启动</h2>
+<ol type="1">
+<li><p>分别连接三台机器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it hadoop1 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop2 bash<br>docker <span class="hljs-built_in">exec</span> -it hadoop3 bash<br></code></pre></td></tr></table></figure></li>
+<li><p>将hadoop/sbin目录加入PATH环境变量中<code>vim ～/.bashrc</code></p>
+<p>追加内容<code>export PATH=$PATH:$HADOOP_HOME/sbin</code></p>
+<p>然后执行<code>source ~/.bashrc</code></p></li>
+</ol>
+<p><strong>这一步略过的话，启动hadoop的相关命令需要先<code>cd $HADOOP_HOME/sbin</code></strong></p>
+<h2 id="启动hadoop">启动HADOOP</h2>
+<p>进入hadoop1号主节点</p>
+<p>第一次启动需要格式化hdfs，后续<strong><u>绝对不要再</u></strong>执行这一条<code>hdfs namenode -format</code></p>
+<p>先在主节点上启动文件系统：<code>start-dfs.sh</code></p>
+<p>使用<code>jps</code>命令此时可以观察到：</p>
+<p>hadoop1上启动了<u>名称节点</u>和<u>第二名称节点</u>（第二名称节点可以配置在其他节点上）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>1649 NameNode<br>1854 SecondaryNameNode<br>1967 Jps<br></code></pre></td></tr></table></figure>
+<p>hadoop2和hadoop3上启动了<u>数据节点</u>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>294 DataNode<br>361 Jps<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>279 Jps<br>188 DataNode<br></code></pre></td></tr></table></figure>
+<p>第二步在主节点上启动yarn管理系统：<code>start-yarn.sh</code></p>
+<p>Hadoop1:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@5d574541fd94:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>3751 Jps<br>3255 SecondaryNameNode<br>3049 NameNode<br>3455 ResourceManager<br></code></pre></td></tr></table></figure>
+<p>Hadoop2和hadoop3:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@004916b254fc:/opt/hadoop-3.1.3/etc/hadoop<span class="hljs-comment"># jps</span><br>851 NodeManager<br>731 DataNode<br>975 Jps<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">root@c5bea89663f9:/<span class="hljs-comment"># jps</span><br>644 DataNode<br>890 Jps<br>766 NodeManager<br></code></pre></td></tr></table></figure>
+<p>可以看到两台从节点都多了一个NodeManager</p>
+<p>此时hadoop应用已经成功运行。</p>
+<p>启动应用<u>不推荐</u>使用start-all</p>
+<p>停止应用：<code>stop-dfs.sh</code>和<code>stop-yarn.sh</code>或者<code>stop-all.sh</code></p>
+<blockquote>
+<p>在hadoop运行中有哪个datanode掉了很正常🤣🤣</p>
+<p>使用下面命令在数据节点上重开⬇️</p>
+<p><code>hdfs --daemon start datanode</code></p>
+</blockquote>
+<p>在宿主机上可以通过IP:8088查看Hadoop运行状态。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>ubuntu</tag>
+        <tag>hadoop</tag>
       </tags>
   </entry>
   <entry>
@@ -860,6 +860,137 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
 <p>节奏的技巧是欲高先低，欲低先高；欲轻先重，欲重先轻；逢慢必先快，逢快必先慢，即<strong>节奏是通过高低、快慢、轻重</strong>体现。</p>
 <p>从上文论述中，我们得出理论上的假设是：情感的表现与音高变化、声音强度、快慢有关，而这些又都与呼吸停顿直接相关，恰恰<strong>停顿最能体现汉语言节奏的特点</strong>，因而本文就是通过实证性的研究证明播音艺术语言使用中，情感影响呼吸，呼吸影响停延，停延表现语言节奏，这些语音的实际表现形式又决定了播音语言语义信息及情感信息表达的信度和效度。</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>使用BERTopic提取文本主题</title>
+    <url>/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/</url>
+    <content><![CDATA[<h1 id="使用bertopic提取文本主题">使用BERTopic提取文本主题</h1>
+<h2 id="加载数据集">加载数据集</h2>
+<p>挂载Google
+Drive用于读取数据集，这里会要求登陆Google账号授权，每次都需要重新授权，建议一开始在colab中选好gpu分配资源。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive<br>drive.mount(<span class="hljs-string">&#x27;/content/drive&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>数据集来自外卖平台中文评论，数据集地址：https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/waimai_10k/waimai_10k.csv，可以直接wget获取。该数据集本身用于情感二分类。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.read_csv(<span class="hljs-string">&#x27;/content/drive/MyDrive/colab/waimai_10k.csv&#x27;</span>)<br>df[<span class="hljs-string">&#x27;label&#x27;</span>].value_counts()<br></code></pre></td></tr></table></figure></p>
+<p>结果为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">0</span>    <span class="hljs-number">7987</span><br><span class="hljs-number">1</span>    <span class="hljs-number">4000</span><br><span class="hljs-attr">Name:</span> <span class="hljs-string">label,</span> <span class="hljs-attr">dtype:</span> <span class="hljs-string">int64</span><br></code></pre></td></tr></table></figure>
+<p>0 表示负面评论<br>
+1 表示正面评论<br>
+不过这些label并不使用，只需要文本review</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.head(n=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/查看数据集dataframe.png" alt="数据集dataframe">
+<figcaption aria-hidden="true">数据集dataframe</figcaption>
+</figure>
+<p>将数据集整理为列表方便输入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dataset = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;review&#x27;</span>]]<br>dataset[:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><code>['很快，好吃，味道足，量大', '没有送水没有送水没有送水', '非常快，态度好。', '方便，快捷，味道可口，快递给力', '菜味道很棒！送餐很及时！', '今天师傅是不是手抖了，微辣格外辣！', '送餐快,态度也特别好,辛苦啦谢谢', '超级快就送到了，这么冷的天气骑士们辛苦了。谢谢你们。麻辣香锅依然很好吃。', '经过上次晚了2小时，这次超级快，20分钟就送到了……', '最后五分钟订的，卖家特别好接单了，谢谢。']</code></p>
+<p>去除停用词（没用到，数据集已经过清洗）</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">stopwords = [<span class="hljs-string">&#x27; &#x27;</span>]+[<span class="hljs-type">line</span>.strip() <span class="hljs-keyword">for</span> <span class="hljs-type">line</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">open</span>(&quot;cn_stopwords.txt&quot;, &quot;rt&quot;, encoding=&quot;utf-8&quot;).readlines()]<br></code></pre></td></tr></table></figure>
+<h2 id="bertopic建模">BERTopic建模</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">!pip install bertopic<br><br><span class="hljs-keyword">from</span> bertopic <span class="hljs-keyword">import</span> BERTopic<br><span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer<br><span class="hljs-keyword">from</span> umap <span class="hljs-keyword">import</span> UMAP<br><span class="hljs-keyword">from</span> hdbscan <span class="hljs-keyword">import</span> HDBSCAN<br><span class="hljs-keyword">from</span> bertopic.vectorizers <span class="hljs-keyword">import</span> ClassTfidfTransformer<br></code></pre></td></tr></table></figure>
+<p>使用<code>sentence-transformers</code>支持多语言的大模型进行embedding，在colab上下载速度很快，约400M瞬间完成。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embedding_model = SentenceTransformer(<span class="hljs-string">&#x27;sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2&#x27;</span>)<br></code></pre></td></tr></table></figure> <strong>降维</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">umap_model = UMAP(n_neighbors=<span class="hljs-number">20</span>, n_components=<span class="hljs-number">5</span>, min_dist=<span class="hljs-number">0.0</span>, metric=<span class="hljs-string">&#x27;cosine&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>聚类</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">hdbscan_model = HDBSCAN(min_cluster_size=<span class="hljs-number">10</span>, metric=<span class="hljs-string">&#x27;euclidean&#x27;</span>, cluster_selection_method=<span class="hljs-string">&#x27;eom&#x27;</span>, prediction_data=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<p>tokenizer <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer<br>vectorizer_model = CountVectorizer()<br></code></pre></td></tr></table></figure>
+<strong>加权</strong>：使用改进tf-idf的c-tf-idf方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">ctfidf_model = ClassTfidfTransformer()<br></code></pre></td></tr></table></figure>
+<p>输入BERTopic模型 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model = BERTopic(<br>​    embedding_model=embedding_model,<br>​    umap_model=umap_model,<br>​    hdbscan_model=hdbscan_model,<br>​    vectorizer_model=vectorizer_model,<br>​    ctfidf_model=ctfidf_model,<br>​    nr_topics=<span class="hljs-number">10</span>                        <br>)<br></code></pre></td></tr></table></figure> 训练 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topics, probabilities = topic_model.fit_transform(dataset)<br></code></pre></td></tr></table></figure></p>
+<h2 id="可视化呈现和结果分析">可视化呈现和结果分析</h2>
+<p><strong>查看聚类结果</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_document_info(dataset)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/聚类后结果.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
+<p>查看各话题文本数量。<br>
+-1表示没有聚类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic_freq()<br></code></pre></td></tr></table></figure>
+<p><img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题文本数量.png" alt="话题文本数量" style="zoom: 50%;"></p>
+<p>查看话题7的文本并按照重要程度排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic(<span class="hljs-number">7</span>)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[(&#x27;就是有点油&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;就是油太大&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;全是油&#x27;, 0.10826034220928046),</span><br><span class="hljs-string"> (&#x27;味道不错&#x27;, 0.07580202124764789),</span><br><span class="hljs-string"> (&#x27;挺好的&#x27;, 0.07380868069892178),</span><br><span class="hljs-string"> (&#x27;灰常满意&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;一层厚厚的油&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手贵&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手好多油啊&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手不错&#x27;, 0.06720667864215085)]</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><strong>可视化查看各话题分数排序</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_barchart()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/分数排序.png" alt="分数排序">
+<figcaption aria-hidden="true">分数排序</figcaption>
+</figure>
+<p>能够看到一部分结果聚类效果很好，比如集中描述送餐慢、凉、咖啡奶茶、披萨、油等主题，而其他一部分看起来好坏参半，原因应该是该主题聚类可能将评价好坏都列为“评价主题”而分到一起。</p>
+<p><strong>可视化呈现点云图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embeddings = embedding_model.encode(dataset, show_progress_bar=<span class="hljs-literal">False</span>)<br>topic_model.visualize_documents(dataset, embeddings=embeddings)<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/点云图.png" alt="点云图">
+<figcaption aria-hidden="true">点云图</figcaption>
+</figure>
+<p>点云图中颜色相同的属于同一主题，灰色属于无法聚类的文本。</p>
+<p><strong>可视化呈现热度图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_heatmap()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/热度图.png" alt="热度图">
+<figcaption aria-hidden="true">热度图</figcaption>
+</figure>
+<p>热度图中颜色相近的色块表示相似度高，可以看到01两主题的内容很相似，颜色较深；同时01两个话题与其他话题的相似度都很高；2号主题与其他的相似度较低，可以从颜色和文本中观察到。</p>
+<p><strong>可视化呈现话题间距离</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_topics()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题间距离.png" alt="话题间距离">
+<figcaption aria-hidden="true">话题间距离</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>BERTopic</tag>
+        <tag>文本主题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</title>
+    <url>/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
+<blockquote>
+<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
+</blockquote>
+<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+<figure>
+<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
+</figure>
+<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
+<h1 id="flask服务端">Flask服务端</h1>
+<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
+<h2 id="基础路由">基础路由</h2>
+<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="响应get请求">响应get请求</h2>
+<p>下面这个装饰器专门响应/predict路径的get请求。</p>
+<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
+<blockquote>
+<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
+</blockquote>
+<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+<h1 id="web客户端">Web客户端</h1>
+<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>NER</tag>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
   </entry>
   <entry>
     <title>使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</title>
@@ -1306,6 +1437,58 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
       </tags>
   </entry>
   <entry>
+    <title>微调Bert模型完成文本分类feat.fastNLP</title>
+    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
+    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
+TextClassification</h1>
+<h2 id="前言">前言</h2>
+<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
+<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
+<h2 id="外卖数据预处理">外卖数据预处理</h2>
+<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
+<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
+<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
+<figcaption aria-hidden="true">数据集</figcaption>
+</figure>
+<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
+<h2 id="模型搭建">模型搭建</h2>
+<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
+<h2 id="模型训练">模型训练</h2>
+<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
+<blockquote>
+<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
+</blockquote>
+<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
+<figcaption aria-hidden="true">训练完成</figcaption>
+</figure>
+<p>最后得到在验证集上的准确率0.836485</p>
+<h2 id="模型测试">模型测试</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>输出测试集上准确率：这个模型结果为0.8125</p>
+<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
+<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>文本分类</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>机器学习数学基础②概率论和信息论</title>
     <url>/2022/07/26/ji-qi-xue-xi-shu-xue-ji-chu-gai-lu-lun-he-xin-xi-lun/</url>
     <content><![CDATA[<h1 id="机器学习数学基础②概率论与信息论">机器学习数学基础②概率论与信息论</h1>
@@ -1477,6 +1660,74 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>清河村支教回忆</title>
     <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
     <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
@@ -1568,165 +1819,6 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
-    <title>生成模型之Flow-based Model(1)前置知识</title>
-    <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
-    <content><![CDATA[<h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
-<blockquote>
-<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
-</blockquote>
-<h2 id="雅各比矩阵-jacobian-matrix">雅各比矩阵 Jacobian Matrix</h2>
-<p>对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br>
-<span class="math display">\[z =
-\left[\begin{matrix}z_{1}\\z_{2}\end{matrix}\right]\]</span> <span class="math display">\[x =
-\left[\begin{matrix}x_{1}\\x_{2}\end{matrix}\right]\]</span></p>
-<p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系:<br>
-<span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
-<p>Jacobian Matrix定义为:<br>
-<span class="math display">\[
-J_{f} = \left[ \begin{matrix}
-\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2}
-\\
-\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}
-\end{matrix} \right]
-\]</span></p>
-<p><span class="math display">\[
-J_{f^{-1}} = \left[ \begin{matrix}
-\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2}
-\\
-\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}
-\end{matrix} \right]
-\]</span></p>
-<p><span class="math display">\[
-J_{f}J_{f^{-1}}=1
-\]</span></p>
-<h2 id="行列式-determinant">行列式 Determinant</h2>
-<p>对于一个矩阵<span class="math inline">\(A\)</span><br>
-<span class="math display">\[
-A = \left[ \begin{matrix}a &amp;&amp; b\\c &amp;&amp;
-d\end{matrix}\right]
-\]</span> 其行列式结果为:<br>
-<span class="math display">\[
-\det(A) = ad-bc
-\]</span></p>
-<p>对于一个矩阵<span class="math inline">\(B\)</span><br>
-<span class="math display">\[
-B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4}
-&amp;&amp; a_{5} &amp;&amp; a_{6}\\a_{7} &amp;&amp; a_{8} &amp;&amp;
-a_{9}\end{matrix}\right]
-\]</span> 其行列式结果为:<br>
-<span class="math display">\[
-\det(B) =
-a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}
-\]</span></p>
-<p>有公式:<br>
-<span class="math display">\[
-\det (A) = \frac {1}{\det(A^{-1})}
-\]</span></p>
-<p><span class="math display">\[
-\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}
-\]</span></p>
-<h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable
-theorem</h2>
-<p>对于正态分布<span class="math inline">\(\pi(z)\)</span>和概率分布<span class="math inline">\(p(x)\)</span><br>
-其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span></p>
-<h3 id="一维形式">一维形式</h3>
-<p><span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta
-z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac
-{\mathrm{d} z}{\mathrm{d} x}| \]</span></p>
-<h3 id="二维形式">二维形式</h3>
-<p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span>
-<span class="math display">\[p(x&#39;) =
-\pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
-<h3 id="引申">引申</h3>
-<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span></p>
-<h2 id="生成器generator">生成器Generator</h2>
-<p>对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br>
-对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br>
-说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布
-显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
-<p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br>
-<span class="math inline">\(G^{*}= argmax_{G}
-\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
-<p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} ||
-P_{G})\)</span><br>
-(KL散度越小,两个分布越接近)</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习数学基础③数值计算和最优化理论</title>
-    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
-    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
-<h2 id="上溢和下溢">上溢和下溢</h2>
-<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
-<ul>
-<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
-</ul>
-<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
-<figure>
-<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
-<figcaption aria-hidden="true">softmax函数</figcaption>
-</figure>
-<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
-<h1 id="最优化">最优化</h1>
-<h2 id="最优化理论">最优化理论</h2>
-<p><strong>经验风险最小化</strong></p>
-<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
-<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
-<h3 id="凸集">1.凸集</h3>
-<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
-<figure>
-<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
-<figcaption aria-hidden="true">凸集和非凸集</figcaption>
-</figure>
-<p>数学定义: 一个集合<span class="math inline">\(S\subset
-R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
-S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
-\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
-x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
-<h3 id="超平面和半空间">2.超平面和半空间</h3>
-<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
-<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
-<h3 id="凸集分离定理">3.凸集分离定理</h3>
-<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
-<figcaption aria-hidden="true">凸集分离</figcaption>
-</figure>
-<h3 id="凸函数">4.凸函数</h3>
-<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
-<figure>
-<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
-<figcaption aria-hidden="true">凸函数</figcaption>
-</figure>
-<aside>
-💡 在图中直线始终在凸函数曲线上方
-</aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
-1\)</span>,有:</p>
-<p><span class="math display">\[
-f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
-\]</span></p>
-<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
-<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
-<aside>
-💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
-</aside>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>生成模型之Flow-based-Model(2)</title>
     <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
     <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
@@ -1754,16 +1846,18 @@ Model（2）流模型</h1>
 </blockquote>
 <h2 id="流模型实质">流模型实质</h2>
 <p>以一个生成器为例:</p>
-<pre class="mermaid">graph LR
-z --> G --> x</pre>
+<pre><code class=" mermaid">graph LR
+z --&gt; G --&gt; x
+</code></pre>
 <p><span class="math display">\[
 logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
 \]</span></p>
 <p>发现为得到左式中的<span class="math inline">\(G\)</span>,
 右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
 因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre class="mermaid">graph RL
-x --> G-1 --> z</pre>
+<pre><code class=" mermaid">graph RL
+x --&gt; G-1 --&gt; z
+</code></pre>
 <p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
 <p>欲使左式最大, 右侧两项应尽可能大</p>
 <ul>
@@ -1794,226 +1888,6 @@ z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
       </categories>
       <tags>
         <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之VAE</title>
-    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
-    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
-Auto-Encoder</h1>
-<blockquote>
-<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
-<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
-(Auto-encoder) (上) - 基本概念</a></p>
-<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
-Unsupervised Learning - Deep Generative Model (Part II)</a></p>
-</blockquote>
-<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
-<aside>
-💡 可以认为是自监督学习的一种方法，不需要标注
-</aside>
-<h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre><code class=" mermaid">graph LR
-	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
-</code></pre>
-<h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre><code class=" mermaid">graph LR
-	原图.-原图+噪声
-	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
-	
-</code></pre>
-<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
-<p>输入信息常常由各种信息纠缠在一起，如</p>
-<ul>
-<li>图片中存在物体、纹理</li>
-<li>声音中存在文本内容、说话人信息</li>
-<li>一句话包含格式、语法</li>
-<li>……</li>
-</ul>
-<p>这时候需要通过解缠得到不同维度包含的信息</p>
-<p>应用：Voice Conversion语者转换</p>
-<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
-<h2 id="ae和vae区别">AE和VAE区别</h2>
-<p>Auto-encoder</p>
-<pre><code class=" mermaid">graph LR
-  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
-</code></pre>
-<p>VAE</p>
-<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
-<pre><code class=" mermaid">graph LR
-  input --&gt; NN-Encoder --&gt; mu
-	NN-Encoder --&gt; sigma
-	sigma --exp--&gt; times((相乘))
-	e --&gt; times
-	mu --&gt; plus((相加))
-	times --&gt;plus
-	plus --&gt; z --&gt;
-
- NN-Decoder--&gt; output
-</code></pre>
-<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
-<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
-<p>所以需要最小化如下函数：</p>
-<p><span class="math display">\[
-\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
-\]</span></p>
-<h2 id="vae推导">VAE推导</h2>
-<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
-<blockquote>
-<p>部分内容参考</p>
-<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
-</blockquote>
-<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
-<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
-<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
-</figure>
-<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
-<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
-<p><span class="math display">\[
-P(x)=\sum \limits _mP(m)P(x|m)
-\]</span></p>
-<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
-<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
-<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
-</figure>
-<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
-<aside>
-💡
-与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
-</aside>
-<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
-<p>于是P(x)的分布就可以表示为:</p>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>所以我们的目标就变成求解上面这个公式。</p>
-<h3 id="求解目标公式">求解目标公式</h3>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
-N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
-<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
-<pre><code class=" mermaid">graph LR
-	z --&gt; NN-Decoder --&gt; mu
-	NN-Decoder --&gt; sigma
-</code></pre>
-<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
-N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
-<pre><code class=" mermaid">graph LR
-  x --&gt; NN-Encoder --&gt; mu&#x27;
-	NN-Encoder --&gt; sigma&#x27;
-</code></pre>
-<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
-<ul>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
-<ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
-<li>写出似然函数</li>
-<li>对似然函数取对数</li>
-<li>两边同时求导(多个变量就求偏导)</li>
-<li>令导数为0,解出似然方程</li>
-</ol>
-<ul>
-<li><p>例子</p>
-<figure>
-<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
-<figcaption aria-hidden="true">最大似然函数例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
-</ul>
-<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
-q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
-<p><span class="math display">\[
-\begin{aligned}
-\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
-_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
-&amp;=\int \limits _zq(z|x)\log
-(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
-\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-+KL(q(z|x)||P(z|x))
-\end{aligned}
-\]</span></p>
-<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
-<p><span class="math display">\[
-\log P(x) \geqslant \int \limits _z
-q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-\]</span></p>
-<p><span class="math display">\[
-\log P(x) = L_b+KL(q(z|x)||P(z|x))
-\]</span></p>
-<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
-<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
-<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
-<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
-</figure>
-<p>根据<span class="math inline">\(P(x)=\int\limits
-_zP(z)P(x|z)dz\)</span>:</p>
-<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
-<p>再根据<span class="math inline">\(\log P(x) =
-L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
-<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
-<p>此时我们发现：</p>
-<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
-<aside>
-💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
-</aside>
-<blockquote>
-<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
-</blockquote>
-<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
-_zq(z|x)\log P(x|z)dz \\
-&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
-\end{aligned}
-\]</span></p>
-<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
-<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
-_{i=1} ^n
-(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
-Variational Bayes》</p>
-<p>求B的最大值：</p>
-<p><span class="math display">\[
-\max B = \max E_{q(z|x)}[\log P(x|z)]
-\]</span></p>
-<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
-P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
-<pre><code class=" mermaid">graph LR
-  x --&gt; NN-Encoder --&gt; mu&#x27;
-	NN-Encoder --&gt; sigma&#x27;
-	mu&#x27;--&gt;z
-	sigma&#x27;--&gt;z
-	z--&gt;NN-Decoder--&gt;mu
-	NN-Decoder--&gt;sigma
-	mu .-越接近越好.-&gt; x
-
-</code></pre>
-<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>DL</tag>
-        <tag>VAE</tag>
-        <tag>生成模型</tag>
       </tags>
   </entry>
   <entry>
@@ -2499,186 +2373,314 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 ]]></content>
   </entry>
   <entry>
-    <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</title>
-    <url>/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
+    <title>生成模型之VAE</title>
+    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
+    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
+Auto-Encoder</h1>
 <blockquote>
-<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
+<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
+<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
+(Auto-encoder) (上) - 基本概念</a></p>
+<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
+Unsupervised Learning - Deep Generative Model (Part II)</a></p>
 </blockquote>
-<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
+<aside>
+💡 可以认为是自监督学习的一种方法，不需要标注
+</aside>
+<h2 id="压缩自动编码器">压缩自动编码器</h2>
+<pre><code class=" mermaid">graph LR
+	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
+</code></pre>
+<h2 id="降噪自动编码器">降噪自动编码器</h2>
+<pre><code class=" mermaid">graph LR
+	原图.-原图+噪声
+	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
+	
+</code></pre>
+<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
+<p>输入信息常常由各种信息纠缠在一起，如</p>
+<ul>
+<li>图片中存在物体、纹理</li>
+<li>声音中存在文本内容、说话人信息</li>
+<li>一句话包含格式、语法</li>
+<li>……</li>
+</ul>
+<p>这时候需要通过解缠得到不同维度包含的信息</p>
+<p>应用：Voice Conversion语者转换</p>
+<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
+<h2 id="ae和vae区别">AE和VAE区别</h2>
+<p>Auto-encoder</p>
+<pre><code class=" mermaid">graph LR
+  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
+</code></pre>
+<p>VAE</p>
+<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
+<pre><code class=" mermaid">graph LR
+  input --&gt; NN-Encoder --&gt; mu
+	NN-Encoder --&gt; sigma
+	sigma --exp--&gt; times((相乘))
+	e --&gt; times
+	mu --&gt; plus((相加))
+	times --&gt;plus
+	plus --&gt; z --&gt;
+
+ NN-Decoder--&gt; output
+</code></pre>
+<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
+<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
+<p>所以需要最小化如下函数：</p>
+<p><span class="math display">\[
+\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
+\]</span></p>
+<h2 id="vae推导">VAE推导</h2>
+<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
+<blockquote>
+<p>部分内容参考</p>
+<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
+</blockquote>
+<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
+<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
 <figure>
-<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" alt="结果展示">
-<figcaption aria-hidden="true">结果展示</figcaption>
+<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
+<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
 </figure>
-<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
-<h1 id="flask服务端">Flask服务端</h1>
-<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
-<h2 id="基础路由">基础路由</h2>
-<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="响应get请求">响应get请求</h2>
-<p>下面这个装饰器专门响应/predict路径的get请求。</p>
-<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
+<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
+<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
+<p><span class="math display">\[
+P(x)=\sum \limits _mP(m)P(x|m)
+\]</span></p>
+<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
+<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
+<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
+</figure>
+<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
+<aside>
+💡
+与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
+</aside>
+<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
+<p>于是P(x)的分布就可以表示为:</p>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>所以我们的目标就变成求解上面这个公式。</p>
+<h3 id="求解目标公式">求解目标公式</h3>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
+N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
+<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
+<pre><code class=" mermaid">graph LR
+	z --&gt; NN-Decoder --&gt; mu
+	NN-Decoder --&gt; sigma
+</code></pre>
+<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
+N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+</code></pre>
+<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
+<ul>
+<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<ul>
+<li>Note:最大似然估计的使用
+<ol type="1">
+<li>写出似然函数</li>
+<li>对似然函数取对数</li>
+<li>两边同时求导(多个变量就求偏导)</li>
+<li>令导数为0,解出似然方程</li>
+</ol>
+<ul>
+<li><p>例子</p>
+<figure>
+<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
+<figcaption aria-hidden="true">最大似然函数例题</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
+</figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
+q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
+_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
+&amp;=\int \limits _zq(z|x)\log
+(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
+\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
++KL(q(z|x)||P(z|x))
+\end{aligned}
+\]</span></p>
+<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
+<p><span class="math display">\[
+\log P(x) \geqslant \int \limits _z
+q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
+\]</span></p>
+<p><span class="math display">\[
+\log P(x) = L_b+KL(q(z|x)||P(z|x))
+\]</span></p>
+<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
+<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
+<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
+<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
+</figure>
+<p>根据<span class="math inline">\(P(x)=\int\limits
+_zP(z)P(x|z)dz\)</span>:</p>
+<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
+<p>再根据<span class="math inline">\(\log P(x) =
+L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
+<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
+<p>此时我们发现：</p>
+<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
+<aside>
+💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
+</aside>
 <blockquote>
-<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
+<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
 </blockquote>
-<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
-<h1 id="web客户端">Web客户端</h1>
-<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
+_zq(z|x)\log P(x|z)dz \\
+&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
+\end{aligned}
+\]</span></p>
+<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
+<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
+_{i=1} ^n
+(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
+Variational Bayes》</p>
+<p>求B的最大值：</p>
+<p><span class="math display">\[
+\max B = \max E_{q(z|x)}[\log P(x|z)]
+\]</span></p>
+<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
+P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+	mu&#x27;--&gt;z
+	sigma&#x27;--&gt;z
+	z--&gt;NN-Decoder--&gt;mu
+	NN-Decoder--&gt;sigma
+	mu .-越接近越好.-&gt; x
+
+</code></pre>
+<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
 ]]></content>
       <categories>
         <category>学习</category>
       </categories>
       <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>NER</tag>
-        <tag>python</tag>
-        <tag>flask</tag>
+        <tag>DL</tag>
+        <tag>VAE</tag>
+        <tag>生成模型</tag>
       </tags>
   </entry>
   <entry>
-    <title>使用BERTopic提取文本主题</title>
-    <url>/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/</url>
-    <content><![CDATA[<h1 id="使用bertopic提取文本主题">使用BERTopic提取文本主题</h1>
-<h2 id="加载数据集">加载数据集</h2>
-<p>挂载Google
-Drive用于读取数据集，这里会要求登陆Google账号授权，每次都需要重新授权，建议一开始在colab中选好gpu分配资源。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive<br>drive.mount(<span class="hljs-string">&#x27;/content/drive&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>数据集来自外卖平台中文评论，数据集地址：https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/waimai_10k/waimai_10k.csv，可以直接wget获取。该数据集本身用于情感二分类。
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.read_csv(<span class="hljs-string">&#x27;/content/drive/MyDrive/colab/waimai_10k.csv&#x27;</span>)<br>df[<span class="hljs-string">&#x27;label&#x27;</span>].value_counts()<br></code></pre></td></tr></table></figure></p>
-<p>结果为：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">0</span>    <span class="hljs-number">7987</span><br><span class="hljs-number">1</span>    <span class="hljs-number">4000</span><br><span class="hljs-attr">Name:</span> <span class="hljs-string">label,</span> <span class="hljs-attr">dtype:</span> <span class="hljs-string">int64</span><br></code></pre></td></tr></table></figure>
-<p>0 表示负面评论<br>
-1 表示正面评论<br>
-不过这些label并不使用，只需要文本review</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.head(n=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/查看数据集dataframe.png" alt="数据集dataframe">
-<figcaption aria-hidden="true">数据集dataframe</figcaption>
-</figure>
-<p>将数据集整理为列表方便输入</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dataset = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;review&#x27;</span>]]<br>dataset[:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<p><code>['很快，好吃，味道足，量大', '没有送水没有送水没有送水', '非常快，态度好。', '方便，快捷，味道可口，快递给力', '菜味道很棒！送餐很及时！', '今天师傅是不是手抖了，微辣格外辣！', '送餐快,态度也特别好,辛苦啦谢谢', '超级快就送到了，这么冷的天气骑士们辛苦了。谢谢你们。麻辣香锅依然很好吃。', '经过上次晚了2小时，这次超级快，20分钟就送到了……', '最后五分钟订的，卖家特别好接单了，谢谢。']</code></p>
-<p>去除停用词（没用到，数据集已经过清洗）</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">stopwords = [<span class="hljs-string">&#x27; &#x27;</span>]+[<span class="hljs-type">line</span>.strip() <span class="hljs-keyword">for</span> <span class="hljs-type">line</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">open</span>(&quot;cn_stopwords.txt&quot;, &quot;rt&quot;, encoding=&quot;utf-8&quot;).readlines()]<br></code></pre></td></tr></table></figure>
-<h2 id="bertopic建模">BERTopic建模</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">!pip install bertopic<br><br><span class="hljs-keyword">from</span> bertopic <span class="hljs-keyword">import</span> BERTopic<br><span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer<br><span class="hljs-keyword">from</span> umap <span class="hljs-keyword">import</span> UMAP<br><span class="hljs-keyword">from</span> hdbscan <span class="hljs-keyword">import</span> HDBSCAN<br><span class="hljs-keyword">from</span> bertopic.vectorizers <span class="hljs-keyword">import</span> ClassTfidfTransformer<br></code></pre></td></tr></table></figure>
-<p>使用<code>sentence-transformers</code>支持多语言的大模型进行embedding，在colab上下载速度很快，约400M瞬间完成。
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embedding_model = SentenceTransformer(<span class="hljs-string">&#x27;sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2&#x27;</span>)<br></code></pre></td></tr></table></figure> <strong>降维</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">umap_model = UMAP(n_neighbors=<span class="hljs-number">20</span>, n_components=<span class="hljs-number">5</span>, min_dist=<span class="hljs-number">0.0</span>, metric=<span class="hljs-string">&#x27;cosine&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p><strong>聚类</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">hdbscan_model = HDBSCAN(min_cluster_size=<span class="hljs-number">10</span>, metric=<span class="hljs-string">&#x27;euclidean&#x27;</span>, cluster_selection_method=<span class="hljs-string">&#x27;eom&#x27;</span>, prediction_data=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
-<p>tokenizer <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer<br>vectorizer_model = CountVectorizer()<br></code></pre></td></tr></table></figure>
-<strong>加权</strong>：使用改进tf-idf的c-tf-idf方法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">ctfidf_model = ClassTfidfTransformer()<br></code></pre></td></tr></table></figure>
-<p>输入BERTopic模型 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model = BERTopic(<br>​    embedding_model=embedding_model,<br>​    umap_model=umap_model,<br>​    hdbscan_model=hdbscan_model,<br>​    vectorizer_model=vectorizer_model,<br>​    ctfidf_model=ctfidf_model,<br>​    nr_topics=<span class="hljs-number">10</span>                        <br>)<br></code></pre></td></tr></table></figure> 训练 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topics, probabilities = topic_model.fit_transform(dataset)<br></code></pre></td></tr></table></figure></p>
-<h2 id="可视化呈现和结果分析">可视化呈现和结果分析</h2>
-<p><strong>查看聚类结果</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_document_info(dataset)<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/聚类后结果.png" alt="结果">
-<figcaption aria-hidden="true">结果</figcaption>
-</figure>
-<p>查看各话题文本数量。<br>
--1表示没有聚类</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic_freq()<br></code></pre></td></tr></table></figure>
-<p><img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题文本数量.png" alt="话题文本数量" style="zoom: 50%;"></p>
-<p>查看话题7的文本并按照重要程度排序</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic(<span class="hljs-number">7</span>)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[(&#x27;就是有点油&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;就是油太大&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;全是油&#x27;, 0.10826034220928046),</span><br><span class="hljs-string"> (&#x27;味道不错&#x27;, 0.07580202124764789),</span><br><span class="hljs-string"> (&#x27;挺好的&#x27;, 0.07380868069892178),</span><br><span class="hljs-string"> (&#x27;灰常满意&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;一层厚厚的油&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手贵&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手好多油啊&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手不错&#x27;, 0.06720667864215085)]</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-<p><strong>可视化查看各话题分数排序</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_barchart()<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/分数排序.png" alt="分数排序">
-<figcaption aria-hidden="true">分数排序</figcaption>
-</figure>
-<p>能够看到一部分结果聚类效果很好，比如集中描述送餐慢、凉、咖啡奶茶、披萨、油等主题，而其他一部分看起来好坏参半，原因应该是该主题聚类可能将评价好坏都列为“评价主题”而分到一起。</p>
-<p><strong>可视化呈现点云图</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embeddings = embedding_model.encode(dataset, show_progress_bar=<span class="hljs-literal">False</span>)<br>topic_model.visualize_documents(dataset, embeddings=embeddings)<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/点云图.png" alt="点云图">
-<figcaption aria-hidden="true">点云图</figcaption>
-</figure>
-<p>点云图中颜色相同的属于同一主题，灰色属于无法聚类的文本。</p>
-<p><strong>可视化呈现热度图</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_heatmap()<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/热度图.png" alt="热度图">
-<figcaption aria-hidden="true">热度图</figcaption>
-</figure>
-<p>热度图中颜色相近的色块表示相似度高，可以看到01两主题的内容很相似，颜色较深；同时01两个话题与其他话题的相似度都很高；2号主题与其他的相似度较低，可以从颜色和文本中观察到。</p>
-<p><strong>可视化呈现话题间距离</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_topics()<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题间距离.png" alt="话题间距离">
-<figcaption aria-hidden="true">话题间距离</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>BERTopic</tag>
-        <tag>文本主题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微调Bert模型完成文本分类feat.fastNLP</title>
-    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
-    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
-TextClassification</h1>
-<h2 id="前言">前言</h2>
-<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
-<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
-<h2 id="外卖数据预处理">外卖数据预处理</h2>
-<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
-<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
-<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
-<figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
-<figcaption aria-hidden="true">数据集</figcaption>
-</figure>
-<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
-<h2 id="模型搭建">模型搭建</h2>
-<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
-<h2 id="模型训练">模型训练</h2>
-<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
-<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
+    <title>生成模型之Flow-based Model(1)前置知识</title>
+    <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
+    <content><![CDATA[<h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
 <blockquote>
-<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
+<p>流模型是数学上严密推理得到的模型,本篇为数学上的前置内容</p>
 </blockquote>
-<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
-<figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
-<figcaption aria-hidden="true">训练完成</figcaption>
-</figure>
-<p>最后得到在验证集上的准确率0.836485</p>
-<h2 id="模型测试">模型测试</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>输出测试集上准确率：这个模型结果为0.8125</p>
-<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
-<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
+<h2 id="雅各比矩阵-jacobian-matrix">雅各比矩阵 Jacobian Matrix</h2>
+<p>对于两个矩阵<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span><br>
+<span class="math display">\[z =
+\left[\begin{matrix}z_{1}\\z_{2}\end{matrix}\right]\]</span> <span class="math display">\[x =
+\left[\begin{matrix}x_{1}\\x_{2}\end{matrix}\right]\]</span></p>
+<p><span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>之间存在关系:<br>
+<span class="math inline">\(x = f(z)\)</span>, <span class="math inline">\(z = f^{-1}(x)\)</span></p>
+<p>Jacobian Matrix定义为:<br>
+<span class="math display">\[
+J_{f} = \left[ \begin{matrix}
+\partial x_{1}/\partial z_{1} &amp;&amp; \partial x_{1}/\partial z_{2}
+\\
+\partial x_{2}/\partial z_{1} &amp;&amp; \partial x_{2}/\partial z_{2}
+\end{matrix} \right]
+\]</span></p>
+<p><span class="math display">\[
+J_{f^{-1}} = \left[ \begin{matrix}
+\partial z_{1}/\partial x_{1} &amp;&amp; \partial z_{1}/\partial x_{2}
+\\
+\partial z_{2}/\partial x_{1} &amp;&amp; \partial z_{2}/\partial x_{2}
+\end{matrix} \right]
+\]</span></p>
+<p><span class="math display">\[
+J_{f}J_{f^{-1}}=1
+\]</span></p>
+<h2 id="行列式-determinant">行列式 Determinant</h2>
+<p>对于一个矩阵<span class="math inline">\(A\)</span><br>
+<span class="math display">\[
+A = \left[ \begin{matrix}a &amp;&amp; b\\c &amp;&amp;
+d\end{matrix}\right]
+\]</span> 其行列式结果为:<br>
+<span class="math display">\[
+\det(A) = ad-bc
+\]</span></p>
+<p>对于一个矩阵<span class="math inline">\(B\)</span><br>
+<span class="math display">\[
+B = \left[ \begin{matrix}a_{1} &amp;&amp; a_{2} &amp;&amp; a_{3}\\a_{4}
+&amp;&amp; a_{5} &amp;&amp; a_{6}\\a_{7} &amp;&amp; a_{8} &amp;&amp;
+a_{9}\end{matrix}\right]
+\]</span> 其行列式结果为:<br>
+<span class="math display">\[
+\det(B) =
+a_{1}a_{5}a_{9}+a_{2}a_{6}a_{7}+a_{3}a_{4}a_{8}-a_{3}a_{5}a_{7}-a_{2}a_{4}a_{9}-a_{1}a_{6}a_{8}
+\]</span></p>
+<p>有公式:<br>
+<span class="math display">\[
+\det (A) = \frac {1}{\det(A^{-1})}
+\]</span></p>
+<p><span class="math display">\[
+\det (J_{f}) = \frac {1}{\det(J_{f^{-1})}}
+\]</span></p>
+<h2 id="可变理论-change-of-variable-theorem">可变理论 change of variable
+theorem</h2>
+<p>对于正态分布<span class="math inline">\(\pi(z)\)</span>和概率分布<span class="math inline">\(p(x)\)</span><br>
+其中<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span></p>
+<h3 id="一维形式">一维形式</h3>
+<p><span class="math display">\[ p(x&#39;)\Delta x = \pi (z&#39;)\Delta
+z\]</span> <span class="math display">\[p(x&#39;) = \pi (z&#39;) |\frac
+{\mathrm{d} z}{\mathrm{d} x}| \]</span></p>
+<h3 id="二维形式">二维形式</h3>
+<p><span class="math display">\[p(x&#39;)|det(J_f)|=\pi(z&#39;)\]</span>
+<span class="math display">\[p(x&#39;) =
+\pi(z&#39;)|det(J_{f^{-1}})|\]</span></p>
+<h3 id="引申">引申</h3>
+<p>如果<span class="math inline">\(x\)</span>和<span class="math inline">\(z\)</span>满足<span class="math inline">\(x=f(z)\)</span>,则他们的分布之间关系就是相差<span class="math inline">\(|det(J_f)|\)</span></p>
+<h2 id="生成器generator">生成器Generator</h2>
+<p>对于一个网络<span class="math inline">\(G\)</span>,我们定义他的分布为<span class="math inline">\(P_{G}\)</span>,对于真实样本的分布为<span class="math inline">\(P_{data}\)</span><br>
+对于输入<span class="math inline">\(z\)</span>,经过生成器得到的结果为<span class="math inline">\(x\)</span>,记为<span class="math inline">\(x=G(z)\)</span><br>
+说明<span class="math inline">\(x\)</span>服从<span class="math inline">\(P_{G}(x)\)</span>分布
+显然一个好的生成器应当使得<span class="math inline">\(P_{G}(x)\)</span>接近<span class="math inline">\(P_{data}(x)\)</span></p>
+<p>因此理论上有最优生成器<span class="math inline">\(G^{*}\)</span><br>
+<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span> 其中 <span class="math inline">\({x^i from P_{data}(x)}\)</span></p>
+<p><span class="math inline">\(G^{*} \approx argmin_{G}KL(P_{data} ||
+P_{G})\)</span><br>
+(KL散度越小,两个分布越接近)</p>
 ]]></content>
       <categories>
         <category>学习</category>
       </categories>
       <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>文本分类</tag>
+        <tag>Deep Learning</tag>
       </tags>
   </entry>
 </search>
