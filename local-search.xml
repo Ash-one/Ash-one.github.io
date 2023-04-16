@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Github Pages与Hexo deploy的一点小问题</title>
+    <link href="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/"/>
+    <url>/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前情提要">前情提要</h1><blockquote><p>顺便如果你还没撸过这个学生党羊毛：https://education.github.com/pack/offers</p><p>一共有三家域名商给提供这个羊毛，慢慢撸</p></blockquote><p>前段时间想玩玩域名，于是趁着GitHub学生包还在赶紧撸两个免费的一年域名。简单的注册域名绑定在GitHubPages上之后就没有再deploy到仓库上新的博文，只是在本地修改过，于是忘记了有这么一回事。</p><p>namecheap这家域名商在用学生包注册时很鸡贼地补充一句：<strong>现在是唯一将你域名和GitHubPages绑定的时机</strong></p><p>其实，在博客的仓库setting下手动设置Custom domain并没有多复杂。</p><p><strong>直到今天我在deploy了hexo的修改后，发现域名下的博客怎么404了</strong></p><figure><img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/404.png" alt="404"><figcaption aria-hidden="true">404</figcaption></figure><h1 id="省流版">省流版</h1><p>Hexo有针对配置GitHub Pages定制域名的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，之后的每次构建和部署都会带有域名信息。</p><figure><img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/cname.png" alt="cname"><figcaption aria-hidden="true">cname</figcaption></figure><h1 id="问题排查">问题排查</h1><ol type="1"><li><p><strong>怀疑是Hexo构建出了问题</strong>，但是404应该是<code>index.html</code>不正常才会有的问题</p><p><code>hexo clean</code>然后重新<code>hexo g</code><code>hexo d</code>，然后发现暴露出了另一个错误：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[master b137740] Site updated: 2023-04-16 15:33:52<br> 2 files changed, 792 insertions(+), 796 deletions(-)<br>kex_exchange_identification: Connection closed by remote host<br>Connection closed by 198.18.1.13 port 22<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure><p>这是我以为就是git在链接上的故障，于是重新生成了SSH密钥上传到GitHub上，但是故障依旧</p></li><li><p><strong>排查SSH问题</strong>，搜索到使用的代理可能会出现不允许22端口的情况</p><p>于是在<code>~/.ssh/config</code>中添加了：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs config">Host github.com<br>  HostName ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure><p>表示强制使用443端口连接GitHub的SSH</p><p>使用<code>ssh -vT git@github.com</code>测试GitHub：</p><p>一串跑码之后收到回复：<code>Hi Ash-one! You've successfully authenticated, but GitHub does not provide shell access.</code>看来SSH的问题解决了</p><p>继续测试deploy，发现Hexo正常构建合并了分支到仓库中。</p><p>但是，故障依旧还在。</p></li><li><p>到这里，我选择<strong>检查了commit记录</strong>，因为在印象中有看到仓库根目录下有<code>CNAME</code>文件标记是哪个域名，结果在所有commit记录中都没有见到这一条，commit的文本也都是Hexo自动生成的update文本。</p><p>终于意识到了是<strong>Hexo在deploy的时候肯定是将CNAME文件覆盖掉</strong>了，重新进入仓库的设置，果然发现曾经配置过的域名消失了</p><figure><img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/custom-domain.png" alt="对这里熟悉完全是因为配置HTTPS证书时的痛苦"><figcaption aria-hidden="true">对这里熟悉完全是因为配置HTTPS证书时的痛苦</figcaption></figure></li></ol><p>重新在图中3的位置上填上了域名后，成功解决了这次的404问题。</p><p>但是很简单的状况是：下次deploy还会覆盖掉CNAME</p><p>实际上Hexo有针对配置GitHub Pages的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，就完成了，之后的每次构建和部署都会带有域名信息。</p><h1 id="小结">小结</h1><p>整体而言只是因为工具不熟悉出现的一次小问题，花了半小时的排查来回，还出现SSH上的奇怪问题，确实是很奇妙了。。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>hexo</tag>
+      
+      <tag>博客</tag>
+      
+      <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>微调Bert模型完成文本分类feat.fastNLP</title>
     <link href="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/"/>
     <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
