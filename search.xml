@@ -2745,4 +2745,56 @@ Pages绑定的时机</strong></p>
         <tag>git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在Linux上无sudo安装使用ProxyChains</title>
+    <url>/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
+<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
+<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
+<h1 id="安装">安装</h1>
+<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
+<p>没有权限的需要从源码构建</p>
+<p>ProxyChains的<a href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
+<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" alt="需要修改的部分">
+<figcaption aria-hidden="true">需要修改的部分</figcaption>
+</figure>
+<p>这里指定的是程序运行时从哪里读取lib文件，当我们make
+install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
+<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，所以加上了<code>”/home/gxz/.local/lib“</code></p>
+<p>下面指定配置目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>没有报错就代表安装好了，可以添加到环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
+<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" alt="conf文件路径">
+<figcaption aria-hidden="true">conf文件路径</figcaption>
+</figure>
+<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
+<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
+<h1 id="使用">使用</h1>
+<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>代理</tag>
+        <tag>proxy</tag>
+        <tag>tool</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
