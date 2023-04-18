@@ -2765,10 +2765,16 @@ Pages绑定的时机</strong></p>
 </figure>
 <p>这里指定的是程序运行时从哪里读取lib文件，当我们make
 install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
-<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，所以加上了<code>”/home/gxz/.local/lib“</code></p>
+<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，所以加上了<code>/home/gxz/.local/lib</code></p>
 <p>下面指定配置目录：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>没有报错就代表安装好了，可以添加到环境变量：</p>
+<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" alt="make结果">
+<figcaption aria-hidden="true">make结果</figcaption>
+</figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br></code></pre></td></tr></table></figure>
+<p>将ProxyChains添加到环境变量：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
 <p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
