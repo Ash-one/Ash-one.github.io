@@ -55,6 +55,35 @@ Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
       </tags>
   </entry>
   <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Apple Silicon MacBook Pro新机配置</title>
     <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
     <content><![CDATA[<blockquote>
@@ -144,6 +173,68 @@ Silicon版本）</h1>
       </tags>
   </entry>
   <entry>
+    <title>Github Pages与Hexo deploy的一点小问题</title>
+    <url>/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/</url>
+    <content><![CDATA[<h1 id="前情提要">前情提要</h1>
+<blockquote>
+<p>顺便如果你还没撸过这个学生党羊毛：https://education.github.com/pack/offers</p>
+<p>一共有三家域名商给提供这个羊毛，慢慢撸</p>
+</blockquote>
+<p>前段时间想玩玩域名，于是趁着GitHub学生包还在赶紧撸两个免费的一年域名。简单的注册域名绑定在GitHub
+Pages上之后就没有再deploy到仓库上新的博文，只是在本地修改过，于是忘记了有这么一回事。</p>
+<p>namecheap这家域名商在用学生包注册时很鸡贼地补充一句：<strong>现在是唯一将你域名和GitHub
+Pages绑定的时机</strong></p>
+<p>其实，在博客的仓库setting下手动设置Custom domain并没有多复杂。</p>
+<p><strong>直到今天我在deploy了hexo的修改后，发现域名下的博客怎么404了</strong></p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/404.png" alt="404">
+<figcaption aria-hidden="true">404</figcaption>
+</figure>
+<h1 id="省流版">省流版</h1>
+<p>Hexo有针对配置GitHub Pages定制域名的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，之后的每次构建和部署都会带有域名信息。</p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/cname.png" alt="cname">
+<figcaption aria-hidden="true">cname</figcaption>
+</figure>
+<h1 id="问题排查">问题排查</h1>
+<ol type="1">
+<li><p><strong>怀疑是Hexo构建出了问题</strong>，但是404应该是<code>index.html</code>不正常才会有的问题</p>
+<p><code>hexo clean</code>然后重新<code>hexo g</code>
+<code>hexo d</code>，然后发现暴露出了另一个错误：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[master b137740] Site updated: 2023-04-16 15:33:52<br> 2 files changed, 792 insertions(+), 796 deletions(-)<br>kex_exchange_identification: Connection closed by remote host<br>Connection closed by 198.18.1.13 port 22<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure>
+<p>这是我以为就是git在链接上的故障，于是重新生成了SSH密钥上传到GitHub上，但是故障依旧</p></li>
+<li><p><strong>排查SSH问题</strong>，搜索到使用的代理可能会出现不允许22端口的情况</p>
+<p>于是在<code>~/.ssh/config</code>中添加了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs config">Host github.com<br>  HostName ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
+<p>表示强制使用443端口连接GitHub的SSH</p>
+<p>使用<code>ssh -vT git@github.com</code>测试GitHub：</p>
+<p>一串跑码之后收到回复：<code>Hi Ash-one! You've successfully authenticated, but GitHub does not provide shell access.</code>
+看来SSH的问题解决了</p>
+<p>继续测试deploy，发现Hexo正常构建合并了分支到仓库中。</p>
+<p>但是，故障依旧还在。</p></li>
+<li><p>到这里，我选择<strong>检查了commit记录</strong>，因为在印象中有看到仓库根目录下有<code>CNAME</code>文件标记是哪个域名，结果在所有commit记录中都没有见到这一条，commit的文本也都是Hexo自动生成的update文本。</p>
+<p>终于意识到了是<strong>Hexo在deploy的时候肯定是将CNAME文件覆盖掉</strong>了，重新进入仓库的设置，果然发现曾经配置过的域名消失了</p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/custom-domain.png" alt="对这里熟悉完全是因为配置HTTPS证书时的痛苦">
+<figcaption aria-hidden="true">对这里熟悉完全是因为配置HTTPS证书时的痛苦</figcaption>
+</figure></li>
+</ol>
+<p>重新在图中3的位置上填上了域名后，成功解决了这次的404问题。</p>
+<p>但是很简单的状况是：下次deploy还会覆盖掉CNAME</p>
+<p>实际上Hexo有针对配置GitHub Pages的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，就完成了，之后的每次构建和部署都会带有域名信息。</p>
+<h1 id="小结">小结</h1>
+<p>整体而言只是因为工具不熟悉出现的一次小问题，花了半小时的排查来回，还出现SSH上的奇怪问题，确实是很奇妙了。。。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>git</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo博客在matery主题下插入mermaid流程图</title>
     <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
     <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
@@ -177,67 +268,10 @@ dark | forest | neutral</em></li>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>blog</tag>
         <tag>hexo</tag>
+        <tag>blog</tag>
         <tag>typora</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
-</ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo快速使用指北</title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>Hexo安装和配置插件</title>
@@ -294,73 +328,32 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
       </tags>
   </entry>
   <entry>
-    <title>VALL-E</title>
-    <url>/2023/01/13/vall-e/</url>
-    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
-<h2 id="模型">模型</h2>
-<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
-<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
-<figure>
-<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
-<figcaption aria-hidden="true">模型总览</figcaption>
-</figure>
-<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
-<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
-<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
-<p>后面出现了矢量量化（vector
-quantization），应用在vq-wav2vec、HuBERT。</p>
-<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
-models），优点如下：</p>
-<ul>
-<li>在低比特率下表现比传统音频编解码器更好。</li>
-<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
-<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
-<li>可以做到减少时间序列长度。</li>
-</ul>
-<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
-code
-matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
-<figure>
-<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
-<figcaption aria-hidden="true">RVQ</figcaption>
-</figure>
-<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
-<h2 id="模型-1">模型</h2>
-<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
-C)\)</span></p>
-<figure>
-<img src="/2023/01/13/vall-e/LM.png" alt="LM">
-<figcaption aria-hidden="true">LM</figcaption>
-</figure>
-<h2 id="推理">推理</h2>
-<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
-<ul>
-<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
-<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
-</ul>
-<h2 id="数据">数据</h2>
-<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
-<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
-<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
-<p>16个 NVIDIA TESLA V100
-32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
-5 × 10−4 的峰值，然后对其进行线性衰减。</p>
-<h2 id="分析">分析</h2>
-<ul>
-<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
-<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
-<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
-<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
-<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
-<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
-</ul>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
+<blockquote>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
+</blockquote>
 ]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-      </tags>
   </entry>
   <entry>
     <title>Python基础知识点</title>
@@ -461,97 +454,6 @@ else:<br>
         <tag>Python</tag>
         <tag>信息技术</tag>
         <tag>支教</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>esxi安装黑群晖记录</title>
-    <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
-    <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
-<p>用U盘刷好系统，具体省略</p>
-<h1 id="准备">准备</h1>
-<h2 id="镜像">镜像</h2>
-<p>黑群晖镜像链接:
-https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
-<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
-<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
-<h2 id="硬件准备">硬件准备</h2>
-<p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
-<h2 id="img转vmdk">img转vmdk</h2>
-<h3 id="本地qemu工具转换">本地qemu工具转换</h3>
-<p>众所周知，esxi的系统需要单独制作vmdk文件</p>
-<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
-<p>没安装qemu的先使用brew安装</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">brew install qemu<br></code></pre></td></tr></table></figure>
-<p>qemu转换img为vmdk的命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">qemu-img convert -f raw name.img -O vmdk name.vmdk<br></code></pre></td></tr></table></figure>
-<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
-<h3 id="上传到esxi系统转换">上传到esxi系统转换</h3>
-<ol type="1">
-<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
-<figure>
-<img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH">
-<figcaption aria-hidden="true">启动SSH</figcaption>
-</figure></li>
-<li><p><strong>右键存储-浏览数据存储</strong>
-点击上载，将本地的vmdk上传到esxi上</p></li>
-<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /vmfs/volumes/datastore1/<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径">
-<figcaption aria-hidden="true">查看路径</figcaption>
-</figure></li>
-<li><p>执行转换命令</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">vmkfstools -<span class="hljs-selector-tag">i</span> ds3617<span class="hljs-selector-class">.vmdk</span> ds3617_esxi.vmdk<br></code></pre></td></tr></table></figure></li>
-<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p></li>
-</ol>
-<h1 id="创建虚拟机">创建虚拟机</h1>
-<ol type="1">
-<li>创建类型：新虚拟机</li>
-<li>名称、兼容性：随便选一个linux</li>
-<li>选择存储：装在系统盘上</li>
-<li><strong>自定义设置</strong></li>
-</ol>
-<h2 id="自定义设置">自定义设置</h2>
-<p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
-<h3 id="添加sata控制器">添加SATA控制器</h3>
-<p>添加其他设备- SATA控制器</p>
-<h3 id="添加硬盘">添加硬盘</h3>
-<p>我添加一块现有硬盘和一块新标准硬盘</p>
-<ul>
-<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
-<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
-<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
-</ul>
-<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
-<h1 id="启动黑群晖虚拟机">启动黑群晖虚拟机</h1>
-<p>启动后在esxi中显示如图</p>
-<blockquote>
-<p>Loading Linux...</p>
-<p>Starting kernel with SATA boot</p>
-</blockquote>
-<figure>
-<img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功">
-<figcaption aria-hidden="true">启动成功</figcaption>
-</figure>
-<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
-<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
-<blockquote>
-<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
-</blockquote>
-<blockquote>
-<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
-</blockquote>
-<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
-<p>PS：</p>
-<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>虚拟机</tag>
-        <tag>esxi</tag>
-        <tag>群晖</tag>
       </tags>
   </entry>
   <entry>
@@ -674,134 +576,163 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
       </tags>
   </entry>
   <entry>
-    <title>使用BERTopic提取文本主题</title>
-    <url>/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/</url>
-    <content><![CDATA[<h1 id="使用bertopic提取文本主题">使用BERTopic提取文本主题</h1>
-<h2 id="加载数据集">加载数据集</h2>
-<p>挂载Google
-Drive用于读取数据集，这里会要求登陆Google账号授权，每次都需要重新授权，建议一开始在colab中选好gpu分配资源。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive<br>drive.mount(<span class="hljs-string">&#x27;/content/drive&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>数据集来自外卖平台中文评论，数据集地址：https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/waimai_10k/waimai_10k.csv，可以直接wget获取。该数据集本身用于情感二分类。
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.read_csv(<span class="hljs-string">&#x27;/content/drive/MyDrive/colab/waimai_10k.csv&#x27;</span>)<br>df[<span class="hljs-string">&#x27;label&#x27;</span>].value_counts()<br></code></pre></td></tr></table></figure></p>
-<p>结果为：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">0</span>    <span class="hljs-number">7987</span><br><span class="hljs-number">1</span>    <span class="hljs-number">4000</span><br><span class="hljs-attr">Name:</span> <span class="hljs-string">label,</span> <span class="hljs-attr">dtype:</span> <span class="hljs-string">int64</span><br></code></pre></td></tr></table></figure>
-<p>0 表示负面评论<br>
-1 表示正面评论<br>
-不过这些label并不使用，只需要文本review</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.head(n=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
+    <title>esxi安装黑群晖记录</title>
+    <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
+    <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
+<p>用U盘刷好系统，具体省略</p>
+<h1 id="准备">准备</h1>
+<h2 id="镜像">镜像</h2>
+<p>黑群晖镜像链接:
+https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
+<p>其中不同镜像对应的就是不同的群晖硬件，我一开始使用的ds918+一直卡在最后一步安装失败，所以后面选用的<strong>ds2617xs</strong></p>
+<p>镜像分为引导文件(.img)和系统安装包(.pat)，要下载好对应的版本</p>
+<h2 id="硬件准备">硬件准备</h2>
+<p>最好准备一块以上未使用的硬盘，专门为黑群晖使用做数据盘，防止各种环节上出错</p>
+<h2 id="img转vmdk">img转vmdk</h2>
+<h3 id="本地qemu工具转换">本地qemu工具转换</h3>
+<p>众所周知，esxi的系统需要单独制作vmdk文件</p>
+<p>对于img文件，以Mac为例，使用常用的<code>qemu</code>工具转换</p>
+<p>没安装qemu的先使用brew安装</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">brew install qemu<br></code></pre></td></tr></table></figure>
+<p>qemu转换img为vmdk的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">qemu-img convert -f raw name.img -O vmdk name.vmdk<br></code></pre></td></tr></table></figure>
+<p>此时我们的vmdk<u>还不能在esxi上直接使用</u>，必须使用esxi的命令再转换一次</p>
+<h3 id="上传到esxi系统转换">上传到esxi系统转换</h3>
+<ol type="1">
+<li><p><strong>右键主机-服务-启用安全Shell</strong>，打开esxi的ssh登陆，然后通过ssh登陆后台</p>
 <figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/查看数据集dataframe.png" alt="数据集dataframe">
-<figcaption aria-hidden="true">数据集dataframe</figcaption>
-</figure>
-<p>将数据集整理为列表方便输入</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dataset = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;review&#x27;</span>]]<br>dataset[:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
-<p>输出：</p>
-<p><code>['很快，好吃，味道足，量大', '没有送水没有送水没有送水', '非常快，态度好。', '方便，快捷，味道可口，快递给力', '菜味道很棒！送餐很及时！', '今天师傅是不是手抖了，微辣格外辣！', '送餐快,态度也特别好,辛苦啦谢谢', '超级快就送到了，这么冷的天气骑士们辛苦了。谢谢你们。麻辣香锅依然很好吃。', '经过上次晚了2小时，这次超级快，20分钟就送到了……', '最后五分钟订的，卖家特别好接单了，谢谢。']</code></p>
-<p>去除停用词（没用到，数据集已经过清洗）</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">stopwords = [<span class="hljs-string">&#x27; &#x27;</span>]+[<span class="hljs-type">line</span>.strip() <span class="hljs-keyword">for</span> <span class="hljs-type">line</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">open</span>(&quot;cn_stopwords.txt&quot;, &quot;rt&quot;, encoding=&quot;utf-8&quot;).readlines()]<br></code></pre></td></tr></table></figure>
-<h2 id="bertopic建模">BERTopic建模</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">!pip install bertopic<br><br><span class="hljs-keyword">from</span> bertopic <span class="hljs-keyword">import</span> BERTopic<br><span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer<br><span class="hljs-keyword">from</span> umap <span class="hljs-keyword">import</span> UMAP<br><span class="hljs-keyword">from</span> hdbscan <span class="hljs-keyword">import</span> HDBSCAN<br><span class="hljs-keyword">from</span> bertopic.vectorizers <span class="hljs-keyword">import</span> ClassTfidfTransformer<br></code></pre></td></tr></table></figure>
-<p>使用<code>sentence-transformers</code>支持多语言的大模型进行embedding，在colab上下载速度很快，约400M瞬间完成。
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embedding_model = SentenceTransformer(<span class="hljs-string">&#x27;sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2&#x27;</span>)<br></code></pre></td></tr></table></figure> <strong>降维</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">umap_model = UMAP(n_neighbors=<span class="hljs-number">20</span>, n_components=<span class="hljs-number">5</span>, min_dist=<span class="hljs-number">0.0</span>, metric=<span class="hljs-string">&#x27;cosine&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p><strong>聚类</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">hdbscan_model = HDBSCAN(min_cluster_size=<span class="hljs-number">10</span>, metric=<span class="hljs-string">&#x27;euclidean&#x27;</span>, cluster_selection_method=<span class="hljs-string">&#x27;eom&#x27;</span>, prediction_data=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
-<p>tokenizer <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer<br>vectorizer_model = CountVectorizer()<br></code></pre></td></tr></table></figure>
-<strong>加权</strong>：使用改进tf-idf的c-tf-idf方法</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">ctfidf_model = ClassTfidfTransformer()<br></code></pre></td></tr></table></figure>
-<p>输入BERTopic模型 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model = BERTopic(<br>​    embedding_model=embedding_model,<br>​    umap_model=umap_model,<br>​    hdbscan_model=hdbscan_model,<br>​    vectorizer_model=vectorizer_model,<br>​    ctfidf_model=ctfidf_model,<br>​    nr_topics=<span class="hljs-number">10</span>                        <br>)<br></code></pre></td></tr></table></figure> 训练 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topics, probabilities = topic_model.fit_transform(dataset)<br></code></pre></td></tr></table></figure></p>
-<h2 id="可视化呈现和结果分析">可视化呈现和结果分析</h2>
-<p><strong>查看聚类结果</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_document_info(dataset)<br></code></pre></td></tr></table></figure>
+<img src="https://s2.loli.net/2022/10/02/945pvVtThizKP2n.png" alt="启动SSH">
+<figcaption aria-hidden="true">启动SSH</figcaption>
+</figure></li>
+<li><p><strong>右键存储-浏览数据存储</strong>
+点击上载，将本地的vmdk上传到esxi上</p></li>
+<li><p>在ssh会话中找到上传的文件，<code>/vmfs/volumes/</code>下是硬盘</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /vmfs/volumes/datastore1/<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/聚类后结果.png" alt="结果">
-<figcaption aria-hidden="true">结果</figcaption>
-</figure>
-<p>查看各话题文本数量。<br>
--1表示没有聚类</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic_freq()<br></code></pre></td></tr></table></figure>
-<p><img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题文本数量.png" alt="话题文本数量" style="zoom: 50%;"></p>
-<p>查看话题7的文本并按照重要程度排序</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic(<span class="hljs-number">7</span>)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[(&#x27;就是有点油&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;就是油太大&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;全是油&#x27;, 0.10826034220928046),</span><br><span class="hljs-string"> (&#x27;味道不错&#x27;, 0.07580202124764789),</span><br><span class="hljs-string"> (&#x27;挺好的&#x27;, 0.07380868069892178),</span><br><span class="hljs-string"> (&#x27;灰常满意&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;一层厚厚的油&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手贵&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手好多油啊&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手不错&#x27;, 0.06720667864215085)]</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-<p><strong>可视化查看各话题分数排序</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_barchart()<br></code></pre></td></tr></table></figure>
+<img src="https://s2.loli.net/2022/10/02/tHPp8UrCVEAXMfF.png" alt="查看路径">
+<figcaption aria-hidden="true">查看路径</figcaption>
+</figure></li>
+<li><p>执行转换命令</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">vmkfstools -<span class="hljs-selector-tag">i</span> ds3617<span class="hljs-selector-class">.vmdk</span> ds3617_esxi.vmdk<br></code></pre></td></tr></table></figure></li>
+<li><p>最好做下备份，因为esxi删除虚拟机时会删除掉vmdk文件</p></li>
+</ol>
+<h1 id="创建虚拟机">创建虚拟机</h1>
+<ol type="1">
+<li>创建类型：新虚拟机</li>
+<li>名称、兼容性：随便选一个linux</li>
+<li>选择存储：装在系统盘上</li>
+<li><strong>自定义设置</strong></li>
+</ol>
+<h2 id="自定义设置">自定义设置</h2>
+<p>CPU内存根据需要，我这里选择了2核4G，删除掉原本的硬盘1和SCSI控制器0、CD等选项</p>
+<h3 id="添加sata控制器">添加SATA控制器</h3>
+<p>添加其他设备- SATA控制器</p>
+<h3 id="添加硬盘">添加硬盘</h3>
+<p>我添加一块现有硬盘和一块新标准硬盘</p>
+<ul>
+<li>现有硬盘，<strong>选择vmdk作为黑群晖的系统盘</strong>，保证其控制器位置是SATA控制器0，（0:0）表示最先启动的硬盘</li>
+<li>新标准硬盘，<strong>作为黑群晖的数据盘</strong>。选择空硬盘分配全部大小上限，选择SATA控制器1，跟系统盘区分开</li>
+<li>如果你有更多的硬盘可以继续添加，可以选择非0号的其他SATA控制器即可</li>
+</ul>
+<p>其余均作默认设置即可，不出意外的话就可以启动虚拟机了</p>
+<h1 id="启动黑群晖虚拟机">启动黑群晖虚拟机</h1>
+<p>启动后在esxi中显示如图</p>
+<blockquote>
+<p>Loading Linux...</p>
+<p>Starting kernel with SATA boot</p>
+</blockquote>
 <figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/分数排序.png" alt="分数排序">
-<figcaption aria-hidden="true">分数排序</figcaption>
+<img src="https://s2.loli.net/2022/10/02/qSiyMOHnG5uLfmg.png" alt="启动成功">
+<figcaption aria-hidden="true">启动成功</figcaption>
 </figure>
-<p>能够看到一部分结果聚类效果很好，比如集中描述送餐慢、凉、咖啡奶茶、披萨、油等主题，而其他一部分看起来好坏参半，原因应该是该主题聚类可能将评价好坏都列为“评价主题”而分到一起。</p>
-<p><strong>可视化呈现点云图</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embeddings = embedding_model.encode(dataset, show_progress_bar=<span class="hljs-literal">False</span>)<br>topic_model.visualize_documents(dataset, embeddings=embeddings)<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/点云图.png" alt="点云图">
-<figcaption aria-hidden="true">点云图</figcaption>
-</figure>
-<p>点云图中颜色相同的属于同一主题，灰色属于无法聚类的文本。</p>
-<p><strong>可视化呈现热度图</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_heatmap()<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/热度图.png" alt="热度图">
-<figcaption aria-hidden="true">热度图</figcaption>
-</figure>
-<p>热度图中颜色相近的色块表示相似度高，可以看到01两主题的内容很相似，颜色较深；同时01两个话题与其他话题的相似度都很高；2号主题与其他的相似度较低，可以从颜色和文本中观察到。</p>
-<p><strong>可视化呈现话题间距离</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_topics()<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题间距离.png" alt="话题间距离">
-<figcaption aria-hidden="true">话题间距离</figcaption>
-</figure>
+<p>此时需要通过路由器查看黑群晖获得的IP地址</p>
+<p>或者使用群晖的SynologyAssistant软件搜索IP地址</p>
+<blockquote>
+<p>如果你的路由器没有开DHCP就必须使用软件搜索，找到之后设置静态路由地址，不过非常不推荐此处设置静态路由地址，因为后续黑群晖安装时会不断重启，丢失设置好的IP导致配置失败</p>
+</blockquote>
+<blockquote>
+<p>如果在这一步搜索不到IP地址，可能是卡在内核启动了，原因可能很多，建议直接重装（</p>
+</blockquote>
+<p>访问IP地址的5005端口就可以开始配置黑群晖了！</p>
+<p>PS：</p>
+<p>如果等待10分钟倒计时后显示配置错误之类的，多次尝试无果的，多半是因为硬件和软件不匹配，建议更换镜像重新启动虚拟机。</p>
 ]]></content>
       <categories>
-        <category>学习</category>
+        <category>技术</category>
       </categories>
       <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>BERTopic</tag>
-        <tag>文本主题</tag>
+        <tag>虚拟机</tag>
+        <tag>esxi</tag>
+        <tag>群晖</tag>
       </tags>
   </entry>
   <entry>
-    <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</title>
-    <url>/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
-<blockquote>
-<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
-</blockquote>
-<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
+    <title>VALL-E</title>
+    <url>/2023/01/13/vall-e/</url>
+    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
+<h2 id="模型">模型</h2>
+<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
+<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
 <figure>
-<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" alt="结果展示">
-<figcaption aria-hidden="true">结果展示</figcaption>
+<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
+<figcaption aria-hidden="true">模型总览</figcaption>
 </figure>
-<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
-<h1 id="flask服务端">Flask服务端</h1>
-<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
-<h2 id="基础路由">基础路由</h2>
-<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<h2 id="响应get请求">响应get请求</h2>
-<p>下面这个装饰器专门响应/predict路径的get请求。</p>
-<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
-<blockquote>
-<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
-</blockquote>
-<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
-<h1 id="web客户端">Web客户端</h1>
-<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
+<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
+<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
+<p>后面出现了矢量量化（vector
+quantization），应用在vq-wav2vec、HuBERT。</p>
+<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
+models），优点如下：</p>
+<ul>
+<li>在低比特率下表现比传统音频编解码器更好。</li>
+<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
+<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
+<li>可以做到减少时间序列长度。</li>
+</ul>
+<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
+code
+matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
+<figure>
+<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
+<figcaption aria-hidden="true">RVQ</figcaption>
+</figure>
+<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
+<h2 id="模型-1">模型</h2>
+<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
+C)\)</span></p>
+<figure>
+<img src="/2023/01/13/vall-e/LM.png" alt="LM">
+<figcaption aria-hidden="true">LM</figcaption>
+</figure>
+<h2 id="推理">推理</h2>
+<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
+<ul>
+<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
+<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
+</ul>
+<h2 id="数据">数据</h2>
+<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
+<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
+<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
+<p>16个 NVIDIA TESLA V100
+32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
+5 × 10−4 的峰值，然后对其进行线性衰减。</p>
+<h2 id="分析">分析</h2>
+<ul>
+<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
+<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
+<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
+<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
+<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
+<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
+</ul>
 ]]></content>
       <categories>
         <category>学习</category>
       </categories>
       <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>NER</tag>
-        <tag>python</tag>
-        <tag>flask</tag>
+        <tag>语音合成</tag>
       </tags>
   </entry>
   <entry>
@@ -993,143 +924,165 @@ Drive用于读取数据集，这里会要求登陆Google账号授权，每次都
 ]]></content>
   </entry>
   <entry>
-    <title>使用wireguard搭建属于自己的虚拟内网</title>
-    <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
-    <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
-<blockquote>
-<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
-</blockquote>
-<h2 id="wireguard结果展示">wireguard结果展示</h2>
-<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
-<p>在部署完成后是这样的效果：</p>
+    <title>使用BERTopic提取文本主题</title>
+    <url>/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/</url>
+    <content><![CDATA[<h1 id="使用bertopic提取文本主题">使用BERTopic提取文本主题</h1>
+<h2 id="加载数据集">加载数据集</h2>
+<p>挂载Google
+Drive用于读取数据集，这里会要求登陆Google账号授权，每次都需要重新授权，建议一开始在colab中选好gpu分配资源。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> google.colab <span class="hljs-keyword">import</span> drive<br>drive.mount(<span class="hljs-string">&#x27;/content/drive&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>数据集来自外卖平台中文评论，数据集地址：https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/waimai_10k/waimai_10k.csv，可以直接wget获取。该数据集本身用于情感二分类。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br>df = pd.read_csv(<span class="hljs-string">&#x27;/content/drive/MyDrive/colab/waimai_10k.csv&#x27;</span>)<br>df[<span class="hljs-string">&#x27;label&#x27;</span>].value_counts()<br></code></pre></td></tr></table></figure></p>
+<p>结果为：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-number">0</span>    <span class="hljs-number">7987</span><br><span class="hljs-number">1</span>    <span class="hljs-number">4000</span><br><span class="hljs-attr">Name:</span> <span class="hljs-string">label,</span> <span class="hljs-attr">dtype:</span> <span class="hljs-string">int64</span><br></code></pre></td></tr></table></figure>
+<p>0 表示负面评论<br>
+1 表示正面评论<br>
+不过这些label并不使用，只需要文本review</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">df.head(n=<span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
-<figcaption aria-hidden="true">部署完成测速</figcaption>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/查看数据集dataframe.png" alt="数据集dataframe">
+<figcaption aria-hidden="true">数据集dataframe</figcaption>
 </figure>
-<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
-<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
-<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
-<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
+<p>将数据集整理为列表方便输入</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">dataset = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> df[<span class="hljs-string">&#x27;review&#x27;</span>]]<br>dataset[:<span class="hljs-number">10</span>]<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<p><code>['很快，好吃，味道足，量大', '没有送水没有送水没有送水', '非常快，态度好。', '方便，快捷，味道可口，快递给力', '菜味道很棒！送餐很及时！', '今天师傅是不是手抖了，微辣格外辣！', '送餐快,态度也特别好,辛苦啦谢谢', '超级快就送到了，这么冷的天气骑士们辛苦了。谢谢你们。麻辣香锅依然很好吃。', '经过上次晚了2小时，这次超级快，20分钟就送到了……', '最后五分钟订的，卖家特别好接单了，谢谢。']</code></p>
+<p>去除停用词（没用到，数据集已经过清洗）</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><code class="hljs pgsql">stopwords = [<span class="hljs-string">&#x27; &#x27;</span>]+[<span class="hljs-type">line</span>.strip() <span class="hljs-keyword">for</span> <span class="hljs-type">line</span> <span class="hljs-keyword">in</span> <span class="hljs-keyword">open</span>(&quot;cn_stopwords.txt&quot;, &quot;rt&quot;, encoding=&quot;utf-8&quot;).readlines()]<br></code></pre></td></tr></table></figure>
+<h2 id="bertopic建模">BERTopic建模</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">!pip install bertopic<br><br><span class="hljs-keyword">from</span> bertopic <span class="hljs-keyword">import</span> BERTopic<br><span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer<br><span class="hljs-keyword">from</span> umap <span class="hljs-keyword">import</span> UMAP<br><span class="hljs-keyword">from</span> hdbscan <span class="hljs-keyword">import</span> HDBSCAN<br><span class="hljs-keyword">from</span> bertopic.vectorizers <span class="hljs-keyword">import</span> ClassTfidfTransformer<br></code></pre></td></tr></table></figure>
+<p>使用<code>sentence-transformers</code>支持多语言的大模型进行embedding，在colab上下载速度很快，约400M瞬间完成。
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embedding_model = SentenceTransformer(<span class="hljs-string">&#x27;sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2&#x27;</span>)<br></code></pre></td></tr></table></figure> <strong>降维</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">umap_model = UMAP(n_neighbors=<span class="hljs-number">20</span>, n_components=<span class="hljs-number">5</span>, min_dist=<span class="hljs-number">0.0</span>, metric=<span class="hljs-string">&#x27;cosine&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>聚类</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">hdbscan_model = HDBSCAN(min_cluster_size=<span class="hljs-number">10</span>, metric=<span class="hljs-string">&#x27;euclidean&#x27;</span>, cluster_selection_method=<span class="hljs-string">&#x27;eom&#x27;</span>, prediction_data=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<p>tokenizer <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.feature_extraction.text <span class="hljs-keyword">import</span> CountVectorizer<br>vectorizer_model = CountVectorizer()<br></code></pre></td></tr></table></figure>
+<strong>加权</strong>：使用改进tf-idf的c-tf-idf方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">ctfidf_model = ClassTfidfTransformer()<br></code></pre></td></tr></table></figure>
+<p>输入BERTopic模型 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model = BERTopic(<br>​    embedding_model=embedding_model,<br>​    umap_model=umap_model,<br>​    hdbscan_model=hdbscan_model,<br>​    vectorizer_model=vectorizer_model,<br>​    ctfidf_model=ctfidf_model,<br>​    nr_topics=<span class="hljs-number">10</span>                        <br>)<br></code></pre></td></tr></table></figure> 训练 <figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topics, probabilities = topic_model.fit_transform(dataset)<br></code></pre></td></tr></table></figure></p>
+<h2 id="可视化呈现和结果分析">可视化呈现和结果分析</h2>
+<p><strong>查看聚类结果</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_document_info(dataset)<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="访问虚拟内网中的hadoop">
-<figcaption aria-hidden="true">访问虚拟内网中的hadoop</figcaption>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/聚类后结果.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
 </figure>
-<blockquote>
-<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
-</blockquote>
-<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
-<blockquote>
-<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
-</blockquote>
-<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
-<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -d \<br>  --name=wg-easy \<br>  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \<br>  -e PASSWORD=passwd123 (🚨这里输入你的密码) \<br>  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\<br>  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\<br>  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\<br>  -v ~/.wg-easy:/etc/wireguard \<br>  -p 51820:51820/udp \<br>  -p 51821:51821/tcp \<br>  --cap-add=NET_ADMIN \<br>  --cap-add=SYS_MODULE \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.ip_forward=1&quot;</span> \<br>  --restart unless-stopped \<br>  weejewel/wg-easy<br></code></pre></td></tr></table></figure>
-<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
+<p>查看各话题文本数量。<br>
+-1表示没有聚类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic_freq()<br></code></pre></td></tr></table></figure>
+<p><img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题文本数量.png" alt="话题文本数量" style="zoom: 50%;"></p>
+<p>查看话题7的文本并按照重要程度排序</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.get_topic(<span class="hljs-number">7</span>)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">[(&#x27;就是有点油&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;就是油太大&#x27;, 0.12314684980074718),</span><br><span class="hljs-string"> (&#x27;全是油&#x27;, 0.10826034220928046),</span><br><span class="hljs-string"> (&#x27;味道不错&#x27;, 0.07580202124764789),</span><br><span class="hljs-string"> (&#x27;挺好的&#x27;, 0.07380868069892178),</span><br><span class="hljs-string"> (&#x27;灰常满意&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;一层厚厚的油&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手贵&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手好多油啊&#x27;, 0.06720667864215085),</span><br><span class="hljs-string"> (&#x27;红油抄手不错&#x27;, 0.06720667864215085)]</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
+<p><strong>可视化查看各话题分数排序</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_barchart()<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
-<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/分数排序.png" alt="分数排序">
+<figcaption aria-hidden="true">分数排序</figcaption>
 </figure>
-<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
-<ol type="1">
-<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
-<li><p>如果是Mac和Windows也是一样的配置方法：</p>
-<ul>
-<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>客户端内添加隧道，选择xxx.conf</li>
-<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
-</ul></li>
-<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
-<ul>
-<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
-<li>下载管理界面的配置文件xxx.conf</li>
-<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
-<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
-<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
-</ul>
+<p>能够看到一部分结果聚类效果很好，比如集中描述送餐慢、凉、咖啡奶茶、披萨、油等主题，而其他一部分看起来好坏参半，原因应该是该主题聚类可能将评价好坏都列为“评价主题”而分到一起。</p>
+<p><strong>可视化呈现点云图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">embeddings = embedding_model.encode(dataset, show_progress_bar=<span class="hljs-literal">False</span>)<br>topic_model.visualize_documents(dataset, embeddings=embeddings)<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="wireguard查看当前开放的虚拟网卡">
-<figcaption aria-hidden="true">wireguard查看当前开放的虚拟网卡</figcaption>
-</figure></li>
-<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
-<ul>
-<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/点云图.png" alt="点云图">
+<figcaption aria-hidden="true">点云图</figcaption>
+</figure>
+<p>点云图中颜色相同的属于同一主题，灰色属于无法聚类的文本。</p>
+<p><strong>可视化呈现热度图</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_heatmap()<br></code></pre></td></tr></table></figure>
 <figure>
-<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="群晖内的套件中心">
-<figcaption aria-hidden="true">群晖内的套件中心</figcaption>
-</figure></li>
-<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
-<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
-</ul></li>
-</ol>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/热度图.png" alt="热度图">
+<figcaption aria-hidden="true">热度图</figcaption>
+</figure>
+<p>热度图中颜色相近的色块表示相似度高，可以看到01两主题的内容很相似，颜色较深；同时01两个话题与其他话题的相似度都很高；2号主题与其他的相似度较低，可以从颜色和文本中观察到。</p>
+<p><strong>可视化呈现话题间距离</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">topic_model.visualize_topics()<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/03/28/shi-yong-bertopic-ti-qu-wen-ben-zhu-ti/话题间距离.png" alt="话题间距离">
+<figcaption aria-hidden="true">话题间距离</figcaption>
+</figure>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>网络</tag>
-        <tag>内网</tag>
-        <tag>wireguard</tag>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>BERTopic</tag>
+        <tag>文本主题</tag>
       </tags>
   </entry>
   <entry>
-    <title>使用中转服务器代理访问内网bySSinDocker</title>
-    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
-    <content><![CDATA[<h1 id="目的">目的</h1>
-<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
+    <title>使用Bert进行NER命名实体识别feat.fastNLP(下：使用flask部署模型)</title>
+    <url>/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>下篇主要介绍使用flask搭建简单的网页和响应，并实现调用模型推理，完成NER任务可视化。</p>
+<blockquote>
+<p>增加bilstm+crf的模型确实在预测上更为准确，例子中的“崔永元真面”中可以准确分辨出"崔永元"才是人名，而mlp模型会将“崔永元真”作为一个人名🤣</p>
+</blockquote>
+<p>项目工程的Github仓库地址为：https://github.com/Ash-one/ChineseBert-finetuned-NER</p>
 <figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
-<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
+<img src="/2023/03/25/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp-xia-shi-yong-flask-bu-shu-mo-xing/结果.png" alt="结果展示">
+<figcaption aria-hidden="true">结果展示</figcaption>
 </figure>
-<h1 id="搭建步骤">搭建步骤</h1>
-<h2 id="概览">概览</h2>
-<ol type="1">
-<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
-<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
-<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
-</ol>
-<h2 id="搭建ss服务器">搭建SS服务器</h2>
-<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
-<h2 id="搭建frpc">搭建frpc</h2>
-<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
-<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
-<p>frpc.ini配置示例</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
-<p>运行frpc</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
-<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
-<p>进入小火箭点击右上角的加号</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
-<p>填写内容，需要对应ss服务器上的配置填写</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
-<p>然后可以在首页的本地节点中看到刚添加的节点</p>
-<p>点击连通性测试查看是否网络已打通</p>
-<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
-<p>进入后点击通用</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
-<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
-<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
-<p>我这里测试我的内网网关</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
-<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
-<p>或者你可以像我一样添加整个网段。</p>
+<p>服务器使用flask响应get请求，可视化结果部分使用python的displacy库生成HTML直接插入原始HTML。</p>
+<h1 id="flask服务端">Flask服务端</h1>
+<p>flask工程的目录结构如下，程序的入口在<code>run.py</code>中。</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">├── app<br>│   ├── __init__<span class="hljs-selector-class">.py</span><br>│   ├── loader<span class="hljs-selector-class">.py</span><br>│   ├── model<span class="hljs-selector-class">.py</span><br>│   ├── run<span class="hljs-selector-class">.py</span><br>│   ├── static<br>│   │   ├── bg<span class="hljs-selector-class">.jpg</span><br>│   │   ├── js<br>│   │   │   └── mystyle<span class="hljs-selector-class">.css</span><br>│   │   └── models<br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.pth</span><br>│   │       ├── rbt3-bilstm-crf-ner<span class="hljs-selector-class">.txt</span><br>│   │       ├── rbt3-mlp-ner<span class="hljs-selector-class">.pth</span><br>│   │       └── rbt3-mlp-ner<span class="hljs-selector-class">.txt</span><br>│   └── templates<br>│       └── index<span class="hljs-selector-class">.html</span><br>├── test.py<br></code></pre></td></tr></table></figure>
+<h2 id="基础路由">基础路由</h2>
+<p>只要在<code>templates</code>文件夹下放置好html文件，就可以直接通过<code>render_template</code>方法渲染出页面。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask, request, make_response<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Response, render_template<br><span class="hljs-keyword">import</span> loader<br><span class="hljs-keyword">from</span> model <span class="hljs-keyword">import</span> BertNER,BertBilstmCrfNER<br><span class="hljs-keyword">from</span> spacy <span class="hljs-keyword">import</span> displacy<br><br>app = Flask(__name__)<br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> render_template(<span class="hljs-string">&#x27;index.html&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="响应get请求">响应get请求</h2>
+<p>下面这个装饰器专门响应/predict路径的get请求。</p>
+<p>这里由于只需要根据输入参数返回预测结果，故选择使用get请求，检查参数合法后加载对应模型预测，并对预测结果进行后处理，由displacy库渲染为HTML，最后返回响应结果。</p>
+<blockquote>
+<p>displacy官方表示最好不要在服务器端渲染得到HTML，而是使用他们提供的js文件在客户端渲染，而那个js文件的仓库已经被archived了，不得不用这种方法......</p>
+</blockquote>
+<p>由于在这个文件中需要获取到模型，因此需要在import阶段加载定义的pytorch模型。加载模型推理的部分比较简单，上篇有所提及，这里不做展示，需要注意的是displacy库的输入格式是形如<code>&#123;'text': '我就要在中国传媒大学吃上崔永元真面', 'ents': [&#123;'label': 'GPE.NAM', 'start': 4, 'end': 6&#125;, &#123;'label': 'ORG.NAM', 'start': 6, 'end': 10&#125;, &#123;'label': 'PER.NAM', 'start': 12, 'end': 15&#125;], 'title': None&#125;</code>的字典，在得到模型预测序列后需要多一步转换为字典。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">&#x27;/predict&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">predict__text</span>():<br>    text = request.args.get(<span class="hljs-string">&#x27;text&#x27;</span>)<br>    model_name = request.args.get(<span class="hljs-string">&#x27;model&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;text:&#x27;</span>,text,<span class="hljs-string">&#x27;model_name:&#x27;</span>,model_name)<br>    <span class="hljs-comment"># 下面对不合法或无法读取的模型进行处理</span><br>    <span class="hljs-keyword">try</span>:<br>        model,label_idx_list = loader.load_model_from_file(model_name)<br>    <span class="hljs-keyword">except</span> IOError:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;IOError&#x27;</span><br>    <span class="hljs-keyword">if</span> model == <span class="hljs-literal">None</span> <span class="hljs-keyword">or</span> label_idx_list == <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Model not found&#x27;</span><br>    <br>    result = &#123;&#125;<br>    result[<span class="hljs-string">&#x27;text&#x27;</span>] = text<br>    numbers = [<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> loader.predict(text,model)]<br>    <br>    labels = loader.convert_result2label(numbers,label_idx_list)<br>    entities = loader.convert_label2entity(labels)<br><br>    result[<span class="hljs-string">&#x27;ents&#x27;</span>] = entities<br>    result[<span class="hljs-string">&#x27;title&#x27;</span>] = <span class="hljs-literal">None</span><br>    <span class="hljs-built_in">print</span>(result)<br>    <br>    <span class="hljs-comment"># 配置需要展示的实体，从loader中加载颜色配置</span><br>    options = &#123;<span class="hljs-string">&quot;ents&quot;</span>: [<span class="hljs-string">&quot;ORG.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;GPE.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NAM&quot;</span>,<br>                        <span class="hljs-string">&quot;LOC.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;PER.NOM&quot;</span>,<br>                        <span class="hljs-string">&quot;ORG.NOM&quot;</span><br>                        ], <span class="hljs-string">&quot;colors&quot;</span>: loader.load_colors_preset()&#125;<br>    html = displacy.render(result, style=<span class="hljs-string">&quot;ent&quot;</span>, manual=<span class="hljs-literal">True</span>, options=options)<br><br>    response = make_response(html,<span class="hljs-number">200</span>)<br>    <span class="hljs-keyword">return</span> response<br></code></pre></td></tr></table></figure>
+<h1 id="web客户端">Web客户端</h1>
+<p>预测过程在个人服务器上会花费较多时间，因此需要在页面中使用js异步控制发送get请求和获取响应，所以不能使用表单form提交get请求，不然会一直卡住不动而实际上是在等待响应，类似于客户端多线程请求，这里使用js的fetch发送get请求，并修改页面内容表示正在等待响应，等收到响应后修改html文件。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">submitForm</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;my-text&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> model = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;input[name=&quot;model&quot;]:checked&#x27;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> waiting = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;waiting-text&quot;</span>);</span><br><span class="language-javascript">        waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;正在预测...&#x27;</span>;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> displacy = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;visual&quot;</span>);</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;/predict?text=&quot;</span> + text + <span class="hljs-string">&quot;&amp;model=&quot;</span> + model;</span><br><span class="language-javascript">        <span class="hljs-keyword">const</span> response = <span class="hljs-title function_">fetch</span>(url, &#123;</span><br><span class="language-javascript">            <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,</span><br><span class="language-javascript">        &#125;).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) &#123;</span><br><span class="language-javascript">            <span class="hljs-keyword">return</span> response.<span class="hljs-title function_">text</span>();</span><br><span class="language-javascript">        &#125;)</span><br><span class="language-javascript">        .<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);</span><br><span class="language-javascript">                waiting.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&#x27;&#x27;</span>;</span><br><span class="language-javascript">                displacy.<span class="hljs-property">innerHTML</span> = data;</span><br><span class="language-javascript">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;ok!!!&quot;</span>);</span><br><span class="language-javascript">            &#125;);</span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>......<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>输入待预测文本：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">rows</span>=<span class="hljs-string">&quot;3&quot;</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">&quot;20&quot;</span>&gt;</span>我就要在中国传媒大学吃上崔永元真面<span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>选择一个模型：<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-mlp-ner&quot;</span> <span class="hljs-attr">checked</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>rbt3-mlp-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;radio&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;model&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;rbt3-bilstm-crf-ner&quot;</span>&gt;</span>rbt3-bilstm-crf-ner<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;my-button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;提交开始预测&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;submitForm()&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>NER</tag>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
+    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
+    <content><![CDATA[<h1 id="问题">问题</h1>
 <figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
-<figcaption aria-hidden="true">image-20221027171938222</figcaption>
+<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
+<figcaption aria-hidden="true">SSH代理</figcaption>
 </figure>
-<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
-<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
+<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
+<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
+<h1 id="解决">解决</h1>
+<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
+<p>先来检查SSH的加密方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
+<p>找到输出中的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
+<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
+<p>重新生成密钥：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
         <tag>网络</tag>
+        <tag>Surge</tag>
         <tag>代理</tag>
+        <tag>SSH</tag>
       </tags>
   </entry>
   <entry>
@@ -1298,6 +1251,146 @@ mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</
       </tags>
   </entry>
   <entry>
+    <title>使用wireguard搭建属于自己的虚拟内网</title>
+    <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
+    <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
+<blockquote>
+<p>本文将使用wireguard的docker镜像，借助中转服务器，快速方便的部署出一个属于自己的虚拟内网，网内地址完全自定义，支持全平台。</p>
+</blockquote>
+<h2 id="wireguard结果展示">wireguard结果展示</h2>
+<p>wireguard分为服务端和客户端，其中服务端需要部署在有公网IP的服务器上，需要加入内网的设备需要单独安装客户端并启动。</p>
+<p>在部署完成后是这样的效果：</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/部署完成测速.png" alt="部署完成测速">
+<figcaption aria-hidden="true">部署完成测速</figcaption>
+</figure>
+<p>右侧测速结果显示5.67/5.63Mbps，<strong>跑满</strong>了我的中转服务器的<strong>6Mbps</strong>，速度还是十分给力的。</p>
+<p>在手机上我也可以直接通过<strong>内网IP</strong>在外面访问到NAS中的数据：</p>
+<p><img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/手机上的群晖.PNG" alt="手机上的群晖" style="zoom:33%;"></p>
+<p>同时配置在lab内网的个人服务器也可以直接用内网ssh访问，这一点和配置frp的效果倒是相同的。不过我认为wireguard强大就在于，不用像frp每个需要开放的端口都得配置，然后在中转服务器开端口。wireguard本体只需要在中转服务器开一个UDP端口就可以使用内网访问其他客户端所有的端口。这在做调试工作时会方便许多。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016121811707.png" alt="访问虚拟内网中的hadoop">
+<figcaption aria-hidden="true">访问虚拟内网中的hadoop</figcaption>
+</figure>
+<blockquote>
+<p>虽然lab内的环境更舒适，但总是想随时访问某些服务的冲动我想好多人都会有吧哈哈哈哈哈</p>
+</blockquote>
+<h2 id="快速搭建wireguard">快速搭建wireguard</h2>
+<blockquote>
+<p>搭建过程也可以参考：https://gitee.com/spoto/wireguard</p>
+</blockquote>
+<p>本文使用<code>weejewel/wg-easy</code>的docker镜像快速搭建起可用的虚拟内网。</p>
+<p>首先登陆中转服务器，我这里使用的是腾讯云上的ubuntu服务器，将下面的命令改好后直接运行（IP、密码、网段都需要填自己的哦）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo docker run -d \<br>  --name=wg-easy \<br>  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \<br>  -e PASSWORD=passwd123 (🚨这里输入你的密码) \<br>  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\<br>  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\<br>  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\<br>  -v ~/.wg-easy:/etc/wireguard \<br>  -p 51820:51820/udp \<br>  -p 51821:51821/tcp \<br>  --cap-add=NET_ADMIN \<br>  --cap-add=SYS_MODULE \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.conf.all.src_valid_mark=1&quot;</span> \<br>  --sysctl=<span class="hljs-string">&quot;net.ipv4.ip_forward=1&quot;</span> \<br>  --restart unless-stopped \<br>  weejewel/wg-easy<br></code></pre></td></tr></table></figure>
+<p>运行起来之后记得开启两个设置过的端口，一个udp一个tcp，然后可以根据tcp端口登陆到管理界面，输入刚才设置的密码，这就是这个镜像的方便快捷之处，减少了手动创建配置的过程。</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016122810680.png" alt="创建完成配置完成后的样子">
+<figcaption aria-hidden="true">创建完成配置完成后的样子</figcaption>
+</figure>
+<p>我这里显示的就是配置客户端之后的样子，一开始进来还什么都没有，先点击<code>+New</code>创建一个新的配置。</p>
+<ol type="1">
+<li><p>如果不熟悉的话可以先用手机下载对应的客户端（名字就是wireguard），然后扫码添加配置，就进入到内网了。</p></li>
+<li><p>如果是Mac和Windows也是一样的配置方法：</p>
+<ul>
+<li>先下载客户端，Mac直接在appstore搜索wireguard，港区可以点这里<a href="https://apps.apple.com/hk/app/wireguard/id1451685025?mt=12">港区wireguard链接</a></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>客户端内添加隧道，选择xxx.conf</li>
+<li>开启隧道链接，进入内网，可以<code>ping</code>命令查看是否通畅</li>
+</ul></li>
+<li><p>如果你想把ubuntu等服务器加入wireguard:</p>
+<ul>
+<li>在Ubuntu上要下载客户端<code>sudo apt install wireguard</code></li>
+<li>下载管理界面的配置文件xxx.conf</li>
+<li>scp上传conf文件到ubuntu，或者直接在ubuntu上新建文档将内容复制进去，保证文件名一样</li>
+<li><code>sudo wg-quick up xxx</code>开启配置，<code>sudo wg-quick down xxx</code>关闭配置</li>
+<li><code>sudo wg</code>可以查看wireguard开启的服务。</li>
+</ul>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016161236707.png" alt="wireguard查看当前开放的虚拟网卡">
+<figcaption aria-hidden="true">wireguard查看当前开放的虚拟网卡</figcaption>
+</figure></li>
+<li><p>如果你想把NAS加入wireguard(以群晖为例)：</p>
+<ul>
+<li><p>群晖的套件中心功能不多，需要加入社群扩展，点击套件中心-设置-套件来源-新增，名称随意，位置https://spk7.imnks.com/</p>
+<figure>
+<img src="/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/image-20221016162618677.png" alt="群晖内的套件中心">
+<figcaption aria-hidden="true">群晖内的套件中心</figcaption>
+</figure></li>
+<li><p>在社群中搜索wireguard安装，需要ssh到群晖上执行<code>sudo sed -i 's/package/root/g' /var/packages/WireGuard/conf/privilege</code></p></li>
+<li><p>后面步骤同Ubuntu，只是省略了安装apt安装的步骤。</p></li>
+</ul></li>
+</ol>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>内网</tag>
+        <tag>wireguard</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用中转服务器代理访问内网bySSinDocker</title>
+    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
+    <content><![CDATA[<h1 id="目的">目的</h1>
+<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
+<figure>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
+<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
+</figure>
+<h1 id="搭建步骤">搭建步骤</h1>
+<h2 id="概览">概览</h2>
+<ol type="1">
+<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
+<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
+<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
+</ol>
+<h2 id="搭建ss服务器">搭建SS服务器</h2>
+<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
+<h2 id="搭建frpc">搭建frpc</h2>
+<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
+<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
+<p>frpc.ini配置示例</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
+<p>运行frpc</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
+<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
+<p>进入小火箭点击右上角的加号</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
+<p>填写内容，需要对应ss服务器上的配置填写</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
+<p>然后可以在首页的本地节点中看到刚添加的节点</p>
+<p>点击连通性测试查看是否网络已打通</p>
+<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
+<p>进入后点击通用</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
+<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
+<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
+<p>我这里测试我的内网网关</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
+<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
+<p>或者你可以像我一样添加整个网段。</p>
+<figure>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
+<figcaption aria-hidden="true">image-20221027171938222</figcaption>
+</figure>
+<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
+<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>微调Bert模型完成文本分类feat.fastNLP</title>
     <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
     <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
@@ -1347,6 +1440,74 @@ TextClassification</h1>
         <tag>Bert</tag>
         <tag>NLP</tag>
         <tag>文本分类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
       </tags>
   </entry>
   <entry>
@@ -1483,8 +1644,8 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
         <category>学习</category>
       </categories>
       <tags>
-        <tag>线性代数</tag>
         <tag>ML</tag>
+        <tag>线性代数</tag>
         <tag>DL</tag>
       </tags>
   </entry>
@@ -1660,74 +1821,6 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
-    <title>机器学习数学基础③数值计算和最优化理论</title>
-    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
-    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
-<h2 id="上溢和下溢">上溢和下溢</h2>
-<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
-<ul>
-<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
-</ul>
-<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
-<figure>
-<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
-<figcaption aria-hidden="true">softmax函数</figcaption>
-</figure>
-<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
-<h1 id="最优化">最优化</h1>
-<h2 id="最优化理论">最优化理论</h2>
-<p><strong>经验风险最小化</strong></p>
-<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
-<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
-<h3 id="凸集">1.凸集</h3>
-<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
-<figure>
-<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
-<figcaption aria-hidden="true">凸集和非凸集</figcaption>
-</figure>
-<p>数学定义: 一个集合<span class="math inline">\(S\subset
-R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
-S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
-\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
-x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
-<h3 id="超平面和半空间">2.超平面和半空间</h3>
-<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
-<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
-<h3 id="凸集分离定理">3.凸集分离定理</h3>
-<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
-<figcaption aria-hidden="true">凸集分离</figcaption>
-</figure>
-<h3 id="凸函数">4.凸函数</h3>
-<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
-<figure>
-<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
-<figcaption aria-hidden="true">凸函数</figcaption>
-</figure>
-<aside>
-💡 在图中直线始终在凸函数曲线上方
-</aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
-1\)</span>,有:</p>
-<p><span class="math display">\[
-f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
-\]</span></p>
-<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
-<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
-<aside>
-💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
-</aside>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>清河村支教回忆</title>
     <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
     <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
@@ -1750,6 +1843,65 @@ f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
       <tags>
         <tag>支教</tag>
         <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在Linux上无sudo安装使用ProxyChains</title>
+    <url>/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
+<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
+<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
+<h1 id="安装">安装</h1>
+<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
+<p>没有权限的需要从源码构建</p>
+<p>ProxyChains的<a href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
+<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" alt="需要修改的部分">
+<figcaption aria-hidden="true">需要修改的部分</figcaption>
+</figure>
+<p>这里代码指定的是程序运行时从哪里读取lib文件，当我们make
+install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
+<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，<strong>所以在这个字典里加上`/home/gxz/.local/lib'
+</strong>，你要根据自己选择是否修改。</p>
+<p>下面指定配置目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" alt="make结果">
+<figcaption aria-hidden="true">make结果</figcaption>
+</figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br><span class="hljs-comment"># 这里直接mv也可以</span><br></code></pre></td></tr></table></figure>
+<p>将ProxyChains添加到环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 如果你很熟悉dll文件调用，直接在这里将‘~/.local/lib‘路径加入库文件路径很方便。</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$HOME</span>/.local/lib:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
+<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" alt="conf文件路径">
+<figcaption aria-hidden="true">conf文件路径</figcaption>
+</figure>
+<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
+<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
+<h1 id="使用">使用</h1>
+<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>代理</tag>
+        <tag>proxy</tag>
+        <tag>tool</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2682,157 +2834,5 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 <h2 id="划分vlan的网络">划分VLAN的网络</h2>
 <h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Github Pages与Hexo deploy的一点小问题</title>
-    <url>/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/</url>
-    <content><![CDATA[<h1 id="前情提要">前情提要</h1>
-<blockquote>
-<p>顺便如果你还没撸过这个学生党羊毛：https://education.github.com/pack/offers</p>
-<p>一共有三家域名商给提供这个羊毛，慢慢撸</p>
-</blockquote>
-<p>前段时间想玩玩域名，于是趁着GitHub学生包还在赶紧撸两个免费的一年域名。简单的注册域名绑定在GitHub
-Pages上之后就没有再deploy到仓库上新的博文，只是在本地修改过，于是忘记了有这么一回事。</p>
-<p>namecheap这家域名商在用学生包注册时很鸡贼地补充一句：<strong>现在是唯一将你域名和GitHub
-Pages绑定的时机</strong></p>
-<p>其实，在博客的仓库setting下手动设置Custom domain并没有多复杂。</p>
-<p><strong>直到今天我在deploy了hexo的修改后，发现域名下的博客怎么404了</strong></p>
-<figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/404.png" alt="404">
-<figcaption aria-hidden="true">404</figcaption>
-</figure>
-<h1 id="省流版">省流版</h1>
-<p>Hexo有针对配置GitHub Pages定制域名的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，之后的每次构建和部署都会带有域名信息。</p>
-<figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/cname.png" alt="cname">
-<figcaption aria-hidden="true">cname</figcaption>
-</figure>
-<h1 id="问题排查">问题排查</h1>
-<ol type="1">
-<li><p><strong>怀疑是Hexo构建出了问题</strong>，但是404应该是<code>index.html</code>不正常才会有的问题</p>
-<p><code>hexo clean</code>然后重新<code>hexo g</code>
-<code>hexo d</code>，然后发现暴露出了另一个错误：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[master b137740] Site updated: 2023-04-16 15:33:52<br> 2 files changed, 792 insertions(+), 796 deletions(-)<br>kex_exchange_identification: Connection closed by remote host<br>Connection closed by 198.18.1.13 port 22<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure>
-<p>这是我以为就是git在链接上的故障，于是重新生成了SSH密钥上传到GitHub上，但是故障依旧</p></li>
-<li><p><strong>排查SSH问题</strong>，搜索到使用的代理可能会出现不允许22端口的情况</p>
-<p>于是在<code>~/.ssh/config</code>中添加了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs config">Host github.com<br>  HostName ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
-<p>表示强制使用443端口连接GitHub的SSH</p>
-<p>使用<code>ssh -vT git@github.com</code>测试GitHub：</p>
-<p>一串跑码之后收到回复：<code>Hi Ash-one! You've successfully authenticated, but GitHub does not provide shell access.</code>
-看来SSH的问题解决了</p>
-<p>继续测试deploy，发现Hexo正常构建合并了分支到仓库中。</p>
-<p>但是，故障依旧还在。</p></li>
-<li><p>到这里，我选择<strong>检查了commit记录</strong>，因为在印象中有看到仓库根目录下有<code>CNAME</code>文件标记是哪个域名，结果在所有commit记录中都没有见到这一条，commit的文本也都是Hexo自动生成的update文本。</p>
-<p>终于意识到了是<strong>Hexo在deploy的时候肯定是将CNAME文件覆盖掉</strong>了，重新进入仓库的设置，果然发现曾经配置过的域名消失了</p>
-<figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/custom-domain.png" alt="对这里熟悉完全是因为配置HTTPS证书时的痛苦">
-<figcaption aria-hidden="true">对这里熟悉完全是因为配置HTTPS证书时的痛苦</figcaption>
-</figure></li>
-</ol>
-<p>重新在图中3的位置上填上了域名后，成功解决了这次的404问题。</p>
-<p>但是很简单的状况是：下次deploy还会覆盖掉CNAME</p>
-<p>实际上Hexo有针对配置GitHub Pages的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，就完成了，之后的每次构建和部署都会带有域名信息。</p>
-<h1 id="小结">小结</h1>
-<p>整体而言只是因为工具不熟悉出现的一次小问题，花了半小时的排查来回，还出现SSH上的奇怪问题，确实是很奇妙了。。。</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>博客</tag>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上无sudo安装使用ProxyChains</title>
-    <url>/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
-<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
-<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
-<h1 id="安装">安装</h1>
-<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
-<p>没有权限的需要从源码构建</p>
-<p>ProxyChains的<a href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
-<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" alt="需要修改的部分">
-<figcaption aria-hidden="true">需要修改的部分</figcaption>
-</figure>
-<p>这里代码指定的是程序运行时从哪里读取lib文件，当我们make
-install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
-<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，<strong>所以在这个字典里加上`/home/gxz/.local/lib'
-</strong>，你要根据自己选择是否修改。</p>
-<p>下面指定配置目录：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" alt="make结果">
-<figcaption aria-hidden="true">make结果</figcaption>
-</figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br><span class="hljs-comment"># 这里直接mv也可以</span><br></code></pre></td></tr></table></figure>
-<p>将ProxyChains添加到环境变量：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 如果你很熟悉dll文件调用，直接在这里将‘~/.local/lib‘路径加入库文件路径很方便。</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$HOME</span>/.local/lib:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
-<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" alt="conf文件路径">
-<figcaption aria-hidden="true">conf文件路径</figcaption>
-</figure>
-<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
-<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
-<h1 id="使用">使用</h1>
-<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" alt="结果">
-<figcaption aria-hidden="true">结果</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>代理</tag>
-        <tag>proxy</tag>
-        <tag>tool</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
-    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
-    <content><![CDATA[<h1 id="问题">问题</h1>
-<figure>
-<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
-<figcaption aria-hidden="true">SSH代理</figcaption>
-</figure>
-<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
-<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
-<h1 id="解决">解决</h1>
-<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
-<p>先来检查SSH的加密方式：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
-<p>找到输出中的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
-<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
-<p>重新生成密钥：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>代理</tag>
-        <tag>Surge</tag>
-        <tag>SSH</tag>
-      </tags>
   </entry>
 </search>
