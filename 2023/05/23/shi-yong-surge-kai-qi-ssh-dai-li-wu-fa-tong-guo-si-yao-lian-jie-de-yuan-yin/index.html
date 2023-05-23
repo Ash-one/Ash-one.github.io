@@ -16,32 +16,29 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。 通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用， 本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上proxychains4使得该命令按照设置通过代理访问。 注意这个工具只能代理TC">
+    <meta name="description" content="问题   SSH代理  Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 先来检查SSH的加密方式： 1ssh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Linux上无sudo安装使用ProxyChains">
-<meta property="og:url" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/index.html">
+<meta property="og:title" content="使用Surge开启SSH代理无法通过私钥连接的原因">
+<meta property="og:url" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="前言 多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。 通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用， 本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上proxychains4使得该命令按照设置通过代理访问。 注意这个工具只能代理TC">
+<meta property="og:description" content="问题   SSH代理  Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 先来检查SSH的加密方式： 1ssh">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png">
-<meta property="og:image" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png">
-<meta property="og:image" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png">
-<meta property="og:image" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png">
-<meta property="article:published_time" content="2023-04-17T16:01:39.000Z">
-<meta property="article:modified_time" content="2023-05-22T09:13:22.665Z">
+<meta property="og:image" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png">
+<meta property="article:published_time" content="2023-05-23T07:31:42.000Z">
+<meta property="article:modified_time" content="2023-05-23T07:47:37.147Z">
 <meta property="article:author" content="灰一">
+<meta property="article:tag" content="网络">
 <meta property="article:tag" content="代理">
-<meta property="article:tag" content="proxy">
-<meta property="article:tag" content="tool">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="Surge">
+<meta property="article:tag" content="SSH">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>在Linux上无sudo安装使用ProxyChains - 灰一茶话会</title>
+  <title>使用Surge开启SSH代理无法通过私钥连接的原因 - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -226,7 +223,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在Linux上无sudo安装使用ProxyChains"></span>
+            <span id="subtitle" data-typed-text="使用Surge开启SSH代理无法通过私钥连接的原因"></span>
           
         </div>
 
@@ -237,8 +234,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-18 00:01" pubdate>
-          2023年4月18日 凌晨
+        <time datetime="2023-05-23 15:31" pubdate>
+          2023年5月23日 下午
         </time>
       </span>
     
@@ -249,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          427 字
         
       </span>
     
@@ -260,7 +257,7 @@
         
         
         
-          18 分钟
+          4 分钟
         
       </span>
     
@@ -306,12 +303,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">在Linux上无sudo安装使用ProxyChains</h1>
+            <h1 style="display: none">使用Surge开启SSH代理无法通过私钥连接的原因</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月22日 下午
+                    本文最后更新于：2023年5月23日 下午
                   
                 
               </p>
@@ -319,51 +316,23 @@
             
               <div class="markdown-body">
                 
-                <h1 id="前言">前言</h1>
-<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
-<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
-<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
-<h1 id="安装">安装</h1>
-<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
-<p>没有权限的需要从源码构建</p>
-<p>ProxyChains的<a target="_blank" rel="noopener" href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
-<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
+                <h1 id="问题">问题</h1>
 <figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" srcset="/img/loading.gif" lazyload alt="需要修改的部分">
-<figcaption aria-hidden="true">需要修改的部分</figcaption>
+<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" srcset="/img/loading.gif" lazyload alt="SSH代理">
+<figcaption aria-hidden="true">SSH代理</figcaption>
 </figure>
-<p>这里代码指定的是程序运行时从哪里读取lib文件，当我们make
-install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
-<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，<strong>所以在这个字典里加上`/home/gxz/.local/lib'
-</strong>，你要根据自己选择是否修改。</p>
-<p>下面指定配置目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" srcset="/img/loading.gif" lazyload alt="make结果">
-<figcaption aria-hidden="true">make结果</figcaption>
-</figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br><span class="hljs-comment"># 这里直接mv也可以</span><br></code></pre></td></tr></table></figure>
-<p>将ProxyChains添加到环境变量：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 如果你很熟悉dll文件调用，直接在这里将‘~/.local/lib‘路径加入库文件路径很方便。</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$HOME</span>/.local/lib:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
-<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" srcset="/img/loading.gif" lazyload alt="conf文件路径">
-<figcaption aria-hidden="true">conf文件路径</figcaption>
-</figure>
-<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
-<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
-<h1 id="使用">使用</h1>
-<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" srcset="/img/loading.gif" lazyload alt="结果">
-<figcaption aria-hidden="true">结果</figcaption>
-</figure>
+<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
+<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
+<h1 id="解决">解决</h1>
+<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
+<p>先来检查SSH的加密方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
+<p>找到输出中的：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
+<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
+<p>重新生成密钥：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
 
                 
               </div>
@@ -397,13 +366,13 @@ install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/%E7%BD%91%E7%BB%9C/">#网络</a>
+      
         <a href="/tags/%E4%BB%A3%E7%90%86/">#代理</a>
       
-        <a href="/tags/proxy/">#proxy</a>
+        <a href="/tags/Surge/">#Surge</a>
       
-        <a href="/tags/tool/">#tool</a>
-      
-        <a href="/tags/linux/">#linux</a>
+        <a href="/tags/SSH/">#SSH</a>
       
     </div>
   
@@ -415,8 +384,8 @@ install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在Linux上无sudo安装使用ProxyChains</div>
-      <div>https://ash-one.github.io/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</div>
+      <div>使用Surge开启SSH代理无法通过私钥连接的原因</div>
+      <div>https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</div>
     </div>
     <div class="license-meta">
       
@@ -428,7 +397,7 @@ install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月18日</div>
+          <div>2023年5月23日</div>
         </div>
       
       
@@ -460,18 +429,12 @@ install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/" title="使用Surge开启SSH代理无法通过私钥连接的原因">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用Surge开启SSH代理无法通过私钥连接的原因</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/" title="Github Pages与Hexo deploy的一点小问题">
-                        <span class="hidden-mobile">Github Pages与Hexo deploy的一点小问题</span>
+                      <a href="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/" title="在Linux上无sudo安装使用ProxyChains">
+                        <span class="hidden-mobile">在Linux上无sudo安装使用ProxyChains</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
