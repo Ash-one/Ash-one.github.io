@@ -1,89 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>富有表现力的语音合成系统（Expressive TTS）</title>
-    <url>/2023/02/10/expressive-tts/</url>
-    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
-<h2 id="tacotron-gst">Tacotron-GST</h2>
-<p>在Tacotron引入了<strong>全局风格标签（Global Style
-Token，GST）</strong>。模型包括reference encoder，style attention，style
-embedding</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
-<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
-</figure>
-<h2 id="styletoken-tts">StyleToken-TTS</h2>
-<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
-<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
-transcript, style tag} ，有 327
-个风格标签，包括各种情绪、意图、语音语调和速度。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
-<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
-</figure>
-<h2 id="prompttts">PromptTTS</h2>
-<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
-<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
-<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
-<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
-</figure>
-<p>其中Content Encoder顶层的Variance
-Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
-<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
-<h2 id="instructtts">InstructTTS</h2>
-<p>香港中文大学+腾讯AI Lab合作</p>
-<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
-<figcaption aria-hidden="true">InstructTTS</figcaption>
-</figure>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
-<figcaption aria-hidden="true">模型结构</figcaption>
-</figure>
-<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-        <tag>论文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
-</ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Apple Silicon MacBook Pro新机配置</title>
     <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
     <content><![CDATA[<blockquote>
@@ -173,65 +90,120 @@ Silicon版本）</h1>
       </tags>
   </entry>
   <entry>
-    <title>Github Pages与Hexo deploy的一点小问题</title>
-    <url>/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/</url>
-    <content><![CDATA[<h1 id="前情提要">前情提要</h1>
-<blockquote>
-<p>顺便如果你还没撸过这个学生党羊毛：https://education.github.com/pack/offers</p>
-<p>一共有三家域名商给提供这个羊毛，慢慢撸</p>
-</blockquote>
-<p>前段时间想玩玩域名，于是趁着GitHub学生包还在赶紧撸两个免费的一年域名。简单的注册域名绑定在GitHub
-Pages上之后就没有再deploy到仓库上新的博文，只是在本地修改过，于是忘记了有这么一回事。</p>
-<p>namecheap这家域名商在用学生包注册时很鸡贼地补充一句：<strong>现在是唯一将你域名和GitHub
-Pages绑定的时机</strong></p>
-<p>其实，在博客的仓库setting下手动设置Custom domain并没有多复杂。</p>
-<p><strong>直到今天我在deploy了hexo的修改后，发现域名下的博客怎么404了</strong></p>
+    <title>富有表现力的语音合成系统（Expressive TTS）</title>
+    <url>/2023/02/10/expressive-tts/</url>
+    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="tacotron-gst">Tacotron-GST</h2>
+<p>在Tacotron引入了<strong>全局风格标签（Global Style
+Token，GST）</strong>。模型包括reference encoder，style attention，style
+embedding</p>
 <figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/404.png" alt="404">
-<figcaption aria-hidden="true">404</figcaption>
+<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
+<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
 </figure>
-<h1 id="省流版">省流版</h1>
-<p>Hexo有针对配置GitHub Pages定制域名的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，之后的每次构建和部署都会带有域名信息。</p>
+<h2 id="styletoken-tts">StyleToken-TTS</h2>
+<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
+<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
+transcript, style tag} ，有 327
+个风格标签，包括各种情绪、意图、语音语调和速度。</p>
 <figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/cname.png" alt="cname">
-<figcaption aria-hidden="true">cname</figcaption>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
+<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
 </figure>
-<h1 id="问题排查">问题排查</h1>
-<ol type="1">
-<li><p><strong>怀疑是Hexo构建出了问题</strong>，但是404应该是<code>index.html</code>不正常才会有的问题</p>
-<p><code>hexo clean</code>然后重新<code>hexo g</code>
-<code>hexo d</code>，然后发现暴露出了另一个错误：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[master b137740] Site updated: 2023-04-16 15:33:52<br> 2 files changed, 792 insertions(+), 796 deletions(-)<br>kex_exchange_identification: Connection closed by remote host<br>Connection closed by 198.18.1.13 port 22<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure>
-<p>这是我以为就是git在链接上的故障，于是重新生成了SSH密钥上传到GitHub上，但是故障依旧</p></li>
-<li><p><strong>排查SSH问题</strong>，搜索到使用的代理可能会出现不允许22端口的情况</p>
-<p>于是在<code>~/.ssh/config</code>中添加了：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs config">Host github.com<br>  HostName ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
-<p>表示强制使用443端口连接GitHub的SSH</p>
-<p>使用<code>ssh -vT git@github.com</code>测试GitHub：</p>
-<p>一串跑码之后收到回复：<code>Hi Ash-one! You've successfully authenticated, but GitHub does not provide shell access.</code>
-看来SSH的问题解决了</p>
-<p>继续测试deploy，发现Hexo正常构建合并了分支到仓库中。</p>
-<p>但是，故障依旧还在。</p></li>
-<li><p>到这里，我选择<strong>检查了commit记录</strong>，因为在印象中有看到仓库根目录下有<code>CNAME</code>文件标记是哪个域名，结果在所有commit记录中都没有见到这一条，commit的文本也都是Hexo自动生成的update文本。</p>
-<p>终于意识到了是<strong>Hexo在deploy的时候肯定是将CNAME文件覆盖掉</strong>了，重新进入仓库的设置，果然发现曾经配置过的域名消失了</p>
+<h2 id="prompttts">PromptTTS</h2>
+<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
+<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
+<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
 <figure>
-<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/custom-domain.png" alt="对这里熟悉完全是因为配置HTTPS证书时的痛苦">
-<figcaption aria-hidden="true">对这里熟悉完全是因为配置HTTPS证书时的痛苦</figcaption>
-</figure></li>
-</ol>
-<p>重新在图中3的位置上填上了域名后，成功解决了这次的404问题。</p>
-<p>但是很简单的状况是：下次deploy还会覆盖掉CNAME</p>
-<p>实际上Hexo有针对配置GitHub Pages的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，就完成了，之后的每次构建和部署都会带有域名信息。</p>
-<h1 id="小结">小结</h1>
-<p>整体而言只是因为工具不熟悉出现的一次小问题，花了半小时的排查来回，还出现SSH上的奇怪问题，确实是很奇妙了。。。</p>
+<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
+<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
+</figure>
+<p>其中Content Encoder顶层的Variance
+Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
+<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
+<h2 id="instructtts">InstructTTS</h2>
+<p>香港中文大学+腾讯AI Lab合作</p>
+<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
+<figcaption aria-hidden="true">InstructTTS</figcaption>
+</figure>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
+<figcaption aria-hidden="true">模型结构</figcaption>
+</figure>
+<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+        <tag>论文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Arch/Manjaro系统ssh断开后tmux会话中断的问题</title>
+    <url>/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/</url>
+    <content><![CDATA[<h1 id="问题">问题</h1>
+<p>系统：Manjaro或Arch</p>
+<p>桌面系统：<strong>Gnome</strong>（万恶之源）</p>
+<p>描述：通过SSH连接到Manjaro上并开启tmux会话，每次在tmux
+detach后也认真<code>tmux ls</code>发现session保存才敢下线，但是发现ssh
+log out后所有的session都没有被保存下来。</p>
+<p>其实是一个经历许久的问题，应该是遇到相同问题的人不太多，今天终于花时间找到了解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>原帖在这里，大家不走弯路直接看社区的解决方案：<a href="https://forum.manjaro.org/t/how-to-keep-tmux-running-after-ssh-is-disconnected/123225">post</a></p>
+<p>修改这个文件<code>/etc/systemd/logind.conf.d/20-kill-user-processes.conf</code>成图中的样子，其实只修改了一个地方，就是把<code>KillUserProcesses=</code>后面的<strong>yes</strong>改为了<strong>no</strong>。或者你也可以像社区一样，<em>直接把这个该死的文件删除</em>。</p>
+<figure>
+<img src="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/tmux.png" alt="修改yes为no">
+<figcaption aria-hidden="true">修改yes为no</figcaption>
+</figure>
+<p>然后重启manjaro应该就解决了。</p>
+<h1 id="分析">分析</h1>
+<p>原帖里遇到的问题和我是一样的，在其他系统的机器上tmux都不会在ssh log
+out后关闭会话。只有这个manjaro系统（的Gnome桌面，因为其他朋友用KDE桌面还真没有这个问题）。</p>
+<p>然后我修改了<code>tmux.conf</code>文件没用，修改<code>systemd/logind.conf</code>中的·KillUserProcesses·也没用，中途还遇到了网卡bug害得我以为要寄了，结果是GNOME搞得鬼，生成的conf文件覆盖了原本的配置。</p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>博客</tag>
-        <tag>git</tag>
-        <tag>hexo</tag>
+        <tag>tmux</tag>
+        <tag>Manjaro</tag>
+        <tag>Linux</tag>
+        <tag>SSH</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
       </tags>
   </entry>
   <entry>
@@ -268,10 +240,38 @@ dark | forest | neutral</em></li>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>blog</tag>
+        <tag>hexo</tag>
         <tag>typora</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
+<blockquote>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title>Hexo安装和配置插件</title>
@@ -326,34 +326,6 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
         <tag>blog</tag>
         <tag>Hexo</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hexo快速使用指北</title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>Python基础知识点</title>
@@ -454,6 +426,68 @@ else:<br>
         <tag>Python</tag>
         <tag>信息技术</tag>
         <tag>支教</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github Pages与Hexo deploy的一点小问题</title>
+    <url>/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/</url>
+    <content><![CDATA[<h1 id="前情提要">前情提要</h1>
+<blockquote>
+<p>顺便如果你还没撸过这个学生党羊毛：https://education.github.com/pack/offers</p>
+<p>一共有三家域名商给提供这个羊毛，慢慢撸</p>
+</blockquote>
+<p>前段时间想玩玩域名，于是趁着GitHub学生包还在赶紧撸两个免费的一年域名。简单的注册域名绑定在GitHub
+Pages上之后就没有再deploy到仓库上新的博文，只是在本地修改过，于是忘记了有这么一回事。</p>
+<p>namecheap这家域名商在用学生包注册时很鸡贼地补充一句：<strong>现在是唯一将你域名和GitHub
+Pages绑定的时机</strong></p>
+<p>其实，在博客的仓库setting下手动设置Custom domain并没有多复杂。</p>
+<p><strong>直到今天我在deploy了hexo的修改后，发现域名下的博客怎么404了</strong></p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/404.png" alt="404">
+<figcaption aria-hidden="true">404</figcaption>
+</figure>
+<h1 id="省流版">省流版</h1>
+<p>Hexo有针对配置GitHub Pages定制域名的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，之后的每次构建和部署都会带有域名信息。</p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/cname.png" alt="cname">
+<figcaption aria-hidden="true">cname</figcaption>
+</figure>
+<h1 id="问题排查">问题排查</h1>
+<ol type="1">
+<li><p><strong>怀疑是Hexo构建出了问题</strong>，但是404应该是<code>index.html</code>不正常才会有的问题</p>
+<p><code>hexo clean</code>然后重新<code>hexo g</code>
+<code>hexo d</code>，然后发现暴露出了另一个错误：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">[master b137740] Site updated: 2023-04-16 15:33:52<br> 2 files changed, 792 insertions(+), 796 deletions(-)<br>kex_exchange_identification: Connection closed by remote host<br>Connection closed by 198.18.1.13 port 22<br>fatal: Could not <span class="hljs-built_in">read</span> from remote repository.<br><br>Please make sure you have the correct access rights<br>and the repository exists.<br></code></pre></td></tr></table></figure>
+<p>这是我以为就是git在链接上的故障，于是重新生成了SSH密钥上传到GitHub上，但是故障依旧</p></li>
+<li><p><strong>排查SSH问题</strong>，搜索到使用的代理可能会出现不允许22端口的情况</p>
+<p>于是在<code>~/.ssh/config</code>中添加了：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs config">Host github.com<br>  HostName ssh.github.com<br>  Port 443<br></code></pre></td></tr></table></figure>
+<p>表示强制使用443端口连接GitHub的SSH</p>
+<p>使用<code>ssh -vT git@github.com</code>测试GitHub：</p>
+<p>一串跑码之后收到回复：<code>Hi Ash-one! You've successfully authenticated, but GitHub does not provide shell access.</code>
+看来SSH的问题解决了</p>
+<p>继续测试deploy，发现Hexo正常构建合并了分支到仓库中。</p>
+<p>但是，故障依旧还在。</p></li>
+<li><p>到这里，我选择<strong>检查了commit记录</strong>，因为在印象中有看到仓库根目录下有<code>CNAME</code>文件标记是哪个域名，结果在所有commit记录中都没有见到这一条，commit的文本也都是Hexo自动生成的update文本。</p>
+<p>终于意识到了是<strong>Hexo在deploy的时候肯定是将CNAME文件覆盖掉</strong>了，重新进入仓库的设置，果然发现曾经配置过的域名消失了</p>
+<figure>
+<img src="/2023/04/16/github-pages-yu-hexo-deploy-de-yi-dian-xiao-wen-ti/custom-domain.png" alt="对这里熟悉完全是因为配置HTTPS证书时的痛苦">
+<figcaption aria-hidden="true">对这里熟悉完全是因为配置HTTPS证书时的痛苦</figcaption>
+</figure></li>
+</ol>
+<p>重新在图中3的位置上填上了域名后，成功解决了这次的404问题。</p>
+<p>但是很简单的状况是：下次deploy还会覆盖掉CNAME</p>
+<p>实际上Hexo有针对配置GitHub Pages的方法，在这个<a href="https://github.com/hexojs/hexo/issues/4121">issue</a>中提到：在Hexo目录下的<code>source</code>目录中创建<code>CNAME</code>文件，并将域名写入，就完成了，之后的每次构建和部署都会带有域名信息。</p>
+<h1 id="小结">小结</h1>
+<p>整体而言只是因为工具不熟悉出现的一次小问题，花了半小时的排查来回，还出现SSH上的奇怪问题，确实是很奇妙了。。。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>博客</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -576,6 +610,75 @@ else:<br>
       </tags>
   </entry>
   <entry>
+    <title>VALL-E</title>
+    <url>/2023/01/13/vall-e/</url>
+    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
+<h2 id="模型">模型</h2>
+<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
+<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
+<figure>
+<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
+<figcaption aria-hidden="true">模型总览</figcaption>
+</figure>
+<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
+<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
+<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
+<p>后面出现了矢量量化（vector
+quantization），应用在vq-wav2vec、HuBERT。</p>
+<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
+models），优点如下：</p>
+<ul>
+<li>在低比特率下表现比传统音频编解码器更好。</li>
+<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
+<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
+<li>可以做到减少时间序列长度。</li>
+</ul>
+<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
+code
+matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
+<figure>
+<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
+<figcaption aria-hidden="true">RVQ</figcaption>
+</figure>
+<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
+<h2 id="模型-1">模型</h2>
+<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
+C)\)</span></p>
+<figure>
+<img src="/2023/01/13/vall-e/LM.png" alt="LM">
+<figcaption aria-hidden="true">LM</figcaption>
+</figure>
+<h2 id="推理">推理</h2>
+<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
+<ul>
+<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
+<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
+</ul>
+<h2 id="数据">数据</h2>
+<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
+<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
+<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
+<p>16个 NVIDIA TESLA V100
+32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
+5 × 10−4 的峰值，然后对其进行线性衰减。</p>
+<h2 id="分析">分析</h2>
+<ul>
+<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
+<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
+<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
+<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
+<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
+<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>esxi安装黑群晖记录</title>
     <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
     <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
@@ -664,75 +767,6 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
         <tag>虚拟机</tag>
         <tag>esxi</tag>
         <tag>群晖</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VALL-E</title>
-    <url>/2023/01/13/vall-e/</url>
-    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
-<h2 id="模型">模型</h2>
-<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
-<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
-<figure>
-<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
-<figcaption aria-hidden="true">模型总览</figcaption>
-</figure>
-<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
-<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
-<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
-<p>后面出现了矢量量化（vector
-quantization），应用在vq-wav2vec、HuBERT。</p>
-<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
-models），优点如下：</p>
-<ul>
-<li>在低比特率下表现比传统音频编解码器更好。</li>
-<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
-<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
-<li>可以做到减少时间序列长度。</li>
-</ul>
-<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
-code
-matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
-<figure>
-<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
-<figcaption aria-hidden="true">RVQ</figcaption>
-</figure>
-<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
-<h2 id="模型-1">模型</h2>
-<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
-C)\)</span></p>
-<figure>
-<img src="/2023/01/13/vall-e/LM.png" alt="LM">
-<figcaption aria-hidden="true">LM</figcaption>
-</figure>
-<h2 id="推理">推理</h2>
-<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
-<ul>
-<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
-<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
-</ul>
-<h2 id="数据">数据</h2>
-<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
-<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
-<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
-<p>16个 NVIDIA TESLA V100
-32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
-5 × 10−4 的峰值，然后对其进行线性衰减。</p>
-<h2 id="分析">分析</h2>
-<ul>
-<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
-<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
-<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
-<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
-<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
-<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
       </tags>
   </entry>
   <entry>
@@ -1055,37 +1089,6 @@ Drive用于读取数据集，这里会要求登陆Google账号授权，每次都
       </tags>
   </entry>
   <entry>
-    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
-    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
-    <content><![CDATA[<h1 id="问题">问题</h1>
-<figure>
-<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
-<figcaption aria-hidden="true">SSH代理</figcaption>
-</figure>
-<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
-<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
-<h1 id="解决">解决</h1>
-<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
-<p>先来检查SSH的加密方式：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
-<p>找到输出中的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
-<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
-<p>重新生成密钥：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>Surge</tag>
-        <tag>代理</tag>
-        <tag>SSH</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用Bert进行中文NER命名实体识别feat.fastNLP（上：模型篇）</title>
     <url>/2023/03/18/shi-yong-bert-jin-xing-ner-ming-ming-shi-ti-shi-bie-feat-fastnlp/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
@@ -1251,6 +1254,38 @@ mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</
       </tags>
   </entry>
   <entry>
+    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
+    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
+    <content><![CDATA[<h1 id="问题">问题</h1>
+<figure>
+<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
+<figcaption aria-hidden="true">SSH代理</figcaption>
+</figure>
+<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
+<h1 id="解决">解决</h1>
+<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
+<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
+<p><strong>如果用的是dropbear这种<em>非openssh</em>工具，是不可以的。</strong></p>
+<p>先来检查SSH的加密方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
+<p>找到输出中的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
+<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能Surge代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
+<p>重新生成密钥：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>SSH</tag>
+        <tag>网络</tag>
+        <tag>Surge</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用wireguard搭建属于自己的虚拟内网</title>
     <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
     <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
@@ -1331,183 +1366,62 @@ mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</
       </tags>
   </entry>
   <entry>
-    <title>使用中转服务器代理访问内网bySSinDocker</title>
-    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
-    <content><![CDATA[<h1 id="目的">目的</h1>
-<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
+    <title>在Linux上无sudo安装使用ProxyChains</title>
+    <url>/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
+<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
+<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
+<h1 id="安装">安装</h1>
+<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
+<p>没有权限的需要从源码构建</p>
+<p>ProxyChains的<a href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
+<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
 <figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
-<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" alt="需要修改的部分">
+<figcaption aria-hidden="true">需要修改的部分</figcaption>
 </figure>
-<h1 id="搭建步骤">搭建步骤</h1>
-<h2 id="概览">概览</h2>
-<ol type="1">
-<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
-<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
-<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
-</ol>
-<h2 id="搭建ss服务器">搭建SS服务器</h2>
-<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
-<h2 id="搭建frpc">搭建frpc</h2>
-<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
-<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
-<p>frpc.ini配置示例</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
-<p>运行frpc</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
-<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
-<p>进入小火箭点击右上角的加号</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
-<p>填写内容，需要对应ss服务器上的配置填写</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
-<p>然后可以在首页的本地节点中看到刚添加的节点</p>
-<p>点击连通性测试查看是否网络已打通</p>
-<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
-<p>进入后点击通用</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
-<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
-<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
-<p>我这里测试我的内网网关</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
-<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
-<p>或者你可以像我一样添加整个网段。</p>
+<p>这里代码指定的是程序运行时从哪里读取lib文件，当我们make
+install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
+<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，<strong>所以在这个字典里加上`/home/gxz/.local/lib'
+</strong>，你要根据自己选择是否修改。</p>
+<p>下面指定配置目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
 <figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
-<figcaption aria-hidden="true">image-20221027171938222</figcaption>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" alt="make结果">
+<figcaption aria-hidden="true">make结果</figcaption>
 </figure>
-<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
-<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br><span class="hljs-comment"># 这里直接mv也可以</span><br></code></pre></td></tr></table></figure>
+<p>将ProxyChains添加到环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 如果你很熟悉dll文件调用，直接在这里将‘~/.local/lib‘路径加入库文件路径很方便。</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$HOME</span>/.local/lib:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
+<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" alt="conf文件路径">
+<figcaption aria-hidden="true">conf文件路径</figcaption>
+</figure>
+<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
+<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
+<h1 id="使用">使用</h1>
+<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
+<figure>
+<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" alt="结果">
+<figcaption aria-hidden="true">结果</figcaption>
+</figure>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>网络</tag>
         <tag>代理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微调Bert模型完成文本分类feat.fastNLP</title>
-    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
-    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
-TextClassification</h1>
-<h2 id="前言">前言</h2>
-<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
-<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
-<h2 id="外卖数据预处理">外卖数据预处理</h2>
-<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
-<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
-<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
-<figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
-<figcaption aria-hidden="true">数据集</figcaption>
-</figure>
-<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
-<h2 id="模型搭建">模型搭建</h2>
-<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
-<h2 id="模型训练">模型训练</h2>
-<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
-<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
-<blockquote>
-<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
-</blockquote>
-<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
-<figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
-<figcaption aria-hidden="true">训练完成</figcaption>
-</figure>
-<p>最后得到在验证集上的准确率0.836485</p>
-<h2 id="模型测试">模型测试</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>输出测试集上准确率：这个模型结果为0.8125</p>
-<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
-<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>文本分类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>机器学习数学基础③数值计算和最优化理论</title>
-    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
-    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
-<h2 id="上溢和下溢">上溢和下溢</h2>
-<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
-<ul>
-<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
-<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
-</ul>
-<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
-<figure>
-<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
-<figcaption aria-hidden="true">softmax函数</figcaption>
-</figure>
-<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
-<h1 id="最优化">最优化</h1>
-<h2 id="最优化理论">最优化理论</h2>
-<p><strong>经验风险最小化</strong></p>
-<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
-<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
-<h3 id="凸集">1.凸集</h3>
-<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
-<figure>
-<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
-<figcaption aria-hidden="true">凸集和非凸集</figcaption>
-</figure>
-<p>数学定义: 一个集合<span class="math inline">\(S\subset
-R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
-S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
-\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
-x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
-<h3 id="超平面和半空间">2.超平面和半空间</h3>
-<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
-<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
-<h3 id="凸集分离定理">3.凸集分离定理</h3>
-<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
-<figure>
-<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
-<figcaption aria-hidden="true">凸集分离</figcaption>
-</figure>
-<h3 id="凸函数">4.凸函数</h3>
-<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
-<figure>
-<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
-<figcaption aria-hidden="true">凸函数</figcaption>
-</figure>
-<aside>
-💡 在图中直线始终在凸函数曲线上方
-</aside>
-<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
-1\)</span>,有:</p>
-<p><span class="math display">\[
-f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
-\]</span></p>
-<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
-<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
-<aside>
-💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
-</aside>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
+        <tag>proxy</tag>
+        <tag>tool</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -1644,9 +1558,61 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
         <category>学习</category>
       </categories>
       <tags>
-        <tag>ML</tag>
         <tag>线性代数</tag>
+        <tag>ML</tag>
         <tag>DL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微调Bert模型完成文本分类feat.fastNLP</title>
+    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
+    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
+TextClassification</h1>
+<h2 id="前言">前言</h2>
+<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
+<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
+<h2 id="外卖数据预处理">外卖数据预处理</h2>
+<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
+<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
+<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
+<figcaption aria-hidden="true">数据集</figcaption>
+</figure>
+<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
+<h2 id="模型搭建">模型搭建</h2>
+<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
+<h2 id="模型训练">模型训练</h2>
+<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
+<blockquote>
+<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
+</blockquote>
+<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
+<figcaption aria-hidden="true">训练完成</figcaption>
+</figure>
+<p>最后得到在验证集上的准确率0.836485</p>
+<h2 id="模型测试">模型测试</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>输出测试集上准确率：这个模型结果为0.8125</p>
+<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
+<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>文本分类</tag>
       </tags>
   </entry>
   <entry>
@@ -1821,153 +1787,63 @@ H(P,Q)=H(P)+D_{KL}(P||Q)=-\mathbb{E}_{X\sim P}\log Q(x)
       </tags>
   </entry>
   <entry>
-    <title>清河村支教回忆</title>
-    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
-    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
-  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
-<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
-  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
-<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
-<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
-<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
-  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
-<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
-  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
-<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
-<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
-<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>支教</tag>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在Linux上无sudo安装使用ProxyChains</title>
-    <url>/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>多人共用服务器时经常遇到分配的账户无sudo权限、无法提权，但是经常需要安装软件。</p>
-<p>通常来讲下载源码本地make然后install没有太多问题，不过由于很多软件开发者设置的路径问题会导致软件无法使用，</p>
-<p>本文以ProxyChains为例进行整个过程，ProxyChains是一个全局代理工具，可以在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<p><strong>注意这个工具只能代理TCP，像<code>ping</code>命令这样的ICMP协议是不会被代理的！</strong></p>
-<h1 id="安装">安装</h1>
-<p>如果是有sudo权限直接用包管理器下载即可，Ubuntu上</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">sudo apt install proxychains4<br></code></pre></td></tr></table></figure>
-<p>没有权限的需要从源码构建</p>
-<p>ProxyChains的<a href="https://github.com/haad/proxychains">仓库</a>可以下载到源码，然后<code>cd</code>进入该目录</p>
-<p>使用编辑器打开<code>src/main.c</code>文件，修改图中的内容：</p>
+    <title>使用中转服务器代理访问内网bySSinDocker</title>
+    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
+    <content><![CDATA[<h1 id="目的">目的</h1>
+<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
 <figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/修改.png" alt="需要修改的部分">
-<figcaption aria-hidden="true">需要修改的部分</figcaption>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
+<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
 </figure>
-<p>这里代码指定的是程序运行时从哪里读取lib文件，当我们make
-install完后，这个lib文件<code>libproxychains4.so</code>是在本项目源文件夹下的，</p>
-<p>所以需要我们手动将需要放置lib文件的路径添加到这个字符串，我这里选择统一管理lib文件的路径，<strong>所以在这个字典里加上`/home/gxz/.local/lib'
-</strong>，你要根据自己选择是否修改。</p>
-<p>下面指定配置目录：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># --prefix是用来添加前缀的，表示从当前目录开始make的结果路径会加上这个前缀</span><br>./configue --prefix=build<br><br>make<br><br><span class="hljs-comment"># 注意这里的DESTDIR路径一定要从根目录开始写，install的结果会放在DESTDIR加上上面配置的prefix的文件夹中，当然也可以安装在其他位置统一管理</span><br>make install DESTDIR=<span class="hljs-string">&#x27;/home/gxz/dev/proxychains&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>没有报错就代表安装好了，可以找到<code>.so</code>文件，将它拷贝或者移动到刚才在c文件添加的目录下：</p>
+<h1 id="搭建步骤">搭建步骤</h1>
+<h2 id="概览">概览</h2>
+<ol type="1">
+<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
+<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
+<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
+</ol>
+<h2 id="搭建ss服务器">搭建SS服务器</h2>
+<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
+<h2 id="搭建frpc">搭建frpc</h2>
+<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
+<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
+<p>frpc.ini配置示例</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
+<p>运行frpc</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
+<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
+<p>进入小火箭点击右上角的加号</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
+<p>填写内容，需要对应ss服务器上的配置填写</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
+<p>然后可以在首页的本地节点中看到刚添加的节点</p>
+<p>点击连通性测试查看是否网络已打通</p>
+<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
+<p>进入后点击通用</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
+<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
+<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
+<p>我这里测试我的内网网关</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
+<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
+<p>或者你可以像我一样添加整个网段。</p>
 <figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/make结果.png" alt="make结果">
-<figcaption aria-hidden="true">make结果</figcaption>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
+<figcaption aria-hidden="true">image-20221027171938222</figcaption>
 </figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> libproxychains4.so /home/gxz/.local/lib/<br><span class="hljs-comment"># 这里直接mv也可以</span><br></code></pre></td></tr></table></figure>
-<p>将ProxyChains添加到环境变量：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br><br><br><span class="hljs-comment">#proxychains</span><br><span class="hljs-built_in">export</span> PROXYCHAINS_HOME=<span class="hljs-variable">$HOME</span>/dev/proxychains<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$PROXYCHAINS_HOME</span>/build/bin:<span class="hljs-variable">$PATH</span><br><br><span class="hljs-comment"># 如果你很熟悉dll文件调用，直接在这里将‘~/.local/lib‘路径加入库文件路径很方便。</span><br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$HOME</span>/.local/lib:<span class="hljs-variable">$LD_LIBRARY_PATH</span><br><br><br><span class="hljs-comment"># 还可以加上别名，毕竟这条命令有点长</span><br><span class="hljs-built_in">alias</span> pc=<span class="hljs-string">&#x27;proxychains4&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>到这里，命令行输入<code>pc</code>应该会看到提示你输入后面的命令。</p>
-<p>但是我们还没有配置具体的代理地址，根据仓库中的指示，conf文件在这些路径上是会被自动检测到的：</p>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/conf.png" alt="conf文件路径">
-<figcaption aria-hidden="true">conf文件路径</figcaption>
-</figure>
-<p>我选择在<code>$(HOME)/.proxychains/proxychains.conf</code>这个路径下存储配置文件。将下面文件粘贴进该文件中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">strict_chain<br>proxy_dns <br>remote_dns_subnet 224<br>tcp_read_time_out 15000<br>tcp_connect_time_out 8000<br>localnet 127.0.0.0/255.0.0.0<br><span class="hljs-comment"># ProxyList format</span><br><span class="hljs-comment">#       type  host  port [user pass]</span><br><span class="hljs-comment">#       (values separated by &#x27;tab&#x27; or &#x27;blank&#x27;)</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#        Examples:</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#            	socks5	192.168.67.78	1080	lamer	secret</span><br><span class="hljs-comment">#		http	192.168.89.3	8080	justu	hidden</span><br><span class="hljs-comment">#	 	socks4	192.168.1.49	1080</span><br><span class="hljs-comment">#	        http	192.168.39.93	8080	</span><br><span class="hljs-comment">#		</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment">#       proxy types: http, socks4, socks5, raw</span><br><span class="hljs-comment">#        * raw: The traffic is simply forwarded to the proxy without modification.</span><br><span class="hljs-comment">#        ( auth types supported: &quot;basic&quot;-http  &quot;user/pass&quot;-socks )</span><br><span class="hljs-comment">#</span><br><br>[ProxyList]<br><span class="hljs-comment"># add proxy here ...</span><br><span class="hljs-comment"># meanwile</span><br><span class="hljs-comment"># defaults set to &quot;tor&quot;</span><br>socks5 10.56.0.237 1001 <br></code></pre></td></tr></table></figure>
-<p>最终需要修改的代理内容就在最后修改即可，支持http/https/socks5等多种代理。</p>
-<h1 id="使用">使用</h1>
-<p>使用很简单，在需要的命令前加上<code>proxychains4</code>使得该命令按照设置通过代理访问。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">proxychains4 git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br><br><span class="hljs-comment"># 配置别名后</span><br>pc git <span class="hljs-built_in">clone</span> https://github.com/xcmyz/FastSpeech.git<br></code></pre></td></tr></table></figure>
-<figure>
-<img src="/2023/04/18/zai-linux-shang-shi-yong-proxychains-wu-root-quan-xian/result.png" alt="结果">
-<figcaption aria-hidden="true">结果</figcaption>
-</figure>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>代理</tag>
-        <tag>proxy</tag>
-        <tag>tool</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爱快路由下无法正常解析DNS的问题</title>
-    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
-    <content><![CDATA[<blockquote>
-<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
-而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
-本文解决了这两个问题</p>
-</blockquote>
-<p>先说结论:</p>
-<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
-必须设置爱快的DNS加速服务中使用代理模式才能生效,
-同时要开启强制客户端DNS代理,
-而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
-<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
-<hr>
-<p>以下是完整版:</p>
-<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
-<p>①查看是否是运营商限制了下行带宽:
-测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
-<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
-所以问题可能在ikuai上</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
-<figcaption aria-hidden="true">家中原始网络拓扑图,
-分为经过软路由的改造部分和初始路由器部分</figcaption>
-</figure>
-<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
-在未做其他修改的情况下出现了无法解析DNS的情况</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu">
-<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
-</figure>
-<blockquote>
-<p>qq和微信都是不需要解析DNS的软件,
-如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
-</blockquote>
-<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
-均不能正常上网</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS">
-<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
-</figure>
-<p>ikuai内的设置, 无法解析DNS</p>
-<p>然后怀疑是不是ikuai本身就无法正常上网,
-使用ikuai内的测试工具发现能够ping通域名</p>
-<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
-<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
-在网上和论坛搜索了很久都没有找到相关的情况</p>
-<p>最后的最后在ikuai官方的手册里找到了答案</p>
-<p><a href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
-<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
-<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
-<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
-<blockquote>
-<p>回到最初的降速问题,
-经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
-</blockquote>
+<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
+<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
         <tag>网络</tag>
-        <tag>DNS</tag>
+        <tag>代理</tag>
       </tags>
   </entry>
   <entry>
@@ -2059,6 +1935,74 @@ P_{G})\)</span><br>
       </categories>
       <tags>
         <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习数学基础③数值计算和最优化理论</title>
+    <url>/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/</url>
+    <content><![CDATA[<h1 id="数值计算">数值计算</h1>
+<h2 id="上溢和下溢">上溢和下溢</h2>
+<p>在数字计算机中我们需要通过有限的位数表示无限多的实数,这意味着会引入误差.</p>
+<ul>
+<li><strong>下溢(underflow):</strong>当接近零的数被四舍五入为零时发生下溢。许多函数会在其参数为零而不是一个很小的正数时才会表现出质的不同。例如，我们通常要避免被零除<strong>。</strong></li>
+<li><strong>上溢(overflow):</strong>当大量级的数被近似为<span class="math inline">\(\infin\)</span>或<span class="math inline">\(-\infin\)</span>时发生上溢。进一步的运算通常将这些无限值变为非数字。</li>
+</ul>
+<p>避免数值上溢或者下溢的方法常用softmax函数.</p>
+<figure>
+<img src="/2022/07/30/ji-qi-xue-xi-shu-xue-ji-chu-shu-zhi-ji-suan-he-zui-you-hua-li-lun/softmax函数.png" alt="softmax函数">
+<figcaption aria-hidden="true">softmax函数</figcaption>
+</figure>
+<p>softmax函数能够将上下接近溢出的数据<em>压缩</em>至0-1的范围内.</p>
+<h1 id="最优化">最优化</h1>
+<h2 id="最优化理论">最优化理论</h2>
+<p><strong>经验风险最小化</strong></p>
+<p>用最小的代价取得最大的收益.也就是我们今天常说的算法.</p>
+<h2 id="凸集与凸集分离定理">凸集与凸集分离定理</h2>
+<h3 id="凸集">1.凸集</h3>
+<p>在实数域的向量空间中.如果一个集合中任意两点的连线上的点都在该集合中,则该集合为<strong>凸集</strong>.</p>
+<figure>
+<img src="https://pic1.zhimg.com/v2-608f89f47688c41e4c3f83cfad095c84_r.jpg" alt="凸集和非凸集">
+<figcaption aria-hidden="true">凸集和非凸集</figcaption>
+</figure>
+<p>数学定义: 一个集合<span class="math inline">\(S\subset
+R^T\)</span>,若对于任意两点<span class="math inline">\(x,y \in
+S\)</span>,以及实数<span class="math inline">\(\lambda(0\leqslant
+\lambda \leqslant 1)\)</span>,都有<span class="math inline">\(\lambda
+x+(1-\lambda )y \in S\)</span>,则称集合S为凸集.</p>
+<h3 id="超平面和半空间">2.超平面和半空间</h3>
+<p>三维空间的<strong>超平面</strong>就是一个面(曲面),二维空间的超平面就是一条线(曲线),推广到n维空间.</p>
+<p>超平面的某一个方向的所有样本组成<strong>半空间.</strong></p>
+<h3 id="凸集分离定理">3.凸集分离定理</h3>
+<p>所谓两个凸集分离，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用一张超平面将两者隔在两边，如下图所示：</p>
+<figure>
+<img src="https://pic2.zhimg.com/80/v2-4116a3bda12faa5e2421ce27efb7fb71_1440w.jpg" alt="凸集分离">
+<figcaption aria-hidden="true">凸集分离</figcaption>
+</figure>
+<h3 id="凸函数">4.凸函数</h3>
+<p>凸函数是一个定义域在某个向量空间的凸子集上的实值函数.</p>
+<figure>
+<img src="https://pic3.zhimg.com/80/v2-f1b39d0aad4388433158679221f813d2_1440w.jpg" alt="凸函数">
+<figcaption aria-hidden="true">凸函数</figcaption>
+</figure>
+<aside>
+💡 在图中直线始终在凸函数曲线上方
+</aside>
+<p>数学定义:对于函数f(x),如果其定义域C是凸集,且对于<span class="math inline">\(\forall x,y \in C, 0\leqslant \alpha \leqslant
+1\)</span>,有:</p>
+<p><span class="math display">\[
+f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
+\]</span></p>
+<p><strong>如果一个函数是凸函数,则其局部最优点就是其全局最优点.</strong></p>
+<p>因为在ML中我们就是在求模型的全局最优点,所以一旦证明ML模型中的损失函数为凸函数,相当于我们只需要求它的局部最优点.</p>
+<aside>
+💡 求解非凸函数的全局最优点也就成了神经网络中的常见难题.
+</aside>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
       </tags>
   </entry>
   <entry>
@@ -2834,5 +2778,96 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 <h2 id="划分vlan的网络">划分VLAN的网络</h2>
 <h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
+  </entry>
+  <entry>
+    <title>爱快路由下无法正常解析DNS的问题</title>
+    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
+    <content><![CDATA[<blockquote>
+<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
+而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
+本文解决了这两个问题</p>
+</blockquote>
+<p>先说结论:</p>
+<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
+必须设置爱快的DNS加速服务中使用代理模式才能生效,
+同时要开启强制客户端DNS代理,
+而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
+<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
+<hr>
+<p>以下是完整版:</p>
+<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
+<p>①查看是否是运营商限制了下行带宽:
+测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
+<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
+所以问题可能在ikuai上</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
+<figcaption aria-hidden="true">家中原始网络拓扑图,
+分为经过软路由的改造部分和初始路由器部分</figcaption>
+</figure>
+<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
+在未做其他修改的情况下出现了无法解析DNS的情况</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu">
+<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
+</figure>
+<blockquote>
+<p>qq和微信都是不需要解析DNS的软件,
+如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
+</blockquote>
+<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
+均不能正常上网</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS">
+<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
+</figure>
+<p>ikuai内的设置, 无法解析DNS</p>
+<p>然后怀疑是不是ikuai本身就无法正常上网,
+使用ikuai内的测试工具发现能够ping通域名</p>
+<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
+<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
+在网上和论坛搜索了很久都没有找到相关的情况</p>
+<p>最后的最后在ikuai官方的手册里找到了答案</p>
+<p><a href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
+<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
+<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
+<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
+<blockquote>
+<p>回到最初的降速问题,
+经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>DNS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清河村支教回忆</title>
+    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
+    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
+  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
+<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
+  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
+<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
+<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
+<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
+  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
+<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
+  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
+<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
+<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
+<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>支教</tag>
+        <tag>随笔</tag>
+      </tags>
   </entry>
 </search>

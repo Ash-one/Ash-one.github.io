@@ -16,21 +16,21 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题   SSH代理  Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 先来检查SSH的加密方式： 1ssh">
+    <meta name="description" content="问题   SSH代理  如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果用的是dropbear这种非op">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Surge开启SSH代理无法通过私钥连接的原因">
 <meta property="og:url" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="问题   SSH代理  Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 先来检查SSH的加密方式： 1ssh">
+<meta property="og:description" content="问题   SSH代理  如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了ssh authorazition failed的情况，测试代理不通。 解决 结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥 Surge的SSH代理相当于ssh -D命令，开启动态端口转发功能。 如果用的是dropbear这种非op">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png">
 <meta property="article:published_time" content="2023-05-23T07:31:42.000Z">
-<meta property="article:modified_time" content="2023-05-23T07:47:37.147Z">
+<meta property="article:modified_time" content="2023-05-23T11:37:13.893Z">
 <meta property="article:author" content="灰一">
+<meta property="article:tag" content="SSH">
 <meta property="article:tag" content="网络">
 <meta property="article:tag" content="Surge">
 <meta property="article:tag" content="代理">
-<meta property="article:tag" content="SSH">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ash-one.github.io/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png">
   
@@ -246,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          427 字
+          464 字
         
       </span>
     
@@ -308,7 +308,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月23日 下午
+                    本文最后更新于：2023年5月23日 晚上
                   
                 
               </p>
@@ -321,15 +321,16 @@
 <img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" srcset="/img/loading.gif" lazyload alt="SSH代理">
 <figcaption aria-hidden="true">SSH代理</figcaption>
 </figure>
-<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
 <p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
 <h1 id="解决">解决</h1>
 <p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
+<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
+<p><strong>如果用的是dropbear这种<em>非openssh</em>工具，是不可以的。</strong></p>
 <p>先来检查SSH的加密方式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
 <p>找到输出中的：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
-<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
+<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能Surge代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
 <p>重新生成密钥：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
 <p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
@@ -366,13 +367,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/SSH/">#SSH</a>
+      
         <a href="/tags/%E7%BD%91%E7%BB%9C/">#网络</a>
       
         <a href="/tags/Surge/">#Surge</a>
       
         <a href="/tags/%E4%BB%A3%E7%90%86/">#代理</a>
-      
-        <a href="/tags/SSH/">#SSH</a>
       
     </div>
   
@@ -428,6 +429,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/" title="Arch/Manjaro系统ssh断开后tmux会话中断的问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Arch/Manjaro系统ssh断开后tmux会话中断的问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
