@@ -4,6 +4,64 @@
   
   
   <entry>
+    <title>Python中GB2312转UTF-8的问题（2023.07.31）</title>
+    <link href="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/"/>
+    <url>/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</url>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述">问题描述</h1><p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/GB2312编码.png" alt="GB2312和UTF8对应表" style="zoom: 67%;"></p><p>中文的单个破折号<code>—</code>字符在GB2312编码中使用两个字节，十六进制表示为<code>A1AA</code>。</p><p>根据这幅图中的对应关系在UTF-8编码中应该使用三个字节<code>E28094</code>（VSCode内置的<code>通过编码保存</code>功能得到的也是这个结果）</p><p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Python保存前后.png" alt="Python保存前后" style="zoom:67%;"></p><p>是在通过Python的<code>open</code>函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了<code>E28095</code>，成为了另一个长相相同但是编码不同的字符。</p><p>接下来我们查询一下UTF-8中这些字符真正对应的内容，<a href="https://www.utf8-chartable.de/unicode-utf8-table.pl">UTF-8编码查询参考网站</a></p><p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Unicode和UTF-8.png" alt="Unicode和UTF-8" style="zoom:67%;"></p><p>可以看到这里<code>E28090-E28096</code>都是不同长短的折线。</p><p>我在Edge浏览器中使用搜索工具搜索中文破折号（Shift-），这时候打出了两个相同字符，删除其中的一个，高亮显示都是<code>E28094</code>字符的破折号，看起来是微软统一使用该转换方式，而Python选择了另外的转换方式，本身不是大问题，但是可能会导致意料之外的结果。</p><h1 id="结论">结论</h1><p>在涉及到中文字符的编码和处理时最好统一先全部处理为相同的固定格式，并且做好清洗和预处理工作，防止意料外结果出现。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>python</tag>
+      
+      <tag>utf8</tag>
+      
+      <tag>gb2312</tag>
+      
+      <tag>编码</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ESPNet代码结构（Recipe）</title>
+    <link href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/"/>
+    <url>/2023/07/23/espnet-dai-ma-jie-gou-recipe/</url>
+    
+    <content type="html"><![CDATA[<h1 id="文件结构介绍">文件结构介绍</h1><p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/ code-structure.png" alt="recipe结构" style="zoom:40%;"></p><p>图中表示ESPNet的文件目录结构</p><p>在<code>corpus-name</code>下，任务文件夹<code>enh1</code>表示用于语音增强任务（单人增强，多人分离）</p><p><code>conf</code>表示模型训练和推理时用到的配置文件</p><p><code>local</code>表示与该语音数据集相关的准备脚本</p><p><code>data</code>表示在代码运行过程中产生的Kaldi格式的运行文件</p><p><code>dump</code>表示对data目录中内容进行进一步处理后得到的数据文件</p><p><code>exp</code>存放实验相关的文件</p><p><code>enh.sh</code>模板脚本</p><p><code>run.sh</code>入口脚本文件，向模板文件输入数据</p><p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/model- structure.png" alt="模型" style="zoom:40%;"></p><p>图中表示模型部分的三大重点结构</p><p><code>bin</code>python脚本入口，调用tasks中的py</p><p><code>tasks/enh.py</code>表示任务，调用下层的文件</p><p><code>enh/espnet_model.py</code>表示模型</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>语音</tag>
+      
+      <tag>ESPNet</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Arch/Manjaro系统ssh断开后tmux会话中断的问题</title>
     <link href="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/"/>
     <url>/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/</url>
@@ -204,13 +262,13 @@
     
     <tags>
       
+      <tag>python</tag>
+      
       <tag>Bert</tag>
       
       <tag>NLP</tag>
       
       <tag>NER</tag>
-      
-      <tag>python</tag>
       
       <tag>flask</tag>
       
@@ -487,9 +545,9 @@
     
     <tags>
       
-      <tag>配置</tag>
-      
       <tag>blog</tag>
+      
+      <tag>配置</tag>
       
       <tag>Hexo</tag>
       
@@ -516,9 +574,9 @@
     
     <tags>
       
-      <tag>Apple</tag>
-      
       <tag>配置</tag>
+      
+      <tag>Apple</tag>
       
       <tag>conda</tag>
       

@@ -16,26 +16,29 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hexo安装和配置插件  💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件  准备工作 安装node环境 可以直接在nodejs官网下载安装包 准备路径后安装hexo 在想要安装node的路径下建立一个新的文件夹，避免装在根目录下 在新的文件夹下执行命令安装hexo 1npm install hexo 测试hexo命令 安装各种插件 pandoc渲染la">
+    <meta name="description" content="问题描述  中文的单个破折号—字符在GB2312编码中使用两个字节，十六进制表示为A1AA。 根据这幅图中的对应关系在UTF-8编码中应该使用三个字节E28094（VSCode内置的通过编码保存功能得到的也是这个结果）  是在通过Python的open函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了E28095，成为了另一个长相相同但是编码不同的字符。 接下来我们查询一下UTF-8">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo安装和配置插件">
-<meta property="og:url" content="https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/index.html">
+<meta property="og:title" content="Python中GB2312转UTF-8的问题（2023.07.31）">
+<meta property="og:url" content="https://ash-one.github.io/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="Hexo安装和配置插件  💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件  准备工作 安装node环境 可以直接在nodejs官网下载安装包 准备路径后安装hexo 在想要安装node的路径下建立一个新的文件夹，避免装在根目录下 在新的文件夹下执行命令安装hexo 1npm install hexo 测试hexo命令 安装各种插件 pandoc渲染la">
+<meta property="og:description" content="问题描述  中文的单个破折号—字符在GB2312编码中使用两个字节，十六进制表示为A1AA。 根据这幅图中的对应关系在UTF-8编码中应该使用三个字节E28094（VSCode内置的通过编码保存功能得到的也是这个结果）  是在通过Python的open函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了E28095，成为了另一个长相相同但是编码不同的字符。 接下来我们查询一下UTF-8">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-01T12:03:30.000Z">
-<meta property="article:modified_time" content="2022-08-01T12:05:26.938Z">
+<meta property="og:image" content="https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png">
+<meta property="article:published_time" content="2023-07-31T09:38:23.000Z">
+<meta property="article:modified_time" content="2023-08-06T11:30:15.957Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="blog">
-<meta property="article:tag" content="配置">
-<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="utf8">
+<meta property="article:tag" content="gb2312">
+<meta property="article:tag" content="编码">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Hexo安装和配置插件 - 灰一茶话会</title>
+  <title>Python中GB2312转UTF-8的问题（2023.07.31） - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -214,13 +217,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/head.jpeg') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hexo安装和配置插件"></span>
+            <span id="subtitle" data-typed-text="Python中GB2312转UTF-8的问题（2023.07.31）"></span>
           
         </div>
 
@@ -231,8 +234,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-01 20:03" pubdate>
-          2022年8月1日 晚上
+        <time datetime="2023-07-31 17:38" pubdate>
+          2023年7月31日 下午
         </time>
       </span>
     
@@ -243,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          436 字
         
       </span>
     
@@ -254,7 +257,7 @@
         
         
         
-          24 分钟
+          4 分钟
         
       </span>
     
@@ -300,12 +303,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hexo安装和配置插件</h1>
+            <h1 style="display: none">Python中GB2312转UTF-8的问题（2023.07.31）</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月1日 晚上
+                    本文最后更新于：2023年8月6日 晚上
                   
                 
               </p>
@@ -313,47 +316,18 @@
             
               <div class="markdown-body">
                 
-                <h1 id="hexo安装和配置插件">Hexo安装和配置插件</h1>
-<aside>
-💡 本文安装配置了hexo博客的常用插件，包括pandoc、mermaid、本地图片等插件
-</aside>
-<h1 id="准备工作">准备工作</h1>
-<h2 id="安装node环境">安装node环境</h2>
-<p>可以直接在nodejs官网下载安装包</p>
-<h2 id="准备路径后安装hexo">准备路径后安装hexo</h2>
-<p>在想要安装node的路径下建立一个新的文件夹，避免装在根目录下</p>
-<p>在新的文件夹下执行命令安装hexo</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> hexo<br></code></pre></td></tr></table></figure>
-<p>测试hexo命令</p>
-<h1 id="安装各种插件">安装各种插件</h1>
-<h2 id="pandoc渲染latex公式">pandoc渲染latex公式</h2>
-<p>先在官网安装pandoc的包</p>
-<p><a target="_blank" rel="noopener" href="https://pandoc.org/installing.html">Installing
-pandoc</a></p>
-<p>再执行命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-renderer-pandoc --save<br></code></pre></td></tr></table></figure>
-<h2 id="安装mermaid流程图插件">安装mermaid流程图插件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save hexo-filter-mermaid-diagrams<br></code></pre></td></tr></table></figure>
-<p>安装后不能直接使用，需要修改部分文件，修改内容如下</p>
-<p>参考文章：</p>
-<p><a href="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/">Hexo博客在matery主题下插入mermaid流程图</a></p>
-<h2 id="安装支持本地图片的插件">安装支持本地图片的插件</h2>
-<ol type="1">
-<li><p>插件安装</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-asset-image --save<br></code></pre></td></tr></table></figure></p></li>
-<li><p>由于插件内容老旧失效，找到文件进行修改</p>
-<p>位置在/node_modules/hexo-asset-image/index.js</p>
-<p><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-keyword">var</span> cheerio = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;cheerio&#x27;</span>);<br><br><span class="hljs-comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">getPosition</span>(<span class="hljs-params">str, m, i</span>) &#123;<br>  <span class="hljs-keyword">return</span> str.<span class="hljs-title function_">split</span>(m, i).<span class="hljs-title function_">join</span>(m).<span class="hljs-property">length</span>;<br>&#125;<br><br><span class="hljs-keyword">var</span> version = <span class="hljs-title class_">String</span>(hexo.<span class="hljs-property">version</span>).<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>);<br>hexo.<span class="hljs-property">extend</span>.<span class="hljs-property">filter</span>.<span class="hljs-title function_">register</span>(<span class="hljs-string">&#x27;after_post_render&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)&#123;<br>  <span class="hljs-keyword">var</span> config = hexo.<span class="hljs-property">config</span>;<br>  <span class="hljs-keyword">if</span>(config.<span class="hljs-property">post_asset_folder</span>)&#123;<br>    	<span class="hljs-keyword">var</span> link = data.<span class="hljs-property">permalink</span>;<br>	<span class="hljs-keyword">if</span>(version.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> &amp;&amp; <span class="hljs-title class_">Number</span>(version[<span class="hljs-number">0</span>]) == <span class="hljs-number">3</span>)<br>	   <span class="hljs-keyword">var</span> beginPos = <span class="hljs-title function_">getPosition</span>(link, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">else</span><br>	   <span class="hljs-keyword">var</span> beginPos = <span class="hljs-title function_">getPosition</span>(link, <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-number">3</span>) + <span class="hljs-number">1</span>;<br>	<span class="hljs-comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span><br>	<span class="hljs-keyword">var</span> endPos = link.<span class="hljs-title function_">lastIndexOf</span>(<span class="hljs-string">&#x27;/&#x27;</span>) + <span class="hljs-number">1</span>;<br>    link = link.<span class="hljs-title function_">substring</span>(beginPos, endPos);<br><br>    <span class="hljs-keyword">var</span> toprocess = [<span class="hljs-string">&#x27;excerpt&#x27;</span>, <span class="hljs-string">&#x27;more&#x27;</span>, <span class="hljs-string">&#x27;content&#x27;</span>];<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; toprocess.<span class="hljs-property">length</span>; i++)&#123;<br>      <span class="hljs-keyword">var</span> key = toprocess[i];<br> <br>      <span class="hljs-keyword">var</span> $ = cheerio.<span class="hljs-title function_">load</span>(data[key], &#123;<br>        <span class="hljs-attr">ignoreWhitespace</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">xmlMode</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">lowerCaseTags</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-attr">decodeEntities</span>: <span class="hljs-literal">false</span><br>      &#125;);<br><br>      $(<span class="hljs-string">&#x27;img&#x27;</span>).<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>		<span class="hljs-keyword">if</span> ($(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>))&#123;<br>			<span class="hljs-comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span><br>			<span class="hljs-keyword">var</span> src = $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-string">&#x27;\\&#x27;</span>, <span class="hljs-string">&#x27;/&#x27;</span>);<br>			<span class="hljs-keyword">if</span>(!<span class="hljs-regexp">/http[s]*.*|\/\/.*/</span>.<span class="hljs-title function_">test</span>(src) &amp;&amp;<br>			   !<span class="hljs-regexp">/^\s*\//</span>.<span class="hljs-title function_">test</span>(src)) &#123;<br>			  <span class="hljs-comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span><br>			  <span class="hljs-comment">// In addition, to support multi-level local directory.</span><br>			  <span class="hljs-keyword">var</span> linkArray = link.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;/&#x27;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)&#123;<br>				<span class="hljs-keyword">return</span> elem != <span class="hljs-string">&#x27;&#x27;</span>;<br>			  &#125;);<br>			  <span class="hljs-keyword">var</span> srcArray = src.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;/&#x27;</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">elem</span>)&#123;<br>				<span class="hljs-keyword">return</span> elem != <span class="hljs-string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="hljs-string">&#x27;.&#x27;</span>;<br>			  &#125;);<br>			  <span class="hljs-keyword">if</span>(srcArray.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>)<br>				srcArray.<span class="hljs-title function_">shift</span>();<br>			  src = srcArray.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;/&#x27;</span>);<br>			  $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;src&#x27;</span>, config.<span class="hljs-property">root</span> + link + src);<br>			  <span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;update link as:--&gt;&quot;</span>+config.<span class="hljs-property">root</span> + link + src);<br>			&#125;<br>		&#125;<span class="hljs-keyword">else</span>&#123;<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;no src attr, skipped...&quot;</span>);<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-property">info</span>&amp;&amp;<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>($(<span class="hljs-variable language_">this</span>));<br>		&#125;<br>      &#125;);<br>      data[key] = $.<span class="hljs-title function_">html</span>();<br>    &#125;<br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure></p></li>
-<li><p>打开hexo配置文件_config.yml，找到这个配置项开启功能，目的是在每次使用hexo
-new生成新博客时，自动生成一个同名的目录存放静态文件</p>
-<p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">post_asset_folder:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure></p></li>
-</ol>
-<p>可以生成测试是否能正常加载blog中的本地图片</p>
-<p>如果没能正确生成可以使用命令清理文件重新编译</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo clean<br></code></pre></td></tr></table></figure>
-<h1 id="参考链接">参考链接</h1>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7006594302604214280">解决hexo引用本地图片无法显示的问题
-- 掘金</a></p>
+                <h1 id="问题描述">问题描述</h1>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/GB2312编码.png" srcset="/img/loading.gif" lazyload alt="GB2312和UTF8对应表" style="zoom: 67%;"></p>
+<p>中文的单个破折号<code>—</code>字符在GB2312编码中使用两个字节，十六进制表示为<code>A1AA</code>。</p>
+<p>根据这幅图中的对应关系在UTF-8编码中应该使用三个字节<code>E28094</code>（VSCode内置的<code>通过编码保存</code>功能得到的也是这个结果）</p>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Python保存前后.png" srcset="/img/loading.gif" lazyload alt="Python保存前后" style="zoom:67%;"></p>
+<p>是在通过Python的<code>open</code>函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了<code>E28095</code>，成为了另一个长相相同但是编码不同的字符。</p>
+<p>接下来我们查询一下UTF-8中这些字符真正对应的内容，<a target="_blank" rel="noopener" href="https://www.utf8-chartable.de/unicode-utf8-table.pl">UTF-8编码查询参考网站</a></p>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Unicode和UTF-8.png" srcset="/img/loading.gif" lazyload alt="Unicode和UTF-8" style="zoom:67%;"></p>
+<p>可以看到这里<code>E28090-E28096</code>都是不同长短的折线。</p>
+<p>我在Edge浏览器中使用搜索工具搜索中文破折号（Shift-），这时候打出了两个相同字符，删除其中的一个，高亮显示都是<code>E28094</code>字符的破折号，看起来是微软统一使用该转换方式，而Python选择了另外的转换方式，本身不是大问题，但是可能会导致意料之外的结果。</p>
+<h1 id="结论">结论</h1>
+<p>在涉及到中文字符的编码和处理时最好统一先全部处理为相同的固定格式，并且做好清洗和预处理工作，防止意料外结果出现。</p>
 
                 
               </div>
@@ -372,7 +346,7 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
     
       <span class="category-chain">
         
-  <a href="/categories/tech/" class="category-chain-item">技术</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
   
   
 
@@ -387,11 +361,13 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/blog/">#blog</a>
+        <a href="/tags/python/">#python</a>
       
-        <a href="/tags/%E9%85%8D%E7%BD%AE/">#配置</a>
+        <a href="/tags/utf8/">#utf8</a>
       
-        <a href="/tags/Hexo/">#Hexo</a>
+        <a href="/tags/gb2312/">#gb2312</a>
+      
+        <a href="/tags/%E7%BC%96%E7%A0%81/">#编码</a>
       
     </div>
   
@@ -403,8 +379,8 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hexo安装和配置插件</div>
-      <div>https://ash-one.github.io/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/</div>
+      <div>Python中GB2312转UTF-8的问题（2023.07.31）</div>
+      <div>https://ash-one.github.io/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</div>
     </div>
     <div class="license-meta">
       
@@ -416,7 +392,7 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月1日</div>
+          <div>2023年7月31日</div>
         </div>
       
       
@@ -448,18 +424,12 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/" title="生成模型之VAE">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">生成模型之VAE</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/" title="Apple Silicon MacBook Pro新机配置">
-                        <span class="hidden-mobile">Apple Silicon MacBook Pro新机配置</span>
+                      <a href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/" title="ESPNet代码结构（Recipe）">
+                        <span class="hidden-mobile">ESPNet代码结构（Recipe）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
