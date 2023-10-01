@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>GitLab本地部署（1）Docker部署和配置</title>
+    <link href="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/"/>
+    <url>/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png" alt="两个仓库项目的镜像大小对比" style="zoom: 67%;"></p><p>首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当前没有选择这个版本的gitea原因是某次调整配置重启后无法打开管理界面，最后还是回到了小狐狸的怀抱。</p><h1 id="部署在黑群晖上">部署在黑群晖上</h1><p>在群晖系统上运行docker也是轻松又惬意，下面是一些需要配置的内容做参考：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214248311-6167770.png" alt="端口参考" style="zoom:67%;"></p><p>22，443，和80端口是需要放出来的，我这里由于后面需要调整内网的端口转发和LFS的需求，不使用默认的80端口，如果读者和我相同需求，最好容器和本地端口配置为相同的。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png" alt="路径参考" style="zoom:67%;"></p><p>三个文件夹是需要提前都在群晖上配置好的。其他的配置都使用默认即可，十分简单。</p><p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，注册登陆即可。</p><p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png" alt="终端机" style="zoom:67%;"></p><p>进入docker的终端机新增一个bash，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/gitlab/gitlab.rb<br></code></pre></td></tr></table></figure><p>在32行应该是配置<code>external_url1</code>，我这里修改为<code>external_url 'http://192.168.1.xx:57080‘</code></p><p>此外还需要调整<code>nginx['listen_port']</code>，我这里在1467行，把值修改为57080对应上自己的配置。</p><p>之后就可以正常进入web首页了～</p><h1 id="相关链接">相关链接</h1><p>需要详细配置的可以参考下面的链接：</p><p>https://forums.docker.com/t/gitlab-lfs-dial-tco-error/102263</p><p>https://docs.gitlab.com/omnibus/settings/configuration.html</p><p>https://zhuanlan.zhihu.com/p/486410391</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>gitlba</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Python中GB2312转UTF-8的问题（2023.07.31）</title>
     <link href="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/"/>
     <url>/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</url>

@@ -16,29 +16,29 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述  中文的单个破折号—字符在GB2312编码中使用两个字节，十六进制表示为A1AA。 根据这幅图中的对应关系在UTF-8编码中应该使用三个字节E28094（VSCode内置的通过编码保存功能得到的也是这个结果）  是在通过Python的open函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了E28095，成为了另一个长相相同但是编码不同的字符。 接下来我们查询一下UTF-8">
+    <meta name="description" content="前言 本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。  首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python中GB2312转UTF-8的问题（2023.07.31）">
-<meta property="og:url" content="https://ash-one.github.io/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/index.html">
+<meta property="og:title" content="GitLab本地部署（1）Docker部署和配置">
+<meta property="og:url" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="问题描述  中文的单个破折号—字符在GB2312编码中使用两个字节，十六进制表示为A1AA。 根据这幅图中的对应关系在UTF-8编码中应该使用三个字节E28094（VSCode内置的通过编码保存功能得到的也是这个结果）  是在通过Python的open函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了E28095，成为了另一个长相相同但是编码不同的字符。 接下来我们查询一下UTF-8">
+<meta property="og:description" content="前言 本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。  首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png">
-<meta property="article:published_time" content="2023-07-31T09:38:23.000Z">
-<meta property="article:modified_time" content="2023-08-06T11:30:15.957Z">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214248311-6167770.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png">
+<meta property="article:published_time" content="2023-10-01T13:25:58.000Z">
+<meta property="article:modified_time" content="2023-10-01T13:58:57.254Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="python">
-<meta property="article:tag" content="utf8">
-<meta property="article:tag" content="gb2312">
-<meta property="article:tag" content="编码">
+<meta property="article:tag" content="gitlba">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Python中GB2312转UTF-8的问题（2023.07.31） - 灰一茶话会</title>
+  <title>GitLab本地部署（1）Docker部署和配置 - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,13 +217,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2023/08/06/1lCZUPuo9eAmqbr.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/head.jpeg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Python中GB2312转UTF-8的问题（2023.07.31）"></span>
+            <span id="subtitle" data-typed-text="GitLab本地部署（1）Docker部署和配置"></span>
           
         </div>
 
@@ -234,8 +234,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-31 17:38" pubdate>
-          2023年7月31日 下午
+        <time datetime="2023-10-01 21:25" pubdate>
+          2023年10月1日 晚上
         </time>
       </span>
     
@@ -246,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          436 字
+          870 字
         
       </span>
     
@@ -257,7 +257,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -303,12 +303,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Python中GB2312转UTF-8的问题（2023.07.31）</h1>
+            <h1 style="display: none">GitLab本地部署（1）Docker部署和配置</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年8月6日 晚上
+                    本文最后更新于：2023年10月1日 晚上
                   
                 
               </p>
@@ -316,18 +316,29 @@
             
               <div class="markdown-body">
                 
-                <h1 id="问题描述">问题描述</h1>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/GB2312编码.png" srcset="/img/loading.gif" lazyload alt="GB2312和UTF8对应表" style="zoom: 67%;"></p>
-<p>中文的单个破折号<code>—</code>字符在GB2312编码中使用两个字节，十六进制表示为<code>A1AA</code>。</p>
-<p>根据这幅图中的对应关系在UTF-8编码中应该使用三个字节<code>E28094</code>（VSCode内置的<code>通过编码保存</code>功能得到的也是这个结果）</p>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Python保存前后.png" srcset="/img/loading.gif" lazyload alt="Python保存前后" style="zoom:67%;"></p>
-<p>是在通过Python的<code>open</code>函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了<code>E28095</code>，成为了另一个长相相同但是编码不同的字符。</p>
-<p>接下来我们查询一下UTF-8中这些字符真正对应的内容，<a target="_blank" rel="noopener" href="https://www.utf8-chartable.de/unicode-utf8-table.pl">UTF-8编码查询参考网站</a></p>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Unicode和UTF-8.png" srcset="/img/loading.gif" lazyload alt="Unicode和UTF-8" style="zoom:67%;"></p>
-<p>可以看到这里<code>E28090-E28096</code>都是不同长短的折线。</p>
-<p>我在Edge浏览器中使用搜索工具搜索中文破折号（Shift-），这时候打出了两个相同字符，删除其中的一个，高亮显示都是<code>E28094</code>字符的破折号，看起来是微软统一使用该转换方式，而Python选择了另外的转换方式，本身不是大问题，但是可能会导致意料之外的结果。</p>
-<h1 id="结论">结论</h1>
-<p>在涉及到中文字符的编码和处理时最好统一先全部处理为相同的固定格式，并且做好清洗和预处理工作，防止意料外结果出现。</p>
+                <h1 id="前言">前言</h1>
+<p>本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。</p>
+<p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png" srcset="/img/loading.gif" lazyload alt="两个仓库项目的镜像大小对比" style="zoom: 67%;"></p>
+<p>首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当前没有选择这个版本的gitea原因是某次调整配置重启后无法打开管理界面，最后还是回到了小狐狸的怀抱。</p>
+<h1 id="部署在黑群晖上">部署在黑群晖上</h1>
+<p>在群晖系统上运行docker也是轻松又惬意，下面是一些需要配置的内容做参考：</p>
+<p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214248311-6167770.png" srcset="/img/loading.gif" lazyload alt="端口参考" style="zoom:67%;"></p>
+<p>22，443，和80端口是需要放出来的，我这里由于后面需要调整内网的端口转发和LFS的需求，不使用默认的80端口，如果读者和我相同需求，最好容器和本地端口配置为相同的。</p>
+<p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png" srcset="/img/loading.gif" lazyload alt="路径参考" style="zoom:67%;"></p>
+<p>三个文件夹是需要提前都在群晖上配置好的。其他的配置都使用默认即可，十分简单。</p>
+<p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，注册登陆即可。</p>
+<p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口：</p>
+<p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png" srcset="/img/loading.gif" lazyload alt="终端机" style="zoom:67%;"></p>
+<p>进入docker的终端机新增一个bash，输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/gitlab/gitlab.rb<br></code></pre></td></tr></table></figure>
+<p>在32行应该是配置<code>external_url1</code>，我这里修改为<code>external_url 'http://192.168.1.xx:57080‘</code></p>
+<p>此外还需要调整<code>nginx['listen_port']</code>，我这里在1467行，把值修改为57080对应上自己的配置。</p>
+<p>之后就可以正常进入web首页了～</p>
+<h1 id="相关链接">相关链接</h1>
+<p>需要详细配置的可以参考下面的链接：</p>
+<p>https://forums.docker.com/t/gitlab-lfs-dial-tco-error/102263</p>
+<p>https://docs.gitlab.com/omnibus/settings/configuration.html</p>
+<p>https://zhuanlan.zhihu.com/p/486410391</p>
 
                 
               </div>
@@ -361,13 +372,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/">#python</a>
-      
-        <a href="/tags/utf8/">#utf8</a>
-      
-        <a href="/tags/gb2312/">#gb2312</a>
-      
-        <a href="/tags/%E7%BC%96%E7%A0%81/">#编码</a>
+        <a href="/tags/gitlba/">#gitlba</a>
       
     </div>
   
@@ -379,8 +384,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Python中GB2312转UTF-8的问题（2023.07.31）</div>
-      <div>https://ash-one.github.io/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</div>
+      <div>GitLab本地部署（1）Docker部署和配置</div>
+      <div>https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/</div>
     </div>
     <div class="license-meta">
       
@@ -392,7 +397,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月31日</div>
+          <div>2023年10月1日</div>
         </div>
       
       
@@ -424,18 +429,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/" title="GitLab本地部署（1）Docker部署和配置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">GitLab本地部署（1）Docker部署和配置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/" title="ESPNet代码结构（Recipe）">
-                        <span class="hidden-mobile">ESPNet代码结构（Recipe）</span>
+                      <a href="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/" title="Python中GB2312转UTF-8的问题（2023.07.31）">
+                        <span class="hidden-mobile">Python中GB2312转UTF-8的问题（2023.07.31）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
