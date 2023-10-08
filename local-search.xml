@@ -4,11 +4,11 @@
   
   
   <entry>
-    <title>GitLab本地部署（1）Docker部署和配置</title>
-    <link href="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/"/>
-    <url>/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/</url>
+    <title>Gitlab本地部署（2）Git LFS从外网访问的问题和解决</title>
+    <link href="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/"/>
+    <url>/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/</url>
     
-    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png" alt="两个仓库项目的镜像大小对比" style="zoom: 67%;"></p><p>首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当前没有选择这个版本的gitea原因是某次调整配置重启后无法打开管理界面，最后还是回到了小狐狸的怀抱。</p><h1 id="部署在黑群晖上">部署在黑群晖上</h1><p>在群晖系统上运行docker也是轻松又惬意，下面是一些需要配置的内容做参考：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214248311-6167770.png" alt="端口参考" style="zoom:67%;"></p><p>22，443，和80端口是需要放出来的，我这里由于后面需要调整内网的端口转发和LFS的需求，不使用默认的80端口，如果读者和我相同需求，最好容器和本地端口配置为相同的。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png" alt="路径参考" style="zoom:67%;"></p><p>三个文件夹是需要提前都在群晖上配置好的。其他的配置都使用默认即可，十分简单。</p><p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，注册登陆即可。</p><p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png" alt="终端机" style="zoom:67%;"></p><p>进入docker的终端机新增一个bash，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/gitlab/gitlab.rb<br></code></pre></td></tr></table></figure><p>在32行应该是配置<code>external_url1</code>，我这里修改为<code>external_url 'http://192.168.1.xx:57080‘</code></p><p>此外还需要调整<code>nginx['listen_port']</code>，我这里在1467行，把值修改为57080对应上自己的配置。</p><p>之后就可以正常进入web首页了～</p><h1 id="相关链接">相关链接</h1><p>需要详细配置的可以参考下面的链接：</p><p>https://forums.docker.com/t/gitlab-lfs-dial-tco-error/102263</p><p>https://docs.gitlab.com/omnibus/settings/configuration.html</p><p>https://zhuanlan.zhihu.com/p/486410391</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通：</p><pre><code class=" mermaid">graph LR  机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机</code></pre><p>如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。</p><p>本篇主要解决的问题是gitlfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs请求的地址是无法从外部访问的内网地址，最终卡在downloading界面没有反应。</p><p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为代理，通过内网地址进行lfs的仓库克隆。</u></p><h1 id="问题">问题</h1><p>上一篇提到我们在内网中留下了3个端口，分别是SSH端口、HTTP端口和HTTPS端口，</p><p>在内网中无论是通过ssh访问还是http访问都没有出现问题，特别是lfs追踪的大文件，都可以以理想速度进行下载。但是在大局域网（下称：外网）中，<code>git clone</code>或者<code>git lfs clone</code>都无法正常下载lfs追踪的大文件，表现为卡在下载环节，这时候仓库其他内容已经下载完成，只等lfs下载</p><figure><img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png" alt="卡在LFS下载环节"><figcaption aria-hidden="true">卡在LFS下载环节</figcaption></figure><blockquote><p>通过SSH clone也没有办法下载lfs文件</p></blockquote><p>类似的问题在lfs官方的issue中有人曾经提到过，在Gitea中也遇到了：<a href="https://github.com/git-lfs/git-lfs/issues/3457">issue</a></p><p>在回复中作者表示不会解决这个问题，应该由Gitea来解决，Gitlab也一样。</p><p>问题如上面描述的一样，在LFS中处理大文件链接所解析得到的ip地址是Gitlab部署时配置的内网地址，即使在外网访问，LFS也不会修改这个地址，那解决方案很清晰明了。</p><h1 id="解决方案">解决方案</h1><p>需要一台在Gitlab宿主机相同内网的<strong>跳板机</strong>或者能访问Gitlab宿主机的跳板机</p><p>我这里选择了一台跟Gitlab在同一内网环境的clash，将clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:代理端口&quot;</span> http://内网ip:端口/repo.git<br></code></pre></td></tr></table></figure><h1 id="对于git-clone-设置代理">对于Git clone 设置代理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一次性代理</span><br>git <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://127.0.0.1:1087&quot;</span> https://github.com/xxx.git<br><span class="hljs-comment"># 全局设置代理</span><br>git config --global http.https://github.com.proxy socks5://127.0.0.1:1086<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -20,7 +20,42 @@
     
     <tags>
       
-      <tag>gitlab</tag>
+      <tag>Docker</tag>
+      
+      <tag>Git</tag>
+      
+      <tag>LFS</tag>
+      
+      <tag>端口转发</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>GitLab本地部署（1）Docker部署和配置</title>
+    <link href="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/"/>
+    <url>/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>本地部署Git仓库和管理对于程序员来说一直是很重要的，毕竟一些私人代码哪怕放到私有仓库里依然难以给人安全感。在体验了Gitea和Gitlab两个不同的工具之后我选择了Gitlab-CE版本。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001213601432-6167369.png" alt="两个仓库项目的镜像大小对比" style="zoom: 67%;"></p><p>首先是gitea需要额外设置mysql数据库，不过由于比较轻量化，启动速度很快，并且占用的内存大约200MB；而gitlab直接部署就可以使用，但是启动耗时较长，占用内存经常超过5GB，重量了许多。当前没有选择这个版本的gitea原因是某次调整配置重启后无法打开管理界面，最后还是回到了小狐狸的怀抱。</p><h1 id="docker部署在黑群晖上">Docker部署在黑群晖上</h1><p>在群晖系统上运行docker也是轻松又惬意，下面是一些需要配置的内容做参考：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214248311-6167770.png" alt="端口参考" style="zoom:67%;"></p><p>22，443，和80端口是需要放出来的，我这里由于后面需要调整内网的端口转发和LFS的需求，不使用默认的80端口，如果读者和我相同需求，最好容器和本地端口配置为相同的。</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png" alt="路径参考" style="zoom:67%;"></p><p>三个文件夹是需要提前都在群晖上配置好的。其他的配置都使用默认即可，十分简单。</p><p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，注册登陆即可。</p><p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口：</p><p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png" alt="终端机" style="zoom:67%;"></p><p>进入docker的终端机新增一个bash，输入</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/gitlab/gitlab.rb<br></code></pre></td></tr></table></figure><p>在<strong>32行</strong>应该是配置<code>external_url</code>，我这里修改为<code>external_url 'http://192.168.1.xx:57080'</code></p><p>此外还需要调整<code>nginx['listen_port']</code>，我这里在<strong>1467行</strong>，把值修改为57080对应上自己的配置。</p><p>之后在内网环境内通过<code>ip:端口</code>的方式就可以正常进入web首页了～</p><figure><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231008192838639-6764524.png" alt="web端可以显示克隆地址，但是只会显示external_url的配置"><figcaption aria-hidden="true">web端可以显示克隆地址，但是只会显示external_url的配置</figcaption></figure><p>下一篇内容是配置路由器上的端口转发，使得在更大的局域网（如校园网）内可以访问。</p><h1 id="相关链接">相关链接</h1><p>需要详细配置的可以参考下面的链接：</p><p>https://forums.docker.com/t/gitlab-lfs-dial-tco-error/102263</p><p>https://docs.gitlab.com/omnibus/settings/configuration.html</p><p>https://zhuanlan.zhihu.com/p/486410391</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Gitlab</tag>
+      
+      <tag>Docker</tag>
+      
+      <tag>群晖</tag>
       
     </tags>
     
@@ -198,11 +233,11 @@
     
     <tags>
       
-      <tag>hexo</tag>
-      
       <tag>博客</tag>
       
       <tag>git</tag>
+      
+      <tag>hexo</tag>
       
     </tags>
     
@@ -512,11 +547,11 @@
     
     <tags>
       
+      <tag>群晖</tag>
+      
       <tag>虚拟机</tag>
       
       <tag>esxi</tag>
-      
-      <tag>群晖</tag>
       
     </tags>
     
@@ -570,9 +605,9 @@
     
     <tags>
       
-      <tag>blog</tag>
-      
       <tag>配置</tag>
+      
+      <tag>blog</tag>
       
       <tag>Hexo</tag>
       
@@ -599,9 +634,9 @@
     
     <tags>
       
-      <tag>配置</tag>
-      
       <tag>Apple</tag>
+      
+      <tag>配置</tag>
       
       <tag>conda</tag>
       
@@ -740,9 +775,9 @@
     
     <tags>
       
-      <tag>blog</tag>
-      
       <tag>hexo</tag>
+      
+      <tag>blog</tag>
       
       <tag>typora</tag>
       
