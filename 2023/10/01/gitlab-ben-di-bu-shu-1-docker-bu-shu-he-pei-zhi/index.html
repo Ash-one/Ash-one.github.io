@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png">
 <meta property="og:image" content="https://ash-one.github.io/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231008192838639-6764524.png">
 <meta property="article:published_time" content="2023-10-01T13:25:58.000Z">
-<meta property="article:modified_time" content="2023-10-08T11:32:34.799Z">
+<meta property="article:modified_time" content="2023-10-12T15:12:11.014Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="Gitlab">
 <meta property="article:tag" content="Docker">
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          964 字
+          1.4k 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          9 分钟
+          12 分钟
         
       </span>
     
@@ -311,7 +311,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月8日 晚上
+                    本文最后更新于：2023年10月12日 晚上
                   
                 
               </p>
@@ -329,11 +329,18 @@
 <p>22，443，和80端口是需要放出来的，我这里由于后面需要调整内网的端口转发和LFS的需求，不使用默认的80端口，如果读者和我相同需求，最好容器和本地端口配置为相同的。</p>
 <p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214520189-6167921.png" srcset="/img/loading.gif" lazyload alt="路径参考" style="zoom:67%;"></p>
 <p>三个文件夹是需要提前都在群晖上配置好的。其他的配置都使用默认即可，十分简单。</p>
-<p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，注册登陆即可。</p>
-<p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口：</p>
+<p>如果读者这里使用默认80端口，启动后一分钟就可以在ip:57080端口访问到gitlab首页了，第一次登陆需要用root账户，root密码在我们刚刚配置的<code>docker/gitlab/config/initial_root_password</code>中，这个是不能修改的。通常我们不用这个root账户，而是在控制台里新建一个账户，分配管理员权限。</p>
+<blockquote>
+<p>这里网络上很多教程，我就跳过不写了，不同版本的gitlab-ce界面不太一样</p>
+</blockquote>
+<p>如果像我一样调整了端口，就还需要进入配置文件修改nginx的监听端口，<strong>不然是没法使用LFS的</strong></p>
+<p>这里可以进入群晖的<code>docker/gitlab/config/</code>找到gitlab.rb文件下载后进行修改覆盖(上传后记得修改这个文件的读写权限给admin用户)，也可以直接在运行的docker内调整，调整内容是一样的</p>
 <p><img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231001214846991-6168128.png" srcset="/img/loading.gif" lazyload alt="终端机" style="zoom:67%;"></p>
 <p>进入docker的终端机新增一个bash，输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi /etc/gitlab/gitlab.rb<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>这整个文件都是带#号的，<strong>注意一定要去掉每行前面的#</strong></p>
+</blockquote>
 <p>在<strong>32行</strong>应该是配置<code>external_url</code>，我这里修改为<code>external_url 'http://192.168.1.xx:57080'</code></p>
 <p>此外还需要调整<code>nginx['listen_port']</code>，我这里在<strong>1467行</strong>，把值修改为57080对应上自己的配置。</p>
 <p>之后在内网环境内通过<code>ip:端口</code>的方式就可以正常进入web首页了～</p>
@@ -341,6 +348,9 @@
 <img src="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/image-20231008192838639-6764524.png" srcset="/img/loading.gif" lazyload alt="web端可以显示克隆地址，但是只会显示external_url的配置">
 <figcaption aria-hidden="true">web端可以显示克隆地址，但是只会显示external_url的配置</figcaption>
 </figure>
+<p><strong>不过这个方法的缺点是仓库地址中的克隆地址是内网的地址，如果在外网克隆需要手动修改为SSH
+host或者外网的ip/域名等</strong>，有一些其他方法（https://zhuanlan.zhihu.com/p/109834567）能解决这个问题，但是对于Git
+LFS是无效的，本文的方法是我自用没有问题的方法。</p>
 <p>下一篇内容是配置路由器上的端口转发，使得在更大的局域网（如校园网）内可以访问。</p>
 <h1 id="相关链接">相关链接</h1>
 <p>需要详细配置的可以参考下面的链接：</p>
