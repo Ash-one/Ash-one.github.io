@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>ESXi6.7安装Realtek8125bg四口网卡驱动并直通</title>
+    <link href="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/"/>
+    <url>/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>众所周知，螃蟹网卡Realtek在ESXi7之后的版本都不被支持，虽然也有一些邪道方法安装上去，不过都是更推荐Intel网卡，但是架不住螃蟹网卡太便宜了，没有钱是我的问题。。。正好手上的ESXi是6.7版本，只需要安装下对应的驱动就可以使用。和PCIe四口网卡一起还配了一个单口的全高8125网卡给Manjaro，一个USB网卡给Mac，简单组建了一下2.5G内网，把固态硬盘的速度利用起来，也不需要花费太多，一共只需要不到400元完成升级。</p><p>下文介绍如何在ESXi中安装8125的驱动并将网卡直通给虚拟机使用。</p><h1 id="一找驱动">一、找驱动</h1><p>ESXi的驱动还在更新，不过GitHub这位大佬没有更新了2022年之后的版本，相对旧了一点，不过也提供了完整的编译源码，等后续用着不顺利可以考虑手动编译一下</p><p><strong>驱动下载：</strong></p><p>https://github.com/realganfan/r8125-esxi/releases/tag/9.007.01-1</p><p>压缩包解压出来是一个vib文件，就是我们需要安装的文件</p><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/image-20231012001229001-7040756.png" alt="等待安装的vib文件" style="zoom: 50%;"></p><h1 id="二安装驱动">二、安装驱动</h1><p>先在ESXi网页中开启SSH服务，在本地通过scp命令上传上面的vib文件到<code>/tmp</code>文件夹下（任意位置都行）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp 本地vib文件路径/xxx.vib root@ESXiIP:/tmp/ <br></code></pre></td></tr></table></figure><p>然后ssh登陆到后台，cd到/tmp文件夹下执行命令：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">vmware -vl #查看系统具体版本<br>esxcli software -h #帮助指南<br><br>esxcli software vib install -v /tmp/Realtek_bootbank_net-r8125_9.007.01-1.vib<br></code></pre></td></tr></table></figure><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-10_22.54.41-7041025.png" alt="详细指令" style="zoom:50%;"></p><p>上面vib的路径名称一定要完整，是绝对路径，不然会安装失败</p><p>如果输出内容如图所示则安装成功，直接重启后就能够在硬件中找到4个网卡～</p><h1 id="三直通">三、直通</h1><p>在硬件里可以直接选中网卡点击切换直通，切换后需要重新引导系统识别（相当于重启），然后在ESXi网络适配器中就无法再见到这几个网卡了，不用慌张。</p><p>然后我们进入需要用直通网卡的虚拟机，这时候需要退出ESXi的维护模式才能编辑虚拟机。</p><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.27.52-7041509.png" alt="添加网卡到虚拟机" style="zoom: 50%;"></p><p>添加PCIe网卡需要从PCI设备中添加，这里我把4个网口都添加了进去。</p><p>值得一提的是一开始我这里PCI设备是<strong>灰色</strong>无法添加的，实际上需要多一步操作：</p><p>在管理-系统-高级设置里搜ACSC，然后把第一个选项选中点击编辑选项</p><figure><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.31-7041617.png" alt="修改ACS检查"><figcaption aria-hidden="true">修改ACS检查</figcaption></figure><p>将它修改为True：</p><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.42-7041699.png" alt="设置关闭检查" style="zoom:50%;"></p><p>这样就能正常添加PCI设备到虚拟机了。</p><p>还有需要注意的一点是，一定要勾选预留全部内存：</p><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.30.52-7041763.png" alt="勾选这里" style="zoom:50%;"></p><blockquote><p>实际上如果没有勾选这里根本没法启动虚拟机～相当于把固定的内存划分给这个虚拟机</p></blockquote><p>然后开机后就可以在系统中找到这几个新的网卡了。如果你的系统也是OpenWrt那么不用关心一开始显示的半双工，连接握手后会正常显示握手速率，只要测速没有问题，显示什么无所谓。</p><h1 id="后言">后言</h1><p>这几个8125的网卡在ESXi中不支持SR-IOV技术，刚在系统中发现之后不免还是有些失落，这就是便宜的代价～不过已经很满意了，至少看到OpenWrt里的测速数字增长的喜悦是真的。。。</p><p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_10.20.28-7042144.png" alt="后续长时间连续测试也能够达到速度" style="zoom:50%;"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>网络</tag>
+      
+      <tag>虚拟机</tag>
+      
+      <tag>ESXi</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Gitlab本地部署（2）Git LFS从外网访问的问题和解决</title>
     <link href="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/"/>
     <url>/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/</url>

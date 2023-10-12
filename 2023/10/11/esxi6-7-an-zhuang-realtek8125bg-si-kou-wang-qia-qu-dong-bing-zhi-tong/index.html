@@ -16,29 +16,34 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通： graph LR   机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机  如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。 本篇主要解决的问题是git lfs在">
+    <meta name="description" content="前言 众所周知，螃蟹网卡Realtek在ESXi7之后的版本都不被支持，虽然也有一些邪道方法安装上去，不过都是更推荐Intel网卡，但是架不住螃蟹网卡太便宜了，没有钱是我的问题。。。正好手上的ESXi是6.7版本，只需要安装下对应的驱动就可以使用。和PCIe四口网卡一起还配了一个单口的全高8125网卡给Manjaro，一个USB网卡给Mac，简单组建了一下2.5G内网，把固态硬盘的速度利用起来，也">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gitlab本地部署（2）Git LFS从外网访问的问题和解决">
-<meta property="og:url" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/index.html">
+<meta property="og:title" content="ESXi6.7安装Realtek8125bg四口网卡驱动并直通">
+<meta property="og:url" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="前言 上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通： graph LR   机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机  如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。 本篇主要解决的问题是git lfs在">
+<meta property="og:description" content="前言 众所周知，螃蟹网卡Realtek在ESXi7之后的版本都不被支持，虽然也有一些邪道方法安装上去，不过都是更推荐Intel网卡，但是架不住螃蟹网卡太便宜了，没有钱是我的问题。。。正好手上的ESXi是6.7版本，只需要安装下对应的驱动就可以使用。和PCIe四口网卡一起还配了一个单口的全高8125网卡给Manjaro，一个USB网卡给Mac，简单组建了一下2.5G内网，把固态硬盘的速度利用起来，也">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png">
-<meta property="article:published_time" content="2023-10-08T11:22:00.000Z">
-<meta property="article:modified_time" content="2023-10-08T12:32:12.887Z">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/image-20231012001229001-7040756.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-10_22.54.41-7041025.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.27.52-7041509.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.31-7041617.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.42-7041699.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.30.52-7041763.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_10.20.28-7042144.png">
+<meta property="article:published_time" content="2023-10-11T15:55:45.000Z">
+<meta property="article:modified_time" content="2023-10-12T06:58:11.242Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="Docker">
-<meta property="article:tag" content="Git">
-<meta property="article:tag" content="LFS">
-<meta property="article:tag" content="端口转发">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="虚拟机">
+<meta property="article:tag" content="ESXi">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png">
+<meta name="twitter:image" content="https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/image-20231012001229001-7040756.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Gitlab本地部署（2）Git LFS从外网访问的问题和解决 - 灰一茶话会</title>
+  <title>ESXi6.7安装Realtek8125bg四口网卡驱动并直通 - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -223,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Gitlab本地部署（2）Git LFS从外网访问的问题和解决"></span>
+            <span id="subtitle" data-typed-text="ESXi6.7安装Realtek8125bg四口网卡驱动并直通"></span>
           
         </div>
 
@@ -234,8 +239,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-08 19:22" pubdate>
-          2023年10月8日 晚上
+        <time datetime="2023-10-11 23:55" pubdate>
+          2023年10月11日 晚上
         </time>
       </span>
     
@@ -246,7 +251,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.2k 字
         
       </span>
     
@@ -257,7 +262,7 @@
         
         
         
-          9 分钟
+          11 分钟
         
       </span>
     
@@ -303,12 +308,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Gitlab本地部署（2）Git LFS从外网访问的问题和解决</h1>
+            <h1 style="display: none">ESXi6.7安装Realtek8125bg四口网卡驱动并直通</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月8日 晚上
+                    本文最后更新于：2023年10月12日 下午
                   
                 
               </p>
@@ -317,33 +322,46 @@
               <div class="markdown-body">
                 
                 <h1 id="前言">前言</h1>
-<p>上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通：</p>
-<pre><code class=" mermaid">graph LR
-  机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机
-</code></pre>
-<p>如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。</p>
-<p>本篇主要解决的问题是git
-lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs请求的地址是无法从外部访问的内网地址，最终卡在downloading界面没有反应。</p>
-<p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为代理，通过内网地址进行lfs的仓库克隆。</u></p>
-<h1 id="问题">问题</h1>
-<p>上一篇提到我们在内网中留下了3个端口，分别是SSH端口、HTTP端口和HTTPS端口，</p>
-<p>在内网中无论是通过ssh访问还是http访问都没有出现问题，特别是lfs追踪的大文件，都可以以理想速度进行下载。但是在大局域网（下称：外网）中，<code>git clone</code>或者<code>git lfs clone</code>都无法正常下载lfs追踪的大文件，表现为卡在下载环节，这时候仓库其他内容已经下载完成，只等lfs下载</p>
+<p>众所周知，螃蟹网卡Realtek在ESXi7之后的版本都不被支持，虽然也有一些邪道方法安装上去，不过都是更推荐Intel网卡，但是架不住螃蟹网卡太便宜了，没有钱是我的问题。。。正好手上的ESXi是6.7版本，只需要安装下对应的驱动就可以使用。和PCIe四口网卡一起还配了一个单口的全高8125网卡给Manjaro，一个USB网卡给Mac，简单组建了一下2.5G内网，把固态硬盘的速度利用起来，也不需要花费太多，一共只需要不到400元完成升级。</p>
+<p>下文介绍如何在ESXi中安装8125的驱动并将网卡直通给虚拟机使用。</p>
+<h1 id="一找驱动">一、找驱动</h1>
+<p>ESXi的驱动还在更新，不过
+GitHub这位大佬没有更新了2022年之后的版本，相对旧了一点，不过也提供了完整的编译源码，等后续用着不顺利可以考虑手动编译一下</p>
+<p><strong>驱动下载：</strong></p>
+<p>https://github.com/realganfan/r8125-esxi/releases/tag/9.007.01-1</p>
+<p>压缩包解压出来是一个vib文件，就是我们需要安装的文件</p>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/image-20231012001229001-7040756.png" srcset="/img/loading.gif" lazyload alt="等待安装的vib文件" style="zoom: 50%;"></p>
+<h1 id="二安装驱动">二、安装驱动</h1>
+<p>先在ESXi网页中开启SSH服务，在本地通过scp命令上传上面的vib文件到<code>/tmp</code>文件夹下（任意位置都行）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp 本地vib文件路径/xxx.vib root@ESXiIP:/tmp/ <br></code></pre></td></tr></table></figure>
+<p>然后ssh登陆到后台，cd到/tmp文件夹下执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">vmware -vl #查看系统具体版本<br>esxcli software -h #帮助指南<br><br>esxcli software vib install -v /tmp/Realtek_bootbank_net-r8125_9.007.01-1.vib<br></code></pre></td></tr></table></figure>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-10_22.54.41-7041025.png" srcset="/img/loading.gif" lazyload alt="详细指令" style="zoom:50%;"></p>
+<p>上面vib的路径名称一定要完整，是绝对路径，不然会安装失败</p>
+<p>如果输出内容如图所示则安装成功，直接重启后就能够在硬件中找到4个网卡～</p>
+<h1 id="三直通">三、直通</h1>
+<p>在硬件里可以直接选中网卡点击切换直通，切换后需要重新引导系统识别（相当于重启），然后在ESXi网络适配器中就无法再见到这几个网卡了，不用慌张。</p>
+<p>然后我们进入需要用直通网卡的虚拟机，这时候需要退出ESXi的维护模式才能编辑虚拟机。</p>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.27.52-7041509.png" srcset="/img/loading.gif" lazyload alt="添加网卡到虚拟机" style="zoom: 50%;"></p>
+<p>添加PCIe网卡需要从PCI设备中添加，这里我把4个网口都添加了进去。</p>
+<p>值得一提的是一开始我这里PCI设备是<strong>灰色</strong>无法添加的，实际上需要多一步操作：</p>
+<p>在管理-系统-高级设置里搜ACSC，然后把第一个选项选中点击编辑选项</p>
 <figure>
-<img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png" srcset="/img/loading.gif" lazyload alt="卡在LFS下载环节">
-<figcaption aria-hidden="true">卡在LFS下载环节</figcaption>
+<img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.31-7041617.png" srcset="/img/loading.gif" lazyload alt="修改ACS检查">
+<figcaption aria-hidden="true">修改ACS检查</figcaption>
 </figure>
+<p>将它修改为True：</p>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.22.42-7041699.png" srcset="/img/loading.gif" lazyload alt="设置关闭检查" style="zoom:50%;"></p>
+<p>这样就能正常添加PCI设备到虚拟机了。</p>
+<p>还有需要注意的一点是，一定要勾选预留全部内存：</p>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_09.30.52-7041763.png" srcset="/img/loading.gif" lazyload alt="勾选这里" style="zoom:50%;"></p>
 <blockquote>
-<p>通过SSH clone也没有办法下载lfs文件</p>
+<p>实际上如果没有勾选这里根本没法启动虚拟机～相当于把固定的内存划分给这个虚拟机</p>
 </blockquote>
-<p>类似的问题在lfs官方的issue中有人曾经提到过，在Gitea中也遇到了：<a target="_blank" rel="noopener" href="https://github.com/git-lfs/git-lfs/issues/3457">issue</a></p>
-<p>在回复中作者表示不会解决这个问题，应该由Gitea来解决，Gitlab也一样。</p>
-<p>问题如上面描述的一样，在LFS中处理大文件链接所解析得到的ip地址是Gitlab部署时配置的内网地址，即使在外网访问，LFS也不会修改这个地址，那解决方案很清晰明了。</p>
-<h1 id="解决方案">解决方案</h1>
-<p>需要一台在Gitlab宿主机相同内网的<strong>跳板机</strong>或者能访问Gitlab宿主机的跳板机</p>
-<p>我这里选择了一台跟Gitlab在同一内网环境的clash，将clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:代理端口&quot;</span> http://内网ip:端口/repo.git<br></code></pre></td></tr></table></figure>
-<h1 id="对于git-clone-设置代理">对于Git clone 设置代理</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一次性代理</span><br>git <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://127.0.0.1:1087&quot;</span> https://github.com/xxx.git<br><span class="hljs-comment"># 全局设置代理</span><br>git config --global http.https://github.com.proxy socks5://127.0.0.1:1086<br></code></pre></td></tr></table></figure>
+<p>然后开机后就可以在系统中找到这几个新的网卡了。如果你的系统也是OpenWrt那么不用关心一开始显示的半双工，连接握手后会正常显示握手速率，只要测速没有问题，显示什么无所谓。</p>
+<h1 id="后言">后言</h1>
+<p>这几个8125的网卡在ESXi中不支持SR-IOV技术，刚在系统中发现之后不免还是有些失落，这就是便宜的代价～不过已经很满意了，至少看到OpenWrt里的测速数字增长的喜悦是真的。。。</p>
+<p><img src="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/iShot_2023-10-11_10.20.28-7042144.png" srcset="/img/loading.gif" lazyload alt="后续长时间连续测试也能够达到速度" style="zoom:50%;"></p>
 
                 
               </div>
@@ -362,7 +380,7 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  <a href="/categories/tech/" class="category-chain-item">技术</a>
   
   
 
@@ -377,13 +395,11 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Docker/">#Docker</a>
+        <a href="/tags/%E7%BD%91%E7%BB%9C/">#网络</a>
       
-        <a href="/tags/Git/">#Git</a>
+        <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">#虚拟机</a>
       
-        <a href="/tags/LFS/">#LFS</a>
-      
-        <a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">#端口转发</a>
+        <a href="/tags/ESXi/">#ESXi</a>
       
     </div>
   
@@ -395,8 +411,8 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Gitlab本地部署（2）Git LFS从外网访问的问题和解决</div>
-      <div>https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/</div>
+      <div>ESXi6.7安装Realtek8125bg四口网卡驱动并直通</div>
+      <div>https://ash-one.github.io/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/</div>
     </div>
     <div class="license-meta">
       
@@ -408,7 +424,7 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月8日</div>
+          <div>2023年10月11日</div>
         </div>
       
       
@@ -440,18 +456,12 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/" title="ESXi6.7安装Realtek8125bg四口网卡驱动并直通">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ESXi6.7安装Realtek8125bg四口网卡驱动并直通</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/01/gitlab-ben-di-bu-shu-1-docker-bu-shu-he-pei-zhi/" title="GitLab本地部署（1）Docker部署和配置">
-                        <span class="hidden-mobile">GitLab本地部署（1）Docker部署和配置</span>
+                      <a href="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/" title="Gitlab本地部署（2）Git LFS从外网访问的问题和解决">
+                        <span class="hidden-mobile">Gitlab本地部署（2）Git LFS从外网访问的问题和解决</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -509,19 +519,6 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
 
   
 
-
-
-  <script>
-  Fluid.utils.createScript('https://unpkg.com/mermaid@9.1.2/dist/mermaid.min.js', function() {
-    mermaid.initialize({"theme":"forest"});
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('mermaid' in window) {
-        mermaid.init();
-      }
-    });
-  });
-</script>
 
 
 
