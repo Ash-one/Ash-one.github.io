@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>命令行寻找Linux系统中的大文件</title>
+    <link href="/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/"/>
+    <url>/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/</url>
+    
+    <content type="html"><![CDATA[<h1 id="命令行寻找linux系统中的大文件">命令行寻找Linux系统中的大文件</h1><h2 id="引言">引言</h2><p>在 Linux的命令行中查找大文件的操作非常实用，本文介绍两种查找方法，分别是使用系统工具（适合没有sudo 权限）和外部工具（适合有 sudo 权限可以方便安装）。</p><h2 id="外部工具">外部工具</h2><h3 id="使用ncdu快速检视文件路径及大小">使用<code>ncdu</code>快速检视文件路径及大小</h3><p>先安装</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt update<br>sudo apt install ncdu<br></code></pre></td></tr></table></figure><p>使用直接在命令行输入<code>ncdu</code></p><p>每次启动会进行检索，使用方向键或 jk 控制上下，q 退出</p><figure><img src="/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/image-20240406132752488.png" alt="ncdu"><figcaption aria-hidden="true">ncdu</figcaption></figure><h2 id="系统自带工具">系统自带工具</h2><h3 id="du查找当前文件夹下最大的文件或文件夹"><code>du</code>查找当前文件夹下最大的文件或文件夹</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">du</span> -ach --max-depth=1 . | <span class="hljs-built_in">sort</span> -hr<br></code></pre></td></tr></table></figure><p>如果文件比较多可以加一个筛选：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">du</span> -ach --max-depth=1 . | <span class="hljs-built_in">sort</span> -hr | <span class="hljs-built_in">head</span> -n10<br></code></pre></td></tr></table></figure><p>其中<code>-a</code>表示计算所有文件，包括隐藏和子目录，因此通过<code>--max-depth</code>控制展示深度</p><h3 id="find查找当前文件夹下最大的文件"><code>find</code>查找当前文件夹下最大的文件</h3><p>寻找 20M 以上的文件并打印出来</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">find . -<span class="hljs-built_in">type</span> f -size +20000k -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">ls</span> -lh &#123;&#125; \; 2&gt; /dev/null   | awk <span class="hljs-string">&#x27;&#123; print $NF &quot;: &quot; $5 &#125;&#x27;</span>  | <span class="hljs-built_in">sort</span> -hrk 2,2<br></code></pre></td></tr></table></figure><h2 id="快捷实践">快捷实践</h2><p>将复杂命令设置为 snippet，使用时快速调用，例如使用 Raycast，在snippets 中增加一条：</p><figure><img src="/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/image-20240406135736057.png" alt="在raycast中设置"><figcaption aria-hidden="true">在raycast中设置</figcaption></figure><p>然后再在终端中输入<code>!find</code>就会被自动替换为<code>find . -type f -size +20000k -exec ls -lh &#123;&#125; \; 2&gt; /dev/null   | awk '&#123; print $NF ": " $5 &#125;'  | sort -hrk 2,2</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+      <tag>shell</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>一种常规的Git使用方法</title>
+    <link href="/2024/03/10/yi-chong-chang-gui-de-git-shi-yong-fang-fa/"/>
+    <url>/2024/03/10/yi-chong-chang-gui-de-git-shi-yong-fang-fa/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>好久没有写博客了，正好最近论文提交之后有时间整理一下代码，因此重新回顾一下在服务器上使用Git 管理版本的方式，并且能够同步到自己部署的 Gitlab 仓库上做备份。</p><p>首先需要熟悉 Git 的几个重要操作，除了 <code>clone</code><code>pull</code> <code>push</code> 之外：</p><ul><li><p><code>branch</code> 创建分支，通常用一个 <code>dev</code>分支和主分支区分，只在 <code>dev</code> 分支上进行开发</p></li><li><p><code>checkout</code> 切换分支到指定分支</p></li><li><p><code>merge</code> 在当前分支中合并某个分支</p></li></ul><h1 id="版本控制流程">版本控制流程</h1><p>在实验室中很多时候只有自己开发，没有那么规范，短时间毕业了也就无所谓了，长期从事科研项目的话需要对自己的代码版本和实验结果规范化保存，便于随时回退和迁移。</p><p>一种简单常见的托管的 Git 仓库版本控制流程如下：</p><ol type="1"><li><p>从远端 Git 仓库 <code>clone</code>项目到服务器开发环境上</p></li><li><p>开发环境中首先创建 <code>dev</code> 分支并切换到该分支上</p></li><li><p>只在 <code>dev</code>分支上进行本地开发，对代码进行修改，并在本地提交多个<code>commit</code>，准备同步到远端 Git 仓库</p></li><li><p>在 <code>dev</code> 分支中保证所有修改都 <code>commit</code>后，切换到主分支</p></li><li><p>在主分支上 <code>pull</code>远端仓库的最新版本，并与本地主分支合并</p></li><li><p>在主分支上 <code>merge</code> <code>dev</code>分支，并处理冲突</p></li><li><p>切换到 <code>dev</code> 分支，<code>merge</code>主分支，保证相同后可以继续开发，从 3 开始循环</p></li></ol><p>由于不需要对外发布，因此没有<code>release</code>、<code>hotfix</code> 这些分支，只通过一个<code>dev</code> 分支控制，比较符合实验室环境中一台机子架设 Git仓库，多台机子开发的情景。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Git</tag>
+      
+      <tag>版本控制</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ESXi6.7安装Realtek8125bg四口网卡驱动并直通</title>
     <link href="/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/"/>
     <url>/2023/10/11/esxi6-7-an-zhuang-realtek8125bg-si-kou-wang-qia-qu-dong-bing-zhi-tong/</url>
@@ -22,9 +76,9 @@
       
       <tag>网络</tag>
       
-      <tag>虚拟机</tag>
-      
       <tag>ESXi</tag>
+      
+      <tag>虚拟机</tag>
       
     </tags>
     
@@ -37,7 +91,7 @@
     <link href="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/"/>
     <url>/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/</url>
     
-    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通：</p><pre><code class=" mermaid">graph LR  机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机</code></pre><p>如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。</p><p>本篇主要解决的问题是gitlfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs请求的地址是无法从外部访问的内网地址，最终卡在downloading界面没有反应。</p><p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为代理，通过内网地址进行lfs的仓库克隆。</u></p><h1 id="问题">问题</h1><p>上一篇提到我们在内网中留下了3个端口，分别是SSH端口、HTTP端口和HTTPS端口，</p><p>在内网中无论是通过ssh访问还是http访问都没有出现问题，特别是lfs追踪的大文件，都可以以理想速度进行下载。但是在大局域网（下称：外网）中，<code>git clone</code>或者<code>git lfs clone</code>都无法正常下载lfs追踪的大文件，表现为卡在下载环节，这时候仓库其他内容已经下载完成，只等lfs下载</p><figure><img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png" alt="卡在LFS下载环节"><figcaption aria-hidden="true">卡在LFS下载环节</figcaption></figure><blockquote><p>通过SSH clone也没有办法下载lfs文件</p></blockquote><p>类似的问题在lfs官方的issue中有人曾经提到过，在Gitea中也遇到了：<a href="https://github.com/git-lfs/git-lfs/issues/3457">issue</a></p><p>在回复中作者表示不会解决这个问题，应该由Gitea来解决，Gitlab也一样。</p><p>问题如上面描述的一样，在LFS中处理大文件链接所解析得到的ip地址是Gitlab部署时配置的内网地址，即使在外网访问，LFS也不会修改这个地址，那解决方案很清晰明了。</p><h1 id="解决方案">解决方案</h1><p>需要一台在Gitlab宿主机相同内网的<strong>跳板机</strong>或者能访问Gitlab宿主机的跳板机</p><p>我这里选择了一台跟Gitlab在同一内网环境的clash，将clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:代理端口&quot;</span> http://内网ip:端口/repo.git<br></code></pre></td></tr></table></figure><h1 id="对于git-clone-设置代理">对于Git clone 设置代理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一次性代理</span><br>git <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://127.0.0.1:1087&quot;</span> https://github.com/xxx.git<br><span class="hljs-comment"># 全局设置代理</span><br>git config --global http.https://github.com.proxy socks5://127.0.0.1:1086<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通：</p><pre><code class=" mermaid">graph LR  机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机</code></pre><p>如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。</p><p>本篇主要解决的问题是gitlfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs请求的地址是无法从外部访问的内网地址，最终卡在downloading界面没有反应。</p><p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为http代理，通过内网地址进行lfs的仓库克隆。</u></p><h1 id="问题">问题</h1><p>上一篇提到我们在内网中留下了3个端口，分别是SSH端口、HTTP端口和HTTPS端口，</p><p>在内网中无论是通过ssh访问还是http访问都没有出现问题，特别是lfs追踪的大文件，都可以以理想速度进行下载。但是在大局域网（下称：外网）中，<code>git clone</code>或者<code>git lfs clone</code>都无法正常下载lfs追踪的大文件，表现为卡在下载环节，这时候仓库其他内容已经下载完成，只等lfs下载</p><figure><img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png" alt="卡在LFS下载环节"><figcaption aria-hidden="true">卡在LFS下载环节</figcaption></figure><blockquote><p>通过SSH clone也没有办法下载lfs文件</p></blockquote><p>类似的问题在lfs官方的issue中有人曾经提到过，在Gitea中也遇到了：<a href="https://github.com/git-lfs/git-lfs/issues/3457">issue</a></p><p>在回复中作者表示不会解决这个问题，应该由Gitea来解决，Gitlab也一样。</p><p>问题如上面描述的一样，在LFS中处理大文件链接所解析得到的ip地址是Gitlab部署时配置的内网地址，即使在外网访问，LFS也不会修改这个地址，那解决方案很清晰明了。</p><h1 id="解决方案">解决方案</h1><h2 id="代理之clash">代理之Clash</h2><p>需要：一个能够提供http代理的内网代理工具，常见的如Clash</p><p>如果你的内网中有Clash并放出了代理端口（默认的是7890），在配置好路由器的端口转发后，就可以将Clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:转发的端口&quot;</span> http://Gitlab内网ip:端口/repo.git<br></code></pre></td></tr></table></figure><h2 id="代理之群晖">代理之群晖</h2><p>需要：内网群晖开启Proxy Server放出http代理</p><p>这是我最新发现的一个用法，群晖的官方套件中有ProxyServer可以放出http代理</p><figure><img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214603816.png" alt="群晖"><figcaption aria-hidden="true">群晖</figcaption></figure><p>用法和上面的一样，多一步可能是，在这里可能需要配置下来源IP保证安全</p><figure><img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214820759.png" alt="在这里修改"><figcaption aria-hidden="true">在这里修改</figcaption></figure><blockquote><p>两个方案其实一样都是通过http代理，直接clone内网ip地址的仓库，只需要第一次使用配置代理，后续自动都使用代理pull和push</p><p><strong>坏处是每次新克隆还得找代理的命令。</strong></p></blockquote><h1 id="对于git-clone-设置代理">对于Git clone 设置代理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一次性代理</span><br>git <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://127.0.0.1:1087&quot;</span> https://github.com/xxx.git<br><span class="hljs-comment"># 全局设置代理</span><br>git config --global http.https://github.com.proxy socks5://127.0.0.1:1086<br></code></pre></td></tr></table></figure>]]></content>
     
     
     <categories>
@@ -155,7 +209,7 @@
     <link href="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/"/>
     <url>/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/</url>
     
-    <content type="html"><![CDATA[<h1 id="问题">问题</h1><p>系统：Manjaro或Arch</p><p>桌面系统：<strong>Gnome</strong>（万恶之源）</p><p>描述：通过SSH连接到Manjaro上并开启tmux会话，每次在tmuxdetach后也认真<code>tmux ls</code>发现session保存才敢下线，但是发现sshlog out后所有的session都没有被保存下来。</p><p>其实是一个经历许久的问题，应该是遇到相同问题的人不太多，今天终于花时间找到了解决方案。</p><h1 id="解决方案">解决方案</h1><p>原帖在这里，大家不走弯路直接看社区的解决方案：<a href="https://forum.manjaro.org/t/how-to-keep-tmux-running-after-ssh-is-disconnected/123225">post</a></p><p>修改这个文件<code>/etc/systemd/logind.conf.d/20-kill-user-processes.conf</code>成图中的样子，其实只修改了一个地方，就是把<code>KillUserProcesses=</code>后面的<strong>yes</strong>改为了<strong>no</strong>。或者你也可以像社区一样，<em>直接把这个该死的文件删除</em>。</p><figure><img src="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/tmux.png" alt="修改yes为no"><figcaption aria-hidden="true">修改yes为no</figcaption></figure><p>然后重启manjaro应该就解决了。</p><h1 id="分析">分析</h1><p>原帖里遇到的问题和我是一样的，在其他系统的机器上tmux都不会在ssh logout后关闭会话。只有这个manjaro系统（的Gnome桌面，因为其他朋友用KDE桌面还真没有这个问题）。</p><p>然后我修改了<code>tmux.conf</code>文件没用，修改<code>systemd/logind.conf</code>中的·KillUserProcesses·也没用，中途还遇到了网卡bug害得我以为要寄了，结果是GNOME搞得鬼，生成的conf文件覆盖了原本的配置。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="问题">问题</h1><p>系统：Manjaro或Arch</p><p>桌面系统：<strong>Gnome</strong>（万恶之源）</p><p>描述：通过SSH连接到Manjaro上并开启tmux会话，每次在tmuxdetach后也认真<code>tmux ls</code>发现session保存才敢下线，但是发现sshlog out后所有的session都没有被保存下来。</p><p>其实是一个经历许久的问题，应该是遇到相同问题的人不太多，今天终于花时间找到了解决方案。</p><h1 id="解决方案">解决方案</h1><p>原帖在这里，大家不走弯路直接看社区的解决方案：<a href="https://forum.manjaro.org/t/how-to-keep-tmux-running-after-ssh-is-disconnected/123225">post</a></p><p>修改这个文件<code>/etc/systemd/logind.conf.d/20-kill-user-processes.conf</code>成图中的样子，其实只修改了一个地方，就是把<code>KillUserProcesses=</code>后面的<strong>yes</strong>改为了<strong>no</strong>。或者你也可以像社区一样，<em>直接把这个该死的文件删除</em>。</p><figure><img src="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/tmux.png" alt="修改yes为no"><figcaption aria-hidden="true">修改yes为no</figcaption></figure><p>然后重启manjaro应该就解决了。</p><h1 id="分析">分析</h1><p>原帖里遇到的问题和我是一样的，在其他系统的机器上tmux都不会在ssh logout后关闭会话。只有这个manjaro系统（的Gnome桌面，因为其他朋友用KDE桌面还真没有这个问题）。</p><p>然后我修改了<code>tmux.conf</code>文件没用，修改<code>systemd/logind.conf</code>中的<code>KillUserProcesses</code>也没用，中途还遇到了网卡bug害得我以为要寄了，结果是GNOME搞得鬼，生成的conf文件覆盖了原本的配置。</p>]]></content>
     
     
     <categories>
@@ -576,9 +630,9 @@
     
     <tags>
       
-      <tag>群晖</tag>
-      
       <tag>虚拟机</tag>
+      
+      <tag>群晖</tag>
       
       <tag>esxi</tag>
       

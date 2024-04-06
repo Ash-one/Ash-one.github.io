@@ -24,8 +24,10 @@
 <meta property="og:description" content="前言 上一篇自部署的Gitlab已经能够在内网环境内访问了，在校园环境内我们通常是在机房的服务器上运行程序，因此从机房服务器到实验室内的Gitlab宿主机这条路需要打通： graph LR   机房服务器 --&gt; 个人路由器 --&gt; Gitlab宿主机  如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。 本篇主要解决的问题是git lfs在">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231008200716761-6766838.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214603816.png">
+<meta property="og:image" content="https://ash-one.github.io/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214820759.png">
 <meta property="article:published_time" content="2023-10-08T11:22:00.000Z">
-<meta property="article:modified_time" content="2023-10-08T12:32:12.887Z">
+<meta property="article:modified_time" content="2023-10-14T03:50:29.754Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Git">
@@ -246,7 +248,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -257,7 +259,7 @@
         
         
         
-          9 分钟
+          11 分钟
         
       </span>
     
@@ -308,7 +310,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月8日 晚上
+                    本文最后更新于：2023年10月14日 中午
                   
                 
               </p>
@@ -324,7 +326,7 @@
 <p>如果你的个人路由器无法被机房服务器访问，那么这篇文章的完整过程可能无法复现，但是可以作为借鉴。</p>
 <p>本篇主要解决的问题是git
 lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs请求的地址是无法从外部访问的内网地址，最终卡在downloading界面没有反应。</p>
-<p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为代理，通过内网地址进行lfs的仓库克隆。</u></p>
+<p>省流版：<u>在clone命令中加入可访问内网地址的跳板机作为http代理，通过内网地址进行lfs的仓库克隆。</u></p>
 <h1 id="问题">问题</h1>
 <p>上一篇提到我们在内网中留下了3个端口，分别是SSH端口、HTTP端口和HTTPS端口，</p>
 <p>在内网中无论是通过ssh访问还是http访问都没有出现问题，特别是lfs追踪的大文件，都可以以理想速度进行下载。但是在大局域网（下称：外网）中，<code>git clone</code>或者<code>git lfs clone</code>都无法正常下载lfs追踪的大文件，表现为卡在下载环节，这时候仓库其他内容已经下载完成，只等lfs下载</p>
@@ -339,9 +341,27 @@ lfs在通过路由器端口转发后无法正常被宿主机解析，导致lfs�
 <p>在回复中作者表示不会解决这个问题，应该由Gitea来解决，Gitlab也一样。</p>
 <p>问题如上面描述的一样，在LFS中处理大文件链接所解析得到的ip地址是Gitlab部署时配置的内网地址，即使在外网访问，LFS也不会修改这个地址，那解决方案很清晰明了。</p>
 <h1 id="解决方案">解决方案</h1>
-<p>需要一台在Gitlab宿主机相同内网的<strong>跳板机</strong>或者能访问Gitlab宿主机的跳板机</p>
-<p>我这里选择了一台跟Gitlab在同一内网环境的clash，将clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:代理端口&quot;</span> http://内网ip:端口/repo.git<br></code></pre></td></tr></table></figure>
+<h2 id="代理之clash">代理之Clash</h2>
+<p>需要：一个能够提供http代理的内网代理工具，常见的如Clash</p>
+<p>如果你的内网中有Clash并放出了代理端口（默认的是7890），在配置好路由器的端口转发后，就可以将Clash的http代理端口通过路由器端口转发到校园网范围内，这个代理端口能够被机房服务器访问，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://路由器ip:转发的端口&quot;</span> http://Gitlab内网ip:端口/repo.git<br></code></pre></td></tr></table></figure>
+<h2 id="代理之群晖">代理之群晖</h2>
+<p>需要：内网群晖开启Proxy Server放出http代理</p>
+<p>这是我最新发现的一个用法，群晖的官方套件中有Proxy
+Server可以放出http代理</p>
+<figure>
+<img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214603816.png" srcset="/img/loading.gif" lazyload alt="群晖">
+<figcaption aria-hidden="true">群晖</figcaption>
+</figure>
+<p>用法和上面的一样，多一步可能是，在这里可能需要配置下来源IP保证安全</p>
+<figure>
+<img src="/2023/10/08/gitlab-ben-di-bu-shu-2-git-lfs-cong-wai-wang-fang-wen-de-wen-ti-he-jie-jue/image-20231013214820759.png" srcset="/img/loading.gif" lazyload alt="在这里修改">
+<figcaption aria-hidden="true">在这里修改</figcaption>
+</figure>
+<blockquote>
+<p>两个方案其实一样都是通过http代理，直接clone内网ip地址的仓库，只需要第一次使用配置代理，后续自动都使用代理pull和push</p>
+<p><strong>坏处是每次新克隆还得找代理的命令。</strong></p>
+</blockquote>
 <h1 id="对于git-clone-设置代理">对于Git clone 设置代理</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一次性代理</span><br>git <span class="hljs-built_in">clone</span> -c http.proxy=<span class="hljs-string">&quot;http://127.0.0.1:1087&quot;</span> https://github.com/xxx.git<br><span class="hljs-comment"># 全局设置代理</span><br>git config --global http.https://github.com.proxy socks5://127.0.0.1:1086<br></code></pre></td></tr></table></figure>
 
