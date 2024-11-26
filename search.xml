@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Arch/Manjaro系统ssh断开后tmux会话中断的问题</title>
+    <url>/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/</url>
+    <content><![CDATA[<h1 id="问题">问题</h1>
+<p>系统：Manjaro或Arch</p>
+<p>桌面系统：<strong>Gnome</strong>（万恶之源）</p>
+<p>描述：通过SSH连接到Manjaro上并开启tmux会话，每次在tmux
+detach后也认真<code>tmux ls</code>发现session保存才敢下线，但是发现ssh
+log out后所有的session都没有被保存下来。</p>
+<p>其实是一个经历许久的问题，应该是遇到相同问题的人不太多，今天终于花时间找到了解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>原帖在这里，大家不走弯路直接看社区的解决方案：<a href="https://forum.manjaro.org/t/how-to-keep-tmux-running-after-ssh-is-disconnected/123225">post</a></p>
+<p>修改这个文件<code>/etc/systemd/logind.conf.d/20-kill-user-processes.conf</code>成图中的样子，其实只修改了一个地方，就是把<code>KillUserProcesses=</code>后面的<strong>yes</strong>改为了<strong>no</strong>。或者你也可以像社区一样，<em>直接把这个该死的文件删除</em>。</p>
+<figure>
+<img src="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/tmux.png" alt="修改yes为no">
+<figcaption aria-hidden="true">修改yes为no</figcaption>
+</figure>
+<p>然后重启manjaro应该就解决了。</p>
+<h1 id="分析">分析</h1>
+<p>原帖里遇到的问题和我是一样的，在其他系统的机器上tmux都不会在ssh log
+out后关闭会话。只有这个manjaro系统（的Gnome桌面，因为其他朋友用KDE桌面还真没有这个问题）。</p>
+<p>然后我修改了<code>tmux.conf</code>文件没用，修改<code>systemd/logind.conf</code>中的<code>KillUserProcesses</code>也没用，中途还遇到了网卡bug害得我以为要寄了，结果是GNOME搞得鬼，生成的conf文件覆盖了原本的配置。</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>tmux</tag>
+        <tag>Manjaro</tag>
+        <tag>Linux</tag>
+        <tag>SSH</tag>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Apple Silicon MacBook Pro新机配置</title>
     <url>/2022/07/31/apple-silicon-macbook-pro-xin-ji-pei-zhi/</url>
     <content><![CDATA[<blockquote>
@@ -90,65 +124,32 @@ Silicon版本）</h1>
       </tags>
   </entry>
   <entry>
-    <title>Arch/Manjaro系统ssh断开后tmux会话中断的问题</title>
-    <url>/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/</url>
-    <content><![CDATA[<h1 id="问题">问题</h1>
-<p>系统：Manjaro或Arch</p>
-<p>桌面系统：<strong>Gnome</strong>（万恶之源）</p>
-<p>描述：通过SSH连接到Manjaro上并开启tmux会话，每次在tmux
-detach后也认真<code>tmux ls</code>发现session保存才敢下线，但是发现ssh
-log out后所有的session都没有被保存下来。</p>
-<p>其实是一个经历许久的问题，应该是遇到相同问题的人不太多，今天终于花时间找到了解决方案。</p>
-<h1 id="解决方案">解决方案</h1>
-<p>原帖在这里，大家不走弯路直接看社区的解决方案：<a href="https://forum.manjaro.org/t/how-to-keep-tmux-running-after-ssh-is-disconnected/123225">post</a></p>
-<p>修改这个文件<code>/etc/systemd/logind.conf.d/20-kill-user-processes.conf</code>成图中的样子，其实只修改了一个地方，就是把<code>KillUserProcesses=</code>后面的<strong>yes</strong>改为了<strong>no</strong>。或者你也可以像社区一样，<em>直接把这个该死的文件删除</em>。</p>
-<figure>
-<img src="/2023/06/20/arch-manjaro-xi-tong-ssh-duan-kai-hou-tmux-hui-hua-zhong-duan-de-wen-ti/tmux.png" alt="修改yes为no">
-<figcaption aria-hidden="true">修改yes为no</figcaption>
-</figure>
-<p>然后重启manjaro应该就解决了。</p>
-<h1 id="分析">分析</h1>
-<p>原帖里遇到的问题和我是一样的，在其他系统的机器上tmux都不会在ssh log
-out后关闭会话。只有这个manjaro系统（的Gnome桌面，因为其他朋友用KDE桌面还真没有这个问题）。</p>
-<p>然后我修改了<code>tmux.conf</code>文件没用，修改<code>systemd/logind.conf</code>中的<code>KillUserProcesses</code>也没用，中途还遇到了网卡bug害得我以为要寄了，结果是GNOME搞得鬼，生成的conf文件覆盖了原本的配置。</p>
+    <title>Flutter学习笔记</title>
+    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
+    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
+<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
+<ul>
+<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
+</li>
+<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
+</ul>
+<h2 id="开发时如何选择">开发时如何选择</h2>
+<ul>
+<li>优先使用 StatelessWidget<br>
+</li>
+<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
+<li>尽量在叶子节点时使用 StatefulWidget</li>
+<li>将会调用到setState((){})
+的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
+<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
+</ul>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>tmux</tag>
-        <tag>Manjaro</tag>
-        <tag>Linux</tag>
-        <tag>SSH</tag>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ESPNet代码结构（Recipe）</title>
-    <url>/2023/07/23/espnet-dai-ma-jie-gou-recipe/</url>
-    <content><![CDATA[<h1 id="文件结构介绍">文件结构介绍</h1>
-<p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/ code-structure.png" alt="recipe结构" style="zoom:40%;"></p>
-<p>图中表示ESPNet的文件目录结构</p>
-<p>在<code>corpus-name</code>下，任务文件夹<code>enh1</code>表示用于语音增强任务（单人增强，多人分离）</p>
-<p><code>conf</code>表示模型训练和推理时用到的配置文件</p>
-<p><code>local</code>表示与该语音数据集相关的准备脚本</p>
-<p><code>data</code>表示在代码运行过程中产生的Kaldi格式的运行文件</p>
-<p><code>dump</code>表示对data目录中内容进行进一步处理后得到的数据文件</p>
-<p><code>exp</code>存放实验相关的文件</p>
-<p><code>enh.sh</code>模板脚本</p>
-<p><code>run.sh</code>入口脚本文件，向模板文件输入数据</p>
-<p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/model- structure.png" alt="模型" style="zoom:40%;"></p>
-<p>图中表示模型部分的三大重点结构</p>
-<p><code>bin</code>python脚本入口，调用tasks中的py</p>
-<p><code>tasks/enh.py</code>表示任务，调用下层的文件</p>
-<p><code>enh/espnet_model.py</code>表示模型</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音</tag>
-        <tag>ESPNet</tag>
+        <tag>Flutter</tag>
+        <tag>Dart</tag>
       </tags>
   </entry>
   <entry>
@@ -206,32 +207,31 @@ GitHub这位大佬没有更新了2022年之后的版本，相对旧了一点，�
       </tags>
   </entry>
   <entry>
-    <title>Flutter学习笔记</title>
-    <url>/2021/09/28/flutter-xue-xi-bi-ji/</url>
-    <content><![CDATA[<h1 id="flutter学习笔记">Flutter学习笔记</h1>
-<h2 id="statelesswidget和statefulwidget">StatelessWidget和StatefulWidget</h2>
-<ul>
-<li>StatelessWidget在创建之后将不会更改，想要更改只能new一个新的做替换。<br>
-</li>
-<li>StatefulWidget通过在State类中调用setState((){})更新视图，触发State.build，将整个组件重新绘制，<strong>同时会导致所有子组件重新构造生成，该结点的兄弟结点组件也会被重新构造</strong>。</li>
-</ul>
-<h2 id="开发时如何选择">开发时如何选择</h2>
-<ul>
-<li>优先使用 StatelessWidget<br>
-</li>
-<li>含有大量子 Widget（如根布局、次根布局）慎用 SatefulWidget</li>
-<li>尽量在叶子节点时使用 StatefulWidget</li>
-<li>将会调用到setState((){})
-的代码尽可能的和要更新的视图封装在一个尽可能小的模块里</li>
-<li>如果一个Widget需要reBuild，那么它的子节点、兄弟节点、兄弟节点的子节点应该尽可能少</li>
-</ul>
+    <title>ESPNet代码结构（Recipe）</title>
+    <url>/2023/07/23/espnet-dai-ma-jie-gou-recipe/</url>
+    <content><![CDATA[<h1 id="文件结构介绍">文件结构介绍</h1>
+<p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/ code-structure.png" alt="recipe结构" style="zoom:40%;"></p>
+<p>图中表示ESPNet的文件目录结构</p>
+<p>在<code>corpus-name</code>下，任务文件夹<code>enh1</code>表示用于语音增强任务（单人增强，多人分离）</p>
+<p><code>conf</code>表示模型训练和推理时用到的配置文件</p>
+<p><code>local</code>表示与该语音数据集相关的准备脚本</p>
+<p><code>data</code>表示在代码运行过程中产生的Kaldi格式的运行文件</p>
+<p><code>dump</code>表示对data目录中内容进行进一步处理后得到的数据文件</p>
+<p><code>exp</code>存放实验相关的文件</p>
+<p><code>enh.sh</code>模板脚本</p>
+<p><code>run.sh</code>入口脚本文件，向模板文件输入数据</p>
+<p><img src="/2023/07/23/espnet-dai-ma-jie-gou-recipe/model- structure.png" alt="模型" style="zoom:40%;"></p>
+<p>图中表示模型部分的三大重点结构</p>
+<p><code>bin</code>python脚本入口，调用tasks中的py</p>
+<p><code>tasks/enh.py</code>表示任务，调用下层的文件</p>
+<p><code>enh/espnet_model.py</code>表示模型</p>
 ]]></content>
       <categories>
-        <category>技术</category>
+        <category>学习</category>
       </categories>
       <tags>
-        <tag>Flutter</tag>
-        <tag>Dart</tag>
+        <tag>语音</tag>
+        <tag>ESPNet</tag>
       </tags>
   </entry>
   <entry>
@@ -286,57 +286,42 @@ LFS是无效的，本文的方法是我自用没有问题的方法。</p>
       </tags>
   </entry>
   <entry>
-    <title>富有表现力的语音合成系统（Expressive TTS）</title>
-    <url>/2023/02/10/expressive-tts/</url>
-    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
-<h2 id="tacotron-gst">Tacotron-GST</h2>
-<p>在Tacotron引入了<strong>全局风格标签（Global Style
-Token，GST）</strong>。模型包括reference encoder，style attention，style
-embedding</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
-<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
-</figure>
-<h2 id="styletoken-tts">StyleToken-TTS</h2>
-<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
-<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
-transcript, style tag} ，有 327
-个风格标签，包括各种情绪、意图、语音语调和速度。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
-<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
-</figure>
-<h2 id="prompttts">PromptTTS</h2>
-<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
-<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
-<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
-<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
-</figure>
-<p>其中Content Encoder顶层的Variance
-Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
-<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
-<h2 id="instructtts">InstructTTS</h2>
-<p>香港中文大学+腾讯AI Lab合作</p>
-<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
-<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
-<figcaption aria-hidden="true">InstructTTS</figcaption>
-</figure>
-<figure>
-<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
-<figcaption aria-hidden="true">模型结构</figcaption>
-</figure>
-<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
+    <title>Hexo博客在matery主题下插入mermaid流程图</title>
+    <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
+    <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
+<blockquote>
+<p>本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件</p>
+<p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
+</blockquote>
+<p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
+<p>而实际上在matery主题中没有该文件</p>
+<h2 id="解决方法">解决方法</h2>
+<h3 id="第一步-增加js代码">第一步 增加js代码</h3>
+<p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
+<p>直接在该文件的最后添加如下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
+<p><strong>注意到去掉了原本中间的版本控制,
+因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
+<ul>
+<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default |
+dark | forest | neutral</em></li>
+</ul>
+<h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
+<p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mermaid:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<h2 id="结语">结语</h2>
+<p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
+<p>如果没能成功加载, 可以查看源代码查找mermaid,
+看看增加的ejs代码是否成功渲染</p>
 ]]></content>
       <categories>
-        <category>学习</category>
+        <category>技术</category>
       </categories>
       <tags>
-        <tag>语音合成</tag>
-        <tag>论文</tag>
+        <tag>blog</tag>
+        <tag>hexo</tag>
+        <tag>typora</tag>
       </tags>
   </entry>
   <entry>
@@ -396,10 +381,92 @@ Pages绑定的时机</strong></p>
         <category>技术</category>
       </categories>
       <tags>
+        <tag>hexo</tag>
         <tag>博客</tag>
         <tag>git</tag>
-        <tag>hexo</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>富有表现力的语音合成系统（Expressive TTS）</title>
+    <url>/2023/02/10/expressive-tts/</url>
+    <content><![CDATA[<h1 id="富有表现力的语音合成系统">富有表现力的语音合成系统</h1>
+<h2 id="tacotron-gst">Tacotron-GST</h2>
+<p>在Tacotron引入了<strong>全局风格标签（Global Style
+Token，GST）</strong>。模型包括reference encoder，style attention，style
+embedding</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/tacotron-gst.png" alt="Tacotron-GST模型结构">
+<figcaption aria-hidden="true">Tacotron-GST模型结构</figcaption>
+</figure>
+<h2 id="styletoken-tts">StyleToken-TTS</h2>
+<p>在数据集上增加<strong>风格标签</strong>，代表话语风格的短语或词，例如情感、意图和语调。由于风格是用自然语言标记的，因此控制说话风格是直观和可解释的。</p>
+<p>使用的韩语数据集<strong>FSNR0</strong>，内容为三元组 {speech,
+transcript, style tag} ，有 327
+个风格标签，包括各种情绪、意图、语音语调和速度。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.51.22.png" alt="ST-TTS模型结构">
+<figcaption aria-hidden="true">ST-TTS模型结构</figcaption>
+</figure>
+<h2 id="prompttts">PromptTTS</h2>
+<p>使用微软的TTS合成语音<a href="https://speechresearch.github.io/prompttts/">自建数据集</a>，在LibriSpeech的真人数据上做验证。</p>
+<p>其风格提示词假定有五个风格相关内容，如高声调、女声</p>
+<p>用<code>[CLS]</code>Token学习隐藏的风格表示，BERT经过微调，用于输出五个风格相关特征</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/prompt-tts.png" alt="Prompt-TTS模型结构">
+<figcaption aria-hidden="true">Prompt-TTS模型结构</figcaption>
+</figure>
+<p>其中Content Encoder顶层的Variance
+Adaptor来自FastSpeech2，用于预测持续时间、音高、能量等。</p>
+<p><img src="/2023/02/10/expressive-tts/image-20230407211240554.png" alt="FastSpeech2" style="zoom: 33%;"></p>
+<h2 id="instructtts">InstructTTS</h2>
+<p>香港中文大学+腾讯AI Lab合作</p>
+<p>demo地址：<a href="http://dongchaoyang.top/InstructTTS/">http://dongchaoyang.top/InstructTTS/</a></p>
+<p>使用自然语言作为提示，指导语音合成的情绪，提示句包含整体感知情绪、话语情感水平、话语风格，每条语音由五个人写出提示句。<strong>NLSpeech内部数据集</strong>时长约44小时。</p>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2013.23.58.png" alt="InstructTTS">
+<figcaption aria-hidden="true">InstructTTS</figcaption>
+</figure>
+<figure>
+<img src="/2023/02/10/expressive-tts/截屏2023-02-10%2014.26.38.png" alt="模型结构">
+<figcaption aria-hidden="true">模型结构</figcaption>
+</figure>
+<p><img src="/2023/02/10/expressive-tts/截屏2023-02-17 13.20.26.png" alt="Mel-VQ-VAE" style="zoom: 67%;"></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
+        <tag>论文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo快速使用指北</title>
+    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<p>可以指定模板</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="命令可以组合使用">命令可以组合使用</h3>
+<blockquote>
+<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title>Gitlab本地部署（2）Git LFS从外网访问的问题和解决</title>
@@ -462,45 +529,6 @@ Server可以放出http代理</p>
       </tags>
   </entry>
   <entry>
-    <title>Hexo博客在matery主题下插入mermaid流程图</title>
-    <url>/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</url>
-    <content><![CDATA[<h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
-<blockquote>
-<p>本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件</p>
-<p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
-</blockquote>
-<p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
-<p>而实际上在matery主题中没有该文件</p>
-<h2 id="解决方法">解决方法</h2>
-<h3 id="第一步-增加js代码">第一步 增加js代码</h3>
-<p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
-<p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
-<p><strong>注意到去掉了原本中间的版本控制,
-因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
-<ul>
-<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default |
-dark | forest | neutral</em></li>
-</ul>
-<h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
-<p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mermaid:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-<h2 id="结语">结语</h2>
-<p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
-<p>如果没能成功加载, 可以查看源代码查找mermaid,
-看看增加的ejs代码是否成功渲染</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>blog</tag>
-        <tag>typora</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hexo安装和配置插件</title>
     <url>/2022/08/01/hexo-an-zhuang-he-pei-zhi-cha-jian/</url>
     <content><![CDATA[<h1 id="hexo安装和配置插件">Hexo安装和配置插件</h1>
@@ -552,60 +580,6 @@ new生成新博客时，自动生成一个同名的目录存放静态文件</p>
         <tag>配置</tag>
         <tag>blog</tag>
         <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo快速使用指北</title>
-    <url>/2020/10/12/hexo-kuai-su-shi-yong-zhi-bei/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
-first post. Check <a href="https://hexo.io/docs/">documentation</a> for
-more info. If you get any problems when using Hexo, you can find the
-answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
-you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<p>可以指定模板</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br>$ hexo new post <span class="hljs-string">&quot;这是一个新的笔记&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br>$ hexo s<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br>$ hexo g<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br>$ hexo d<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="命令可以组合使用">命令可以组合使用</h3>
-<blockquote>
-<p>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</p>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
-    <title>Python中GB2312转UTF-8的问题（2023.07.31）</title>
-    <url>/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</url>
-    <content><![CDATA[<h1 id="问题描述">问题描述</h1>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/GB2312编码.png" alt="GB2312和UTF8对应表" style="zoom: 67%;"></p>
-<p>中文的单个破折号<code>—</code>字符在GB2312编码中使用两个字节，十六进制表示为<code>A1AA</code>。</p>
-<p>根据这幅图中的对应关系在UTF-8编码中应该使用三个字节<code>E28094</code>（VSCode内置的<code>通过编码保存</code>功能得到的也是这个结果）</p>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Python保存前后.png" alt="Python保存前后" style="zoom:67%;"></p>
-<p>是在通过Python的<code>open</code>函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了<code>E28095</code>，成为了另一个长相相同但是编码不同的字符。</p>
-<p>接下来我们查询一下UTF-8中这些字符真正对应的内容，<a href="https://www.utf8-chartable.de/unicode-utf8-table.pl">UTF-8编码查询参考网站</a></p>
-<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Unicode和UTF-8.png" alt="Unicode和UTF-8" style="zoom:67%;"></p>
-<p>可以看到这里<code>E28090-E28096</code>都是不同长短的折线。</p>
-<p>我在Edge浏览器中使用搜索工具搜索中文破折号（Shift-），这时候打出了两个相同字符，删除其中的一个，高亮显示都是<code>E28094</code>字符的破折号，看起来是微软统一使用该转换方式，而Python选择了另外的转换方式，本身不是大问题，但是可能会导致意料之外的结果。</p>
-<h1 id="结论">结论</h1>
-<p>在涉及到中文字符的编码和处理时最好统一先全部处理为相同的固定格式，并且做好清洗和预处理工作，防止意料外结果出现。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>utf8</tag>
-        <tag>gb2312</tag>
-        <tag>编码</tag>
       </tags>
   </entry>
   <entry>
@@ -707,6 +681,76 @@ else:<br>
         <tag>Python</tag>
         <tag>信息技术</tag>
         <tag>支教</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LLM综述报告</title>
+    <url>/2024/04/13/llm-zong-shu-bao-gao/</url>
+    <content><![CDATA[
+]]></content>
+      <categories>
+        <category>学习/技术/生活</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Ubuntu安装过Nvidia驱动却检测不到的问题记录</title>
+    <url>/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/</url>
+    <content><![CDATA[<h1 id="记录一次重新安装nvidia驱动的经过">记录一次重新安装Nvidia驱动的经过</h1>
+<h2 id="起因">起因</h2>
+<p>由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动</p>
+<h2 id="经过">经过</h2>
+<ol type="1">
+<li><p>首先reboot重启确认没有重新加载驱动</p></li>
+<li><p>检查内核版本<code>uname -r</code>，没有更换内核</p></li>
+<li><p>检查dkms，<code>dkms status</code>发现在内核中确实安装了nvidia驱动</p></li>
+<li><p>查看驱动版本
+<code>ls /usr/src | grep nvidia</code>，说明也有驱动</p></li>
+<li><p>现在不知道怎么办了😮‍💨，怀疑是Secure
+Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
+<li><p>找到本地的英伟达驱动<code>.run</code>文件，重新执行安装程序，重新生成驱动需要注册的密钥</p></li>
+<li><p>重启后在Ubuntu显示器上加载<code>MOK</code>，选<code>Enroll MOK</code>然后<code>continue</code></p></li>
+<li><p>如果还不行，执行如下命令将der格式的密钥导入mok</p>
+<p><code>sudo mokutil --import /usr/share/nvidia/nvidia-*.der</code>然后输入密码两次</p>
+<p>这个注册的步骤我还是执行了两次才OK，很烦</p></li>
+<li><p>还重新安装了nvidia-container-toolkit，重启了docker</p>
+<p>最终才正常加载了驱动文件。</p></li>
+</ol>
+<h2 id="结果">结果</h2>
+<p>FUCK NVIDIA！！！</p>
+<p>断一次电实验室两台服务器都掉了驱动，真的绷不住</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>Fuck Nvidia</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python中GB2312转UTF-8的问题（2023.07.31）</title>
+    <url>/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/</url>
+    <content><![CDATA[<h1 id="问题描述">问题描述</h1>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/GB2312编码.png" alt="GB2312和UTF8对应表" style="zoom: 67%;"></p>
+<p>中文的单个破折号<code>—</code>字符在GB2312编码中使用两个字节，十六进制表示为<code>A1AA</code>。</p>
+<p>根据这幅图中的对应关系在UTF-8编码中应该使用三个字节<code>E28094</code>（VSCode内置的<code>通过编码保存</code>功能得到的也是这个结果）</p>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Python保存前后.png" alt="Python保存前后" style="zoom:67%;"></p>
+<p>是在通过Python的<code>open</code>函数读取GB2312文件并重新保存为UTF-8编码时，结果变成了<code>E28095</code>，成为了另一个长相相同但是编码不同的字符。</p>
+<p>接下来我们查询一下UTF-8中这些字符真正对应的内容，<a href="https://www.utf8-chartable.de/unicode-utf8-table.pl">UTF-8编码查询参考网站</a></p>
+<p><img src="/2023/07/31/python-zhong-wen-jian-bian-ma-du-qu-he-bao-cun-cun-zai-de-wen-ti-2023-07-31/Unicode和UTF-8.png" alt="Unicode和UTF-8" style="zoom:67%;"></p>
+<p>可以看到这里<code>E28090-E28096</code>都是不同长短的折线。</p>
+<p>我在Edge浏览器中使用搜索工具搜索中文破折号（Shift-），这时候打出了两个相同字符，删除其中的一个，高亮显示都是<code>E28094</code>字符的破折号，看起来是微软统一使用该转换方式，而Python选择了另外的转换方式，本身不是大问题，但是可能会导致意料之外的结果。</p>
+<h1 id="结论">结论</h1>
+<p>在涉及到中文字符的编码和处理时最好统一先全部处理为相同的固定格式，并且做好清洗和预处理工作，防止意料外结果出现。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>utf8</tag>
+        <tag>gb2312</tag>
+        <tag>编码</tag>
       </tags>
   </entry>
   <entry>
@@ -829,75 +873,6 @@ else:<br>
       </tags>
   </entry>
   <entry>
-    <title>VALL-E</title>
-    <url>/2023/01/13/vall-e/</url>
-    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
-<h2 id="模型">模型</h2>
-<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
-<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
-<figure>
-<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
-<figcaption aria-hidden="true">模型总览</figcaption>
-</figure>
-<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
-<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
-<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
-<p>后面出现了矢量量化（vector
-quantization），应用在vq-wav2vec、HuBERT。</p>
-<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
-models），优点如下：</p>
-<ul>
-<li>在低比特率下表现比传统音频编解码器更好。</li>
-<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
-<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
-<li>可以做到减少时间序列长度。</li>
-</ul>
-<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
-code
-matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
-<figure>
-<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
-<figcaption aria-hidden="true">RVQ</figcaption>
-</figure>
-<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
-<h2 id="模型-1">模型</h2>
-<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
-C)\)</span></p>
-<figure>
-<img src="/2023/01/13/vall-e/LM.png" alt="LM">
-<figcaption aria-hidden="true">LM</figcaption>
-</figure>
-<h2 id="推理">推理</h2>
-<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
-<ul>
-<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
-<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
-</ul>
-<h2 id="数据">数据</h2>
-<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
-<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
-<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
-<p>16个 NVIDIA TESLA V100
-32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
-5 × 10−4 的峰值，然后对其进行线性衰减。</p>
-<h2 id="分析">分析</h2>
-<ul>
-<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
-<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
-<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
-<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
-<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
-<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>语音合成</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>esxi安装黑群晖记录</title>
     <url>/2022/10/02/esxi-an-zhuang-hei-qun-hui-ji-lu/</url>
     <content><![CDATA[<h1 id="esxi系统安装">esxi系统安装</h1>
@@ -986,6 +961,75 @@ https://pan.baidu.com/s/1ZOLCEvfAgF0tTZRkMt3MjA?pwd=ya4g</p>
         <tag>虚拟机</tag>
         <tag>群晖</tag>
         <tag>esxi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VALL-E</title>
+    <url>/2023/01/13/vall-e/</url>
+    <content><![CDATA[<h1 id="vall-e">VALL-E</h1>
+<h2 id="模型">模型</h2>
+<p>使用60k小时英语语音训练，使得模型出现上下文学习能力。只需要3秒特定录音，就可以学习到说话人的说话方式，甚至是背景音。</p>
+<p>demo演示：<a href="https://valle-demo.github.io/">https://valle-demo.github.io/</a></p>
+<figure>
+<img src="/2023/01/13/vall-e/model.png" alt="模型总览">
+<figcaption aria-hidden="true">模型总览</figcaption>
+</figure>
+<h2 id="音频量化-speech-quantization">音频量化 Speech Quantization</h2>
+<p>对于常见的一秒音频，16位，48kHz，意味着需要每个step有<span class="math inline">\(2^{16}=65536\)</span>个值，整个序列长度接近5万。语音量化的目的是压缩这两个数值。</p>
+<p>Wavenet中曾使用<span class="math inline">\(\mu\)</span>-law变换可以使用256个值重建高质量音频，压缩一半，但没有减少序列长度。</p>
+<p>后面出现了矢量量化（vector
+quantization），应用在vq-wav2vec、HuBERT。</p>
+<p>文章采用AudioLM的方法，神经编码解码器模型（neural codec
+models），优点如下：</p>
+<ul>
+<li>在低比特率下表现比传统音频编解码器更好。</li>
+<li>包含说话人信息和声学信息，HuBERT做不到保存说话人信息。</li>
+<li>有学者提出的现有的解码器，用于将离散标记转换为波形，不用设计解码器。🤣</li>
+<li>可以做到减少时间序列长度。</li>
+</ul>
+<p>文章采用预训练的神经音频编解码器模型EnCodec作为tokenizer，生成声学代码矩阵（acoustic
+code
+matrix）。EnCodec是一种卷积编码器-解码器模型，其输入和输出均为可变比特率的24kHz音频。其编码器将24kHz的输入波形生成75Hz的嵌入，采样率降低了320倍。每个嵌入都通过残差矢量量化(RVQ)建模，八个量化器每个有1024个条目。</p>
+<figure>
+<img src="/2023/01/13/vall-e/EnCodec.png" alt="RVQ">
+<figcaption aria-hidden="true">RVQ</figcaption>
+</figure>
+<p>对于VQ1使用AR学习到重要的说话人特征，VQ2-8使用NAR学习其他特征。</p>
+<h2 id="模型-1">模型</h2>
+<p>优化目标：<span class="math inline">\(\max p(C|x,\tilde
+C)\)</span></p>
+<figure>
+<img src="/2023/01/13/vall-e/LM.png" alt="LM">
+<figcaption aria-hidden="true">LM</figcaption>
+</figure>
+<h2 id="推理">推理</h2>
+<p>将文本转换为音素序列，并将登记的录音编码为声学矩阵，形成音素提示和声学提示。声学提示可能与要合成的语音在语义上相关，也可能不相关，导致两种情况：</p>
+<ul>
+<li>VALL-E：只学习prompt语音的声学条件，按照文本生成语音。</li>
+<li>VALL-E-continual：按照完整prompt语音转录的文本作为音素提示，使用语音的前3秒作为声学提示，生成的语音语义上接着prompt语音。</li>
+</ul>
+<h2 id="数据">数据</h2>
+<p>LibriLight包含英语有声读物60K小时无标记语音，说话人数量约7000</p>
+<p>使用Kaldi的ASR模型，为无标记语音数据生成音素和对齐。</p>
+<p>将平均长度为60秒的音频随机裁剪为10-20秒的随机长度，其对应的音素序列作为prompt。在NAR中的prompt会使用同一段话中的3秒随机音频。</p>
+<p>16个 NVIDIA TESLA V100
+32GB，每个GPU的批量大小为6k声学标记，800k步。使用AdamW优化器优化模型，前32k步更新的学习率预热到
+5 × 10−4 的峰值，然后对其进行线性衰减。</p>
+<h2 id="分析">分析</h2>
+<ul>
+<li>多样性丰富：原本的mel谱图生成基于每个步骤的重建，其随机性较差，由于VALL-E使用采样的方式生成离散标记，相同文本的输出不同，其多样性丰富。</li>
+<li>能保持环境音：作者认为，VALL-E的数据集声学条件更多，当prompt带有混响，baseline得到的是干净的声音，VALL-E可以得到相同的混响效果。</li>
+<li>能保持说话人的情绪：emotional。可以在0-shot条件下保留prompt中的情绪。</li>
+<li>鲁棒性有待提升：由于VQ1是自回归模型，其中的transformer注意力无序，也没有增加约束，导致在合成结果中出现不清楚、遗漏和重复的问题。</li>
+<li>数据覆盖有限：由于是有声读物，口音没有覆盖完全，并且只有阅读风格，需要扩大覆盖范围。</li>
+<li>模型的滥用风险：伪造政客、电信诈骗等应用较为危险。类似于google的AudioLM可能需要同时推出一个分类器用于区分检测VALL-E的合成语音。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>语音合成</tag>
       </tags>
   </entry>
   <entry>
@@ -1519,6 +1563,38 @@ mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</
       </tags>
   </entry>
   <entry>
+    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
+    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
+    <content><![CDATA[<h1 id="问题">问题</h1>
+<figure>
+<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
+<figcaption aria-hidden="true">SSH代理</figcaption>
+</figure>
+<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
+<h1 id="解决">解决</h1>
+<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
+<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
+<p><strong>如果用的是dropbear这种<em>非openssh</em>工具，是不可以的。</strong></p>
+<p>先来检查SSH的加密方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
+<p>找到输出中的：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
+<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能Surge代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
+<p>重新生成密钥：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>SSH</tag>
+        <tag>网络</tag>
+        <tag>Surge</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用wireguard搭建属于自己的虚拟内网</title>
     <url>/2022/10/16/shi-yong-wireguard-da-jian-shu-yu-zi-ji-de-xu-ni-nei-wang/</url>
     <content><![CDATA[<h1 id="使用wireguard搭建属于自己的虚拟内网">使用wireguard搭建属于自己的虚拟内网</h1>
@@ -1596,98 +1672,6 @@ mask，而是最简单的长度mask，所以重新制作了mask输入crf中。</
         <tag>网络</tag>
         <tag>内网</tag>
         <tag>wireguard</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Surge开启SSH代理无法通过私钥连接的原因</title>
-    <url>/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/</url>
-    <content><![CDATA[<h1 id="问题">问题</h1>
-<figure>
-<img src="/2023/05/23/shi-yong-surge-kai-qi-ssh-dai-li-wu-fa-tong-guo-si-yao-lian-jie-de-yuan-yin/SSH.png" alt="SSH代理">
-<figcaption aria-hidden="true">SSH代理</figcaption>
-</figure>
-<p>如果不通过密码开启SSH代理就必须使用私钥，使用RSA私钥可以通过ssh连接服务器，但是在Surge设置后出现了<code>ssh authorazition failed</code>的情况，测试代理不通。</p>
-<h1 id="解决">解决</h1>
-<p><strong>结论放在前面：RSA密钥加密方式不对，更换到ed25519加密方式重新生成密钥</strong></p>
-<p>Surge的SSH代理相当于<code>ssh -D</code>命令，开启动态端口转发功能。</p>
-<p><strong>如果用的是dropbear这种<em>非openssh</em>工具，是不可以的。</strong></p>
-<p>先来检查SSH的加密方式：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -v name@host<br></code></pre></td></tr></table></figure>
-<p>找到输出中的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">debug1: kex: algorithm: curve25519-sha256<br></code></pre></td></tr></table></figure>
-<p>代表用的是25519这种加密方式，而我的密钥是RSA的，虽然可以登录，但不能Surge代理用。这种方式是新版本默认的加密方式，如果你的结果不同，那么下面的密钥你也要换成和这里一样的加密方式。</p>
-<p>重新生成密钥：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -C <span class="hljs-string">&#x27;xxx@email.com&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>把公钥加入服务器-&gt;Surge添加私钥到密钥库-&gt;重新测试代理连接</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>SSH</tag>
-        <tag>网络</tag>
-        <tag>Surge</tag>
-        <tag>代理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用中转服务器代理访问内网bySSinDocker</title>
-    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
-    <content><![CDATA[<h1 id="目的">目的</h1>
-<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
-<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
-</figure>
-<h1 id="搭建步骤">搭建步骤</h1>
-<h2 id="概览">概览</h2>
-<ol type="1">
-<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
-<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
-<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
-</ol>
-<h2 id="搭建ss服务器">搭建SS服务器</h2>
-<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
-<h2 id="搭建frpc">搭建frpc</h2>
-<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
-<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
-<p>frpc.ini配置示例</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
-<p>运行frpc</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
-<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
-<p>进入小火箭点击右上角的加号</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
-<p>填写内容，需要对应ss服务器上的配置填写</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
-<p>然后可以在首页的本地节点中看到刚添加的节点</p>
-<p>点击连通性测试查看是否网络已打通</p>
-<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
-<p>进入后点击通用</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
-<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
-<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
-<p>我这里测试我的内网网关</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
-<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
-<p>或者你可以像我一样添加整个网段。</p>
-<figure>
-<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
-<figcaption aria-hidden="true">image-20221027171938222</figcaption>
-</figure>
-<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
-<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
-<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>代理</tag>
       </tags>
   </entry>
   <entry>
@@ -1933,55 +1917,154 @@ J_{\sigma}=1 - J(A,B) = 1- \frac {|A\cap B|}{|A\cup B|}
       </tags>
   </entry>
   <entry>
-    <title>微调Bert模型完成文本分类feat.fastNLP</title>
-    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
-    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
-TextClassification</h1>
-<h2 id="前言">前言</h2>
-<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
-<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
-<h2 id="外卖数据预处理">外卖数据预处理</h2>
-<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
-<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
-<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
+    <title>使用中转服务器代理访问内网bySSinDocker</title>
+    <url>/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/</url>
+    <content><![CDATA[<h1 id="目的">目的</h1>
+<p>通过常用的代理软件（小火箭）连接到处于内网环境的代理服务器，从而实现在任意地方访问内网的需求，进而可以使用内网跳板机连接其他内网机器，突破SSL会话限制。</p>
 <figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
-<figcaption aria-hidden="true">数据集</figcaption>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027122230481.png" alt="在外网可以使用代理服务器访问内网服务">
+<figcaption aria-hidden="true">在外网可以使用代理服务器访问内网服务</figcaption>
 </figure>
-<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
-<h2 id="模型搭建">模型搭建</h2>
-<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
-<h2 id="模型训练">模型训练</h2>
-<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
-<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
-<blockquote>
-<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
-</blockquote>
-<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
+<h1 id="搭建步骤">搭建步骤</h1>
+<h2 id="概览">概览</h2>
+<ol type="1">
+<li><p>为方便快捷，使用docker在内网中部署shadowsocks服务器，放出端口</p></li>
+<li><p>为从外部访问内网，使用docker部署frpc监听ss服务器端口，连接带有公网IP的frps</p></li>
+<li><p>终端设备上使用Shadowrocket连接ss服务器，配置节点</p></li>
+</ol>
+<h2 id="搭建ss服务器">搭建SS服务器</h2>
+<p>此处选择的docker镜像是<a href="https://registry.hub.docker.com/r/gists/shadowsocks-libev/">gists/shadowsocks-libev</a>，优势是很轻量，只有12M，后面可以研究v2ray插件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">docker run -d \<br>						--name ss \<br>           -p 8388:8388 \<br>           -p 8388:8388/udp \<br>           -e METHOD=aes-256-gcm \<br>           -e PASSWORD=YOUR_PASSWORD \<br>						gists/shadowsocks-libev<br></code></pre></td></tr></table></figure>
+<h2 id="搭建frpc">搭建frpc</h2>
+<p>如果你本身就在用frpc，直接添加一个新的服务名和配置就好。</p>
+<p>需要提前写好frpc的配置文件，里面需要配置frpc监听和转发到中转服务器的端口，记得打开中转服务器的防火墙放行该端口。我这边演示使用8389端口。</p>
+<p>frpc.ini配置示例</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[common]</span><br><span class="hljs-attr">server_addr</span> = YOUR_IP<br><span class="hljs-attr">server_port</span> = <span class="hljs-number">7000</span><br><span class="hljs-attr">token</span> = YOUR_TOKEN<br><br><span class="hljs-section">[ss]</span><br><span class="hljs-attr">type</span> = tcp<br><span class="hljs-attr">local_ip</span> = <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span><br><span class="hljs-attr">local_port</span> = <span class="hljs-number">8388</span><br><span class="hljs-attr">remote_port</span> = <span class="hljs-number">8389</span><br></code></pre></td></tr></table></figure>
+<p>运行frpc</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">docker run  -d \<br>						--name frpc \<br>						--network host \ <br> 						-v <span class="hljs-regexp">/etc/</span>frp<span class="hljs-regexp">/frpc.ini:/</span>etc<span class="hljs-regexp">/frp/</span>frpc.ini \<br>						snowdreamtech/frpc<br></code></pre></td></tr></table></figure>
+<h2 id="配置shadowrocket小火箭">配置Shadowrocket小火箭</h2>
+<p>进入小火箭点击右上角的加号</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027144752017.png" alt="image-20221027144752017" style="zoom: 25%;"></p>
+<p>填写内容，需要对应ss服务器上的配置填写</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027145506511.png" alt="image-20221027145506511" style="zoom: 25%;"></p>
+<p>然后可以在首页的本地节点中看到刚添加的节点</p>
+<p>点击连通性测试查看是否网络已打通</p>
+<p>之后我们以外网的环境开始测试能否访问内网，我这里的内网使用的网段是192.168.31.0/24，而小火箭默认是不转发192.168.0.0/16网段的数据的（因为内网不需要规则转发），此处需要修改我们的规则，建议先导出保存一份</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150207562.png" alt="image-20221027150207562" style="zoom:25%;"></p>
+<p>进入后点击通用</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027150257581.png" alt="image-20221027150257581" style="zoom:25%;"></p>
+<p>我删除这里的两个192.168.0.0/16网段，你需要根据自己的内网网段删除。</p>
+<p>然后准备添加配置文件，目的是将你自己的内网IP通过ss服务器转发到内网中。（这一步建议将默认conf配置文件备份好）我这里进入default.conf，点击测试规则，测试你的内网IP。</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171319764.png" alt="image-20221027171319764" style="zoom:25%;"></p>
+<p>我这里测试我的内网网关</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171655099.png" alt="image-20221027171655099" style="zoom:25%;"></p>
+<p>可以看到它成功测试出了这条网关地址CIDR前缀是24，并选择使用PROXY规则转发给代理服务器。如果无误可以直接点击<strong>添加IP到规则</strong>。</p>
+<p>或者你可以像我一样添加整个网段。</p>
 <figure>
-<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
-<figcaption aria-hidden="true">训练完成</figcaption>
+<img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027171938222.png" alt="image-20221027171938222">
+<figcaption aria-hidden="true">image-20221027171938222</figcaption>
 </figure>
-<p>最后得到在验证集上的准确率0.836485</p>
-<h2 id="模型测试">模型测试</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
-<p>输出测试集上准确率：这个模型结果为0.8125</p>
-<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
-<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
-<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
+<p>这样就可以直接访问子网下的所有设备了，我这里开启连接ss代理后就能直接访问内网中的nas</p>
+<p><img src="/2022/10/27/shi-yong-zhong-zhuan-fu-wu-qi-dai-li-fang-wen-nei-wang-byssindocker/image-20221027172217114.png" alt="image-20221027172217114" style="zoom: 25%;"></p>
+<p>后面只需要在需要访问内网时开启小火箭代理就可以了！</p>
 ]]></content>
       <categories>
-        <category>学习</category>
+        <category>技术</category>
       </categories>
       <tags>
-        <tag>Bert</tag>
-        <tag>NLP</tag>
-        <tag>文本分类</tag>
+        <tag>网络</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清河村支教回忆</title>
+    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
+    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
+  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
+<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
+  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
+<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
+<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
+<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
+  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
+<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
+  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
+<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
+<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
+<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>支教</tag>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爱快路由下无法正常解析DNS的问题</title>
+    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
+    <content><![CDATA[<blockquote>
+<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
+而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
+本文解决了这两个问题</p>
+</blockquote>
+<p>先说结论:</p>
+<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
+必须设置爱快的DNS加速服务中使用代理模式才能生效,
+同时要开启强制客户端DNS代理,
+而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
+<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
+<hr>
+<p>以下是完整版:</p>
+<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
+<p>①查看是否是运营商限制了下行带宽:
+测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
+<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
+所以问题可能在ikuai上</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
+<figcaption aria-hidden="true">家中原始网络拓扑图,
+分为经过软路由的改造部分和初始路由器部分</figcaption>
+</figure>
+<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
+在未做其他修改的情况下出现了无法解析DNS的情况</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu">
+<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
+</figure>
+<blockquote>
+<p>qq和微信都是不需要解析DNS的软件,
+如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
+</blockquote>
+<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
+均不能正常上网</p>
+<figure>
+<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS">
+<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
+</figure>
+<p>ikuai内的设置, 无法解析DNS</p>
+<p>然后怀疑是不是ikuai本身就无法正常上网,
+使用ikuai内的测试工具发现能够ping通域名</p>
+<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
+<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
+在网上和论坛搜索了很久都没有找到相关的情况</p>
+<p>最后的最后在ikuai官方的手册里找到了答案</p>
+<p><a href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
+<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
+<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
+<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
+<blockquote>
+<p>回到最初的降速问题,
+经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>DNS</tag>
       </tags>
   </entry>
   <entry>
@@ -2224,97 +2307,6 @@ f(\theta x+(1-\theta )y)\leqslant \theta f(x)+(1-\theta )f(y)
       </tags>
   </entry>
   <entry>
-    <title>清河村支教回忆</title>
-    <url>/2021/09/23/qing-he-cun-zhi-jiao-hui-yi/</url>
-    <content><![CDATA[<p><em>成文于2021年8月11日离开清河村。</em><br>
-  大包小包的行李，颠颠簸簸的山路，出发前忐忐忑忑的心情在进入清河村后终于有所平复，深山、公路、虫鸣、鸟叫，不仔细观察很难发现这座隐藏在山峦间的完全小学。设施落后、环境糟糕、蚊虫困扰、饮食不同，完全符合一个城市人对农村的印象。农村生活过的我自认为对环境要求不高，到了这里也难免有些烦闷。<br>
-<img src="https://i.loli.net/2021/09/24/1mYu6dJgSeHTXDx.jpg" alt="清河村完全小学的清晨"> <img src="https://i.loli.net/2021/09/24/aDiCOMYG7mFnoRQ.jpg" alt="山">
-  闲时无事，揣起相机，沿着新修的道路在村里漫步，才发现这里的一切都不是想象中的那样。道路上摩托车和大货车不断，即使急转或陡坡也都轻松通过，山路两旁都是村民种植的茶树，时不时有个斗笠冒出来，采摘着最新鲜的三片茶叶。村中邻里相互十分熟悉，抱着小孩，背着菜筐，在村公所门口摆着龙门阵，爽朗的笑声老远外就能听到。最让我意外的就是脱贫援建建设的网络设施已经成为了村民们最佳的休闲方式，在路边时不时就能听到短视频平台的神曲，想必不少村民也是某些平台的大V。</p>
-<p><img src="https://i.loli.net/2021/09/24/idPy38m9OIn6hea.jpg" alt="清河村的晚霞"> <img src="https://i.loli.net/2021/09/24/qpxP5ImXbkTgFwz.jpg" alt="清河村的晚霞"></p>
-<p>  这里离天很近，或者说这里就在所谓的“天上”，“天上”小学的学生自然都是“天兵天将”。这次梦想教室教授的对象是四年级的小学生，这天早上8点多我们还在硬板床上做着梦，“天兵天将”已经冲进了大门，在水泥操场上撒欢了。即使很多“天兵天将”穿着相同的“制服”和“盔甲”，明亮的眼神却在黝黑的皮肤中更显耀眼。或许是对未知事物的一丝丝恐惧，每当我用镜头想要捕捉到一张张笑脸时，他们会用远超我按下快门的速度表演一个变脸，迅速板起表情，我也只能悻悻地放下相机。
-<img src="https://i.loli.net/2021/09/24/d5Iw9AcqlbP6NyT.jpg" alt="小学">
-  对相机有所顾忌的学生们对待知识的态度就完全不同了，即使课上常常提到陌生的概念他们也十分愿意聆听学习，常常是一提问就好多双小手在空中挥舞。上过几天课后逐渐有学生不怕我的镜头了，下课期间几个好事的小男生上来摆弄我脚架上的相机快门，吸引了其他同学的注意，“天兵天将”便纷纷在相机里留下自己的鬼脸。最后一天，小孩子们拿着纸笔一个一个问我们的电话号码，看着一张张期待的小脸，一瞬间我就扭过了头，属实是不能被看见眼红啊。<br>
-<img src="https://i.loli.net/2021/09/24/KBYmuUxLbeMypRw.jpg" alt="山路">
-  总有人说，不要去支教，即使去教这些大山中的孩子，给他们看了外界的美好，他们也走不出去，或是因为能力，或是因为家庭，支教的故事只是给他们徒增烦恼罢了。对待短期支教，我更想做的是给他们送去新鲜的思想，告诉他们“绿水青山就是金山银山”，告诉他们梦想绝不渺小，梦想永远伟大。<br>
-<img src="https://i.loli.net/2021/09/24/hnegQSNylC7tz25.jpg" alt="银河"></p>
-<p>  我从不认为自己是一个运气很好的人，但是我为能来到这座深山中的小小村庄倍感荣幸。<br>
-<img src="https://i.loli.net/2021/09/24/AT6KXrjhfLvO7Rb.jpg" alt="村里的兔兔"> <img src="https://i.loli.net/2021/09/24/BTdOIXhmJCYlViM.jpg" alt="银河"></p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-      <tags>
-        <tag>支教</tag>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爱快路由下无法正常解析DNS的问题</title>
-    <url>/2022/03/04/ai-kuai-lu-you-xia-wu-fa-zheng-chang-jie-xi-dns-de-wen-ti/</url>
-    <content><![CDATA[<blockquote>
-<p>最原始的问题是发现300M的电信宽带在经过软路由后下行只有30M,
-而上行还保持正常, 在排查中出现了另外的问题: 直连爱快软路由DNS解析失败,
-本文解决了这两个问题</p>
-</blockquote>
-<p>先说结论:</p>
-<p>在客户机DNS服务器设置为网关(ikuai)的情况下,
-必须设置爱快的DNS加速服务中使用代理模式才能生效,
-同时要开启强制客户端DNS代理,
-而此时使用爱快的DNS缓存模式无法正常解析DNS</p>
-<p><img src="https://s2.loli.net/2022/03/04/nbLDmNeuoryJIFv.png"></p>
-<hr>
-<p>以下是完整版:</p>
-<p>家中稳定运行半年的网络配置如图所示, 出现问题后开始排查问题位置</p>
-<p>①查看是否是运营商限制了下行带宽:
-测试家中网络硬路由部分的速率发现一切正常, 所以问题出在软路由</p>
-<p>②逐个排查软路由内各部分: 依次关闭adg, openwrt没有改善问题,
-所以问题可能在ikuai上</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/7X6kQ9LiKyqpxIu.png" alt="家中原始网络拓扑图, 分为经过软路由的改造部分和初始路由器部分">
-<figcaption aria-hidden="true">家中原始网络拓扑图,
-分为经过软路由的改造部分和初始路由器部分</figcaption>
-</figure>
-<p>将电脑直连ikuai, 手动设置IP, DNS和网关均为ikuai,
-在未做其他修改的情况下出现了无法解析DNS的情况</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/qJOzB1orpgMm54n.png" alt="7X6kQ9LiKyqpxIu">
-<figcaption aria-hidden="true">7X6kQ9LiKyqpxIu</figcaption>
-</figure>
-<blockquote>
-<p>qq和微信都是不需要解析DNS的软件,
-如果这两个软件能正常使用而网页无法打开就能确定DNS出问题</p>
-</blockquote>
-<p>先后修改了ikuai和电脑的DNS服务器, 从openwrt内到ikuai再到阿里腾讯,
-均不能正常上网</p>
-<figure>
-<img src="https://s2.loli.net/2022/03/04/brmS398LFOdwzJC.jpg" alt="ikuai内的设置, 无法解析DNS">
-<figcaption aria-hidden="true">ikuai内的设置, 无法解析DNS</figcaption>
-</figure>
-<p>ikuai内的设置, 无法解析DNS</p>
-<p>然后怀疑是不是ikuai本身就无法正常上网,
-使用ikuai内的测试工具发现能够ping通域名</p>
-<p><img src="https://s2.loli.net/2022/03/04/OAGZUVnaegkl3Xi.jpg"></p>
-<p>到这里完全没有思路, 之前也没见过路由能解析DNS但主机不能的情况,
-在网上和论坛搜索了很久都没有找到相关的情况</p>
-<p>最后的最后在ikuai官方的手册里找到了答案</p>
-<p><a href="https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228">https://www.ikuai8.com/index.php?option=com_content&amp;view=article&amp;id=129:dns&amp;catid=39&amp;Itemid=228</a></p>
-<p><img src="https://s2.loli.net/2022/03/04/r9JVAwTgPLbYpqu.jpg"></p>
-<p>所以修改了代理模式, 开启了强制代理, 问题解决</p>
-<p><img src="https://s2.loli.net/2022/03/04/BHkuZeJ2OarSUNR.jpg"></p>
-<blockquote>
-<p>回到最初的降速问题,
-经历了iperf测速等9981种方法也没有头绪，最后竟然在V2上找到了同样的病友，最后是修改了WiFi的信道和带宽...果然没再出问题，可能是过了个年周围的邻居变多了吧...</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>网络</tag>
-        <tag>DNS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>生成模型之Flow-based Model(1)前置知识</title>
     <url>/2022/07/08/sheng-cheng-mo-xing-zhi-flow-based-model-1-qian-zhi-zhi-shi/</url>
     <content><![CDATA[<h1 id="flow-based-model前置知识">Flow-based Model前置知识</h1>
@@ -2406,295 +2398,55 @@ P_{G})\)</span><br>
       </tags>
   </entry>
   <entry>
-    <title>生成模型之Flow-based-Model(2)</title>
-    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
-    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
-Model（2）流模型</h1>
-<h2 id="推导">推导</h2>
-<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
-\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
-<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
-其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
-<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
-即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
-便得到最佳<span class="math inline">\(G^*\)</span></p>
-<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
-<ol type="1">
-<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
-<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
-</ol>
-<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
-<h2 id="多个生成器的情况">多个生成器的情况</h2>
-<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
-其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
-<blockquote>
-<p>依旧是取左式最大</p>
-</blockquote>
-<h2 id="流模型实质">流模型实质</h2>
-<p>以一个生成器为例:</p>
-<pre><code class=" mermaid">graph LR
-z --&gt; G --&gt; x
-</code></pre>
-<p><span class="math display">\[
-logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
-\]</span></p>
-<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
-右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
-因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
-<pre><code class=" mermaid">graph RL
-x --&gt; G-1 --&gt; z
-</code></pre>
-<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
-<p>欲使左式最大, 右侧两项应尽可能大</p>
-<ul>
-<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
-因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
-最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
-</ul>
-<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
-使用第二项约束结果防止全零, 最终得到最佳生成器</p>
-<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+    <title>微调Bert模型完成文本分类feat.fastNLP</title>
+    <url>/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/</url>
+    <content><![CDATA[<h1 id="fine-tuned-bert-for-textclassification">Fine-tuned Bert for
+TextClassification</h1>
+<h2 id="前言">前言</h2>
+<p>文本分类也是NLP领域的传统任务，在Bert模型的加持下可以轻松达到较高的准确率，相比之前的NER任务从数据到模型上都要简单。</p>
+<p>如果直接手写训练函数，可以在模型上调用huggingface的<code>BertForSequenceClassification</code>类，它是在<code>BertModel</code>的后面接上dropout和一层分类头，直接输出loss和logits，其他输出详情在huggingface<a href="https://huggingface.co/docs/transformers/main/en/model_doc/bert#transformers.BertForSequenceClassification">官方文档</a>。这里使用fastNLP框架，减去了手写训练函数和验证函数的步骤，就需要将模型单独实现，思路和前面一样，但需要变换下BertModel的输出。</p>
+<h2 id="外卖数据预处理">外卖数据预处理</h2>
+<p>这次的数据集使用的是外卖平台的评论数据集，两个类别表示正向评论和负向评论，数据集按照
+<strong>训练:验证:测试=7:1.5:1.5</strong>切分，总数据量约11800条。</p>
+<p>需要用到tokenizer，所以在一开始就导入Bert模型加载BertTokenizer，BertModel。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span>  fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertTokenizer<br><span class="hljs-keyword">from</span> fastNLP.transformers.torch <span class="hljs-keyword">import</span> BertModel<br><br>tokenizer = BertTokenizer.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br>bert_model = BertModel.from_pretrained(<span class="hljs-string">&#x27;hfl/rbt3&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>预处理比较简单，数据集经过清洗，直接交给tokenizer做下encode，得到<code>input_ids</code>。</p>
 <figure>
-<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
-<figcaption aria-hidden="true">coupling-layer</figcaption>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/dataset.png" alt="数据集">
+<figcaption aria-hidden="true">数据集</figcaption>
 </figure>
-<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
-\begin{equation}
-\left\{
-\begin{aligned}
-z_{i\leq d}&amp;=x^i\\
-z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
-\end{aligned}
-\right.
-\end{equation}
-\]</span></p>
+<p>然后放进databundle，指定vocab（其实只有两个类，也可以不用做vocab），放入dataloader做下padding，这是fastNLP的数据处理定番了，比之前NER的还是简单了不少。</p>
+<h2 id="模型搭建">模型搭建</h2>
+<p>这里搭建的模型跟前言提到的一样，就是在Bert的输出后加上全连接做分类头。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BertClassifier</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,bert_model,num_class</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        self.bert = bert_model<br>        self.mlp = nn.Sequential(nn.Linear(self.bert.config.hidden_size, self.bert.config.hidden_size),<br>                                nn.Dropout(<span class="hljs-number">0.5</span>),<br>                                nn.Linear(self.bert.config.hidden_size, num_class))<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, input_ids</span>):<br>      	<span class="hljs-comment"># 冻结bert参数</span><br>        <span class="hljs-keyword">with</span> torch.no_grad():<br>            outputs = self.bert(input_ids=input_ids)<br>        last_hidden_state = outputs.last_hidden_state <span class="hljs-comment"># last_hidden_state的shape为[batch,seq_len,num_class]</span><br>        last_hidden_state = last_hidden_state[:, <span class="hljs-number">1</span>:-<span class="hljs-number">1</span>]  <span class="hljs-comment"># 删除 cls 和 sep</span><br><br>        last_hidden_state = last_hidden_state.mean(dim=<span class="hljs-number">1</span>) <span class="hljs-comment"># 第一种写法：这里去掉中间一维，不需要seq_len，在seq_len维度求均值，数据进入num_class</span><br>        <span class="hljs-comment"># last_hidden_state = outputs.pooler_output # 第二种写法：pooler_output也是outputs中的输出</span><br>        pred = self.mlp(last_hidden_state)<br><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">train_step</span>(<span class="hljs-params">self, input_ids, target</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>]<br>        loss = F.cross_entropy(pred, target) <span class="hljs-comment"># 损失函数在这里</span><br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;loss&#x27;</span>: loss&#125;<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluate_step</span>(<span class="hljs-params">self, input_ids</span>):<br>        pred = self(input_ids)[<span class="hljs-string">&#x27;pred&#x27;</span>].argmax(dim=-<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;pred&#x27;</span>: pred&#125;<br><br>model = BertClassifier(bert_model, <span class="hljs-built_in">len</span>(data_bundle.get_vocab(<span class="hljs-string">&#x27;label&#x27;</span>)))<br><br></code></pre></td></tr></table></figure>
+<h2 id="模型训练">模型训练</h2>
+<p>和NER文章中的一样，使用fastNLP框架训练很简单，只需要准备好数据的格式和列名。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> optim<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Trainer, LoadBestModelCallback, TorchWarmupCallback<br><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Accuracy<br><br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">2e-5</span>)<br>callbacks = [<br>    LoadBestModelCallback(),<br>    TorchWarmupCallback(),<br>]<br>metrics = &#123;<br>    <span class="hljs-string">&quot;acc&quot;</span>: Accuracy(),<br>&#125;<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">input_mapping</span>(<span class="hljs-params">data</span>):<br>    data[<span class="hljs-string">&#x27;target&#x27;</span>] = data[<span class="hljs-string">&#x27;label&#x27;</span>]<br>    <span class="hljs-keyword">return</span> data<br><br>trainer = Trainer(model=model, train_dataloader=dataloaders[<span class="hljs-string">&#x27;train&#x27;</span>], optimizers=optimizer,<br>                  evaluate_dataloaders=dataloaders[<span class="hljs-string">&#x27;dev&#x27;</span>],<br>                  metrics=metrics, n_epochs=<span class="hljs-number">50</span>, callbacks=callbacks,<br>                  monitor=<span class="hljs-string">&#x27;acc#acc&#x27;</span>,device=<span class="hljs-string">&#x27;cuda&#x27;</span>,driver=<span class="hljs-string">&quot;torch&quot;</span>,input_mapping=input_mapping)<br>trainer.run()<br></code></pre></td></tr></table></figure>
+<p>这里metric中指定的是<code>Accuracy</code>，对分类任务求准确率，需要输入列名为target和pred的数据，所以多了一个<code>input_mapping</code>函数做预处理，也可以提前在dataset或者dataloader时做好处理。</p>
+<blockquote>
+<p>fastNLP在evaluate过程中可以直接输入形如<code>[batch,]</code>的label数据，所以前期不用手动将label转为one-hot向量，这一点方便了很多。</p>
+</blockquote>
+<p>训练结束后由于<code>LoadBestModelCallback</code>会自动加载最佳模型到model中。</p>
+<figure>
+<img src="/2023/03/31/wei-diao-bert-mo-xing-wan-cheng-wen-ben-fen-lei-feat-fastnlp/训练完成.png" alt="训练完成">
+<figcaption aria-hidden="true">训练完成</figcaption>
+</figure>
+<p>最后得到在验证集上的准确率0.836485</p>
+<h2 id="模型测试">模型测试</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> fastNLP <span class="hljs-keyword">import</span> Evaluator<br><br>evaluator = Evaluator(model=model, dataloaders=dataloaders[<span class="hljs-string">&quot;test&quot;</span>],metrics=metrics,callbacks=callbacks,<br>                      device=<span class="hljs-number">0</span>, input_mapping=input_mapping,evaluate_batch_step_fn=<span class="hljs-literal">None</span>)<br>evaluator.run(<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>输出测试集上准确率：这个模型结果为0.8125</p>
+<h2 id="tnews数据集测试">TNEWS'数据集测试</h2>
+<p>最后用<a href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>上的基准数据集做下测试，使用今日头条新闻数据集TNEWS'。共有15个类，表示新闻的不同类别，训练集53k，验证集10k大小。数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;102&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_entertainment&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影甜甜圈自拍，迷之角度竟这么好看，美吸引一切事物&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;江疏影,美少女,经纪人,甜甜圈&quot;</span><span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;label&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;110&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;label_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;news_military&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;sentence&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;以色列大规模空袭开始！伊朗多个军事目标遭遇打击，誓言对等反击&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;keywords&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;伊朗,圣城军,叙利亚,以色列国防军,以色列&quot;</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>验证集上最终准确率为0.5112，相比二分类难度确实更大。</p>
 ]]></content>
       <categories>
         <category>学习</category>
       </categories>
       <tags>
-        <tag>Deep Learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>生成模型之VAE</title>
-    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
-    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
-Auto-Encoder</h1>
-<blockquote>
-<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
-<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
-(Auto-encoder) (上) - 基本概念</a></p>
-<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
-Unsupervised Learning - Deep Generative Model (Part II)</a></p>
-</blockquote>
-<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
-<aside>
-💡 可以认为是自监督学习的一种方法，不需要标注
-</aside>
-<h2 id="压缩自动编码器">压缩自动编码器</h2>
-<pre><code class=" mermaid">graph LR
-	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
-</code></pre>
-<h2 id="降噪自动编码器">降噪自动编码器</h2>
-<pre><code class=" mermaid">graph LR
-	原图.-原图+噪声
-	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
-	
-</code></pre>
-<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
-<p>输入信息常常由各种信息纠缠在一起，如</p>
-<ul>
-<li>图片中存在物体、纹理</li>
-<li>声音中存在文本内容、说话人信息</li>
-<li>一句话包含格式、语法</li>
-<li>……</li>
-</ul>
-<p>这时候需要通过解缠得到不同维度包含的信息</p>
-<p>应用：Voice Conversion语者转换</p>
-<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
-<h2 id="ae和vae区别">AE和VAE区别</h2>
-<p>Auto-encoder</p>
-<pre><code class=" mermaid">graph LR
-  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
-</code></pre>
-<p>VAE</p>
-<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
-<pre><code class=" mermaid">graph LR
-  input --&gt; NN-Encoder --&gt; mu
-	NN-Encoder --&gt; sigma
-	sigma --exp--&gt; times((相乘))
-	e --&gt; times
-	mu --&gt; plus((相加))
-	times --&gt;plus
-	plus --&gt; z --&gt;
-
- NN-Decoder--&gt; output
-</code></pre>
-<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
-<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
-<p>所以需要最小化如下函数：</p>
-<p><span class="math display">\[
-\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
-\]</span></p>
-<h2 id="vae推导">VAE推导</h2>
-<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
-<blockquote>
-<p>部分内容参考</p>
-<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
-</blockquote>
-<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
-<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
-<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
-</figure>
-<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
-<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
-<p><span class="math display">\[
-P(x)=\sum \limits _mP(m)P(x|m)
-\]</span></p>
-<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
-<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
-<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
-</figure>
-<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
-<aside>
-💡
-与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
-</aside>
-<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
-<p>于是P(x)的分布就可以表示为:</p>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>所以我们的目标就变成求解上面这个公式。</p>
-<h3 id="求解目标公式">求解目标公式</h3>
-<p><span class="math display">\[
-P(x)=\int\limits _zP(z)P(x|z)dz
-\]</span></p>
-<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
-N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
-<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
-<pre><code class=" mermaid">graph LR
-	z --&gt; NN-Decoder --&gt; mu
-	NN-Decoder --&gt; sigma
-</code></pre>
-<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
-N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
-<pre><code class=" mermaid">graph LR
-  x --&gt; NN-Encoder --&gt; mu&#x27;
-	NN-Encoder --&gt; sigma&#x27;
-</code></pre>
-<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
-<ul>
-<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
-<ul>
-<li>Note:最大似然估计的使用
-<ol type="1">
-<li>写出似然函数</li>
-<li>对似然函数取对数</li>
-<li>两边同时求导(多个变量就求偏导)</li>
-<li>令导数为0,解出似然方程</li>
-</ol>
-<ul>
-<li><p>例子</p>
-<figure>
-<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
-<figcaption aria-hidden="true">最大似然函数例题</figcaption>
-</figure>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
-<figcaption aria-hidden="true">例题解答</figcaption>
-</figure></li>
-</ul></li>
-</ul></li>
-</ul>
-<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
-q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
-<p><span class="math display">\[
-\begin{aligned}
-\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
-_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
-&amp;=\int \limits _zq(z|x)\log
-(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
-\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-+KL(q(z|x)||P(z|x))
-\end{aligned}
-\]</span></p>
-<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
-<p><span class="math display">\[
-\log P(x) \geqslant \int \limits _z
-q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
-\]</span></p>
-<p><span class="math display">\[
-\log P(x) = L_b+KL(q(z|x)||P(z|x))
-\]</span></p>
-<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
-<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
-<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
-<figure>
-<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
-<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
-</figure>
-<p>根据<span class="math inline">\(P(x)=\int\limits
-_zP(z)P(x|z)dz\)</span>:</p>
-<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
-<p>再根据<span class="math inline">\(\log P(x) =
-L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
-<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
-<p>此时我们发现：</p>
-<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
-<aside>
-💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
-</aside>
-<blockquote>
-<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
-</blockquote>
-<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
-&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
-_zq(z|x)\log P(x|z)dz \\
-&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
-\end{aligned}
-\]</span></p>
-<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
-<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
-_{i=1} ^n
-(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
-Variational Bayes》</p>
-<p>求B的最大值：</p>
-<p><span class="math display">\[
-\max B = \max E_{q(z|x)}[\log P(x|z)]
-\]</span></p>
-<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
-P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
-<pre><code class=" mermaid">graph LR
-  x --&gt; NN-Encoder --&gt; mu&#x27;
-	NN-Encoder --&gt; sigma&#x27;
-	mu&#x27;--&gt;z
-	sigma&#x27;--&gt;z
-	z--&gt;NN-Decoder--&gt;mu
-	NN-Decoder--&gt;sigma
-	mu .-越接近越好.-&gt; x
-
-</code></pre>
-<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
-]]></content>
-      <categories>
-        <category>学习</category>
-      </categories>
-      <tags>
-        <tag>DL</tag>
-        <tag>VAE</tag>
-        <tag>生成模型</tag>
+        <tag>Bert</tag>
+        <tag>NLP</tag>
+        <tag>文本分类</tag>
       </tags>
   </entry>
   <entry>
@@ -3145,6 +2897,78 @@ g_t\)</span></p>
       </tags>
   </entry>
   <entry>
+    <title>生成模型之Flow-based-Model(2)</title>
+    <url>/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/</url>
+    <content><![CDATA[<h1 id="生成模型flow-based-model2流模型">生成模型Flow-Based
+Model（2）流模型</h1>
+<h2 id="推导">推导</h2>
+<p>根据生成器相关知识可知：一个最佳的生成器<span class="math inline">\(G^{*}= argmax_{G}
+\sum\limits_{i=1}^{m}logP_{G}(x^{i})\)</span></p>
+<p>根据可变理论有：<span class="math inline">\(P_G(x^i)=\pi(z^i)|\det(J_{G^{-1}})|\)</span>,
+其中<span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>等号两侧取对数有: <span class="math inline">\(logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}}|\)</span></p>
+<p>由此得到最佳生成器<span class="math inline">\(G^*\)</span>的右式,
+即让<span class="math inline">\(logP_G(x^i)\)</span>最大,
+便得到最佳<span class="math inline">\(G^*\)</span></p>
+<p>然而<span class="math inline">\(z^i=G^{-1}(x^i)\)</span>对<span class="math inline">\(G\)</span>提出了限制:</p>
+<ol type="1">
+<li><span class="math inline">\(\det(J_G)\)</span>需要可计算</li>
+<li><span class="math inline">\(G^{-1}\)</span>要求生成器<span class="math inline">\(G\)</span>本身可逆, 输入输出的形状一样</li>
+</ol>
+<p>解决方法: 使用多个生成器<span class="math inline">\(G\)</span>连续生成, 以达到拟合<span class="math inline">\(P_{data}\)</span>的目的</p>
+<h2 id="多个生成器的情况">多个生成器的情况</h2>
+<p>对于多个<span class="math inline">\(G\)</span>的生成结果有: <span class="math inline">\(\log(P_K(x^i))=log\pi(z^i)+\sum\limits_{i=1}^Klog|\det(J_{G_{K^{-1}}})|\)</span>,
+其中<span class="math inline">\(z^i=G_1^{-1}G_2^{-1}...G_K^{-1}(x^i)\)</span></p>
+<blockquote>
+<p>依旧是取左式最大</p>
+</blockquote>
+<h2 id="流模型实质">流模型实质</h2>
+<p>以一个生成器为例:</p>
+<pre><code class=" mermaid">graph LR
+z --&gt; G --&gt; x
+</code></pre>
+<p><span class="math display">\[
+logP_G(x^i)=log\pi(G^{-1}(x^i))+log|\det(J_{G^{-1}})|
+\]</span></p>
+<p>发现为得到左式中的<span class="math inline">\(G\)</span>,
+右式只是用到了<span class="math inline">\(G^{-1}\)</span>,
+因此我们直接训练出<span class="math inline">\(G^{-1}\)</span></p>
+<pre><code class=" mermaid">graph RL
+x --&gt; G-1 --&gt; z
+</code></pre>
+<p>其中, <span class="math inline">\(x^i\)</span>是从<span class="math inline">\(P_{data}(x)\)</span>中采样的, <span class="math inline">\(z^i=G^{-1}(x^i)\)</span></p>
+<p>欲使左式最大, 右侧两项应尽可能大</p>
+<ul>
+<li>右侧第一项是对数函数, 而正态分布<span class="math inline">\(\pi(z^i)\)</span>在<span class="math inline">\(z^i\)</span>等于0向量时最大,
+因此可能导致训练出的<span class="math inline">\(G^{-1}\)</span>使所有生成的<span class="math inline">\(z^i\)</span>都为零向量, 进而导致<span class="math inline">\(J_{G^{-1}}\)</span>变成全零矩阵, 行列式<span class="math inline">\(\det(J_{G^{-1}})\)</span>也为0,
+最终右侧第二项变为<span class="math inline">\(-\inf\)</span></li>
+</ul>
+<p>所以流模型实际上在做的事情就是: 在第一项趋零的情况下,
+使用第二项约束结果防止全零, 最终得到最佳生成器</p>
+<h2 id="应用-coupling-layer">应用-Coupling Layer</h2>
+<figure>
+<img src="https://s2.loli.net/2022/07/10/pqBCRzcYLbiu2Uo.png" alt="coupling-layer">
+<figcaption aria-hidden="true">coupling-layer</figcaption>
+</figure>
+<p>左侧为<span class="math inline">\(z^i\)</span>, 右侧为<span class="math inline">\(x^i\)</span> <span class="math display">\[
+\begin{equation}
+\left\{
+\begin{aligned}
+z_{i\leq d}&amp;=x^i\\
+z_{i &gt; d}&amp;=\frac {x^i-\gamma^i}{\beta^i}
+\end{aligned}
+\right.
+\end{equation}
+\]</span></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>虚拟局域网技术VLAN解析</title>
     <url>/2022/10/17/xu-ni-ju-yu-wang-ji-zhu-vlan-jie-xi/</url>
     <content><![CDATA[<h1 id="虚拟局域网技术">虚拟局域网技术</h1>
@@ -3178,5 +3002,225 @@ LAN,VLAN），是将一个物理的LAN在逻辑上划分成多个广播域的通
 <h2 id="划分vlan的网络">划分VLAN的网络</h2>
 <h2 id="vlan之间互通">VLAN之间互通</h2>
 ]]></content>
+  </entry>
+  <entry>
+    <title>生成模型之VAE</title>
+    <url>/2022/08/02/sheng-cheng-mo-xing-zhi-vae/</url>
+    <content><![CDATA[<h1 id="生成模型之variational-auto-encoder">生成模型之Variational
+Auto-Encoder</h1>
+<blockquote>
+<p>本篇内容主要参考台大李宏毅教授的视频，作为笔记使用</p>
+<p><a href="https://www.youtube.com/watch?v=3oHlf8-J3Nc">【機器學習2021】自編碼器
+(Auto-encoder) (上) - 基本概念</a></p>
+<p><a href="https://www.youtube.com/watch?v=8zomhgKrsmQ">ML Lecture 18:
+Unsupervised Learning - Deep Generative Model (Part II)</a></p>
+</blockquote>
+<h1 id="auto-encoder自动编码器">Auto-Encoder自动编码器</h1>
+<aside>
+💡 可以认为是自监督学习的一种方法，不需要标注
+</aside>
+<h2 id="压缩自动编码器">压缩自动编码器</h2>
+<pre><code class=" mermaid">graph LR
+	高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --越接近越好--&gt;高维图片
+</code></pre>
+<h2 id="降噪自动编码器">降噪自动编码器</h2>
+<pre><code class=" mermaid">graph LR
+	原图.-原图+噪声
+	原图+噪声 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图 --与原图越接近越好--&gt;原图
+	
+</code></pre>
+<h2 id="解缠feature-disentangle">解缠（Feature Disentangle）</h2>
+<p>输入信息常常由各种信息纠缠在一起，如</p>
+<ul>
+<li>图片中存在物体、纹理</li>
+<li>声音中存在文本内容、说话人信息</li>
+<li>一句话包含格式、语法</li>
+<li>……</li>
+</ul>
+<p>这时候需要通过解缠得到不同维度包含的信息</p>
+<p>应用：Voice Conversion语者转换</p>
+<h1 id="vae变分自动编码器">VAE变分自动编码器</h1>
+<h2 id="ae和vae区别">AE和VAE区别</h2>
+<p>Auto-encoder</p>
+<pre><code class=" mermaid">graph LR
+  高维图片 --&gt; NN-Encoder --&gt; 低维向量 --&gt; NN-Decoder--&gt; 生成图
+</code></pre>
+<p>VAE</p>
+<p>是在自动编码器的基础上做变分处理，使编码器的输出为目标分布的均值方差。</p>
+<pre><code class=" mermaid">graph LR
+  input --&gt; NN-Encoder --&gt; mu
+	NN-Encoder --&gt; sigma
+	sigma --exp--&gt; times((相乘))
+	e --&gt; times
+	mu --&gt; plus((相加))
+	times --&gt;plus
+	plus --&gt; z --&gt;
+
+ NN-Decoder--&gt; output
+</code></pre>
+<p>其中mu、sigma、e、z均为向量，并且e内元素服从正态分布，<span class="math inline">\(z_i=\exp(\sigma_i)\times e_i + \mu_i\)</span></p>
+<p>mu是均值，e是噪声，sigma代表噪声的大小即variance方差，z就是目标概率分布。为避免variance方差被生成为0，即没有噪声，需要加上限制条件。</p>
+<p>所以需要最小化如下函数：</p>
+<p><span class="math display">\[
+\min \sum \limits _{i=1} ^n (\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)
+\]</span></p>
+<h2 id="vae推导">VAE推导</h2>
+<h3 id="高斯混合模型gmm">高斯混合模型（GMM）</h3>
+<blockquote>
+<p>部分内容参考</p>
+<p><a href="http://www.gwylab.com/note-vae.html">【学习笔记】生成模型--变分自编码器</a></p>
+</blockquote>
+<p>高斯混合模型是单一高斯概率密度函数的延伸，由于GMM能够平滑的近似任意形状的密度分布，因此常用在语音领域。</p>
+<p>GMM的工作就是将复杂的P(x)分布变为多个高斯分布的混合，当拆分的越多时，越接近原始P(x)分布。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/JBOLqVHPE9yYFmQ.png" alt="高斯混合模型离散变量">
+<figcaption aria-hidden="true">高斯混合模型离散变量</figcaption>
+</figure>
+<p><u>如果用每一组高斯分布的取值作为一个维度，就可以用m表示第几个维度，如果有512维，m的取值就是1,2,3……512</u></p>
+<p>从多项式分布P(m)中采样一个整数m，表示一个高斯分布<span class="math inline">\(N(\mu^m,\sigma^m)\)</span>，P(x)可表示为所有这些高斯分布的和：</p>
+<p><span class="math display">\[
+P(x)=\sum \limits _mP(m)P(x|m)
+\]</span></p>
+<p>其中，<span class="math inline">\(m\sim P(m)\)</span>，<span class="math inline">\(x|m \sim N(\mu^m,\sigma^m)\)</span></p>
+<p>不过这种混合方式是离散的，还存在失真的地方，于是我们将其转化为连续的。</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/zrjWQXFZgGVYfRP.png" alt="高斯混合模型连续变量">
+<figcaption aria-hidden="true">高斯混合模型连续变量</figcaption>
+</figure>
+<p>现在将离散变量m改为连续变量z，依旧是z的某一个取值对应一个高斯分布。</p>
+<aside>
+💡
+与离散的GMM不同点在于，此时我们不能直接得到z所对应的高斯分布的均值和方差，因为z有无数个取值无法穷尽。
+</aside>
+<p><span class="math inline">\(z\sim N(0,I)\)</span>，<span class="math inline">\(x|z\sim N(\mu(z),\sigma(z))\)</span>，其中<span class="math inline">\(\mu\)</span>是得到z均值的函数，<span class="math inline">\(\sigma\)</span>是得到z方差的函数。</p>
+<p>于是P(x)的分布就可以表示为:</p>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>所以我们的目标就变成求解上面这个公式。</p>
+<h3 id="求解目标公式">求解目标公式</h3>
+<p><span class="math display">\[
+P(x)=\int\limits _zP(z)P(x|z)dz
+\]</span></p>
+<p>其中<span class="math inline">\(P(z)\)</span>已知，<span class="math inline">\(P(x|z)\)</span>未知，<span class="math inline">\(P(x|z)\)</span>中<span class="math inline">\(x|z\sim
+N(\mu(z),\sigma(z))\)</span>，所以求<strong>解<span class="math inline">\(P(x|z)\)</span>转换为求解<span class="math inline">\(\mu,\sigma\)</span>两个函数的表达式</strong>。</p>
+<p><strong>如何求解<span class="math inline">\(\mu,\sigma\)</span>函数?使用神经网络!</strong></p>
+<pre><code class=" mermaid">graph LR
+	z --&gt; NN-Decoder --&gt; mu
+	NN-Decoder --&gt; sigma
+</code></pre>
+<p>同时我们再加上一个<strong>新的函数<span class="math inline">\(q(z|x)\)</span></strong>用来表示任意高斯分布，其中<span class="math inline">\(z|x \sim
+N(\mu&#39;(x),\sigma&#39;(x))\)</span>，表示对于一个输入的x，能够得到一对均值和方差，用于生成z的概率分布。</p>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+</code></pre>
+<p>因为实际上我们有数据x，现在是在求解参数，所以需要求<span class="math inline">\(P(x)\)</span>的最大似然函数<span class="math inline">\(L=\sum \limits _x \log P(x)\)</span></p>
+<ul>
+<li><strong>最大似然估计(MLE):</strong>在”模型已定,参数<span class="math inline">\(\theta\)</span>未知”的情况下,通过观测数据来估计未知参数<span class="math inline">\(\theta\)</span>的一种方法,要求所有采样都是独立同分布.
+<ul>
+<li>Note:最大似然估计的使用
+<ol type="1">
+<li>写出似然函数</li>
+<li>对似然函数取对数</li>
+<li>两边同时求导(多个变量就求偏导)</li>
+<li>令导数为0,解出似然方程</li>
+</ol>
+<ul>
+<li><p>例子</p>
+<figure>
+<img src="/2022/08/02/sheng-cheng-mo-xing-zhi-vae/Untitled.png" alt="最大似然函数例题">
+<figcaption aria-hidden="true">最大似然函数例题</figcaption>
+</figure>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/X48H3Blukqw15Op.png" alt="例题解答">
+<figcaption aria-hidden="true">例题解答</figcaption>
+</figure></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>由于<span class="math inline">\(q(z|x)\)</span>是一个任意的高斯分布，于是有<span class="math inline">\(\int \limits _z
+q(z|x)dz=1\)</span>，表示整个高斯分布的面积为1。</p>
+<p><span class="math display">\[
+\begin{aligned}
+\log P(x) &amp;=\int \limits _zq(z|x)\log P(x)dz \\ &amp;=\int \limits
+_zq(z|x)\log \big(\frac{P(x|z)P(z)}{P(z|x)}\big)dz \\
+&amp;=\int \limits _zq(z|x)\log
+(\frac{P(x|z)P(z)}{q(z|x)}\cdot\frac{q(z|x)}{p(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz + \int
+\limits _zq(z|x)\log(\frac{q(z|x)}{P(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
++KL(q(z|x)||P(z|x))
+\end{aligned}
+\]</span></p>
+<p>最后得到两项，第二项KL散度非负，所以第一项就是结果的下界<span class="math inline">\(L_b\)</span></p>
+<p><span class="math display">\[
+\log P(x) \geqslant \int \limits _z
+q(z|x)\log(\frac{P(x|z)P(z)}{q(z|x)})dz
+\]</span></p>
+<p><span class="math display">\[
+\log P(x) = L_b+KL(q(z|x)||P(z|x))
+\]</span></p>
+<p>这里将原本的问题：求<span class="math inline">\(P(x|z)\)</span>使得<span class="math inline">\(\log P(x)\)</span>最大化</p>
+<p>转换为了<strong>新的问题</strong>：<strong>求P(x|z)和q(z|x)使得<span class="math inline">\(\log P(x)\)</span>最大化</strong></p>
+<p>看起来像是多了一个<span class="math inline">\(q(z|x)\)</span>，其实不然，我们开始观察<span class="math inline">\(\log P(x)\)</span>跟这两项的关系：</p>
+<figure>
+<img src="https://s2.loli.net/2022/08/02/CZJpxOlEad8nNh3.jpg" alt="logP(x)和新问题的关系">
+<figcaption aria-hidden="true">logP(x)和新问题的关系</figcaption>
+</figure>
+<p>根据<span class="math inline">\(P(x)=\int\limits
+_zP(z)P(x|z)dz\)</span>:</p>
+<p>当我们保持<span class="math inline">\(P(x|z)\)</span>不变时，<span class="math inline">\(P(z)\)</span>不会变，<span class="math inline">\(P(x)\)</span>也不会变，<span class="math inline">\(\log P(x)\)</span>也不会变</p>
+<p>再根据<span class="math inline">\(\log P(x) =
+L_b+KL(q(z|x)||P(z|x))\)</span>：</p>
+<p>整个<span class="math inline">\(\log P(x)\)</span>的大小不变，<span class="math inline">\(L_b\)</span>越大，KL散度越小，当KL散度减小到零时，<span class="math inline">\(\log P(x)=L_b\)</span>，<strong>而<span class="math inline">\(L_b\)</span>此时只和<span class="math inline">\(q(z|x)\)</span>有关。</strong></p>
+<p>此时我们发现：</p>
+<p>求<span class="math inline">\(\max \log P(x)\)</span>等价于求<span class="math inline">\(\max L_b\)</span></p>
+<aside>
+💡 宏观上我们可以将此时的VAE理解为两个部分： 调节<span class="math inline">\(P(x|z)\)</span>，就是在调节NN-Decoder 调节<span class="math inline">\(q(z|x)\)</span>，就是在调节NN-Encoder
+</aside>
+<blockquote>
+<p>VAE算法：Decoder每改进一次，Encoder就调节成与其一致，利用约束条件逼迫Decoder前进</p>
+</blockquote>
+<p>开始求解<span class="math inline">\(\max L_b\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+L_b &amp;= \int \limits _zq(z|x)\log (\frac {P(x|z)P(z)}{q(z|x)})dz \\
+&amp;= \int \limits _zq(z|x)\log (\frac {P(z)}{q(z|x)})dz + \int \limits
+_zq(z|x)\log P(x|z)dz \\
+&amp;=-KL(q(z|x)||P(z))+\int \limits _zq(z|x)\log P(x|z)dz
+\end{aligned}
+\]</span></p>
+<p>记第一项为A，第二项为B，现在求解<span class="math inline">\(L_b\)</span>的最大值，需要求A的最大值（KL散度的最小值），B的最大值</p>
+<p>展开A后可以得到约束项：<span class="math inline">\(\min \sum \limits
+_{i=1} ^n
+(\exp(\sigma_i)-(1+\sigma_i)+\mu_i^2)\)</span>，证明方法来自VAE原论文《Auto-Encoding
+Variational Bayes》</p>
+<p>求B的最大值：</p>
+<p><span class="math display">\[
+\max B = \max E_{q(z|x)}[\log P(x|z)]
+\]</span></p>
+<p>可理解为<strong>提供一个x的值，在<span class="math inline">\(q(z|x)\)</span>这个分布下，让<span class="math inline">\(\log
+P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</strong></p>
+<pre><code class=" mermaid">graph LR
+  x --&gt; NN-Encoder --&gt; mu&#x27;
+	NN-Encoder --&gt; sigma&#x27;
+	mu&#x27;--&gt;z
+	sigma&#x27;--&gt;z
+	z--&gt;NN-Decoder--&gt;mu
+	NN-Decoder--&gt;sigma
+	mu .-越接近越好.-&gt; x
+
+</code></pre>
+<p>VAE的损失函数的两部分，一是重建损失，二是约束项。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>DL</tag>
+        <tag>VAE</tag>
+        <tag>生成模型</tag>
+      </tags>
   </entry>
 </search>

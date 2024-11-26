@@ -4,6 +4,52 @@
   
   
   <entry>
+    <title>Ubuntu安装过Nvidia驱动却检测不到的问题记录</title>
+    <link href="/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/"/>
+    <url>/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/</url>
+    
+    <content type="html"><![CDATA[<h1 id="记录一次重新安装nvidia驱动的经过">记录一次重新安装Nvidia驱动的经过</h1><h2 id="起因">起因</h2><p>由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动</p><h2 id="经过">经过</h2><ol type="1"><li><p>首先reboot重启确认没有重新加载驱动</p></li><li><p>检查内核版本<code>uname -r</code>，没有更换内核</p></li><li><p>检查dkms，<code>dkms status</code>发现在内核中确实安装了nvidia驱动</p></li><li><p>查看驱动版本<code>ls /usr/src | grep nvidia</code>，说明也有驱动</p></li><li><p>现在不知道怎么办了😮‍💨，怀疑是SecureBoot的问题，但是还不想关掉SB，只能重装驱动</p></li><li><p>找到本地的英伟达驱动<code>.run</code>文件，重新执行安装程序，重新生成驱动需要注册的密钥</p></li><li><p>重启后在Ubuntu显示器上加载<code>MOK</code>，选<code>Enroll MOK</code>然后<code>continue</code></p></li><li><p>如果还不行，执行如下命令将der格式的密钥导入mok</p><p><code>sudo mokutil --import /usr/share/nvidia/nvidia-*.der</code>然后输入密码两次</p><p>这个注册的步骤我还是执行了两次才OK，很烦</p></li><li><p>还重新安装了nvidia-container-toolkit，重启了docker</p><p>最终才正常加载了驱动文件。</p></li></ol><h2 id="结果">结果</h2><p>FUCK NVIDIA！！！</p><p>断一次电实验室两台服务器都掉了驱动，真的绷不住</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Ubuntu</tag>
+      
+      <tag>Fuck Nvidia</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LLM综述报告</title>
+    <link href="/2024/04/13/llm-zong-shu-bao-gao/"/>
+    <url>/2024/04/13/llm-zong-shu-bao-gao/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>学习/技术/生活</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>命令行寻找Linux系统中的大文件</title>
     <link href="/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/"/>
     <url>/2024/04/06/ming-ling-xing-xun-zhao-linux-xi-tong-zhong-de-da-wen-jian/</url>
@@ -316,11 +362,11 @@
     
     <tags>
       
+      <tag>hexo</tag>
+      
       <tag>博客</tag>
       
       <tag>git</tag>
-      
-      <tag>hexo</tag>
       
     </tags>
     
@@ -858,9 +904,9 @@
     
     <tags>
       
-      <tag>hexo</tag>
-      
       <tag>blog</tag>
+      
+      <tag>hexo</tag>
       
       <tag>typora</tag>
       

@@ -16,26 +16,25 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Hexo博客在matery主题下插入mermaid流程图  本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件 其他主题可以直接参考https:&#x2F;&#x2F;github.com&#x2F;webappdevelp&#x2F;hexo-filter-mermaid-diagrams  官方指定在after-footer.ejs文件中插入以下代码 12345678&lt;% if (theme.me">
+    <meta name="description" content="记录一次重新安装Nvidia驱动的经过 起因 由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动 经过  首先reboot重启确认没有重新加载驱动 检查内核版本uname -r，没有更换内核 检查dkms，dkms status发现在内核中确实安装了nvidia驱动 查看驱动版本 l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客在matery主题下插入mermaid流程图">
-<meta property="og:url" content="https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/index.html">
+<meta property="og:title" content="Ubuntu安装过Nvidia驱动却检测不到的问题记录">
+<meta property="og:url" content="https://ash-one.github.io/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="Hexo博客在matery主题下插入mermaid流程图  本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件 其他主题可以直接参考https:&#x2F;&#x2F;github.com&#x2F;webappdevelp&#x2F;hexo-filter-mermaid-diagrams  官方指定在after-footer.ejs文件中插入以下代码 12345678&lt;% if (theme.me">
+<meta property="og:description" content="记录一次重新安装Nvidia驱动的经过 起因 由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动 经过  首先reboot重启确认没有重新加载驱动 检查内核版本uname -r，没有更换内核 检查dkms，dkms status发现在内核中确实安装了nvidia驱动 查看驱动版本 l">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-12T13:08:13.000Z">
-<meta property="article:modified_time" content="2022-07-14T00:45:34.312Z">
+<meta property="article:published_time" content="2024-11-26T08:40:37.000Z">
+<meta property="article:modified_time" content="2024-11-26T09:05:22.171Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="blog">
-<meta property="article:tag" content="hexo">
-<meta property="article:tag" content="typora">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="Fuck Nvidia">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Hexo博客在matery主题下插入mermaid流程图 - 灰一茶话会</title>
+  <title>Ubuntu安装过Nvidia驱动却检测不到的问题记录 - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -220,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hexo博客在matery主题下插入mermaid流程图"></span>
+            <span id="subtitle" data-typed-text="Ubuntu安装过Nvidia驱动却检测不到的问题记录"></span>
           
         </div>
 
@@ -231,8 +230,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-12 21:08" pubdate>
-          2022年7月12日 晚上
+        <time datetime="2024-11-26 16:40" pubdate>
+          2024年11月26日 下午
         </time>
       </span>
     
@@ -243,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          538 字
         
       </span>
     
@@ -254,7 +253,7 @@
         
         
         
-          10 分钟
+          5 分钟
         
       </span>
     
@@ -300,12 +299,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hexo博客在matery主题下插入mermaid流程图</h1>
+            <h1 style="display: none">Ubuntu安装过Nvidia驱动却检测不到的问题记录</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月14日 早上
+                    本文最后更新于：2024年11月26日 下午
                   
                 
               </p>
@@ -313,32 +312,29 @@
             
               <div class="markdown-body">
                 
-                <h1 id="hexo博客在matery主题下插入mermaid流程图">Hexo博客在matery主题下插入mermaid流程图</h1>
-<blockquote>
-<p>本文解决hexo本身无法渲染mermaid流程图的问题,本质是加载对应的js文件</p>
-<p>其他主题可以直接参考https://github.com/webappdevelp/hexo-filter-mermaid-diagrams</p>
-</blockquote>
-<p>官方指定在<code>after-footer.ejs</code>文件中插入以下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid@&lt;%= theme.mermaid.version %&gt;/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
-<p>而实际上在matery主题中没有该文件</p>
-<h2 id="解决方法">解决方法</h2>
-<h3 id="第一步-增加js代码">第一步 增加js代码</h3>
-<p>在matery主题路径<code>themes/hexo-theme-matery/layout/_partial</code>下找到<code>footer.ejs</code></p>
-<p>直接在该文件的最后添加如下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ejs">&lt;% if (theme.mermaid.enable) &#123; %&gt;<br>  &lt;script src=&#x27;https://unpkg.com/mermaid/dist/mermaid.min.js&#x27;&gt;&lt;/script&gt;<br>  &lt;script&gt;<br>    if (window.mermaid) &#123;<br>      mermaid.initialize(&#123;theme: &#x27;forest&#x27;&#125;);<br>    &#125;<br>  &lt;/script&gt;<br>&lt;% &#125; %&gt;<br></code></pre></td></tr></table></figure>
-<p><strong>注意到去掉了原本中间的版本控制,
-因为版本选择可能会导致加载的js不能正常显示typora中的mermaid图</strong></p>
-<ul>
-<li>如果想要修改主题则直接在这里修改theme后的内容为如下: <em>default |
-dark | forest | neutral</em></li>
-</ul>
-<h3 id="第二步-增加yml文本">第二步 增加yml文本</h3>
-<p>在<em>主题的配置文件</em>下<code>themes/hexo-theme-matery/_config.yml</code>增加文本</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mermaid:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-<h2 id="结语">结语</h2>
-<p>不出意外到这里进行测试就可以见到hexo能够加载出来mermaid图了(撒花)</p>
-<p>如果没能成功加载, 可以查看源代码查找mermaid,
-看看增加的ejs代码是否成功渲染</p>
+                <h1 id="记录一次重新安装nvidia驱动的经过">记录一次重新安装Nvidia驱动的经过</h1>
+<h2 id="起因">起因</h2>
+<p>由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动</p>
+<h2 id="经过">经过</h2>
+<ol type="1">
+<li><p>首先reboot重启确认没有重新加载驱动</p></li>
+<li><p>检查内核版本<code>uname -r</code>，没有更换内核</p></li>
+<li><p>检查dkms，<code>dkms status</code>发现在内核中确实安装了nvidia驱动</p></li>
+<li><p>查看驱动版本
+<code>ls /usr/src | grep nvidia</code>，说明也有驱动</p></li>
+<li><p>现在不知道怎么办了😮‍💨，怀疑是Secure
+Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
+<li><p>找到本地的英伟达驱动<code>.run</code>文件，重新执行安装程序，重新生成驱动需要注册的密钥</p></li>
+<li><p>重启后在Ubuntu显示器上加载<code>MOK</code>，选<code>Enroll MOK</code>然后<code>continue</code></p></li>
+<li><p>如果还不行，执行如下命令将der格式的密钥导入mok</p>
+<p><code>sudo mokutil --import /usr/share/nvidia/nvidia-*.der</code>然后输入密码两次</p>
+<p>这个注册的步骤我还是执行了两次才OK，很烦</p></li>
+<li><p>还重新安装了nvidia-container-toolkit，重启了docker</p>
+<p>最终才正常加载了驱动文件。</p></li>
+</ol>
+<h2 id="结果">结果</h2>
+<p>FUCK NVIDIA！！！</p>
+<p>断一次电实验室两台服务器都掉了驱动，真的绷不住</p>
 
                 
               </div>
@@ -372,11 +368,9 @@ dark | forest | neutral</em></li>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/blog/">#blog</a>
+        <a href="/tags/Ubuntu/">#Ubuntu</a>
       
-        <a href="/tags/hexo/">#hexo</a>
-      
-        <a href="/tags/typora/">#typora</a>
+        <a href="/tags/Fuck-Nvidia/">#Fuck Nvidia</a>
       
     </div>
   
@@ -388,8 +382,8 @@ dark | forest | neutral</em></li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hexo博客在matery主题下插入mermaid流程图</div>
-      <div>https://ash-one.github.io/2022/07/12/hexo-bo-ke-zai-matery-zhu-ti-xia-cha-ru-mermaid-liu-cheng-tu/</div>
+      <div>Ubuntu安装过Nvidia驱动却检测不到的问题记录</div>
+      <div>https://ash-one.github.io/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/</div>
     </div>
     <div class="license-meta">
       
@@ -401,7 +395,7 @@ dark | forest | neutral</em></li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月12日</div>
+          <div>2024年11月26日</div>
         </div>
       
       
@@ -433,18 +427,12 @@ dark | forest | neutral</em></li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/24/ji-qi-xue-xi-shu-xue-ji-chu-xian-xing-dai-shu/" title="机器学习数学基础①线性代数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">机器学习数学基础①线性代数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/09/sheng-cheng-mo-xing-zhi-flow-based-model-2-liu-mo-xing-tui-dao/" title="生成模型之Flow-based-Model(2)">
-                        <span class="hidden-mobile">生成模型之Flow-based-Model(2)</span>
+                      <a href="/2024/04/13/llm-zong-shu-bao-gao/" title="LLM综述报告">
+                        <span class="hidden-mobile">LLM综述报告</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
