@@ -16,27 +16,28 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="记录一次重新安装Nvidia驱动的经过 起因 由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动 经过  首先reboot重启确认没有重新加载驱动 检查内核版本uname -r，没有更换内核 检查dkms，dkms status发现在内核中确实安装了nvidia驱动 查看驱动版本 l">
+    <meta name="description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu安装过Nvidia驱动却检测不到的问题记录">
-<meta property="og:url" content="https://ash-one.github.io/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/index.html">
+<meta property="og:title" content="在conda环境中安装nvcc&#x2F;cuda-toolkit">
+<meta property="og:url" content="https://ash-one.github.io/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="记录一次重新安装Nvidia驱动的经过 起因 由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动 经过  首先reboot重启确认没有重新加载驱动 检查内核版本uname -r，没有更换内核 检查dkms，dkms status发现在内核中确实安装了nvidia驱动 查看驱动版本 l">
+<meta property="og:description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/11/26/q5bCOU1fJKdiNwa.png">
-<meta property="article:published_time" content="2024-11-26T08:40:37.000Z">
-<meta property="article:modified_time" content="2024-11-26T09:07:35.475Z">
+<meta property="og:image" content="https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg">
+<meta property="article:published_time" content="2024-11-28T07:53:11.000Z">
+<meta property="article:modified_time" content="2024-11-28T08:38:53.258Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="Ubuntu">
-<meta property="article:tag" content="Fuck Nvidia">
+<meta property="article:tag" content="conda">
+<meta property="article:tag" content="dl">
+<meta property="article:tag" content="cuda">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/11/26/q5bCOU1fJKdiNwa.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Ubuntu安装过Nvidia驱动却检测不到的问题记录 - 灰一茶话会</title>
+  <title>在conda环境中安装nvcc/cuda-toolkit - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,13 +216,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2024/11/26/q5bCOU1fJKdiNwa.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Ubuntu安装过Nvidia驱动却检测不到的问题记录"></span>
+            <span id="subtitle" data-typed-text="在conda环境中安装nvcc/cuda-toolkit"></span>
           
         </div>
 
@@ -232,8 +233,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-26 16:40" pubdate>
-          2024年11月26日 下午
+        <time datetime="2024-11-28 15:53" pubdate>
+          2024年11月28日 下午
         </time>
       </span>
     
@@ -244,7 +245,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          538 字
+          445 字
         
       </span>
     
@@ -255,7 +256,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -301,12 +302,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Ubuntu安装过Nvidia驱动却检测不到的问题记录</h1>
+            <h1 style="display: none">在conda环境中安装nvcc/cuda-toolkit</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年11月26日 下午
+                    本文最后更新于：2024年11月28日 下午
                   
                 
               </p>
@@ -314,29 +315,25 @@
             
               <div class="markdown-body">
                 
-                <h1 id="记录一次重新安装nvidia驱动的经过">记录一次重新安装Nvidia驱动的经过</h1>
-<h2 id="起因">起因</h2>
-<p>由于docker内运行着ollama，发现docker无法启动服务，进而发现nvitop命令的输出说明驱动没有加载，因为之前手动安装过驱动，所以理论上只是需要加载驱动</p>
-<h2 id="经过">经过</h2>
-<ol type="1">
-<li><p>首先reboot重启确认没有重新加载驱动</p></li>
-<li><p>检查内核版本<code>uname -r</code>，没有更换内核</p></li>
-<li><p>检查dkms，<code>dkms status</code>发现在内核中确实安装了nvidia驱动</p></li>
-<li><p>查看驱动版本
-<code>ls /usr/src | grep nvidia</code>，说明也有驱动</p></li>
-<li><p>现在不知道怎么办了😮‍💨，怀疑是Secure
-Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
-<li><p>找到本地的英伟达驱动<code>.run</code>文件，重新执行安装程序，重新生成驱动需要注册的密钥</p></li>
-<li><p>重启后在Ubuntu显示器上加载<code>MOK</code>，选<code>Enroll MOK</code>然后<code>continue</code></p></li>
-<li><p>如果还不行，执行如下命令将der格式的密钥导入mok</p>
-<p><code>sudo mokutil --import /usr/share/nvidia/nvidia-*.der</code>然后输入密码两次</p>
-<p>这个注册的步骤我还是执行了两次才OK，很烦</p></li>
-<li><p>还重新安装了nvidia-container-toolkit，重启了docker</p>
-<p>最终才正常加载了驱动文件。</p></li>
-</ol>
-<h2 id="结果">结果</h2>
-<p>FUCK NVIDIA！！！</p>
-<p>断一次电实验室两台服务器都掉了驱动，真的绷不住</p>
+                <h1 id="前言">前言</h1>
+<p>作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。<strong>本文不针对特定版本做管理，默认以最新版安装。</strong></p>
+<h1 id="conda可以安装什么">Conda可以安装什么？</h1>
+<p>除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在<strong>激活的conda环境内</strong>进行，表示在该环境下安装工具。</p>
+<h2 id="nvcc">nvcc</h2>
+<p>cuda 编译工具</p>
+<p><code>conda install -c nvidia cuda-nvcc</code></p>
+<p>安装之后通过<code>nvcc -V</code>检查是否安装成功</p>
+<ul>
+<li><p>在安装DeepSpeed时出现如下错误，发现是没有nvcc，通过在conda内直接安装nvcc解决</p>
+<p><code>CUDA_HOME does not exist, unable to compile CUDA op(s)</code></p></li>
+</ul>
+<h2 id="cuda-toolkit">cuda-toolkit</h2>
+<p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包</p>
+<p><code>conda install -c nvidia cuda-toolkit</code></p>
+<figure>
+<img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" srcset="/img/loading.gif" lazyload alt="安装结果">
+<figcaption aria-hidden="true">安装结果</figcaption>
+</figure>
 
                 
               </div>
@@ -355,7 +352,7 @@ Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
     
       <span class="category-chain">
         
-  <a href="/categories/tech/" class="category-chain-item">技术</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
   
   
 
@@ -370,9 +367,11 @@ Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Ubuntu/">#Ubuntu</a>
+        <a href="/tags/conda/">#conda</a>
       
-        <a href="/tags/Fuck-Nvidia/">#Fuck Nvidia</a>
+        <a href="/tags/dl/">#dl</a>
+      
+        <a href="/tags/cuda/">#cuda</a>
       
     </div>
   
@@ -384,8 +383,8 @@ Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Ubuntu安装过Nvidia驱动却检测不到的问题记录</div>
-      <div>https://ash-one.github.io/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/</div>
+      <div>在conda环境中安装nvcc/cuda-toolkit</div>
+      <div>https://ash-one.github.io/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/</div>
     </div>
     <div class="license-meta">
       
@@ -397,7 +396,7 @@ Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月26日</div>
+          <div>2024年11月28日</div>
         </div>
       
       
@@ -429,18 +428,12 @@ Boot的问题，但是还不想关掉SB，只能重装驱动</p></li>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/" title="在conda环境中安装nvcc/cuda-toolkit">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在conda环境中安装nvcc/cuda-toolkit</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/13/llm-zong-shu-bao-gao/" title="LLM综述报告">
-                        <span class="hidden-mobile">LLM综述报告</span>
+                      <a href="/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/" title="Ubuntu安装过Nvidia驱动却检测不到的问题记录">
+                        <span class="hidden-mobile">Ubuntu安装过Nvidia驱动却检测不到的问题记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

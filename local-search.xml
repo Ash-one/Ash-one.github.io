@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>在conda环境中安装nvcc/cuda-toolkit</title>
+    <link href="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/"/>
+    <url>/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。<strong>本文不针对特定版本做管理，默认以最新版安装。</strong></p><h1 id="conda可以安装什么">Conda可以安装什么？</h1><p>除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在<strong>激活的conda环境内</strong>进行，表示在该环境下安装工具。</p><h2 id="nvcc">nvcc</h2><p>cuda 编译工具</p><p><code>conda install -c nvidia cuda-nvcc</code></p><p>安装之后通过<code>nvcc -V</code>检查是否安装成功</p><ul><li><p>在安装DeepSpeed时出现如下错误，发现是没有nvcc，通过在conda内直接安装nvcc解决</p><p><code>CUDA_HOME does not exist, unable to compile CUDA op(s)</code></p></li></ul><h2 id="cuda-toolkit">cuda-toolkit</h2><p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包</p><p><code>conda install -c nvidia cuda-toolkit</code></p><figure><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" alt="安装结果"><figcaption aria-hidden="true">安装结果</figcaption></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>conda</tag>
+      
+      <tag>dl</tag>
+      
+      <tag>cuda</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Ubuntu安装过Nvidia驱动却检测不到的问题记录</title>
     <link href="/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/"/>
     <url>/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/</url>
