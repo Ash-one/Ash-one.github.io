@@ -3238,13 +3238,14 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
 <li><p>在安装DeepSpeed时出现如下错误，发现是没有nvcc，通过在conda内直接安装nvcc解决</p>
 <p><code>CUDA_HOME does not exist, unable to compile CUDA op(s)</code></p></li>
 </ul>
+<h2 id="cuda-compiler">cuda-compiler</h2>
+<p>cuda 相关的包，具体安装的包如图：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">conda install -c nvidia cuda-compiler<br></code></pre></td></tr></table></figure>
+<p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241222170145669-4858110.png" alt="cuda-compiler" style="zoom:50%;"></p>
 <h2 id="cuda-toolkit">cuda-toolkit</h2>
 <p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包</p>
 <p><code>conda install -c nvidia cuda-toolkit</code></p>
-<figure>
-<img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" alt="安装结果">
-<figcaption aria-hidden="true">安装结果</figcaption>
-</figure>
+<p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" alt="安装结果" style="zoom:50%;"></p>
 ]]></content>
       <categories>
         <category>学习</category>
