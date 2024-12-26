@@ -16,28 +16,29 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
+    <meta name="description" content="在远程服务器上访问外网 graph LR 本机 --&gt; host   对于一个连接ssh命令ssh user@host，增加为如下配置：  1ssh -R 6152:127.0.0.1:6152 user@host 表示访问host机器的6152端口将转发到127.0.0.1:6152也就是本机的6152端口，此处我的本机6152端口上运行了代理工具  只需要在host机器上的这个ssh连接">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在conda环境中安装nvcc&#x2F;cuda-toolkit">
-<meta property="og:url" content="https://ash-one.github.io/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/index.html">
+<meta property="og:title" content="在远程服务器上如何访问外网？使用SSH -R命令">
+<meta property="og:url" content="https://ash-one.github.io/2024/12/24/zai-yuan-cheng-fu-wu-qi-shang-ru-he-ke-xue-shang-wang-shi-yong-ssh-r-ming-ling/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
+<meta property="og:description" content="在远程服务器上访问外网 graph LR 本机 --&gt; host   对于一个连接ssh命令ssh user@host，增加为如下配置：  1ssh -R 6152:127.0.0.1:6152 user@host 表示访问host机器的6152端口将转发到127.0.0.1:6152也就是本机的6152端口，此处我的本机6152端口上运行了代理工具  只需要在host机器上的这个ssh连接">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg">
-<meta property="article:published_time" content="2024-11-28T07:53:11.000Z">
-<meta property="article:modified_time" content="2024-12-22T09:02:25.827Z">
+<meta property="og:image" content="https://s2.loli.net/2024/12/26/unrqwIXbEM4BOTe.jpg">
+<meta property="article:published_time" content="2024-12-24T07:28:30.000Z">
+<meta property="article:modified_time" content="2024-12-26T09:52:00.985Z">
 <meta property="article:author" content="灰一">
-<meta property="article:tag" content="conda">
-<meta property="article:tag" content="dl">
-<meta property="article:tag" content="cuda">
+<meta property="article:tag" content="网络">
+<meta property="article:tag" content="代理">
+<meta property="article:tag" content="ssh">
+<meta property="article:tag" content="科学上网">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/26/unrqwIXbEM4BOTe.jpg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>在conda环境中安装nvcc/cuda-toolkit - 灰一茶话会</title>
+  <title>在远程服务器上如何访问外网？使用SSH -R命令 - 灰一茶话会</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,13 +217,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://s2.loli.net/2024/12/26/unrqwIXbEM4BOTe.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在conda环境中安装nvcc/cuda-toolkit"></span>
+            <span id="subtitle" data-typed-text="在远程服务器上如何访问外网？使用SSH -R命令"></span>
           
         </div>
 
@@ -233,8 +234,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-28 15:53" pubdate>
-          2024年11月28日 下午
+        <time datetime="2024-12-24 15:28" pubdate>
+          2024年12月24日 下午
         </time>
       </span>
     
@@ -245,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          506 字
+          463 字
         
       </span>
     
@@ -256,7 +257,7 @@
         
         
         
-          5 分钟
+          4 分钟
         
       </span>
     
@@ -302,12 +303,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">在conda环境中安装nvcc/cuda-toolkit</h1>
+            <h1 style="display: none">在远程服务器上如何访问外网？使用SSH -R命令</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年12月22日 下午
+                    本文最后更新于：2024年12月26日 下午
                   
                 
               </p>
@@ -315,26 +316,25 @@
             
               <div class="markdown-body">
                 
-                <h1 id="前言">前言</h1>
-<p>作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。<strong>本文不针对特定版本做管理，默认以最新版安装。</strong></p>
-<h1 id="conda可以安装什么">Conda可以安装什么？</h1>
-<p>除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在<strong>激活的conda环境内</strong>进行，表示在该环境下安装工具。</p>
-<h2 id="nvcc">nvcc</h2>
-<p>cuda 编译工具</p>
-<p><code>conda install -c nvidia cuda-nvcc</code></p>
-<p>安装之后通过<code>nvcc -V</code>检查是否安装成功</p>
-<ul>
-<li><p>在安装DeepSpeed时出现如下错误，发现是没有nvcc，通过在conda内直接安装nvcc解决</p>
-<p><code>CUDA_HOME does not exist, unable to compile CUDA op(s)</code></p></li>
-</ul>
-<h2 id="cuda-compiler">cuda-compiler</h2>
-<p>cuda 相关的包，具体安装的包如图：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c nvidia cuda-compiler<br></code></pre></td></tr></table></figure>
-<p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241222170145669-4858110.png" srcset="/img/loading.gif" lazyload alt="cuda-compiler" style="zoom:50%;"></p>
-<h2 id="cuda-toolkit">cuda-toolkit</h2>
-<p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包</p>
-<p><code>conda install -c nvidia cuda-toolkit</code></p>
-<p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" srcset="/img/loading.gif" lazyload alt="安装结果" style="zoom:50%;"></p>
+                <h1 id="在远程服务器上访问外网">在远程服务器上访问外网</h1>
+<pre><code class=" mermaid">graph LR
+本机 --&gt; host
+</code></pre>
+<ol type="1">
+<li>对于一个连接ssh命令<code>ssh user@host</code>，增加为如下配置：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -R 6152:127.0.0.1:6152 user@host<br></code></pre></td></tr></table></figure>
+<p>表示访问host机器的6152端口将转发到127.0.0.1:6152也就是本机的6152端口，此处我的本机6152端口上运行了代理工具</p>
+<ol start="2" type="1">
+<li>只需要在host机器上的这个ssh连接中运行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> http_proxy=http://127.0.0.1:6152 &amp;&amp; <span class="hljs-built_in">export</span> https_proxy=http://127.0.0.1:6152<br></code></pre></td></tr></table></figure>
+<p>也就是配置host机器的两个代理为该机器自己的6152端口，即可转发到本机的对应端口，从而实现在远程host上使用本机的代理访问网站。</p>
+<ol start="3" type="1">
+<li>进一步，将该配置写入ssh config中</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Host</span> a800<br>  <span class="hljs-attribute">HostName</span> <span class="hljs-number">100.100.110.120</span><br>  <span class="hljs-attribute">User</span> ashone<br>  <span class="hljs-attribute">RemoteForward</span> <span class="hljs-number">6152</span> localhost:<span class="hljs-number">6152</span><br></code></pre></td></tr></table></figure>
+<p>此时运行<code>ssh a800</code>，会自动将6152端口进行映射</p>
 
                 
               </div>
@@ -368,11 +368,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/conda/">#conda</a>
+        <a href="/tags/%E7%BD%91%E7%BB%9C/">#网络</a>
       
-        <a href="/tags/dl/">#dl</a>
+        <a href="/tags/%E4%BB%A3%E7%90%86/">#代理</a>
       
-        <a href="/tags/cuda/">#cuda</a>
+        <a href="/tags/ssh/">#ssh</a>
+      
+        <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/">#科学上网</a>
       
     </div>
   
@@ -384,8 +386,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在conda环境中安装nvcc/cuda-toolkit</div>
-      <div>https://ash-one.github.io/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/</div>
+      <div>在远程服务器上如何访问外网？使用SSH -R命令</div>
+      <div>https://ash-one.github.io/2024/12/24/zai-yuan-cheng-fu-wu-qi-shang-ru-he-ke-xue-shang-wang-shi-yong-ssh-r-ming-ling/</div>
     </div>
     <div class="license-meta">
       
@@ -397,7 +399,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月28日</div>
+          <div>2024年12月24日</div>
         </div>
       
       
@@ -429,18 +431,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/12/24/zai-yuan-cheng-fu-wu-qi-shang-ru-he-ke-xue-shang-wang-shi-yong-ssh-r-ming-ling/" title="在远程服务器上如何访问外网？使用SSH -R命令">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在远程服务器上如何访问外网？使用SSH -R命令</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/26/ubuntu-an-zhuang-guo-nvidia-qu-dong-que-jian-ce-bu-dao-de-wen-ti-ji-lu/" title="Ubuntu安装过Nvidia驱动却检测不到的问题记录">
-                        <span class="hidden-mobile">Ubuntu安装过Nvidia驱动却检测不到的问题记录</span>
+                      <a href="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/" title="在conda环境中安装nvcc/cuda-toolkit">
+                        <span class="hidden-mobile">在conda环境中安装nvcc/cuda-toolkit</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

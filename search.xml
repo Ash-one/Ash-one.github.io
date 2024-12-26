@@ -3256,4 +3256,37 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
         <tag>cuda</tag>
       </tags>
   </entry>
+  <entry>
+    <title>在远程服务器上如何访问外网？使用SSH -R命令</title>
+    <url>/2024/12/24/zai-yuan-cheng-fu-wu-qi-shang-ru-he-ke-xue-shang-wang-shi-yong-ssh-r-ming-ling/</url>
+    <content><![CDATA[<h1 id="在远程服务器上访问外网">在远程服务器上访问外网</h1>
+<pre><code class=" mermaid">graph LR
+本机 --&gt; host
+</code></pre>
+<ol type="1">
+<li>对于一个连接ssh命令<code>ssh user@host</code>，增加为如下配置：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ssh -R 6152:127.0.0.1:6152 user@host<br></code></pre></td></tr></table></figure>
+<p>表示访问host机器的6152端口将转发到127.0.0.1:6152也就是本机的6152端口，此处我的本机6152端口上运行了代理工具</p>
+<ol start="2" type="1">
+<li>只需要在host机器上的这个ssh连接中运行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> http_proxy=http://127.0.0.1:6152 &amp;&amp; <span class="hljs-built_in">export</span> https_proxy=http://127.0.0.1:6152<br></code></pre></td></tr></table></figure>
+<p>也就是配置host机器的两个代理为该机器自己的6152端口，即可转发到本机的对应端口，从而实现在远程host上使用本机的代理访问网站。</p>
+<ol start="3" type="1">
+<li>进一步，将该配置写入ssh config中</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Host</span> a800<br>  <span class="hljs-attribute">HostName</span> <span class="hljs-number">100.100.110.120</span><br>  <span class="hljs-attribute">User</span> ashone<br>  <span class="hljs-attribute">RemoteForward</span> <span class="hljs-number">6152</span> localhost:<span class="hljs-number">6152</span><br></code></pre></td></tr></table></figure>
+<p>此时运行<code>ssh a800</code>，会自动将6152端口进行映射</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+        <tag>代理</tag>
+        <tag>ssh</tag>
+        <tag>科学上网</tag>
+      </tags>
+  </entry>
 </search>
