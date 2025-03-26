@@ -3289,4 +3289,42 @@ P(x|z)\)</span>值越大越好，这件事情就是NN-Encoder在做的。</stron
         <tag>科学上网</tag>
       </tags>
   </entry>
+  <entry>
+    <title>交叉熵、KL散度、负对数似然三个损失函数等价</title>
+    <url>/2025/01/06/jiao-cha-shang-kl-san-du-fu-dui-shu-si-ran-san-ge-sun-shi-han-shu-deng-jie/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>正好在阅读CosyVoice源码时对修改模型前向传播时的损失函数产生了疑问，因此系统地整理一下这三种损失函数的等价关系。结论就是这<strong>三个损失函数在大部分情况下都是等价的，而交叉熵损失的计算最简单应用最广泛，在其他情况下魔改损失函数时则会用到KL散度和NLL等其他损失。</strong></p>
+<h1 id="从实验开始">从实验开始</h1>
+<p>这里用LLM训练使用的常见的序列数据做实验。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><span class="hljs-keyword">from</span> cosyvoice.transformer.label_smoothing_loss <span class="hljs-keyword">import</span> LabelSmoothingLoss<br><br><span class="hljs-comment"># 模型输出 logits 和目标索引</span><br>logits = torch.rand(<span class="hljs-number">3</span>, <span class="hljs-number">20</span> , <span class="hljs-number">5</span>)  <span class="hljs-comment"># batch_size=3,seq_len=20,vocab_size=5</span><br>targets = torch.randint(<span class="hljs-number">0</span>, <span class="hljs-number">5</span>, (<span class="hljs-number">3</span>, <span class="hljs-number">20</span>))  <span class="hljs-comment"># 每个样本的目标类别</span><br><span class="hljs-comment"># 标签平滑参数</span><br>label_smoothing = <span class="hljs-number">0</span><br>vocab_size = logits.size(-<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+<p>首先定义一组测试数据，这里不考虑batch中的有效长度，即mask。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># **方法1: 使用 CrossEntropyLoss**</span><br>ce_criterion = nn.CrossEntropyLoss(label_smoothing=label_smoothing)<br>ce_loss = ce_criterion(logits.transpose(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>), targets)<br><br><span class="hljs-comment"># **方法2: 使用 KLDivLoss 实现带标签平滑的损失**</span><br>log_probs = F.log_softmax(logits, dim=-<span class="hljs-number">1</span>)  <span class="hljs-comment"># 转换为 log_softmax</span><br><span class="hljs-comment"># 构造目标分布（One-hot + Label Smoothing）</span><br>target_probs = torch.zeros_like(log_probs).fill_(label_smoothing / (vocab_size-<span class="hljs-number">1</span>)) <span class="hljs-comment"># 将所有零的位置填充上标签平滑后的值</span><br>target_probs = target_probs.scatter_(-<span class="hljs-number">1</span>,targets.unsqueeze(-<span class="hljs-number">1</span>),<span class="hljs-number">1</span> - label_smoothing)<br><span class="hljs-comment"># 使用 KLDivLoss 计算损失</span><br>kl_criterion = nn.KLDivLoss(reduction=<span class="hljs-string">&#x27;none&#x27;</span>)<br>kl_loss = kl_criterion(log_probs, target_probs)<br>entropy = -(target_probs * torch.log(target_probs + <span class="hljs-number">1e-12</span>)).<span class="hljs-built_in">sum</span>(dim=-<span class="hljs-number">1</span>).mean() <span class="hljs-comment"># 计算信息熵，在不使用标签平滑时需要有1e-12避免计算log(0)</span><br><br><span class="hljs-comment"># 方法3:使用cosyvoice实现的标签平滑损失</span><br>lsl_criterion = LabelSmoothingLoss(vocab_size, -<span class="hljs-number">1</span>, label_smoothing,<span class="hljs-literal">True</span>)<br>lsl_loss = lsl_criterion(log_probs,targets)<br><br><span class="hljs-comment"># 方法4: 使用负对数似然损失</span><br>nll_criterion = nn.NLLLoss()<br>nll_loss = nll_criterion(log_probs.transpose(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>), targets)<br></code></pre></td></tr></table></figure>
+<p>依次使用四种方法计算损失，其中只有交叉熵损失函数的输入为logits，其他方法都需要输入log_softmax(logits)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;CrossEntropyLoss: <span class="hljs-subst">&#123;ce_loss.item()&#125;</span>&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;KLDivLoss: <span class="hljs-subst">&#123;kl_loss.<span class="hljs-built_in">sum</span>().item()/(logits.size(<span class="hljs-number">0</span>)*logits.size(<span class="hljs-number">1</span>))&#125;</span>&quot;</span>) <span class="hljs-comment"># reduction=&#x27;none&#x27;时要除以seq_len和batch数平均，等同于直接reduction=&#x27;batchmean&#x27;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;adjust-KL: &quot;</span>,kl_loss.<span class="hljs-built_in">sum</span>().item()/(logits.size(<span class="hljs-number">0</span>)*logits.size(<span class="hljs-number">1</span>))+entropy.item() ) <br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;LSLoss:&quot;</span>,lsl_loss.item())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;NLL Loss: <span class="hljs-subst">&#123;nll_loss.item()&#125;</span>&#x27;</span>)<br><br><span class="hljs-comment"># output：</span><br>CrossEntropyLoss: <span class="hljs-number">1.629240870475769</span><br>KLDivLoss: <span class="hljs-number">1.6292406717936199</span><br>adjust-KL:  <span class="hljs-number">1.6292406717936199</span><br>LSLoss: <span class="hljs-number">1.62924063205719</span><br>NLL Loss: <span class="hljs-number">1.629240870475769</span><br></code></pre></td></tr></table></figure>
+<p>可以看到在没有标签平滑的时候，五个结果都可以认为是相同的。但当<code>label_smoothing = 0.1</code>时：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">CrossEntropyLoss: <span class="hljs-number">1.644450306892395</span><br>KLDivLoss: <span class="hljs-number">1.1806944529215495</span><br>adjust-KL:  <span class="hljs-number">1.6444068769613902</span><br>LSLoss: <span class="hljs-number">1.1806944608688354</span><br>NLL Loss: <span class="hljs-number">1.64462411403656</span><br></code></pre></td></tr></table></figure>
+<p><strong>交叉熵损失、adjust-KL、NLL
+损失的结果相同，而KL散度损失和CosyVoice实现的标签平滑损失相同</strong>，而和其他结果不同了（额外说明CosyVoice的损失函数实现和这里的KL散度损失是相同的）</p>
+<h1 id="结论解释">结论解释</h1>
+<p>KL散度又叫相对熵，<strong>相对熵=交叉熵-信息熵</strong>，则有<strong>交叉熵=相对熵+信息熵</strong>，对应adjust-KL：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python">kl_loss.<span class="hljs-built_in">sum</span>().item()/(logits.size(<span class="hljs-number">0</span>)*logits.size(<span class="hljs-number">1</span>))+entropy.item()<br></code></pre></td></tr></table></figure>
+<p>也是因为多计算了一个相对熵并求和才得到与交叉熵损失函数相同的结果，而在<strong>非标签平滑的（独热分布）情况下，信息熵为0</strong>，也就是<strong>交叉熵=相对熵</strong>完全等价的关系。</p>
+<p>负对数似然NLL
+Loss函数只能输入独热标签计算，因此在目标分布为独热分布时计算公式和交叉熵相同，在标签平滑的情况下，交叉熵损失结果有所有变化，但负对数似然损失函数无法应用标签平滑，损失结果不会变化。</p>
+]]></content>
+      <categories>
+        <category>学习</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>新python环境管理工具uv，替代conda不是问题</title>
+    <url>/2025/01/06/xin-python-huan-jing-guan-li-gong-ju-uv-ti-dai-conda-bu-shi-wen-ti/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>其实现在的conda版本由于内置了mamba解算器，解决环境依赖的速度已经很快了，奈何在某些公共服务器上conda版本被固定在了某个旧版本上无法升级，间接导致conda完全无法使用，因此找到了新的python环境管理工具-uv。</p>
+<h1 id="uv管理python">UV管理Python</h1>
+]]></content>
+      <categories>
+        <category>学习/技术/生活</category>
+      </categories>
+  </entry>
 </search>
