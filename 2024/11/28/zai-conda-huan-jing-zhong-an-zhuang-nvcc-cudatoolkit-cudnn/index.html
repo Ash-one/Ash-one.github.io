@@ -16,16 +16,16 @@
   <meta name="author" content="灰一">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
+    <meta name="description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文针对特定版本做管理，默认以 12.4 版安装，在 4090 和 A100 环境下可以使用。 前置条件：系统上已经安装英伟达驱动。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在conda环境中安装nvcc&#x2F;cuda-toolkit">
 <meta property="og:url" content="https://ash-one.github.io/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/index.html">
 <meta property="og:site_name" content="灰一茶话会">
-<meta property="og:description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进">
+<meta property="og:description" content="前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文针对特定版本做管理，默认以 12.4 版安装，在 4090 和 A100 环境下可以使用。 前置条件：系统上已经安装英伟达驱动。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/11/28/VyGpPSe4xcMzvdT.jpg">
 <meta property="article:published_time" content="2024-11-28T07:53:11.000Z">
-<meta property="article:modified_time" content="2024-12-22T09:02:25.827Z">
+<meta property="article:modified_time" content="2025-04-13T12:38:57.281Z">
 <meta property="article:author" content="灰一">
 <meta property="article:tag" content="conda">
 <meta property="article:tag" content="dl">
@@ -245,7 +245,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          506 字
+          948 字
         
       </span>
     
@@ -256,7 +256,7 @@
         
         
         
-          5 分钟
+          8 分钟
         
       </span>
     
@@ -307,7 +307,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年12月22日 下午
+                    本文最后更新于：2025年4月13日 晚上
                   
                 
               </p>
@@ -316,23 +316,38 @@
               <div class="markdown-body">
                 
                 <h1 id="前言">前言</h1>
-<p>作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。<strong>本文不针对特定版本做管理，默认以最新版安装。</strong></p>
+<p>作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。<strong>本文针对特定版本做管理，默认以
+12.4 版安装，在 4090 和 A100 环境下可以使用。</strong></p>
+<p>前置条件：系统上已经安装英伟达驱动。</p>
 <h1 id="conda可以安装什么">Conda可以安装什么？</h1>
 <p>除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在<strong>激活的conda环境内</strong>进行，表示在该环境下安装工具。</p>
 <h2 id="nvcc">nvcc</h2>
-<p>cuda 编译工具</p>
+<p>cuda 编译工具，这个包是最重要的一个，在 conda
+中安装完全可以<strong>替代</strong>在系统内进行安装和管理。</p>
 <p><code>conda install -c nvidia cuda-nvcc</code></p>
-<p>安装之后通过<code>nvcc -V</code>检查是否安装成功</p>
+<p>安装之后通过<code>nvcc -V</code>检查是否安装成功。</p>
+<p>两个通过 nvcc 解决的问题：</p>
 <ul>
 <li><p>在安装DeepSpeed时出现如下错误，发现是没有nvcc，通过在conda内直接安装nvcc解决</p>
 <p><code>CUDA_HOME does not exist, unable to compile CUDA op(s)</code></p></li>
+<li><p>安装 Flash Attention 时找不到 <code>CUDA_HOME</code>
+的问题也可以通过这个包解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> CUDA_HOME=<span class="hljs-string">&quot;your conda env path&quot;</span><br>pip install flash-attn --no-build-isolation<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="cuda-compiler">cuda-compiler</h2>
 <p>cuda 相关的包，具体安装的包如图：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c nvidia cuda-compiler<br></code></pre></td></tr></table></figure>
 <p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241222170145669-4858110.png" srcset="/img/loading.gif" lazyload alt="cuda-compiler" style="zoom:50%;"></p>
+<h2 id="pytorch-cuda">pytorch-cuda</h2>
+<p>从 pytorch 官网拷贝的下载方法，安装 pytorch-cuda 同时会安装部分和 cu
+相关的 toolkit lib。</p>
+<blockquote>
+<p>由于 conda 源中的 cudatoolkit 不更新 12
+版本以上的包，因此这个包基本上是必装的。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install pytorch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 pytorch-cuda=12.4 -c pytorch -c nvidia<br></code></pre></td></tr></table></figure>
 <h2 id="cuda-toolkit">cuda-toolkit</h2>
-<p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包</p>
+<p>⚠️注意不是cudatoolkit无减号版，这是两个不同的包，这个一般情况下不用装。</p>
 <p><code>conda install -c nvidia cuda-toolkit</code></p>
 <p><img src="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/image-20241128163051288-2782659.png" srcset="/img/loading.gif" lazyload alt="安装结果" style="zoom:50%;"></p>
 

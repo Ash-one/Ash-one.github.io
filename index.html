@@ -303,66 +303,6 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/01/06/xin-python-huan-jing-guan-li-gong-ju-uv-ti-dai-conda-bu-shi-wen-ti/" target="_self">
-          <img src="/img/index.jpeg" srcset="/img/loading.gif" lazyload alt="新python环境管理工具uv，替代conda不是问题">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2025/01/06/xin-python-huan-jing-guan-li-gong-ju-uv-ti-dai-conda-bu-shi-wen-ti/" target="_self">
-          新python环境管理工具uv，替代conda不是问题
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt " href="/2025/01/06/xin-python-huan-jing-guan-li-gong-ju-uv-ti-dai-conda-bu-shi-wen-ti/" target="_self">
-        <div>
-          前言 其实现在的conda版本由于内置了mamba解算器，解决环境依赖的速度已经很快了，奈何在某些公共服务器上conda版本被固定在了某个旧版本上无法升级，间接导致conda完全无法使用，因此找到了新的python环境管理工具-uv。 UV管理Python
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-06 16:50" pubdate>
-              2025-01-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0-%E6%8A%80%E6%9C%AF-%E7%94%9F%E6%B4%BB/" class="category-chain-item">学习/技术/生活</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2024/12/24/zai-yuan-cheng-fu-wu-qi-shang-ru-he-ke-xue-shang-wang-shi-yong-ssh-r-ming-ling/" target="_self">
           <img src="https://s2.loli.net/2024/12/26/unrqwIXbEM4BOTe.jpg" srcset="/img/loading.gif" lazyload alt="在远程服务器上如何访问外网？使用SSH -R命令">
         </a>
@@ -452,7 +392,7 @@
       
       <a class="index-excerpt " href="/2024/11/28/zai-conda-huan-jing-zhong-an-zhuang-nvcc-cudatoolkit-cudnn/" target="_self">
         <div>
-          前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文不针对特定版本做管理，默认以最新版安装。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具都可以直接通过conda管理，实现多个环境之间隔离。以下内容均在激活的conda环境内进
+          前言 作为赛博洁癖，新配的服务器不想管理复杂的cuda环境，因此正在测试除了驱动外其他所有的cuda相关组件通过conda管理的可行性，因此产生此文作为配置记录方便后续查询。本文针对特定版本做管理，默认以 12.4 版安装，在 4090 和 A100 环境下可以使用。 前置条件：系统上已经安装英伟达驱动。 Conda可以安装什么？ 除了ffmpeg可以直接用conda安装之外，nvcc等一系列工具
         </div>
       </a>
 
@@ -1051,6 +991,75 @@
               <a href="/tags/gb2312/">#gb2312</a>
             
               <a href="/tags/%E7%BC%96%E7%A0%81/">#编码</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/" target="_self">
+          <img src="https://s2.loli.net/2023/08/06/VTHkS782MOfDdsU.png" srcset="/img/loading.gif" lazyload alt="ESPNet代码结构（Recipe）">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/" target="_self">
+          ESPNet代码结构（Recipe）
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2023/07/23/espnet-dai-ma-jie-gou-recipe/" target="_self">
+        <div>
+          文件结构介绍  图中表示ESPNet的文件目录结构 在corpus-name下，任务文件夹enh1表示用于语音增强任务（单人增强，多人分离） conf表示模型训练和推理时用到的配置文件 local表示与该语音数据集相关的准备脚本 data表示在代码运行过程中产生的Kaldi格式的运行文件 dump表示对data目录中内容进行进一步处理后得到的数据文件 exp存放实验相关的文件 enh.sh模板脚本
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-23 11:31" pubdate>
+              2023-07-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0/" class="category-chain-item">学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AF%AD%E9%9F%B3/">#语音</a>
+            
+              <a href="/tags/ESPNet/">#ESPNet</a>
             
           </div>
         
